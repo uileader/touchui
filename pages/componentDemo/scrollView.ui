@@ -1,0 +1,76 @@
+<!--scrollView.ui-->
+<template>
+  <ui-page>
+    <ui-scroll-view scroll-y  height="300"
+    scroll-top="{{scrollTop}}" enable-back-to-top="true"
+    scroll-into-view.sync="{{toView}}"
+    probe="2" upper-threshold="50" bindscrolltoupper="bindscrolltoupper" scroll-with-animation="true">
+      <ui-view class="content">
+        <ui-view id="green" class="green flex-item">1</ui-view>
+        <ui-view id="blue" class="blue flex-item">2</ui-view>
+        <ui-view id="yellow" class="yellow flex-item">3</ui-view>
+      </ui-view>
+    </ui-scroll-view>
+    <ui-view class="sample_content">
+      <ui-button bindtap="tapMove">点击我滚动</ui-button>
+      <ui-button bindtap="tap">点击我滚动到视图3</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: "scrollView基本使用",
+    disableScroll:true
+  },
+  data () {
+    return {
+      toView: 'blue',
+      scrollTop: 0
+    }
+  },
+  methods: {
+    tap () {
+      this.toView = 'yellow'
+    },
+    tapMove () {
+      this.scrollTop = this.scrollTop + 20
+    },
+    backTop () {
+      this.scrollTop = 0
+      this.scrollTop = this.scrollTop + 1
+    },
+    bindscrolltoupper(){
+      console.log('1231312')
+    }
+  }
+
+}
+
+</script>
+
+<style lang="less">
+.content{
+  .flex-item{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color:#fff
+  }
+  .blue{
+    background-color: #46D1E4;
+    height: 300px;
+  }
+  .green{
+    background-color: #7CC422;
+    height: 300px;
+  }
+  .yellow{
+    background-color: #FFA060;
+    height: 300px;
+  }
+  
+}
+
+</style>

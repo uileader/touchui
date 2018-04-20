@@ -1,0 +1,277 @@
+<!--homeTemplete.ui-->
+<template>
+  <ui-page>
+    <!-- 自定义导航 -->
+    <!-- <ui-nav-bar class="nab-bar" slot="nav-bar">
+      <ui-row height="46" >
+        <ui-col vertical-align="middle" align="left" width="20" space-left="10" bindtap="handleNavIconTap">
+          <ui-icon type="list" color="#2B333B" size="16"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>模板</ui-view>
+        </ui-col>
+        <ui-col width="20"></ui-col>
+      </ui-row>
+    </ui-nav-bar> -->
+
+    <ui-view class="template_content">
+     
+
+      <ui-view class="template_list">
+        <ui-navigator url="/pages/templeteDemo/friendCircle">
+          <ui-view class="list_top">
+            <ui-image 
+            src="{{ require('#/images/template_02.jpg') }}"
+            mode="aspectFit"
+            width="100%"
+            load-effect="fade"
+            ></ui-image>
+          </ui-view>
+          <ui-view class="list_bottom">
+            <ui-view class="list_title">微信朋友圈模版</ui-view>
+            <ui-view class="list_text">
+              涵盖了图片9宫格布局、预览、点赞与评论、拍照与选择相册、图片和文本的上传等功能点
+            </ui-view>
+          </ui-view>
+        </ui-navigator>
+      </ui-view>
+
+
+      <ui-view class="template_list">
+        <ui-navigator url="/pages/templeteDemo/form/payment">
+          <ui-view class="list_top">
+            <ui-image 
+            src="{{ require('#/images/template_03.jpg') }}"
+            mode="aspectFit"
+            width="100%"
+            load-effect="fade"
+            ></ui-image>
+          </ui-view>
+          <ui-view class="list_bottom">
+            <ui-view class="list_title">表单模板</ui-view>
+            <ui-view class="list_text">
+              以一个付款申请场景为例，展示了表单布局模板，包含表单填写常用的组件。此外，表单页面还为了防止误触返回做了处理：阻止IOS侧滑回退，点击回退图标或者安卓的回退按钮时给出提示。
+            </ui-view>
+          </ui-view>
+        </ui-navigator>
+      </ui-view>
+
+      <ui-view class="template_list">
+        <ui-navigator url="/pages/templeteDemo/dataReport/fundOptional">
+          <ui-view class="list_top">
+            <ui-image 
+            src="{{ require('#/images/baobiao.jpg') }}"
+            mode="aspectFit"
+            width="100%"
+            load-effect="fade"
+            ></ui-image>
+          </ui-view>
+          <ui-view class="list_bottom">
+            <ui-view class="list_title">数据报表模板</ui-view>
+            <ui-view class="list_text">
+            以一个金融场景为例，展示了移动端多列数据的表现形式、图表与表格联合使用、对数据进行拖拽排序等效果
+            </ui-view>
+          </ui-view>
+        </ui-navigator>
+      </ui-view>
+
+      <ui-view class="template_list">
+        <ui-navigator url="/pages/templeteDemo/graphic/graphic">
+          <ui-view class="list_top">
+            <ui-image 
+            src="{{ require('#/images/tubiao.jpg') }}"
+            mode="aspectFit"
+            width="100%"
+            load-effect="fade"
+            ></ui-image>
+          </ui-view>
+          <ui-view class="list_bottom">
+            <ui-view class="list_title">图表统计分析</ui-view>
+            <ui-view class="list_text">
+              以一个用户画像场景为例，综合展示了常用图表组件的使用场景和效果
+            </ui-view>
+          </ui-view>
+        </ui-navigator>
+      </ui-view>
+
+      <ui-view class="template_list">
+        <ui-navigator url="/pages/templeteDemo/O2O/O2O">
+          <ui-view class="list_top">
+            <ui-image 
+            src="{{ require('#/images/o2o.jpg') }}"
+            mode="aspectFit"
+            width="100%"
+            load-effect="fade"
+            ></ui-image>
+          </ui-view>
+          <ui-view class="list_bottom">
+            <ui-view class="list_title">O2O模板</ui-view>
+            <ui-view class="list_text">
+              以一个酒店预订场景为例，涵盖了基于LBS的O2O服务所涉及的功能点，包含店铺查询、条件过滤缩小范围、列表展示结果、地图展示结果、店铺详情、电话咨询、店铺位置查看和导航
+            </ui-view>
+          </ui-view>
+        </ui-navigator>
+      </ui-view>
+
+      <ui-view class="template_list">
+        <ui-navigator url="/pages/templeteDemo/videoTemplete/videoList">
+          <ui-view class="list_top">
+            <ui-image 
+            src="{{ require('#/images/jiaoyu.jpg') }}"
+            mode="aspectFit"
+            width="100%"
+            load-effect="fade"
+            ></ui-image>
+          </ui-view>
+          <ui-view class="list_bottom">
+            <ui-view class="list_title">视频播放模板</ui-view>
+            <ui-view class="list_text">
+              以一个在线教育场景为例，涵盖了课程列表、视频播放所涉及的功能点。
+            </ui-view>
+          </ui-view>
+        </ui-navigator>
+      </ui-view>
+
+
+        <ui-view class="template_list">
+        <ui-navigator url="/pages/templeteDemo/store/sort">
+          <ui-view class="list_top">
+            <ui-image 
+            src="{{ require('#/images/template_05.jpg') }}"
+            mode="aspectFit"
+            width="100%"
+            load-effect="fade"
+            ></ui-image>
+          </ui-view>
+          <ui-view class="list_bottom">
+            <ui-view class="list_title">电商模版</ui-view>
+            <ui-view class="list_text">
+              涵盖了商品分类、商品列表、商品详情展示、购物车、结算等功能点
+            </ui-view>
+          </ui-view>
+        </ui-navigator>
+      </ui-view>
+
+      <ui-view class="template_list">
+        <ui-navigator url="/pages/templeteDemo/information/infoList">
+          <ui-view class="list_top">
+            <ui-image 
+            src="{{ require('#/images/zixun.jpg') }}"
+            mode="aspectFit"
+            width="100%"
+            load-effect="fade"
+            ></ui-image>
+          </ui-view>
+          <ui-view class="list_bottom">
+            <ui-view class="list_title">资讯模版</ui-view>
+            <ui-view class="list_text">
+              涵盖了资讯类别切换、资讯列表、详情、点赞与收藏、评论、分享、调整字体等功能点
+            </ui-view>
+          </ui-view>
+        </ui-navigator>
+      </ui-view>
+
+
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// homeTemplete.js
+export default {
+  config: {
+    navigationBarTitleText: "模版",
+    navigationBarTextStyle: 'black',
+    touchSlideMenu: true
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '模板',
+          items: [
+            { title: '音乐播放器', link: '/pages/templeteDemo/musicPlayer/musicPlayer' },
+            { title: '朋友圈', link: '/pages/templeteDemo/friendCircle/friendCircle' }
+          ]
+        }
+      ],
+      currentNum: 0
+    }
+  },
+  methods: {
+    loginPage () {
+      import(`#/pages/dialogs/loginInterface.ui`).then((content) => {
+        ui.showDialog({
+          content: content,
+          statusBarColor: 'black',
+          // 向loginInterface.ui传入数据
+          data: {
+            currentNum: this.currentNum
+          },
+          // 接收ui.hideDialog回传的数据
+          onHide: (data) => {
+          }
+        })
+      })
+    },
+    loginInterface () {
+      let userinfo = ui.getStorageSync('userinfo')
+      if (userinfo === null) {
+        this.loginPage()
+      } else {
+        if (userinfo.tokenId !== '') {
+          ui.navigateTo({
+            url: '/pages/templeteDemo/userCenter/setting'
+          })
+        } else {
+          this.loginPage()
+        }
+      }
+    },
+    handleNavIconTap(){
+      ui.getApp().handleNavIconTap()
+    }
+  },
+  mounted () {
+   
+  }
+}
+
+</script>
+
+<style lang="less">
+.nab-bar{
+  background-color: #fff;
+  box-shadow: 0 0px 16px 0 #ccc;
+  .ui-view{
+    color: #2B333B;
+    font-size: 14px;
+  }
+}
+.template_content{
+  padding: 10px;
+  .template_list{
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .list_top{
+    // height: 150px;
+  }
+  .list_bottom{
+    padding: 10px 10px 20px 10px;
+    background-color: #F7F7F7;
+    .list_title{
+      font-size: 16px;
+      color: #222222;
+      margin-bottom: 15px;
+    }
+    .list_text{
+      color: #959595;
+      font-size: 14px;
+    }
+  }
+}
+
+</style>

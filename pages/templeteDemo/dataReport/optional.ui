@@ -1,0 +1,270 @@
+<!--fundOptional.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" width="40" space-left="10" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="18" color="#3D3D3D"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="title">我的自选</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="40" space-right="10" bindtap="navigateBack">
+          <ui-view class="edit">完成</ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-view class="wrap wrap2">
+      <ui-row height="50" class="edit_title">
+        <ui-col vertical-align="middle" align="left" space-left="15">
+          <ui-view>基金名称</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" space-right="10">
+          <ui-view>排序(长按拖动)</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-draggable-area
+      height="{{300}}"
+      col="{{1}}"
+      width="{{windowWidth}}"
+      children-height="{{70}}"
+      binddragend="dragend"
+      binddragstart="dragstart"
+      value="{{list}}"
+      direction="vertical"
+      longtap-style="none"
+      >
+        <ui-draggable-view ui:for="{{list}}">
+          <ui-swipe-out ref="swipe" operate-width="60" value="{{item.switcher}}" height="{{ item.height }}" bindchange="changeHandler(index)" can-swipe="{{item.canSwipe}}">
+            <ui-view slot="content">
+              <ui-row height="69" class="draggable_content">
+                <ui-col vertical-align="middle" width="50" space-left="15" bindtap="swiperOpen(index)">
+                  <ui-icon type="iconfontjian" size="24" color="#F42125"></ui-icon>
+                </ui-col>
+                <ui-col vertical-align="middle" align="left" class="line">
+                  <ui-view class="title">{{item.name}}</ui-view>
+                  <ui-view class="number">{{item.number}}</ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="right" width="80" space-right="10" class="line">
+                  <ui-icon type="draggable" size="24" color="#F42125"></ui-icon>
+                </ui-col>
+              </ui-row>
+            </ui-view>
+            <ui-view slot="operate">
+              <ui-view class="delete" bindtap="del(index)">删除</ui-view>
+            </ui-view>
+          </ui-swipe-out>
+        </ui-draggable-view>
+      </ui-draggable-area>
+    </ui-view>
+
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F9F9F9",
+    "disableScroll":true,
+    "scrollType": "div",
+  },
+  data () {
+    return {
+      isEdit: true,
+      // 拖拽
+      windowWidth: ui.WIN_WIDTH,
+      el: undefined,
+      list: [{
+        name: '天虹巨力灵活配置混合',
+        number: 378456,
+        id: 'id1',
+        height: 70,
+        switcher:'off',
+        canSwipe: false
+      }, {
+        name: '昌盛纯在A',
+        number: 378456,
+        id: 'id2',
+        height: 70,
+        switcher: 'off',
+        canSwipe: false
+      },{
+        name: '捧花地产',
+        number: 378456,
+        id: 'id3',
+        height: 70,
+        switcher: 'off',
+        canSwipe: false
+      }, {
+        name: '万家新力',
+        number: 378456,
+        id: 'id4',
+        height: 70,
+        switcher: 'off',
+        canSwipe: false
+      },{
+        name: '南方地产连结A',
+        number: 378456,
+        id: 'id5',
+        height: 70,
+        switcher: 'off',
+        canSwipe: false
+      }, {
+        name: '一方霞飞行业',
+        number: 378456,
+        id: 'id2',
+        height: 70,
+        switcher: 'off',
+        canSwipe: false
+      }]
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    dragstart (e) {
+      // console.log(e)
+      let index = e.index
+      // this.list[index].switcher = "off"
+      for(var i = 0;i<this.list.length;i++){
+        this.list[i].switcher = "off"
+      }
+    },
+    dragend () {
+
+    },
+    changeHandler (index) {
+      // if (this.el !== index) {
+      //   this.$refs.swipe[this.el].close()
+      //   this.el = index
+      // }
+      console.log(index,'changeHandler')
+      
+      if(this.list[index]){
+        this.list[index].canSwipe = false
+      }else{
+        this.list[index].canSwipe = true
+      }
+      // if (this.el !== index) {
+      //   if (this.el!== undefined) {
+      //     this.list1[this.el].switcher = 'off'
+      //   }
+      //   this.list1[index].switcher = 'on'
+      //   this.el = index
+      // }
+    },
+    swiperOpen (index) {
+      console.log(index)
+      // this.$refs.swipe[index].open()
+      this.list[index].switcher = 'on'
+      this.list[index].canSwipe = true
+      console.log(this.list)
+      // if (this.el !== index) {
+      //   this.$refs.swipe[this.el].close()
+      //   this.el = index
+      // }
+    },
+    del (index) {
+      this.list[index].height = 0
+      this.list.splice(index, 1)
+      // this.list.splice(index, 1)
+      // this.$forceUpdate()
+      // console.log(this.list)
+    },
+    showFullScreenSearch () {
+      ui.getApp().globalData.searchShow = true
+      ui.setStatusBarStyle({ style: 'dark' })
+    },
+    gridData(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/dataReport/chart'
+      })
+    }
+  }
+}
+</script>
+
+<style lang="less">
+// fundOptional.less
+.nav_bar{
+  background: #fff;
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .title{
+    color: #3D3D3D;
+    font-size: 16px;
+  }
+  .edit{
+    font-size: 14px;
+    color: #3D3D3D;
+  }
+}
+.top_tip{
+  width: 100%;
+  background-color: #FEF6E5;
+  color: #FAAE42;
+  font-size: 14px;
+}
+.wrap{
+  // background-color: #fff;
+  // margin-bottom: 10px;
+  &.wrap2{
+    // margin-top: 10px;
+  }
+}
+
+.edit_title{
+  .mix-1px(0, 0, 1, 0, #e4e4e4);
+}
+
+
+.ui-draggable-view{
+  border:0;
+}
+
+.ui-draggable-view-dragging {
+  background-color: #fff;
+  box-shadow:0px 1px 10px 1px #ccc;
+}
+
+.ui-draggable-view-dragging .ui-row{
+  border:0;
+}
+.ui-draggable-view-dragging .ui-row:after{
+  border:0;
+}
+
+.draggable_content{
+  background-color: #fff;
+  .title{
+    color: #303030;
+    font-size: 16px;
+  }
+  .number{
+    font-size: 12px;
+    color: #8C8C8C;
+  }
+  .line{
+    // .mix-1px(0, 0, 1, 0, #e4e4e4);
+  }
+}
+.ui-draggable-view{
+  .mix-1px(0, 0, 1, 0, #e4e4e4);
+}
+.ui-swipe-out{
+  transition: height .25s ease-in;
+  overflow: hidden;
+  
+  .delete{
+    width: 60px;
+    text-align: center;
+    line-height: 69px;
+    font-size: 14px;
+    color: #fff;
+    background: #f22;
+  }
+}
+</style>

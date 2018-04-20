@@ -1,0 +1,521 @@
+<template>
+  <ui-page>
+    <ui-view class="advertising">
+      <ui-row border-bottom>
+        <ui-col ui:for="{{guidedata}}" class="list" border-left>
+          <ui-text class="text_1">{{item.text}}</ui-text>
+          <ui-text class="text_2">{{item.smalltitle}}</ui-text>
+          <ui-view class="imgbox">
+            <ui-image src="{{item.imgsrc}}"></ui-image>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+
+      <ui-row border-bottom>
+        <ui-col ui:for="{{guidedata1}}" class="list" border-left>
+          <ui-text class="text_1">{{item.text}}</ui-text>
+          <ui-text class="text_2">{{item.smalltitle}}</ui-text>
+          <ui-view class="imgbox">
+            <ui-image src="{{item.imgsrc}}"></ui-image>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+    <ui-view class="guess-like">
+      <ui-text block class="title">- 猜你喜欢 -</ui-text>
+      <ui-sticky>
+        <ui-view style="width:250px;margin:0 auto;">
+          <ui-tabs class="type-center" width="250" index="{{index}}" bindchange="handleChange">
+            <ui-tab>
+              <ui-view class="item">为你优选</ui-view>
+            </ui-tab>
+            <ui-tab>
+              <ui-view class="item">美食</ui-view>
+            </ui-tab>
+            <ui-tab>
+              <ui-view class="item">外卖</ui-view>
+            </ui-tab>
+          </ui-tabs>
+        </ui-view>
+        <ui-view slot="sticky">
+          <ui-view style="background-color:#fff">
+            <ui-view style="width:250px;margin:0 auto;">
+              <ui-tabs class="type-center" width="250" index="{{index}}" bindchange="handleChange">
+                <ui-tab>
+                  <ui-view class="item">为你优选</ui-view>
+                </ui-tab>
+                <ui-tab>
+                  <ui-view class="item">美食</ui-view>
+                </ui-tab>
+                <ui-tab>
+                  <ui-view class="item">外卖</ui-view>
+                </ui-tab>
+              </ui-tabs>
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-sticky>
+      <ui-list-view config="{{config}}" enable-reach-bottom-load>
+        <template scope="props">
+          <ui-list-view-item>
+            <ui-row height="100" style="margin-top:10px;">
+              <ui-col space-left="10" class="colwidth">
+                <ui-image width="100%" src="{{props.item.imgsrc}}"></ui-image>
+              </ui-col>
+              <ui-col space-left="10">
+                <ui-row>
+                  <ui-col>
+                    <ui-row height="40">
+                      <ui-col>
+                        <ui-view class="title-name">{{props.item.titlename}}</ui-view>
+                      </ui-col>
+                    </ui-row>
+                    <ui-row>
+                      <ui-col width="73" vertical-align="middel" space-right="10">
+                        <ui-mini-star value="3"></ui-mini-star>
+                      </ui-col>
+                      <ui-col vertical-align="middel" space-right="10">
+                        <ui-view class="original-price small-font">{{props.item.originalprice}}/人</ui-view>
+                      </ui-col>
+                      <ui-col vertical-align="middel" space-right="5" algin="right">
+                        <ui-text class="adress small-font">{{props.item.address}}</ui-text>
+                      </ui-col>
+                      <ui-col vertical-align="middel" width="45" algin="right" space-right="5">
+                        <ui-text class="title-info small-font">{{props.item.already}}</ui-text>
+                      </ui-col>
+                    </ui-row>
+                    <ui-row>
+                      <ui-col vertical-align="middel">
+                        <ui-view>
+                          <ui-text class="title-info small-font">{{props.item.type}}</ui-text>
+                          <ui-text ui:for="{{props.item.smartTags}}" ui:for-item="smartTag" class="smarg-tags" style="{{{backgroundColor:smartTag.backgroundColor,color:smartTag.color}}}">{{smartTag.content}}</ui-text>
+                        </ui-view>
+                      </ui-col>
+                    </ui-row>
+                    <ui-row>
+                      <ui-col vertical-align="middel">
+                        <ui-view class="inline-block extra-ervicebox">
+                          <ui-view ui:for="{{props.item.extraServiceTags}}" ui:for-item="extraServiceTag">
+                            <ui-text style="{{{color:extraServiceTag.color}}}" class="samll-font">{{extraServiceTag.content}}</ui-text>
+                            <ui-text class="vertical" style="{{{color:extraServiceTag.color}}}">|</ui-text>
+                          </ui-view>
+                        </ui-view>
+                      </ui-col>
+                    </ui-row>
+                </ui-row>
+            </ui-row>
+            <ui-row>
+              <ui-col span="3">
+              </ui-col>
+              <ui-col>
+                <ui-view class="line"></ui-view>
+                <ui-row class="preferential discount-tuan">
+                  <ui-col vertical-align="middel">
+                    <ui-view class="preferential-text small-font">{{props.item.content1}}</ui-view>
+                  </ui-col>
+                </ui-row>
+                <ui-row class="preferential discount-quan">
+                  <ui-col vertical-align="middel">
+                    <ui-view class="preferential-text small-font">{{props.item.content2}}</ui-view>
+                  </ui-col>
+                </ui-row>
+              </ui-col>
+
+            </ui-row>
+          </ui-list-view-item>
+        </template>
+      </ui-list-view>
+
+    </ui-view>
+
+  </ui-page>
+</template>
+
+<script>
+  export default {
+    config: {
+      'navigationBarTitleText': 'tabs与sticky结合',
+      'navigationBarBackgroundColor': '#fff',
+      'backgroundColor': '#efefef',
+      'navigationStyle': 'default',
+      'navigationBarBorderColor': 'rgba(231, 231, 231, 0.6)',
+      'navigationBarTextStyle': 'black'
+    },
+    data() {
+      return {
+        show: false,
+        maskStyle: { backgroundColor: 'transparent' },
+        index: 0,
+        country: '北京',
+        config: {
+          url: 'http://www.uileader.com/touchui-backstage/listStore.do',
+          type: 'get',
+          pageSize: {
+            key: 'pageSize',
+            value: 10
+          },
+          pageNo: {
+            key: 'pageNo',
+            value: 1
+          },
+          param: {
+            type: 1,
+            suffix: 1,
+            sort: 'id',
+            direction: 'asc'
+          },
+          dataKey: 'data',
+          reload: false,
+          refresh: false
+        },
+        bigNav: [
+          {
+            iconName: 'canju',
+            navName: '美食',
+            backgroundColor: '#fd9d21'
+          }, {
+            iconName: 'Artboard',
+            navName: '电影/演出',
+            backgroundColor: '#f3372d'
+          }, {
+            iconName: 'jiudian',
+            navName: '酒店住宿',
+            backgroundColor: '#9161f3'
+          }, {
+            iconName: 'jiubei_shi',
+            navName: '休闲娱乐',
+            backgroundColor: '#01c7a6'
+          }, {
+            iconName: 'waimai',
+            navName: '外卖',
+            backgroundColor: '#ffb103'
+          }
+        ],
+        subNav: [
+          {
+            iconName: 'dache',
+            navName: '打车',
+            color: '#2486e7'
+          }, {
+            iconName: 'ktvtianchong',
+            navName: 'KTV',
+            color: '#13c9ac'
+          }, {
+            iconName: 'liren',
+            navName: '丽人/美发',
+            color: '#f27bbd'
+          }, {
+            iconName: 'huochepiao',
+            navName: '机票/火车票',
+            color: '#e82d7c'
+          }, {
+            iconName: 'paotu',
+            navName: '跑腿代购',
+            color: '#fca91b'
+          }, {
+            iconName: 'zuanshi',
+            navName: '结婚/摄影',
+            color: '#fd6479'
+          }, {
+            iconName: 'chujingyoutubiao',
+            navName: '出境游',
+            color: '#4bb1fb'
+          }, {
+            iconName: 'sheying',
+            navName: '儿童摄影',
+            color: '#e82d7c'
+          }, {
+            iconName: 'xianhua',
+            navName: '鲜花',
+            color: '#a071fb'
+          }, {
+            iconName: 'ziyuan',
+            navName: '全部分类',
+            color: '#4bb1fb'
+          }
+        ],
+        guidedata: [{
+          text: '星厨殿堂',
+          smalltitle: '不止5折',
+          imgsrc: 'http://p1.meituan.net/200.0/deal/6c6b26cb5943a61677a5c1cd891d8d6297996.jpg@249_0_786_786a%7C267h_267w_2e_90Q'
+        }, {
+          text: '限时福利',
+          smalltitle: '抽100免单券',
+          imgsrc: 'http://p0.meituan.net/200.0/deal/fb2b8f65ea285d77848f2571642031f641701.jpg'
+        }, {
+          text: '3折出游',
+          smalltitle: '双十一抢先打',
+          imgsrc: 'http://p0.meituan.net/200.0/deal/25560fd646292a07e68345d645f5077e61085.jpg@10_0_420_420a%7C267h_267w_2e_100Q'
+        }],
+        guidedata1: [
+          {
+            text: '特惠观影',
+            smalltitle: '王牌特工3',
+            imgsrc: 'http://p1.meituan.net/200.0/deal/fe812c4822e7ba140e064d911c435d4257752.jpg@126_0_388_388a%7C267h_267w_2e_100Q'
+          }, {
+            text: '低至5折',
+            smalltitle: '家政特惠周',
+            imgsrc: 'http://p0.meituan.net/200.0/deal/fb2b8f65ea285d77848f2571642031f641701.jpg'
+          }, {
+            text: '秒杀酒店',
+            smalltitle: '大牌酒店5折',
+            imgsrc: 'http://p1.meituan.net/200.0/deal/17646e64326c376d200025ed3813b5de72568.jpg@174_0_534_534a%7C267h_267w_2e_90Q'
+          }, {
+            text: '贴秋膘',
+            smalltitle: '暖心暖胃暖你',
+            imgsrc: 'http://p1.meituan.net/200.0/deal/7fa4d4497aab7b81ced0d3081616e77262464.jpg@117_0_468_468a%7C267h_267w_2e_90Q'
+
+          }]
+      }
+    },
+    methods: {
+      handleshow() {
+        this.show = true
+      },
+      handleHide(text) {
+        this.show = false
+        ui.showToast({
+          title: text
+        })
+      },
+      handleChange(e) {
+        this.index = e
+        if (e === 0) {
+          this.config.param.sort = 'id'
+          this.config.param.direction = 'asc'
+        } else if (e === 1) {
+          this.config.param.sort = 'id'
+          this.config.param.direction = 'desc'
+        } else {
+          this.config.param.sort = 'originalprice'
+          this.config.param.direction = 'desc'
+        }
+        this.config.clear = true
+        this.config.refresh = true
+      },
+      showIndeList() {
+
+      }
+    },
+    mounted() {
+    }
+  }
+
+</script>
+
+<style lang="less">
+  .ui-nav-bar {
+    font-size: 12px;
+    background-color: #fff;
+  }
+
+  .nav-bar-left {
+    .ui-icon {
+      padding-left: 5px;
+    }
+  }
+
+  .searchbox {
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    height: 35px;
+    text-align: left;
+    line-height: 35px;
+    color: #666;
+
+    .ui-icon {
+      padding-left: 5px;
+    }
+  }
+
+  .popover_item {
+    padding: 0 10px;
+    &:active {
+      background-color: #565962;
+    }
+  }
+
+  .ui-popover-overlay {
+    width: 100px;
+    padding: 0;
+    background-color: #5e666a;
+    .ui-col {
+      color: #fff;
+    }
+  }
+
+  .ui-popover-arrow {
+    background-color: #5e666a
+  } // 轮播
+  .swiper-slide {
+    .ui-image {
+      width: 100%;
+    }
+  } // 大导航
+  .big-nav-box {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e8e6e0;
+    background-color: #fff;
+    .big-nav {
+      .ui-icon {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 50%;
+      }
+      .ui-text {
+        margin-top: 8px;
+      }
+    }
+  } // 副导航
+  .sub-nav-box {
+    background-color: #fff;
+    color: #333;
+    padding-top: 10px;
+    .sub-nav {
+      width: 20%;
+      display: inline-block;
+      text-align: center;
+      margin: 5px 0;
+      .ui-icon {
+        padding: 4px;
+      }
+      .ui-text {
+        margin-top: 8px;
+        font-size: 10px;
+      }
+    }
+  } // 购物广场
+  .shopping-mall-box {
+    background-color: #fff;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    .m {
+      color: #13c9ac;
+    }
+    .overflow {
+      color: #fd9d21;
+      .mix-text-overflow();
+    }
+  } // 广告位
+  .advertising {
+    background-color: #fff;
+    text-align: center;
+    .list {
+      padding: 10px 0;
+    }
+    .text_1 {
+      font-size: 14px;
+    }
+    .text_2 {
+      color: #666;
+      font-size: 12px;
+    }
+    .imgbox {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-top: 10px;
+      .ui-image {
+        width: 100%;
+      }
+    }
+  } // 猜你喜欢
+  .guess-like {
+    background-color: #fff;
+    margin-top: 10px;
+    .title {
+      text-align: center;
+      color: #666;
+      height: 45px;
+      line-height: 45px;
+      border-bottom: 1px solid #ddd8ce;
+    }
+    .colwidth {
+      flex: 0 0 170rpx;
+
+    }
+    .title-name {
+      font-size: 16px;
+      font-weight: bold;
+      .mix-text-overflow();
+      height: 40px;
+    }
+
+    .original-price {
+      color: #666;
+    }
+    .adress {
+      color: #666;
+      .mix-text-overflow();
+      text-align: right;
+    }
+    .title-info {
+      color: #666;
+      .mix-text-overflow();
+    }
+
+    .smarg-tags {
+      margin-right: 5px;
+      font-size: 10px;
+    }
+
+    .inline-block {
+      .ui-view {
+        display: inline-block;
+        padding: 0 3px;
+      }
+    }
+
+    .samll-font {
+      font-size: 10px;
+    }
+
+    .line {
+      height: 1px;
+      .mix-1px(1, 0, 0, 0, #ccc);
+      margin-bottom: 5px;
+
+    }
+    .preferential {
+      text-align: left;
+      padding-left: 20px;
+      color: #666;
+    }
+
+    .discount-tuan {
+
+      background-size: 15px 15px;
+    }
+
+    .discount-quan {
+
+      background-size: 15px 15px;
+    }
+
+    .preferential-text {
+      .mix-text-overflow();
+    }
+
+    .small-font {
+      font-size: 10px;
+    }
+
+    .extra-ervicebox :last-of-type .vertical {
+      display: none;
+      color: #00d762;
+    }
+  }
+
+
+  .type-center {
+    .item {
+      color: #333;
+    }
+  }
+</style>

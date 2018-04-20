@@ -1,0 +1,726 @@
+<!--listView.ui-->
+<template>
+  <ui-page>
+      <ui-nav-bar title="" slot="nav-bar" class="nav_bg">
+          <ui-row height="46">
+            <ui-col vertical-align="middle" align="center" width="55" bindtap="handleNavLeft">
+                <ui-icon type="arrow-left" size="12" color="#06c1ae"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+                <ui-view class="search">
+                    <ui-view class="search_center" style="{{{ width: searchWidth + 'px' }}}">
+                      <ui-row height="30">
+                        <ui-col align="right" vertical-align="middle" width="20">
+                          <ui-icon type="magnifier" size="18" color="#FF643F"></ui-icon>
+                        </ui-col>
+                        <ui-col align="left" vertical-align="middle" space-left="10" span="8">
+                          输入商家名、品类或商圈
+                        </ui-col>
+                      </ui-row>
+                    </ui-view>
+                  </ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center"  width="55" bindtap="handleNavRight">
+                <ui-icon type="account1" size="24" color="#06c1ae"></ui-icon>
+            </ui-col>
+          </ui-row>
+          
+        </ui-nav-bar>
+      <ui-view class="content">
+          <ui-list-view data="{{ guesslikes }}">
+              <template scope="props">
+                  <ui-list-view-item tap-effect>
+                    <ui-row class="list-line-box" border-bottom="{{false}}">
+                      <ui-col class="colwidth">
+                        <ui-image width="100%" src="{{props.item.imgsrc}}"></ui-image>
+                      </ui-col>
+                      <ui-col space-left="10">
+                        <ui-row>
+                          <ui-col>
+                            <ui-row>
+                              <ui-col>
+                                <ui-view vertical-align="top" class="title-name">{{props.item.titlename}}</ui-view>
+                              </ui-col>
+                            </ui-row>
+                            <ui-row>
+                              <ui-col vertical-align="middle" width="73" space-right="10">
+                                  <ui-mini-star value="{{props.item.starVal}}"></ui-mini-star>
+                              </ui-col>
+                              <ui-col vertical-align="middle" space-right="10" >
+                                  <ui-view class="original-price small-font">{{props.item.originalprice}}/人</ui-view>
+                              </ui-col>
+                              <ui-col vertical-align="middle" align="right" space-right="5">
+                                  <ui-view class="address small-font">{{props.item.address}}</ui-view>
+                              </ui-col>
+                              <ui-col align="right" width="30" vertical-align="middle">
+                                <ui-text vertical-align="bottom" class="title-info small-font">{{props.item.titlem}}</ui-text>
+                              </ui-col>
+                            </ui-row>
+                            <ui-row>
+                              <ui-col vertical-align="middle">
+                                  <ui-view class="inline-block">
+                                    <ui-view class="title-info small-font">{{props.item.type}}</ui-view>
+                                    <ui-view ui:for="{{props.item.smartTags}}" ui:for-item="smartTag">
+                                        <ui-view style="{{{backgroundColor:smartTag.text.backgroundColor,color:smartTag.text.color}}}" class="smarg-tags small-font">{{smartTag.text.content}}</ui-view>
+                                    </ui-view>
+                                  </ui-view>
+                              </ui-col>
+                              
+                            </ui-row>
+                            <ui-row>
+                              <ui-col vertical-align="middle">
+                                <ui-view class="inline-block extra-servicebox">
+                                  <ui-view  ui:for="{{props.item.extraServiceTags}}" ui:for-item="extraServiceTag">
+                                      <ui-view style="{{{color:extraServiceTag.text.color}}}" class="small-font">{{extraServiceTag.text.content}}</ui-view><ui-view class="vertical" style="{{{color:extraServiceTag.text.color}}}">|</ui-view>
+                                  </ui-view>
+                                </ui-view>
+                              </ui-col>
+                            </ui-row>
+                          </ui-col>
+                        </ui-row>
+                      </ui-col>
+                    </ui-row>
+                    <ui-row class="deal-info-wrapper">
+                      <ui-col span=3 align="right" vertical-align="bottom">
+                        <ui-view ui:if="{{{{props.item.promotion}}}}" class="promotion small-font">{{props.item.promotion}}</ui-view>
+                      </ui-col>
+                      <ui-col space-left="10">
+                          <ui-view class="line"></ui-view>
+                          <ui-row class="preferential discount-tuan small-font" ui:if="{{props.item.content1}}">
+                            <ui-col vertical-align="middle">
+                              <ui-view class="preferential-text">{{props.item.content1}}</ui-view>
+                            </ui-col>
+                          </ui-row>
+                          <ui-row class="preferential discount-quan small-font" ui:if="{{props.item.content2}}">
+                            <ui-col vertical-align="middle">
+                              <ui-view class="preferential-text">{{props.item.content2}}</ui-view>
+                            </ui-col>
+                          </ui-row>
+                      </ui-col>
+                    </ui-row>
+                  </ui-list-view-item>
+              </template>
+          </ui-list-view>
+      </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// listView.js
+export default {
+  config: {
+    "navigationBarTitleText": "listView",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":"black"
+  },
+  data () {
+    return {
+      WINWIDTH: ui.WIN_WIDTH,
+      searchWidth: '',
+      guesslikes: [{
+        imgsrc: 'http://p0.meituan.net/200.0/deal/1e257a1f5b0d974b292ac7bc9a3c21ad71414.jpg@100_0_600_600a%7C267h_267w_2e_90Q',
+        titlename: '旺顺阁鱼头泡饼',
+        titleinfo: '[王府井/东单]1斤鱼头券3选1',
+        titlem: '677m',
+        currentprice: '29.9',
+        originalprice: '109元',
+        already: '已售341',
+        starVal: 5,
+        address: '马家堡/角门',
+        type: '家常菜',
+        takeOut: true,
+        content1: '2-4人餐1元，单人餐38元，双人餐118元起，4人餐228元起，6人餐318元起，8人餐528元起',
+        content2: '10代100元，68代100元',
+        smartTags: [
+          {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '回头客多'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '量足'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '鱼特别赞'
+            }
+          }
+        ],
+        extraServiceTags: [
+          {
+            text: {
+              color: '#6cbab2',
+              content: '支持外卖'
+            }
+          }, {
+            text: {
+              color: '#6cbab2',
+              content: '买单'
+            }
+          }, {
+            text: {
+              color: '#6cbab2',
+              content: '预定'
+            }
+          }
+        ]
+
+      }, {
+        imgsrc: 'http://p0.meituan.net/200.0/deal/271ab37c767d8c4ba5f705da8eb00e9032980.jpg@126_0_388_388a%7C267h_267w_2e_100Q',
+        titlename: '吉野家',
+        titleinfo: '[149店通用]吉汁烧鱼+茶碗蒸+中可乐1份',
+        titlem: '1237m',
+        currentprice: '16',
+        originalprice: '29元',
+        already: '已售31241',
+        starVal: 4.9,
+        address: '马家堡/角门',
+        type: '快餐',
+        takeOut: true,
+        content1: '2-4人餐1元，单人餐38元，双人餐118元起，4人餐228元起，6人餐318元起，8人餐528元起',
+        content2: '10代100元，68代100元',
+        smartTags: [
+          {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '肥牛饭好吃'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '回头客多'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '羊肉赞'
+            }
+          }
+        ],
+        extraServiceTags: [
+          {
+            text: {
+              color: '#6cbab2',
+              content: '支持外卖'
+            }
+          }
+        ]
+      }, {
+        imgsrc: 'http://p1.meituan.net/200.0/deal/17646e64326c376d200025ed3813b5de72568.jpg@174_0_534_534a%7C267h_267w_2e_90Q',
+        titlename: '马兰拉面',
+        titleinfo: '[21店通用]马兰拉面1份',
+        titlem: '67m',
+        currentprice: '11.8',
+        originalprice: '109元',
+        already: '已售233441',
+        starVal: 4.8,
+        address: '马家堡/角门',
+        type: '中餐',
+        takeOut: true,
+        content1: '2-4人餐1元，单人餐38元，双人餐118元起，4人餐228元起，6人餐318元起，8人餐528元起',
+        content2: '10代100元，68代100元',
+        smartTags: [
+          {
+            text: {
+              backgroundColor: '#FFF1EC',
+              color: '#FF6633',
+              content: '促销中'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '回头客多'
+            }
+          }
+        ],
+        extraServiceTags: [
+          {
+            text: {
+              color: '#6cbab2',
+              content: '支持预定'
+            }
+          }
+        ]
+      }, {
+        imgsrc: 'http://p0.meituan.net/200.0/deal/fb2b8f65ea285d77848f2571642031f641701.jpg',
+        titlename: '桥头排骨&呆萌主义',
+        titleinfo: '[西单]桥头排骨1份，提供免费WiFi',
+        titlem: '677m',
+        currentprice: '15.8',
+        originalprice: '17元',
+        already: '已售31',
+        starVal: 4.8,
+        address: '马家堡/角门',
+        type: '家常菜',
+        takeOut: true,
+        content1: '2-4人餐1元，单人餐38元，双人餐118元起，4人餐228元起，6人餐318元起，8人餐528元起',
+        content2: '10代100元，68代100元',
+        smartTags: [
+          {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '排骨量大'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '回头客多'
+            }
+          }
+        ],
+        extraServiceTags: [
+          {
+            text: {
+              color: '#6cbab2',
+              content: '支持外卖'
+            }
+          }
+        ]
+      }, {
+        imgsrc: 'http://p1.meituan.net/200.0/deal/6c6b26cb5943a61677a5c1cd891d8d6297996.jpg@249_0_786_786a%7C267h_267w_2e_90Q',
+        titlename: '比格比萨',
+        titleinfo: '[北京等]周一至周五自助餐',
+        titlem: '677m',
+        currentprice: '63',
+        originalprice: '109元',
+        already: '已售245394',
+        starVal: 4.7,
+        address: '马家堡/角门',
+        type: '自助',
+        takeOut: true,
+        content1: '2-4人餐1元，单人餐38元，双人餐118元起，4人餐228元起，6人餐318元起，8人餐528元起',
+        smartTags: [
+          {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '自助排名第3'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '干净卫生'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '服务好'
+            }
+          }
+        ],
+        extraServiceTags: [
+          {
+            text: {
+              color: '#6cbab2',
+              content: '支持买单'
+            }
+          }, {
+            text: {
+              color: '#6cbab2',
+              content: '预定'
+            }
+          }
+        ]
+      }, {
+        imgsrc: 'http://p1.meituan.net/200.0/deal/fe812c4822e7ba140e064d911c435d4257752.jpg@126_0_388_388a%7C267h_267w_2e_100Q',
+        titlename: '呷哺呷哺',
+        titleinfo: '[北京等]100元代金券1张，可叠加',
+        titlem: '677m',
+        currentprice: '70',
+        originalprice: '100元',
+        already: '已售139591',
+        starVal: 4.7,
+        address: '马家堡/角门',
+        type: '火锅',
+        takeOut: false,
+        content2: '2-4人餐1元，单人餐38元，双人餐118元起，4人餐228元起，6人餐318元起，8人餐528元起',
+        smartTags: [
+          {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '马家堡火锅排名第1'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '回头客多'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '羊肉赞'
+            }
+          }
+        ],
+        extraServiceTags: [
+          {
+            text: {
+              color: '#6cbab2',
+              content: '支持外卖'
+            }
+          }, {
+            text: {
+              color: '#6cbab2',
+              content: '买单'
+            }
+          }
+        ]
+      }, {
+        imgsrc: 'http://p0.meituan.net/200.0/deal/25560fd646292a07e68345d645f5077e61085.jpg@10_0_420_420a%7C267h_267w_2e_100Q',
+        titlename: '奶茶嫁给粉',
+        titleinfo: '[8店通用]10元代金券1张，可叠加',
+        titlem: '2347m',
+        currentprice: '8.5',
+        originalprice: '10元',
+        already: '已售40281',
+        starVal: 4.7,
+        address: '马家堡/角门',
+        type: '奶茶/果汁',
+        takeOut: false,
+        content1: '2-4人餐1元，单人餐38元，双人餐118元起，4人餐228元起，6人餐318元起，8人餐528元起',
+        content2: '10代100元，68代100元',
+        smartTags: [
+          {
+            text: {
+              backgroundColor: '#fafafa',
+              color: '#dddddd',
+              content: '广告'
+            }
+          }, {
+            text: {
+              backgroundColor: '#FFF1EC',
+              color: '#FF6633',
+              content: '促销中'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '羊肉赞'
+            }
+          }
+        ],
+        extraServiceTags: [
+          {
+            text: {
+              color: '#6cbab2',
+              content: '支持排队'
+            }
+          }
+        ]
+      }, {
+        imgsrc: 'http://p1.meituan.net/200.0/deal/7fa4d4497aab7b81ced0d3081616e77262464.jpg@117_0_468_468a%7C267h_267w_2e_90Q',
+        titlename: '掉渣饼',
+        titleinfo: '[西单]掉渣饼1份，提供免费WiFi',
+        titlem: '1254m',
+        currentprice: '6.9',
+        originalprice: '8元',
+        already: '已售896',
+        starVal: 4.6,
+        address: '马家堡/角门',
+        type: '特色菜',
+        takeOut: true,
+        content1: '2-4人餐1元，单人餐38元，双人餐118元起，4人餐228元起，6人餐318元起，8人餐528元起',
+        content2: '10代100元，68代100元',
+        promotion: '限时5折',
+        smartTags: [
+          {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '回头客多'
+            }
+          }
+        ],
+        extraServiceTags: [
+          {
+            text: {
+              color: '#6cbab2',
+              content: '支持外卖'
+            }
+          }, {
+            text: {
+              color: '#6cbab2',
+              content: '买单'
+            }
+          }
+        ]
+      }, {
+        imgsrc: 'http://p0.meituan.net/200.0/deal/b0443be0d5718480e3aa4e175db82ea5103854.jpg@166_0_667_667a%7C267h_267w_2e_90Q',
+        titlename: '南京大饭店自助餐厅',
+        titleinfo: '[王府井/东单]工作日自助1位',
+        titlem: '4523m',
+        currentprice: '98',
+        originalprice: '138元',
+        already: '已售10536',
+        starVal: 4.5,
+        address: '马家堡/角门',
+        type: '自助',
+        takeOut: false,
+        content1: '2-4人餐1元，单人餐38元，双人餐118元起，4人餐228元起，6人餐318元起，8人餐528元起',
+        content2: '10代100元，68代100元',
+        smartTags: [
+          {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '性价比高'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '回头客多'
+            }
+          }
+        ],
+        extraServiceTags: []
+      }, {
+        imgsrc: 'http://p1.meituan.net/200.0/deal/792c88b1a75dc49578ec34a201ae672c579960.jpg@167_0_665_665a%7C267h_267w_2e_90Q',
+        titlename: '老诚一锅',
+        titleinfo: '[10店通用]100元代金券1张，可叠加',
+        titlem: '6324m',
+        currentprice: '90',
+        originalprice: '100元',
+        already: '已售70020',
+        starVal: 4.4,
+        address: '马家堡/角门',
+        type: '火锅',
+        takeOut: true,
+        content1: '2-4人餐1元，单人餐38元，双人餐118元起，4人餐228元起，6人餐318元起，8人餐528元起',
+        content2: '10代100元，68代100元',
+        smartTags: [
+          {
+            text: {
+              backgroundColor: '#fafafa',
+              color: '#dddddd',
+              content: '广告'
+            }
+          }, {
+            text: {
+              backgroundColor: '#FFF1EC',
+              color: '#FF6633',
+              content: '促销中'
+            }
+          }, {
+            text: {
+              backgroundColor: '#fbf4e4',
+              color: '#be9e4d',
+              content: '羊肉赞'
+            }
+          }
+        ],
+        extraServiceTags: [
+          {
+            text: {
+              color: '#6cbab2',
+              content: '支持外卖'
+            }
+          }
+        ]
+      }]
+    }
+  },
+  methods: {
+    handleNavLeft () {
+      ui.navigateBack()
+    },
+    handleNavRight () {
+      ui.showToast({
+        title: 'NavBar右侧点击事件'
+      })
+    }
+  },
+  mounted () {
+    this.searchWidth = window.innerWidth - 110
+  }
+}
+
+</script>
+
+<style lang="less">
+  // listView.less
+.nav_bg{
+  background-color: #fff;
+}
+
+.nav_left{
+  width: 100%;
+  font-size: 14px;
+  color: #fff;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+}
+.nav_right{
+  width: 100%;
+  height: 46px;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+}
+
+
+.search{
+  width:100%;
+  height: 46px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  .mix-flex-center();
+  .search_center{
+    background-color:#EBECED;
+    margin-left: 10px;
+    height: 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all .25s ease-in;
+    color: #666;
+    font-size: 12px;
+    line-height: 30px;
+    .ui-icon{
+      margin-left: 10px;
+    }
+  }
+  .nav_center{
+    width: 97%!important;
+    margin-left: 0;
+    z-index: 999;
+  }
+}
+
+.colwidth{
+  flex:0 0 176rpx !important;
+}
+
+.ui-list-view-item{
+  padding:30rpx 0;
+}
+.list-line-box{
+  padding:20rpx;
+}
+
+.small-font{
+  font-size:12px;
+  
+}
+@media screen and (max-width: 320px) {
+  .small-font{
+    font-size:10px;
+  }
+}
+.ui-star{
+  width:10px !important;
+  height:10px !important;
+  .ui-image{
+    width:100% !important;
+  }
+}
+
+.ui-image{
+  width:100%;
+}
+
+.title-name{
+  font-size:16px;
+  font-weight:bold;
+  .mix-text-overflow ()
+}
+.title-info{
+  color:#666;
+}
+.prevailing-price{
+  font-size:14px;
+  color:#06c1ae;
+}
+.original-price{
+  color:#666;
+}
+
+.promotion{
+  color:#ff8822;
+  padding: 0 4px;
+  .mix-1px(1, 1, 1, 1, #ff8822);
+  
+  
+}
+.smarg-tags{
+  margin-right:5px;
+  font-size:10px;
+}
+
+.extra-servicebox :last-of-type .vertical{
+  display: none
+}
+
+.vertical{
+  margin:0 3px;
+}
+
+.inline{
+  .ui-view{
+    display: inline
+  }
+}
+
+.inline-block{
+  .ui-view{
+    display:inline-block
+  }
+}
+.address{
+  color:#666;
+  .mix-text-overflow ()
+}
+
+
+.deal-info-wrapper{
+  .preferential{
+    text-align: left;
+    padding-left:20px;
+    color:#666;
+    background-position:0 50%;
+    height: 15px;
+    line-height: 15px;
+    margin: 3px 0;
+  }
+
+  .line{
+    height:1px;
+    .mix-1px(1, 0, 0, 0, #ccc);
+    margin-bottom:5px;
+  }
+  .discount-tuan{
+    background: url('../../images/tuan.png') no-repeat; 
+    background-size: 15px 15px;
+
+  }
+  .discount-quan{
+    background: url('../../images/quan.png') no-repeat; 
+    background-size: 15px 15px;
+  }
+
+  .preferential-text{
+    .mix-text-overflow ();
+  }
+}
+
+</style>

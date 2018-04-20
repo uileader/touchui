@@ -1,0 +1,133 @@
+<!--pushinfo.ui-->
+<template>
+  <ui-page>
+    <ui-view class="content">
+        <!-- <ui-button type="primary" bindtap="open">发送消息</ui-button> -->
+        <!-- <ui-button type="primary">获取客户端推送标识信息</ui-button> -->
+        <ui-row height='40' space-bottom="10">
+          <ui-col span='3' vertical-align="middle">
+            clientid：
+          </ui-col>
+          <ui-col span='9' vertical-align="middle">
+              <ui-view>{{clientid}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height='40' space-bottom="10">
+          <ui-col span='3' vertical-align="middle">
+            title：
+          </ui-col>
+          <ui-col span='9'>
+              <ui-input class="input" ui:model="{{title}}"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-row height='40' space-bottom="10">
+          <ui-col span='3' vertical-align="middle">
+            content：
+          </ui-col>
+          <ui-col span='9'>
+              <ui-input class="input" ui:model="{{content}}"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-row height='90' space-bottom="10">
+          <ui-col span='3' vertical-align="middle">
+            payload：
+          </ui-col>
+          <ui-col span='9'>
+              <ui-textarea maxlength='-1' ui:model="{{payload}}"></ui-textarea>
+          </ui-col>
+        </ui-row>
+
+        <ui-button type="primary" bindtap="pushMessage">推送消息</ui-button>
+        <ui-text>推送返回的信息</ui-text>
+        <ui-text block class="info">{{message}}</ui-text>
+        <ui-text>监听返回的内容</ui-text>
+        <ui-text block class="info">{{monitor}}</ui-text>
+        <ui-button type="primary" bindtap="clearPushMessage">清空推送消息</ui-button>
+    </ui-view>
+    
+  </ui-page>
+</template>
+
+<script>
+// pushinfo.js
+const requestUrl = 'http://www.uileader.com/touchui-backstage/push.do'
+
+export default {
+  config: {
+    "navigationBarTitleText": "消息推送"
+  },
+  data () {
+    return {
+      url: 'http://uileader.com',
+      loading: false,
+      clientid: '',
+      title: 'TOUCH UI',
+      content: 'TOUCH UI框架',
+      payload: 'TOUCH UI是非常好的一套框架',
+      message: '',
+      monitor: ''
+    }
+  },
+  methods: {
+    open () {
+      ui.openBrowser({
+        url: this.url,
+        backgroundColor: '#3399ff',
+        color: '#ffffff'
+      })
+    },
+    pushMessage () {
+      var that = this
+      that.loading = true
+
+      ui.request({
+        url: requestUrl,
+        data: {
+          clientId: that.clientid,
+          title: that.title,
+          content: that.content,
+          payload: that.payload
+        },
+        success: function (result) {
+          that.loading = false
+          that.message = result.data
+        },
+        fail: function ({ errMsg }) {
+          that.loading = false
+        }
+      })
+    },
+    clearPushMessage () {
+      ui.clearPushMessage()
+    }
+  },
+  mounted () {
+    var that = this
+    ui.getPushInfo({
+      success: function (res) {
+        that.clientid = res.clientid
+      },
+      fail: function (res) {
+      }
+    })
+
+    ui.onPushClick(function (res) {
+      that.monitor = res
+    })
+  }
+}
+
+</script>
+
+<style lang="less">
+  // pushinfo.less
+.content{
+  padding: 10px;
+}
+.info{
+  // height: 200px;
+  background: #fff;
+  color: #333;
+  padding: 10px;
+}
+</style>

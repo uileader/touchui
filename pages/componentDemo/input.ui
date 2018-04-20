@@ -1,0 +1,103 @@
+<!--input.ui-->
+<template>
+  <ui-page>
+
+    <ui-view class="sample_title">最大输入长度为10</ui-view>
+    <ui-view class="sample_content">
+      <ui-input placeholder="最大输入长度为10" maxlength="10"></ui-input>
+    </ui-view>
+
+    <ui-view class="sample_title">实时获取输入值：{{ value2 }}</ui-view>
+    <ui-view class="sample_content">
+      <ui-input ui:model="{{ value2 }}" placeholder="实时获取输入值"></ui-input>
+    </ui-view>
+
+    <ui-view class="sample_title">数字输入的input</ui-view>
+    <ui-view class="sample_content">
+      <ui-input type="number" placeholder="这是一个数字输入框"></ui-input>
+    </ui-view>
+
+    <ui-view class="sample_title">电话号码输入的input</ui-view>
+    <ui-view class="sample_content">
+      <ui-input type="tel" placeholder="这是一个电话号码输入框"></ui-input>
+    </ui-view>
+
+    <ui-view class="sample_title">密码输入的input</ui-view>
+    <ui-view class="sample_content">
+      <ui-input type="password" placeholder="这是一个密码输入框"></ui-input>
+    </ui-view>
+
+    <ui-view class="sample_title">控制占位符颜色的input(使用class控制)</ui-view>
+    <ui-view class="sample_content">
+      <ui-input placeholder-class="red-placeholder" placeholder="占位符字体是红色的"></ui-input>
+    </ui-view>
+
+    <ui-view class="sample_title">控制占位符颜色的input(使用style控制)</ui-view>
+    <ui-view class="sample_content">
+      <ui-input placeholder-style="color:red" placeholder="占位符字体是红色的"></ui-input>
+    </ui-view>
+
+    <ui-view class="sample_title">bindinput事件</ui-view>
+    <ui-view class="sample_content">
+      <ui-input bindinput="handleInput" placeholder="监听input事件"></ui-input>
+    </ui-view>
+
+    <ui-view class="sample_title">获取/失去焦点</ui-view>
+    <ui-view class="sample_content">
+      <ui-input bindfocus="handleFocus" bindblur="handleBlur" placeholder="监听获取/失去焦点事件"></ui-input>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义样式</ui-view>
+    <ui-view class="sample_content self-input">
+        <ui-view class="phone1">
+            <ui-input
+            placeholder="请输入手机号码" type="tel"></ui-input>
+        </ui-view>
+    </ui-view>
+
+    <ui-view class="iphonex-bottom"></ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "输入框"
+  },
+  data () {
+    return {
+      value2: ''
+    }
+  },
+  methods: {
+    handleInput (e) {
+      ui.showToast({ title: e })
+    },
+    handleFocus (e) {
+      ui.showToast({ title: '获取焦点' })
+    },
+    handleBlur (e) {
+      ui.showToast({ title: '失去焦点'})
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+ 
+.red-placeholder::-webkit-input-placeholder {
+  color: #f00;
+}
+
+.self-input{
+  .phone1{
+    border-bottom:1px solid #ccc;
+  }
+  .ui-input{
+    border:0;
+    background-color: transparent;
+  }
+}
+</style>

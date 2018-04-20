@@ -1,0 +1,59 @@
+<!--back.ui-->
+<template>
+  <ui-page>
+    <ui-view class="content">
+      <ui-row height="40">
+        <ui-col width="130" vertical-align="middle">
+          安卓返回拦截状态：
+        </ui-col>
+        <ui-col vertical-align="middle">
+            <ui-view>{{type}}</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-button type="primary" bindtap="onBackButtonClick">开始拦截安卓返回按键</ui-button>
+      <ui-button bindtap="offBackButtonClick">取消拦截安卓返回按键</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// back.js
+export default {
+  config: {
+    "navigationBarTitleText": "返回按钮点击事件"
+  },
+  data () {
+    return {
+      type: '未拦截'
+    }
+  },
+  methods: {
+    back () {
+      ui.vibrateLong()
+    },
+    onBackButtonClick () {
+      if (this.type === '未拦截') {
+        ui.onBackButtonClick(this.back)
+        this.type = '已拦截'
+      }
+    },
+    offBackButtonClick () {
+      var self = this
+      ui.offBackButtonClick({
+        listener: this.back,
+        success () {
+          self.type = '未拦截'
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.content{
+  padding: 10px;
+}
+</style>

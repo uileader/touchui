@@ -1,0 +1,485 @@
+
+<template>
+    <ui-page>
+    <ui-view class="sample_title">基本使用</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider width="{{width-50}}"
+      show-value="true"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">设置初始值</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider width="{{width-50}}" value="20" show-value="true"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">外部改变值</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider
+      width="{{width-50}}"
+      show-value="true"
+      value="{{value1}}"></ui-slider>
+      <ui-button bindtap="changeValue">设为80</ui-button>
+    </ui-view>
+
+    <ui-view class="sample_title">change事件</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider
+      show-value="true"
+      width="{{width-50}}"
+      value="{{value3}}"
+      bindchange="sliderchange"></ui-slider>
+      <ui-text style="color:red;font-size:18px;font-weight:bold;">{{value3}}</ui-text>
+    </ui-view>
+
+    <ui-view class="sample_title">显示当前值和总值</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider width="{{width-50}}" show-max-value="true" show-value="true"></ui-slider>
+    </ui-view>
+    <ui-view class="sample_title">设置上下限</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider
+      show-max-value="true"
+      show-value="true"
+      width="{{width-50}}"
+       min="100" max="300"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义线的粗细</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider  width="{{width-50}}" show-value="true" slider-weight="5"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义线的颜色</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider  width="{{width-50}}" show-value="true" value="30"  background-color="#666666" active-color="#7dd43c"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">设置步长</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider width="{{width-50}}" show-value="true"  max="1" step="0.1"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">设置刻度</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider width="{{width-50}}" scale-line="20" max="100" show-value="true" show-max-value="true"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">双刻度和设置步长</ui-view>
+    <ui-view class="sliderbox" style="padding-bottom:35px;">
+      <ui-slider
+      width="{{width-50}}"
+      step="10"
+      max="100"
+      scale-line="10"
+      key-scale-line="20"
+      show-max-value="true" show-value="true"
+      ></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">最大值无上限</ui-view>
+    <ui-view class="sliderbox" style="padding-bottom:35px;">
+      <ui-slider
+      width="{{width-50}}"
+      unlimited="{{true}}"
+      step="100"
+      max="500"
+      bindchange="handelChange"
+      key-scale-line="100"
+      show-value="true"
+      ></ui-slider>
+      <ui-view style="margin-top:10px;">当前选择的值为：{{value7}}</ui-view>
+    </ui-view>
+
+
+
+
+
+
+    <ui-view class="sample_title">显示tooltip</ui-view>
+    <ui-view class="sliderbox" style="padding-top:40px;">
+      <ui-slider width="{{width-50}}"  show-tooltip="true"></ui-slider>
+    </ui-view>
+
+     <ui-view class="sample_title">双滑块</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider width="{{width-50}}" value="{{value2}}" show-tooltip="true" min="1" max="15"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义滑块样式</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider
+      width="{{width-50}}"
+      show-max-value="true"
+      show-value="true"
+      thumb-style="{{ tbObj1 }}" 
+      thumb-down-style="{{ tbdObj2 }}"
+      ></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义滑块图片和自定义Tooltip</ui-view>
+    <ui-view class="sliderbox" style="padding-bottom:40px;">
+      <ui-slider width="{{width-50}}" tooltip-class="tooltip-class" thumb-style="{{tbObj2}}" step="10" show-tooltip="true"  scale-line="10" key-scale-line="20"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">个性样式</ui-view>
+    <ui-view class="sliderbox" style="padding-bottom:40px;">
+      <ui-slider
+        width="{{width-50}}"
+        slider-weight="12"
+        active-color="#ed5565"
+        show-tooltip="true"
+        tooltip-class="tooltip-class2"
+        thumb-style="{{tbObj3}}"
+        max="5000"
+        scale-line="625"
+        key-scale-line="1250"
+        bar-border-radius='2'
+      >
+      </ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">双滑块自定义样式</ui-view>
+    <ui-view style="padding:20px;">
+      <ui-row>
+        <ui-col width="45">
+          <ui-text>公里数<ui-text>
+        </ui-col>
+        <ui-col>
+          <ui-text style="color:#666">单位:（万公里）<ui-text>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider width="{{width-50}}" bar-radius="38" value="{{value2}}" tooltip-style="{{tooltipStyle}}" thumb-style="{{tbObj4}}"  key-scale-line="5" slider-weight="4" active-color="#f85426" show-tooltip="true" min="0" max="15"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">显示值自定义格式</ui-view>
+    <ui-view class="sliderbox">
+        <ui-row height="60">
+          <ui-col vertical-align="middle" >
+            <ui-slider thumb-style="{{ tbObj1 }}" 
+              thumb-down-style="{{ tbdObj2 }}" value-pos="left" 
+              show-value="true"
+              show-max-value="true"
+              max-format="{{formatval}}"
+              value-format="{{formatval}}"
+              tooltip-format="{{tooltipformat}}"
+              width="{{width-50}}"></ui-slider> 
+          </ui-col>
+        </ui-row>
+    </ui-view>
+
+    <ui-view class="sample_title">仿腾讯视频进度条和缓冲控制</ui-view>
+    <ui-view class="sliderbox" style="margin-top:20px;">
+      <ui-row height="60">
+        <ui-col vertical-align="middle">
+          <ui-slider width="{{width-50}}"
+                  show-value="true"
+                 show-max-value="true"
+                 buffer-color="#ccc"
+                 buffer-value="{{bufferValue}}"
+                 thumb-style="{{tbObj5}}"
+                 thumb-down-style="{{tbdObj3}}"
+                 background-color="#999"
+                 active-color="#FF7000"
+                 value-pos="left"
+                 max-format="{{formatval}}"
+                 value-format="{{formatval}}"
+                 tooltip-format="{{tooltipformat}}"
+                 ></ui-slider>
+          </ui-col>
+      </ui-row>
+      <ui-button bindtap="changeBufferValue" style="margin-top:10px;">开始缓冲</ui-button>
+      <ui-text>实际使用时，由音乐或视频的进度来控制slider的进度<ui-text>
+    </ui-view>
+
+    <ui-view class="sample_title">在popup中使用</ui-view>
+    <ui-view style="margin:20px;">
+      <ui-button bindtap="handletap">在popup中使用</ui-button>
+    </ui-view>
+    <ui-popup ui:model="{{show}}">
+      <ui-view style="margin:30px 10px;">
+          <ui-slider 
+          ui:if="{{show}}"
+          scale-position="over"
+          scale-margin="15"
+          width="{{width-50}}"
+          value="{{value6}}"
+          unlimited="{{true}}"
+          max="500"
+          key-scale-line="100"
+          active-color="#00c8b2"
+          slider-weight="4"
+          thumb-style="{{tbObj6}}"
+          step="100"
+        ></ui-slider>
+      </ui-view>
+      <ui-view style="margin-top:20px;padding:10px;background-color:#fafafa;border-top:1px solid #eee;">
+        <ui-button class="button1" bindtap="hidepopup">完成</ui-button>
+      </ui-view>
+    </ui-popup>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "滑动条",
+    "disableIosGesture":true,
+    "scrollType": "body"
+  },
+  data() {
+    return{
+      show:false,
+      width:ui.WIN_WIDTH,
+      value1: 0,
+      value2: [3, 12],
+      value3:0,
+      bufferValue: 0,
+      interval: null,
+      formatval: this.getformatval,
+      tooltipformat: this.gettooltipformat,
+      value6: [100, 500],
+      value7:0,
+      tooltipStyle:{
+        'top':'-27px'
+      },
+      tbObj1: {
+        'position': 'absolute',
+        'width': '10px',
+        'height': '10px',
+        'background-color': '#3399FF',
+        'border': '0',
+        'border-radius': '5px',
+        'top': '9px',
+        'left': '15px',
+        'z-index': '2',
+        'box-shadow': '0px 0px 0px'
+        },
+      tbdObj2: {
+        'width': '20px',
+        'height': '20px',
+        'background-color': '#3399FF',
+        'border-radius': '10px',
+        'top': '4px',
+        'left': '10px'
+      },
+      tbObj2:{
+        'top': '15px',
+        'left': '7px',
+        'border': '0',
+        'width':'15px',
+        'height':'20px',
+        'border-radius': '0',
+        'background-size':'100%',
+        'box-shadow': '0px 0px 0px',
+        'transform':'rotate(180deg)',
+        'background': 'url(http://images.uileader.com/20180316/e3471aa5-0ca8-413e-a1e7-86bb10dc2533.svg) no-repeat'
+      },
+      tooltipObj:{
+        'font-size': '10px',
+        'background-color': '#3399FF',
+        'color': 'white',
+        'text-align': 'center',
+        'width': '28px',
+        'height': '16px',
+        'line-height': '16px',
+        'border-radius': '4px',
+        'top': '-7px',
+        'left': '0'
+      },
+      tooltipObj2:{
+        'font-size': '10px',
+        'background-color': '#ed5565',
+        'color': 'white',
+        'text-align': 'center',
+        'white-space':'nowrap',
+        'width': '50px',
+        'height': '18px',
+        'line-height': '18px',
+        'border-radius': '4px',
+        'top': '-15px',
+        'left': '-10px'
+      },
+      tbObj3:{
+        'position': 'absolute!important',
+        'width': '4px',
+        'height': '18px',
+        'left': '12.5px',
+        'top': '6px',
+        'background-color': '#ed5565',
+        'border-radius': '2px',
+        'border': '0',
+        'box-shadow': '0px 0px 0px',
+        'z-index': '2'
+      },
+      tbObj4:{
+        'background-image': 'url(http://images.uileader.com/20180316/b9552e11-d460-471c-bc87-e14ae40c30d9.svg)',
+        'background-size':'60%',
+        'background-position': '50% 50%',
+        'background-repeat': 'no-repeat',
+        'background-color': '#fff',
+        'border':'1px solid #ececec',
+        'width':'38px',
+        'height':'38px',
+        'left':'-5px',
+        'top':'-6px'
+      },
+      tbdObj3:{
+        'box-shadow': '0px 0px 0px 10px rgba(255,112,0, 0.5)'
+      },
+      tbObj5:{
+        'box-sizing': 'unset',
+        'width': '10px',
+        'height': '10px',
+        'top': '10px!important',
+        'left':'15px!important',
+        'box-shadow': '0px 0px 0px 5px rgba(255,112,0, 0.5)',
+        'background-color': 'rgba(255,112,0, 1)'
+      },
+      tbObj6:{
+        'background-image': 'url(http://images.uileader.com/20180316/b9552e11-d460-471c-bc87-e14ae40c30d9.svg)',
+        'background-size':'60%',
+        'background-position': '50% 50%',
+        'background-repeat': 'no-repeat',
+        'background-color': '#fff',
+        'border':'1px solid #ececec',
+        'width':'38px',
+        'height':'26px',
+        'top':'4px',
+        'left':'-6px',
+        'border-radius':'5px'
+      }
+    }
+  },
+  methods:{
+    navigateBack () {
+      ui.navigateBack()
+    },
+    handletap(){
+      this.setData({
+        show:true
+      })
+    },
+    hidepopup(){
+      this.setData({
+        show:false
+      })
+    },
+    handelChange (val) {
+      this.setData({
+        value7:val
+      })
+    },
+    changeValue () {
+      this.setData({
+        value1:80
+      })
+    },
+    sliderchange (val) {
+      this.setData({
+        value3:val
+      })
+    },
+    changeBufferValue () {
+      this.interval = setInterval(() => {
+        this.bufferValue += 50
+        if (this.bufferValue > 202) {
+          this.bufferValue = 202
+          clearInterval(this.interval)
+        }
+      }, 1000)
+    },
+    getformatval (num) {
+      return parseInt(num / 60) + ':' + parseInt((num % 60 >= 10 ? '' : '0') + (num % 60))
+    },
+    gettooltipformat (e) {
+      return parseInt(num / 60) + ':' + (num % 60 >= 10 ? '' : '0') + (num % 60)
+    },
+    gettooltipformat2 (e) {
+      return num + '元'
+    }
+  },
+  mounted(){
+  }
+}
+</script>
+
+<style lang="less">
+  // slider.less
+.button1{
+  background-color:#00c8b2;
+  color:#fff;
+}
+
+.sliderbox{
+  display: table; 
+  padding:20px;
+  width:100%;
+  height:60px;
+  background-color: white;
+  text-align: center
+}
+
+//自定义滑块图片和自定义Tooltip
+.tooltip-class {
+  font-size: 10px !important;
+  background-color: #3399FF !important;
+  color: white !important;
+  text-align: center !important;
+  width: 28px !important;
+  height: 16px !important;
+  line-height: 16px !important;
+  border-radius: 4px !important;
+  top: -11px !important;
+  left: 1px !important;
+}
+
+.tooltip-class::after {
+  position: absolute !important;
+  display: block !important;
+  content: "" !important;
+  bottom: -6px !important;
+  left: 50% !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin-left: -3px !important;
+  overflow: hidden !important;
+  border: 3px solid transparent !important;
+  border-top-color: #3399ff !important;
+}
+
+
+
+//个性样式
+.tooltip-class2 {
+  font-size: 10px !important;
+  background-color: #ed5565 !important;
+  color: white !important;
+  text-align: center !important;
+  white-space:nowrap !important; 
+  width: 50px !important;
+  height: 14px !important;
+  line-height: 16px !important;
+  border-radius: 4px !important;
+  top: -16px !important;
+  left: -10px !important;
+}
+
+.tooltip-class2::after {
+  position: absolute !important;
+  display: block !important;
+  content: "" !important;
+  bottom: -6px !important;
+  left: 50% !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin-left: -3px !important;
+  overflow: hidden !important;
+  border: 3px solid transparent !important;
+  border-top-color: #ed5565 !important;
+}
+
+
+</style>

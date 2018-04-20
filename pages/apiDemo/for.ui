@@ -1,0 +1,129 @@
+<!--for.ui-->
+<template>
+    <ui-page>
+      <ui-view class="sample_title">ui:for(默认写法)</ui-view>
+      <ui-view class="sample_content">
+        <ui-view class="code">{{codeDemo1}}</ui-view>
+        <ui-view ui:for="{{array}}">{{index}}: {{item.message}}</ui-view>
+      </ui-view>
+
+      <ui-view class="sample_title">ui:for(指定变量名写法)</ui-view>
+      <ui-view class="sample_content">
+        <ui-view class="code">{{codeDemo2}}</ui-view>
+        <ui-view ui:for="{{array}}" ui:for-index="idx" ui:for-item="itemName">{{idx}}: {{itemName.message}}</ui-view>
+      </ui-view>
+
+      <ui-view class="sample_title">ui:for(嵌套写法)下边是一个九九乘法表</ui-view>
+      <ui-view class="sample_content">
+        <ui-view class="code">{{codeDemo3}}</ui-view>
+        <ui-view ui:for="{{newArry1}}" ui:for-item="i">
+          <ui-view ui:for="{{newArry2}}" ui:for-item="j">
+            <ui-view ui:if="{{i <= j}}">
+              {{i}} * {{j}} = {{i * j}}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-view>
+
+      <ui-view class="sample_title">block ui:for</ui-view>
+      <ui-view class="sample_content">
+        <ui-view class="code">{{codeDemo4}}</ui-view>
+        <ui-block ui:for="{{[1, 2, 3]}}">
+          <ui-view> {{index}}:  {{item}}</ui-view>
+        </ui-block>
+      </ui-view>
+        <!-- 暂不支持 ui:key="unique"-->
+        <!-- <ui-view class="sample_title">ui:key</ui-view>
+        <ui-view class="sample_content">
+          <ui-switch title="默认popup" ui:for="{{objectArray}}" ui:key="unique" style="display: block;"> {{item.id}} </ui-switch>
+          <ui-button bindtap="switch1"> Switch </ui-button>
+          <ui-button bindtap="addToFront"> Add to the front </ui-button>
+        </ui-view> -->
+        <!-- <ui-view ui:for="array">
+          {{item}}
+        </ui-view> -->
+        <!-- <ui-view ui:for="{{['a','r','r','a','y']}}">
+          {{item}}
+        </ui-view> -->
+    
+        <!-- <ui-view ui:for="{{[1,2,3] + ' '}}">
+          {{item}}
+        </ui-view> -->
+    
+    
+    <!-- 暂不支持 ui:key="*this"-->
+    <!-- <ui-switch ui:for="{{numberArray}}" ui:key="*this" style="display: block;"> {{item}} </ui-switch> -->
+    <!-- <ui-button bindtap="addNumberToFront"> Add to the front </ui-button> -->
+    
+  </ui-page>
+</template>
+
+
+<script>
+// for.js
+export default {
+  config: {
+    "navigationBarTitleText": "for"
+  },
+  data () {
+    return {
+      array: [{
+        message: 'foo'
+      }, {
+        message: 'bar'
+      }],
+      newArry: [1, 2, 3],
+      newArry1: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      newArry2: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      objectArray: [
+        {id: 0, unique: 'unique_0'},
+        {id: 1, unique: 'unique_1'}
+      ],
+      numberArray: [1, 2, 3, 4],
+      codeDemo1: '<ui-view ui:for="{{array}}">{{index}}: {{item.message}}</ui-view>',
+      codeDemo2: '<ui-view ui:for="{{array}}" ui:for-index="idx" ui:for-item="itemName">{{idx}}: {{itemName.message}}</ui-view>',
+      codeDemo3: '<ui-view ui:for="{{newArry1}}" ui:for-item="i"><ui-view ui:for="{{newArry2}}" ui:for-item="j"><ui-view ui:if="{{i <= j}}">{{i}} * {{j}} = {{i * j}}</ui-view></ui-view></ui-view>',
+      codeDemo4: ' <ui-block ui:for="{{[1, 2, 3]}}"><view> {{index}}: </view><view> {{item}} </view></ui-block>',
+      codeDemo5: '',
+      codeDemo6: '',
+      codeDemo7: '',
+      codeDemo8: ''
+    }
+  },
+  methods: {
+    downFile (index) {
+    },
+    switch1: function (e) {
+      let length = this.objectArray.length
+      for (let i = 0; i < length; ++i) {
+        let x = Math.floor(Math.random() * length)
+        let y = Math.floor(Math.random() * length)
+        let temp = this.objectArray[x]
+        this.objectArray[x] = this.objectArray[y]
+        this.objectArray[y] = temp
+      }
+      this.objectArray = this.objectArray
+    },
+    addToFront: function (e) {
+      let length = this.objectArray.length
+      this.objectArray = [{id: length, unique: 'unique_' + length}].concat(this.objectArray)
+      this.setData({
+        objectArray: this.objectArray
+      })
+    },
+    addNumberToFront: function (e) {
+      this.numberArray = [ this.numberArray.length + 1 ].concat(this.numberArray)
+      this.numberArray = this.numberArray
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.code {
+  color: #40B883;
+  font-size: 14px;
+  overflow-x: scroll;
+}
+</style>

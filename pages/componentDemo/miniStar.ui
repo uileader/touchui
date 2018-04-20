@@ -1,0 +1,98 @@
+<!--starView.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">基本使用</ui-view>
+    <ui-view class="sample_content">
+      <ui-mini-star></ui-mini-star>
+    </ui-view>
+    <ui-view>
+      <ui-view class="sample_title">评分:1 ~ 1.9</ui-view>
+      <ui-view class="sample_content">
+        <ui-mini-star value="1.3"></ui-mini-star>
+      </ui-view>
+    </ui-view>
+    <ui-view>
+      <ui-view class="sample_title">评分:2 ~ 2.9</ui-view>
+      <ui-view class="sample_content">
+        <ui-mini-star value="2.5"></ui-mini-star>
+      </ui-view>
+    </ui-view>
+    <ui-view>
+      <ui-view class="sample_title">评分:3</ui-view>
+      <ui-view class="sample_content">
+        <ui-mini-star value="3"></ui-mini-star>
+      </ui-view>
+    </ui-view>
+    <ui-view>
+      <ui-view class="sample_title">评分:3.1 ~ 3.9</ui-view>
+      <ui-view class="sample_content">
+        <ui-mini-star value="3.6"></ui-mini-star>
+      </ui-view>
+    </ui-view>
+    <ui-view>
+      <ui-view class="sample_title">评分:4</ui-view>
+      <ui-view class="sample_content">
+        <ui-mini-star value="4"></ui-mini-star>
+      </ui-view>
+    </ui-view>
+    <ui-view>
+      <ui-view class="sample_title">评分:4.1 ~ 4.9</ui-view>
+      <ui-view class="sample_content">
+        <ui-mini-star value="4.6"></ui-mini-star>
+      </ui-view>
+    </ui-view>
+    <ui-view>
+      <ui-view class="sample_title">评分:5</ui-view>
+      <ui-view class="sample_content">
+        <ui-mini-star value="5"></ui-mini-star>
+      </ui-view>
+    </ui-view>
+    <ui-view>
+      <ui-view class="sample_title">自定义宽高</ui-view>
+      <ui-view class="sample_content">
+        <ui-mini-star value="5" width="146" height="26"></ui-mini-star>
+      </ui-view>
+    </ui-view>
+    <ui-view>
+      <ui-view class="sample_title">自定义图片</ui-view>
+      <ui-view class="sample_content">
+        <ui-mini-star value="3.6" data="{{imgData}}"></ui-mini-star>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// starView.js
+export default {
+  config: {
+    "navigationBarTitleText": "星级展示"
+  },
+  data () {
+    return {
+      imgData: {
+        imgSrc1: require('#/images/starView/star0.png'),
+        imgSrc2: require('#/images/starView/star10.png'),
+        imgSrc3: require('#/images/starView/star20.png'),
+        imgSrc4: require('#/images/starView/star30.png'),
+        imgSrc5: require('#/images/starView/star35.png'),
+        imgSrc6: require('#/images/starView/star40.png'),
+        imgSrc7: require('#/images/starView/star45.png'),
+        imgSrc8: require('#/images/starView/star50.png')
+      }
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+.title {
+    padding: 10px 10px 5px;
+}
+.info {
+    padding: 10px;
+}
+</style>

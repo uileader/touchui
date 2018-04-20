@@ -1,0 +1,49 @@
+<!--interfaceJump.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">保留当前页面，跳转到新页面</ui-view>
+    <ui-view class="sample_content">
+      <ui-button bindtap="navigateTo" type="primary" plain="{{true}}">navigateTo</ui-button>
+    </ui-view>
+    <ui-view class="sample_title">关闭当前页面，跳转到新页面。</ui-view>
+    <ui-view class="sample_content">
+      <ui-button bindtap="redirectTo" type="primary" plain="{{true}}">redirectTo</ui-button>
+    </ui-view>
+    <ui-view class="sample_title">跳转到 tabBar 页面</ui-view>
+    <ui-view class="sample_content">
+      <ui-button bindtap="switchTab" hover-stop-propagation type="primary" plain="{{true}}">switchTab</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// interfaceJump.js
+export default {
+  config: {
+    "navigationBarTitleText": "界面跳转"
+  },
+  methods: {
+
+    navigateTo () {
+      ui.navigateTo({
+        url: '/pages/apiDemo/navigateNew?name=jun&age=23'
+      })
+    },
+    redirectTo () {
+      ui.redirectTo({
+        url: '/pages/home/networkList'
+      })
+    },
+    switchTab () {
+      ui.switchTab({
+        url: '/pages/index'
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+
+</style>

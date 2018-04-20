@@ -1,0 +1,236 @@
+<template>
+    <ui-page show-loading="{{false}}" pull-down="{{ pullDown }}">
+      <ui-nav-bar class="ui-nav-bar" slot="nav-bar">
+      <ui-row>
+        <ui-col width="40" bindtap="navigateBack">
+          <ui-icon type="arrow-left" font-size="24"></ui-icon>
+        </ui-col>
+        <ui-col align="center">
+          <ui-text>商品列表</ui-text>
+        </ui-col>
+        <ui-col width="40"></ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+
+      <ui-view>
+        <ui-view class="tags_wrap">
+          <ui-tags 
+          data="{{tagsList}}" 
+          bindchange="singleTap"></ui-tags>
+        </ui-view>
+        <ui-view class="menswear_wrap">
+          <ui-view class="title">男士羽绒/棉服 · PRADA制造商出品</ui-view>
+          <ui-view class="menswear_content">
+            <ui-list-view style="min-height: 621px;" config="{{ config2 }}" enable-reach-bottom-load bindchange="handleListViewChange2">
+              <template scope="props">
+                <ui-list-view-item class="menswear_list" tap-effect bindtap="detail">
+                  <ui-view>
+                    <ui-image
+                    src="{{ props.item.src }}"
+                    width="{{ imgWidth }}"
+                    height="{{ imgHeight }}"
+                    load-effect="fade"
+                    ></ui-image>
+                    <ui-view block class="name">{{ props.item.name }}</ui-view>
+                    <ui-text block class="price">{{ props.item.price }}</ui-text>
+                  </ui-view>
+                </ui-list-view-item>
+              </template>
+            </ui-list-view>
+          </ui-view>
+        </ui-view>
+      </ui-view>
+
+
+
+      
+
+    </ui-page>
+  </template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "商品简介",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":"black"
+  },
+  data () {
+    return {
+      imgWidth: parseInt(ui.WIN_WIDTH / 2 - 4),
+      imgHeight: parseInt((ui.WIN_WIDTH / 2 - 4) / 360 * 360),
+      tagsList: [{
+        text: '男士外套',
+        tagClass: 'tag-before',
+        tagSelectedClass: 'select-class',
+        checked: true
+      }, {
+        text: '男士上装',
+        tagClass: 'tag-before',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '男士下装',
+        tagClass: 'tag-before',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }],
+      config2: {
+        url: '/touchui-backstage/listMallGoods.do',
+        type: 'get',
+        pageSize: {
+          key: 'pageSize',
+          value: 10
+        },
+        param: {
+          type: 1,
+          suffix: 1,
+          sort: 'id',
+          direction: 'asc'
+        },
+        pageNo: {
+          key: 'pageNo',
+          value: 1
+        },
+        dataKey: 'data.datalist',
+        reload: false,
+        refresh: false
+      },
+      menswearShow: [
+        {
+          show: true
+        },
+        {
+          show: false
+        },
+        {
+          show: false
+        }
+      ],
+      height: ui.DEFAULT_CONTENT_HEIGHT,
+      
+      pullDown: {
+        distance: 50,
+        onBegin: () => { },
+        onActive: this.handleActive,
+        onAfter: () => { }
+      }
+    }
+  },
+  methods: {
+    handleActive () {
+      this.config2.refresh = true
+    },
+    singleTap (opt) {
+      this.tagsList.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+      if (opt === 0) {
+        this.config2.param.sort = 'id'
+      } else if (opt === 1) {
+        this.config2.param.sort = 'name'
+      } else {
+        this.config2.param.sort = 'price'
+      }
+
+      this.config2.param.suffix = opt
+      this.config2.refresh = true
+    },
+    handleListViewChange2 (status) {
+    },
+    
+    navigateBack () {
+      ui.navigateBack()
+    },
+    detail(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/store/detail'
+      })
+    }
+  },
+  mounted () {
+
+  }
+}
+
+</script>
+
+<style lang="less">
+ .ui-nav-bar{
+   background-color:#fff;
+  .mix-1px(0, 0, 1, 0, #ccc);
+}
+.tags_wrap{
+  background-color: #f7f7f7;
+  padding: 10px 10px 5px 10px;
+  .tag-before{
+    border: 1px solid #39f;
+    background: #ffffff;
+    color: #39f;
+    padding: 0 5px;
+    border-radius: 10px;
+    text-align: center;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+  }
+  .select-class {
+    border: 1px solid #39f;
+    padding: 0 5px;
+    border-radius: 10px;
+    text-align: center;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+    background: #39f;
+    color: #fff;
+  }
+}
+.menswear_wrap{
+  background-color: #EBEBEB;
+  .title{
+    color: gray;
+    font-size: 14px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .menswear_content{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .menswear_list{
+      display: inline-flex;
+      width: 50%;
+      padding: 0 2px 4px 2px;
+      color: #333;
+      font-size: 14px;
+      line-height: 20px;
+      text-align: center;
+      .name{
+        line-height: 25px;
+        .mix-text-overflow();
+        margin-top: 10px;
+      }
+      .price{
+        color: #f33;
+      }
+      .ui-view{
+        width: 100%;
+        background-color: #fff;
+      }
+    }
+  }
+}
+
+
+.custom-placeholder{
+  height: 100%;
+  .mix-flex-center();
+}
+</style>

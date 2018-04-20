@@ -1,0 +1,55 @@
+<template>
+  <ui-page class="ui-404" style="height:{{height}}px">
+    <ui-view class="ui-404-inner">
+      <ui-image src="{{ img }}" width="150" height="97"></ui-image>
+      <ui-view class="tip">路径错误或没有在配置项中注册</ui-view>
+      <ui-button bindtap="handleBack">返回</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "404",
+    "delay":false,
+    "disableScroll":true
+  },
+  data () {
+    return {
+      height:ui.WIN_HEIGHT,
+      img: require('../../images/404.png')
+    }
+  },
+  methods: {
+    handleBack () {
+      ui.navigateBack()
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.ui-404 {
+  font-size: 14px;
+  background-color: #eee;
+
+  .ui-404-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .tip {
+      margin: 20px 0;
+      color: #666;
+    }
+
+    .ui-button {
+      width: 80px;
+    }
+  }
+}
+</style>

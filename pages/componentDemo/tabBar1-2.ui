@@ -1,0 +1,80 @@
+<!--tabBar2.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" width="40" space-left="10" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="20" color="#3D3D3D"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="title">基本标签栏</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" width="40">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-view class="content">
+      <ui-text class="title">1-2</ui-text>
+      <ui-button bindtap="tabresult">跳转到上一个标签</ui-button>
+    </ui-view>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// tabBar2.js
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F9F9F9"
+  },
+  data () {
+    return {
+      items: [],
+      val: 1
+    }
+  },
+  methods: {
+    tabresult () {
+      ui.switchTab({
+        url: '/pages/componentDemo/tabBar1-1'
+      })
+    },
+    navigateBack () {
+      ui.navigateBack()
+    }
+  },
+  mounted () {
+    for (let i = 30; i >= this.val; i--) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // tabBar2.less
+.nav_bar{
+  background: #fff;
+  .title{
+    color: #3D3D3D;
+    font-size: 16px;
+  }
+}
+.content{
+  padding:10px;
+  height:100px;
+  .title{
+  font-size:20px;
+  text-align: center
+}
+}
+
+</style>

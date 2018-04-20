@@ -1,0 +1,146 @@
+<!--swiper4.ui-->
+<template>
+  <ui-page>
+    <ui-divider>一次滚一个</ui-divider>
+    <ui-ex-swiper pagination slides-per-view="3" space-between="0" >
+      <ui-ex-swiper-item ui:for="{{items}}" ui:for-item="item" ui:for-index="index">
+        <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+      </ui-ex-swiper-item>
+    </ui-ex-swiper>
+
+    <ui-divider>一次滚三个</ui-divider>
+    <ui-ex-swiper class="swiper-demo2" pagination space-between="5">
+      <ui-ex-swiper-item>
+        <ui-image src="{{ items[0].src }}"></ui-image>
+        <ui-image src="{{ items[1].src }}"></ui-image>
+        <ui-image src="{{ items[2].src }}" ></ui-image>
+      </ui-ex-swiper-item>
+      <ui-ex-swiper-item>
+        <ui-image src="{{ items[4].src }}"></ui-image>
+        <ui-image src="{{ items[5].src }}"></ui-image>
+        <ui-image src="{{ items[6].src }}"></ui-image>
+      </ui-ex-swiper-item>
+      <ui-ex-swiper-item>
+        <ui-image src="{{ items[6].src }}"></ui-image>
+        <ui-image src="{{ items[7].src }}"></ui-image>
+        <ui-image src="{{ items[8].src }}"></ui-image>
+      </ui-ex-swiper-item>
+      <ui-ex-swiper-item>
+        <ui-image src="{{ items[9].src }}" ></ui-image>
+        <ui-image src="{{ items[10].src }}" ></ui-image>
+        <ui-image src="{{ items[11].src }}" ></ui-image>
+      </ui-ex-swiper-item>
+    </ui-ex-swiper>
+  </ui-page>
+</template>
+
+<script>
+// swiper4.js
+export default {
+  config: {
+    "navigationBarTitleText": "一行多个item",
+    "disableIosGesture":true
+  },
+  data () {
+    return {
+      items: [{
+        title: 'Glow',
+        score: 9.7,
+        src: 'http://images.uileader.com/20171103/5c7dfdc3-c6ed-4968-82f7-4d55c191dead.jpg'
+      },
+      {
+        title: 'Got ',
+        score: 7.8,
+        src: 'http://images.uileader.com/20171103/dd760606-ab0f-45b2-a030-bab65e0b2a56.jpg'
+      },
+      {
+        title: 'MISS SLOANE',
+        score: 8.9,
+        src: 'http://images.uileader.com/20171103/14feebf0-3061-4681-bb45-fa27d76af891.jpg'
+      },
+      {
+        title: 'gifted',
+        score: 8.8,
+        src: 'http://images.uileader.com/20171103/7d89142f-b88d-4001-8196-7fd6834c2630.jpg'
+      },
+      {
+        title: 'BORN LEADER',
+        score: 9.2,
+        src: 'http://images.uileader.com/20171103/5fce28ba-fd02-48cb-a1c2-ce0ff3801844.jpg'
+      },
+      {
+        title: 'Big Little Lies',
+        score: 7.1,
+        src: 'http://images.uileader.com/20171103/2cdb945d-349d-4d19-8347-629675adde76.jpg'
+      },
+      {
+        title: 'MANCHESTER SEA',
+        score: 9.7,
+        src: 'http://images.uileader.com/20171103/727a3953-fafb-44e7-8fd8-92e84e11442f.jpg'
+      },
+      {
+        title: '金刚',
+        score: 8.8,
+        src: 'http://images.uileader.com/20171103/4ac53f4c-1e62-40ce-87d9-2b7638cf00be.jpg'
+      },
+      {
+        title: 'THE CIRCLE',
+        score: 8.3,
+        src: 'http://images.uileader.com/20171103/b13d8fbd-bb0e-4510-b680-4a559b79407c.jpg'
+      },
+      {
+        title: 'UNITED KINDOM',
+        score: 8.6,
+        src: 'http://images.uileader.com/20171103/f5d59af6-c4af-4faa-b36a-3473b78a7612.jpg'
+      },
+      {
+        title: 'UNITED KINDOM',
+        score: 8.6,
+        src: 'http://images.uileader.com/20171103/aa1b5858-8d6d-4e8b-9723-87fd802c78d9.jpg'
+      },
+      {
+        title: 'UNITED KINDOM',
+        score: 9.3,
+        src: 'http://images.uileader.com/20171103/6439465c-bac6-4d4f-bfd2-4376d0465b95.jpg'
+      },
+      {
+        title: 'UNITED KINDOM',
+        score: 9.6,
+        src: 'http://images.uileader.com/20171103/9e65711d-c1dc-450f-878a-fab40bd09b55.jpg'
+      }
+      ]
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // swiper4.less
+.swiper-slide {
+    .ui-image {
+      width: 100%;
+    }
+}
+.swiper-container{
+  margin-bottom:20px
+}
+.swiper-demo2 {
+  .swiper-slide {
+    height: 200px;
+    display: flex;
+   
+    .ui-image-container {
+      flex: 1;
+      margin-right: 5px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+
+
+
+</style>

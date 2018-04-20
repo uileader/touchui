@@ -1,0 +1,71 @@
+<!--swiper9.ui-->
+<template>
+  <ui-page>
+    <ui-divider>基本使用</ui-divider>
+    <ui-view class="demo">
+    <ui-ex-swiper pagination ref="swiper" index="{{ index }}" bindchangeend="handleChangeEnd">
+      <ui-ex-swiper-item ui:for="{{ items }}" style="{{ { backgroundColor: getRandomColor() } }}">
+        {{ item }}
+      </ui-ex-swiper-item>
+      <!-- <ui-ex-swiper-item class="bc_green">
+        1
+      </ui-ex-swiper-item>
+      <ui-ex-swiper-item class="bc_red">
+        2
+      </ui-ex-swiper-item>
+      <ui-ex-swiper-item class="bc_blue">
+        3
+      </ui-ex-swiper-item> -->
+    </ui-ex-swiper>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "swiper9"
+  },
+  data () {
+    return {
+      index: 3,
+      items: [1, 2, 3, 4, 5, 6, 7],
+      current: 4
+    }
+  },
+  methods: {
+    getRandomColor () {
+      return '#' + (~~(Math.random() * (0xffffff))).toString(16)
+    },
+    handleChangeEnd (newIndex) {
+
+      if (newIndex !== this.index) {
+        if (newIndex > this.index) {
+          this.items.push(this.current + 4)
+          this.items.shift()
+
+          this.current = this.current + 1
+        } else {
+          this.items.unshift(this.current - 4)
+          this.items.pop()
+
+          this.current = this.current - 1
+        }
+
+        this.$refs.swiper.slideTo(3, 0)
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.swiper-slide {
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  color: #fff;
+}
+</style>

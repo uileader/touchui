@@ -1,0 +1,115 @@
+<!--segment2.ui-->
+<template>
+  <ui-page>
+      <ui-nav-bar slot="nav-bar" class="nav_bar">
+        <ui-row>
+          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#0dc1ae"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle">
+            <ui-segment bindchange="changTab" item-style="{{itemStyle}}" active-item-style="{{activeItemStyle}}">
+              <ui-segment-item>
+                好友去哪
+              </ui-segment-item>
+              <ui-segment-item>
+                我的好友
+              </ui-segment-item>
+            </ui-segment>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="60" >
+            <ui-view class="set" ui:show="{{setShow}}">设置</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+
+    <ui-view class="tabContent" ui:show="{{contentshow === 0}}">
+      <ui-view class="content_list">
+        <ui-view ui:for="{{ items0 }}" class="{{{'grey-bg': index % 2 == 0}}}">
+          {{ item }}
+        </ui-view>
+      </ui-view>
+    </ui-view>
+    <ui-view class="tabContent" ui:show="{{contentshow === 1}}">
+      <ui-view class="content_list">
+        <ui-view ui:for="{{ items1 }}" class="{{{'grey-bg': index % 2 == 0}}}">
+          {{ item }}
+        </ui-view>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// segment2.js
+export default {
+  config: {
+    "navigationBarTitleText": "全局segment",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":"black"
+  },
+  data () {
+    return {
+      contentshow: 0,
+      items0: [],
+      items1: [],
+      setShow: false,
+      itemStyle:{
+        'border-color':'#0dc1ae',
+        'color':'#0dc1ae',
+        'font-size':'14px'
+      },
+      activeItemStyle:{
+        'color':'#fff',
+        'background-color': '#0dc1ae'
+      }
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    handleNavRight () {
+      ui.showActionSheet({
+        itemList: [
+          '转账记录',
+          '使用帮助',
+          '延时转账服务'
+        ],
+        success: (index) => {
+          ui.showToast({
+            title: `index: ${index}`
+          })
+        }
+      })
+    },
+    changTab (index) {
+      this.contentshow = index
+      if (index === 0) {
+        this.setShow = false
+      } else {
+        this.setShow = true
+      }
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= 100; i++) {
+      this.items0.push(i + ' - 推荐项目列表')
+      this.items1.push(i + ' - 热点项目列表')
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // segment2.less
+.nav_bar{
+  background-color: #fff;
+}
+.set{
+  color:#0dc1ae;
+  font-size:14px
+}
+
+</style>

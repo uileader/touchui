@@ -1,0 +1,91 @@
+<!--page.ui-->
+<template>
+<ui-view>
+  <ui-view class="bg_blue"></ui-view>  
+  <ui-page pull-down="{{ pullDown }}">
+    <ui-view slot="pull-down"></ui-view>
+    <ui-view class="login_content" style="{{{ height:contentHeight + 'px' }}}">
+      <ui-row height="150" class="header_top">
+        <ui-col vertical-align="middle" space-left="30">
+          <ui-view>登录／注册</ui-view>
+          <ui-view>登录后可享受更多特权</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50">
+          <ui-icon type="arrow-right" size="18" color="#fff"></ui-icon>
+        </ui-col>
+      </ui-row>
+      <ui-view class="icon_group"></ui-view>
+      <ui-row height="50" class="center" space-top="15">
+        <ui-col width="80" vertical-align="middle" align="center">
+          <ui-icon type="praiseafter" color="#0099F8" size="28"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle">
+          服务中心
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50">
+          <ui-icon type="arrow-right" size="18" color="#ccc"></ui-icon>
+        </ui-col>
+      </ui-row>
+  </ui-page>
+</ui-view>
+</template>
+
+
+<script>
+// page.js
+export default {
+  config: {
+    navigationBarTitleText: "我的",
+    navigationBarBackgroundColor:"#0099F8",
+    backgroundColor:"#EEEEEE",
+    navigationBarTextStyle:"white",
+    navigationBarBorderColor:"#39f" 
+  },
+  data () {
+    return {
+      contentHeight: ui.DEFAULT_CONTENT_HEIGHT,
+      pullDown: {
+        distance: 100
+      }
+    }
+  },
+  methods: {
+
+  }
+}
+
+</script>
+
+<style lang="less">
+  // page.less
+.login_content{
+  background: #EEEEEE;
+}
+.header_top{
+  background: #0099F8;
+  padding-top: 30px;
+  .ui-view{
+    color: #fff;
+    line-height: 30px;
+  }
+  .ui-view:first-child{
+    font-size: 24px;
+  }
+}
+.icon_group{
+  height:90px;
+  background: url('~images/nav.jpg') no-repeat center center;
+  background-size: 100%;
+}
+.center{
+  background: #fff;
+}
+.bg_blue{
+  position: absolute;
+  width: 100%;
+  height: 240px;
+  background-color: #0099F8;
+}
+
+
+</style>

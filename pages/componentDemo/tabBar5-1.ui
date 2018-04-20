@@ -1,0 +1,44 @@
+<!--tabBar9.ui-->
+<template>
+  <ui-page page-load="{{pageload1}}">
+    <ui-view class="content">
+      <ui-text block class="title">5-1</ui-text>
+      {{ pageloadText }}
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// tabBar9.js
+export default {
+  config: {
+    "navigationBarTitleText": "5-1 tabLoad"
+  },
+  data () {
+    return {
+      pageloadText: '',
+      pageload1: {
+        trigger: 'once',
+        handle: () => {
+          this.pageloadText += 'pageload事件：只在第一次加载时触发'
+        }
+      }
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  // tabBar9.less
+.content{
+  padding:10px;
+  height:60px;
+  .title{
+  font-size:20px;
+  text-align: center
+}
+}
+</style>

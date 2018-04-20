@@ -1,0 +1,74 @@
+<!--notice.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10"  width="50" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">通知中心</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50" >
+          
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-view class="main" style="{{ { height: height + 'px'} }}">
+      <ui-view class="show_tip">
+        <ui-icon type="bell" size="80" color="#46A0FC"></ui-icon>
+        <ui-view class="title">暂时还没有任何通知</ui-view>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// notice.js
+export default {
+  config: {
+    navigationStyle: 'custom',
+    delay:false
+  },
+  data () {
+    return {
+      height: ui.DEFAULT_CONTENT_HEIGHT
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // notice.less
+.nav_bar {
+  background: linear-gradient(to right, #1F97FE, #126DFE);
+  .nav_title{
+    color: #fff;
+  }
+}
+.ui-navigator{
+  width: 100%;
+  height: 100%;
+   &.nav_left{
+    text-align: left;
+  }
+}
+.main {
+  flex-grow: 1;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  text-align: center;
+  flex-grow: 1;
+}
+</style>

@@ -1,0 +1,58 @@
+<!--tabList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row >
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+  </ui-page>
+</template>
+
+
+<script>
+// tabList.js
+export default {
+  config: {
+    "navigationBarTitleText": "基础"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '底部标签栏 tab-bar',
+          items: [
+            { title: '基本使用', link: '/pages/componentDemo/tabBar1-1' },
+            { title: '选中图标为新icon', link: '/pages/componentDemo/tabBar6-1' },
+            { title: '图片作为图标', link: '/pages/componentDemo/tabBar2-1' },
+            { title: 'tab点击动画', link: '/pages/componentDemo/tabBar3-1' },
+            { title: '使用badge', link: '/pages/componentDemo/tabBar4-1' },
+            { title: '个性按钮与切换事件', link: '/pages/componentDemo/tabBar5-1' }
+            // { title: '改变标签栏方向', link: '/pages/componentDemo/tabBar7-1' }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

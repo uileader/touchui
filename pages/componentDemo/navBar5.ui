@@ -1,0 +1,287 @@
+<!--navBar.ui-->
+<template>
+  <ui-page bindscroll="handleScroll">
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {'background-color':'#FF643F'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="55" bindtap="handleNavLeft">
+          <ui-view class="nav_left">
+              {{country1}}<ui-icon type="arrow-down" size="12" color="#fff"></ui-icon>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          
+        </ui-col>
+        <ui-col vertical-align="middle" align="center"  width="55" bindtap="handleShow10">
+            <ui-view class="nav_right {{ className2 }}">
+              <ui-popover ui:model="show10" effect="slide" position="bottom" mask-style="{{ maskStyle }}" bindhide="popoverHide" class="custom">
+                <ui-view>
+                  <ui-view class="popover_item">
+                    <ui-row height="35" bindtap="handleHide('写评论')"  border-bottom>
+                      <ui-col vertical-align="middle" align="center" width="30">
+                        <ui-icon type="comment" color="#525252"></ui-icon>
+                      </ui-col>
+                      <ui-col vertical-align="middle" space-left="5">写评论</ui-col>
+                    </ui-row>
+                  </ui-view>
+                  <ui-view class="popover_item">
+                    <ui-row height="35" bindtap="handleHide('找好友')"  border-bottom>
+                      <ui-col vertical-align="middle" align="center" width="30">
+                        <ui-icon type="qn-addressbook_fill" size="20" color="#525252"></ui-icon>
+                      </ui-col>
+                      <ui-col vertical-align="middle" space-left="5">找好友</ui-col>
+                    </ui-row>
+                  </ui-view>
+                  <ui-view class="popover_item">
+                    <ui-row height="35" bindtap="handleHide('添加商户')"  border-bottom>
+                      <ui-col vertical-align="middle" align="center" width="30">
+                        <ui-icon type="store" color="#525252"></ui-icon>
+                      </ui-col>
+                      <ui-col vertical-align="middle" space-left="5">添加商户</ui-col>
+                    </ui-row>
+                  </ui-view>
+                  <ui-view class="popover_item">
+                    <ui-row height="35" bindtap="handleHide('商户合作')"  border-bottom>
+                      <ui-col vertical-align="middle" align="center" width="30">
+                        <ui-icon type="account1" color="#525252"></ui-icon>
+                      </ui-col>
+                      <ui-col vertical-align="middle" space-left="5" vertical-align="middle" space-left="5">商户合作</ui-col>
+                    </ui-row>
+                  </ui-view>
+                  <ui-view class="popover_item">
+                    <ui-row height="30" bindtap="handleHide('扫一扫')"  border-bottom>
+                      <ui-col vertical-align="middle" align="center" width="30">
+                        <ui-icon type="scan-qrcode" color="#525252"></ui-icon>
+                      </ui-col>
+                      <ui-col vertical-align="middle" space-left="5">扫一扫</ui-col>
+                    </ui-row>
+                  </ui-view>
+                  <ui-view class="popover_item">
+                    <ui-row height="30" bindtap="handleHide('付款码')">
+                      <ui-col vertical-align="middle" align="center" width="30">
+                        <ui-icon type="qrcode" color="#525252"></ui-icon>
+                      </ui-col>
+                      <ui-col vertical-align="middle" space-left="5">付款码</ui-col>
+                    </ui-row>
+                  </ui-view>
+                </ui-view>
+                <ui-icon slot="content" type="plus3" size="24" color="#fff"></ui-icon>
+              </ui-popover>
+                
+            </ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-view class="search" bindtap="handleNavCenter" style="top:{{STATUS_BAR_HEIGHT}}px">
+        <ui-view class="search_center {{ className }}" style="{{{ width: searchWidth + 'px' }}}">
+          <ui-row height="30">
+            <ui-col align="right" vertical-align="middle" width="20">
+              <ui-icon type="magnifier" size="18" color="#FF643F"></ui-icon>
+            </ui-col>
+            <ui-col align="left" vertical-align="middle" space-left="10" span="8">
+              附近热搜：首地大峡谷
+            </ui-col>
+          </ui-row>
+        </ui-view>
+      </ui-view>
+    </ui-nav-bar>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+
+    <ui-fixed-view bindtap="navigateBack">返回上页</ui-fixed-view>
+  </ui-page>
+</template>
+
+<script>
+
+// navBar.js
+export default {
+  config: {
+    navigationBarTitleText: "中间自定义：搜索框",
+    navigationStyle: 'custom',
+    navigationBarTextStyle:"white"
+    
+  },
+  data () {
+    return {
+      STATUS_BAR_HEIGHT:ui.STATUS_BAR_HEIGHT,
+      items: [],
+      country1:'北京',
+      bottom: 30,
+      className: '',
+      searchWidth: '',
+      headerHeight: ui.DEFAULT_HEADER_HEIGHT - 20,
+      maskStyle: { backgroundColor: 'transparent' },
+      show10: false,
+      className2: ''
+    }
+  },
+  methods: {
+    handleNavLeft () {
+      import(`#/pages/dialogs/index-list.ui`).then((content) => {
+        ui.showDialog({
+          content: content,
+          statusBarColor: 'black',
+          data: {
+            country: this.country1
+          },
+          // 接收ui.hideDialog回传的数据
+          onHide: (data) => {
+            if (data && data.country) {
+              this.country1 = data.country
+            }
+          }
+        })
+      })
+    },
+    handleNavRight () {
+      ui.showToast({
+        title: 'NavBar右侧点击事件'
+      })
+    },
+    handleNavCenter () {
+      ui.showToast({
+        title: 'NavBar搜索点击事件'
+      })
+    },
+    handleScroll (scrollTop) {
+      if (scrollTop > 120) {
+        this.className = 'nav_center'
+      } else {
+        this.className = ''
+      }
+    },
+    handleShow10 () {
+      this.show10 = true
+      this.className2 = 'active'
+    },
+    handleHide (text) {
+      this.show10 = false
+      ui.showToast({
+        title: text
+      })
+      this.className2 = ''
+    },
+    popoverHide () {
+      this.className2 = ''
+    },
+    navigateBack () {
+      ui.navigateBack()
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+    this.searchWidth = window.innerWidth - 110
+  }
+}
+</script>
+
+<style lang="less">
+  // navBar.less
+
+.nav_left{
+  width: 100%;
+  font-size: 14px;
+  color: #fff;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+}
+.nav_right{
+  width: 100%;
+  height: 46px;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  transform: rotate(0deg);
+  transition: all 0.25s ease-in;
+  &.active{
+    transform: rotate(45deg);
+    // animation-duration: 0.25s;
+    // tran
+    
+  }
+}
+
+
+.search{
+  width:100%;
+  height: 46px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  .mix-flex-center();
+  .search_center{
+    margin-left: 10px;
+    background: #fff;
+    height: 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all .25s ease-in;
+    color: #666;
+    font-size: 12px;
+    line-height: 30px;
+    .ui-icon{
+      margin-left: 10px;
+    }
+  }
+  .nav_center{
+    width: 97%!important;
+    margin-left: 0;
+    z-index: 999;
+  }
+}
+
+
+.ui-fixed-view {
+  bottom: 100px;
+  right: 20px;
+  width: 46px;
+  padding: 7px;
+  height: 46px;
+  line-height: 16px;
+  border: 1px solid #F76346;
+  border-radius: 50%;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: #F76346;
+  z-index: 99;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+
+.touch_end {
+    background: #eee;
+}
+
+.custom{
+  .ui-popover-overlay {
+    padding: 0;
+    width: 125px;
+    background-color: #fff;
+    .ui-col{
+      color: #39383B;
+    }
+  }
+  .ui-popover-arrow{
+    background-color: #fff;
+    left: 104px!important;
+  }
+}
+.popover_item{
+  padding: 0 10px;
+  &:active{
+    background-color: #eee;
+  }
+}
+
+</style>
+  

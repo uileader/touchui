@@ -1,0 +1,170 @@
+<!--navBar4.ui-->
+<template>
+  <ui-page 
+  top="0" 
+  bindscroll="handleScroll" 
+  pull-down="{{ pullDown }}"
+  >
+    <ui-nav-bar class="nab_bar" slot="nav-bar" style="{{{ 'background-color': `rgba(232, 52, 52, ${alpha})` }}}">
+      <ui-row height="46" class="{{ className }}">
+        <ui-col vertical-align="middle" align="center" width="70">
+          <ui-view class="city">
+            <ui-icon type="map" size="18" color="#fff"></ui-icon>北京市
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" space="20">
+          <ui-view class="search">
+            <ui-row height="35">
+              <ui-col vertical-align="middle" align="center" width="40">
+                <ui-icon type="magnifier" size="18" color="#fff"></ui-icon>
+              </ui-col>
+              <ui-col vertical-align="middle" align="left">
+                <ui-view>0元保养</ui-view>
+              </ui-col>
+            </ui-row>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35">
+          <ui-icon type="scan-qrcode" size="20" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35">
+          <ui-icon type="comment" size="22" color="#fff"></ui-icon>
+        </ui-col>
+      </ui-row>
+      
+    </ui-nav-bar>
+      <ui-image
+      src="http://images.uileader.com/20171117/a1fa37d0-fbd7-4316-be27-1136a97b459b.jpg"
+      load-effect="fade"
+      height="{{ imgHeight }}" 
+      ></ui-image>
+      <ui-view class="content_list">
+        <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+          {{ item }}
+        </ui-view>
+      </ui-view>
+    <ui-fixed-view bindtap="navigateBack">返回上页</ui-fixed-view>
+  </ui-page>
+</template>
+
+
+<script>
+// navBar4.js
+export default {
+  config: {
+    navigationBarTitleText: "自定义透明导航",
+    navigationStyle: 'custom'
+  },
+  data () {
+    return {
+      items: [],
+      bottom: 30,
+      alpha: 0,
+      className: '',
+      imgHeight: parseInt(ui.WIN_WIDTH / 1125 * 628),
+      pullDown: {
+        distance: 60,
+        onBegin: this.handleBegin,
+        onActive: this.handlePullRefresh,
+        onAfter: this.handleAfter
+      }
+    }
+  },
+  methods: {
+    handleScroll (scrollTop) {
+      if (scrollTop > 100) {
+        this.alpha = 1
+      } else {
+        var val = scrollTop / 100
+        this.alpha = val
+      }
+    },
+    handlePullRefresh () {
+      // 将返回的请求接管，实现让请求结果来控制下拉刷新的状态
+      return ui.request({
+        // promise设置为true，让请求返回promise，这样就可以接管请求
+        // 请求结束后页面自动回弹
+        promise: true,
+        url: '/touchui-backstage/listInfo.do?state=1',
+        success: (response) => {
+        },
+        fail: (err) => {
+        }
+      })
+    },
+    handleBegin ({ distance, direction }) {
+      if (distance > 10) {
+        this.className = 'opacity'
+      }
+    },
+    handleAfter (flag) {
+      this.className = 'opacity opacity1'
+      if (flag) {
+        ui.showToast({
+          title: '处理下拉刷新'
+        })
+      }
+    },
+    navigateBack () {
+      ui.navigateBack()
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.ui-image-container{
+  background-color: #eee;
+}
+.city{
+  color: #fff;
+  font-size: 14px;
+}
+.search{
+  width: 100%;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, .4);
+  .ui-view{
+    height: 35px;
+    line-height: 35px;
+    color:#fff;
+    font-size: 14px;
+  }
+}
+
+.ui-fixed-view {
+  bottom: 100px;
+  right: 20px;
+  width: 46px;
+  padding: 7px;
+  height: 46px;
+  line-height: 16px;
+  border: 1px solid #F76346;
+  border-radius: 50%;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: #F76346;
+  z-index: 99;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.opacity{
+  opacity:0;
+  transition: opacity .25s ease-in;
+}
+.opacity1{
+  opacity:1;
+}
+</style>

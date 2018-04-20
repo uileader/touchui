@@ -1,0 +1,65 @@
+<!--image8.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">基本使用</ui-view>
+    <ui-divider>原图</ui-divider>
+    <ui-view>
+      <ui-image
+      src="{{ url }}"
+      mode='aspectFill'
+      width="80"
+      height="80"
+      ></ui-image>
+    </ui-view>
+    <ui-divider>朦胧效果</ui-divider>
+    <ui-blur url="{{ url }}" height="200"></ui-blur>
+
+    <ui-view class="sample_title">更换图片路径</ui-view>
+    <ui-divider>原图</ui-divider>
+    <ui-view>
+      <ui-image
+      src="{{ url2 }}"
+      mode='aspectFill'
+      width="80"
+      height="80"
+      ></ui-image>
+    </ui-view>
+    <ui-divider>朦胧效果</ui-divider>
+    <ui-blur url="{{ url2 }}" height="200"></ui-blur>
+
+
+    <ui-view class="sample_title">自定义高度</ui-view>
+    <ui-blur url="{{ url }}" height="300"></ui-blur>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "朦胧图"
+  },
+  data () {
+    return {
+      url: 'http://images.uileader.com/20180321/ce7dcb1c-5d37-485b-a429-95be5d10edbe.jpg',
+      url2: 'http://images.uileader.com/20180321/9d5abf36-1994-41cd-9f0d-e5977379b9fb.jpg'
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+.img_content_wrap{
+  height: 200px;
+  overflow: hidden;
+}
+.img_content{
+  width: 120%;
+  height: 120%;
+  filter:blur(45px);
+  margin: -10% 0 0 -10%;
+  background: url('http://images.uileader.com/20180321/ce7dcb1c-5d37-485b-a429-95be5d10edbe.jpg') no-repeat center -100px;
+  background-size: 210%; 
+}
+</style>

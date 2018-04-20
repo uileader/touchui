@@ -1,0 +1,792 @@
+<!--tagGroup.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">标签展示</ui-view>
+    <ui-view style="padding: 10px 10px;">
+      <ui-tags data="{{list0}}"></ui-tags>
+    </ui-view>
+    
+    <ui-view class="sample_title">标签点击触发</ui-view>
+    <ui-view style="padding: 10px 10px;">
+      <ui-tags 
+        data="{{list00}}" 
+        bindchange="singleTap" 
+        ></ui-tags>
+    </ui-view>
+
+
+    <ui-view class="sample_title">点击删除</ui-view>
+    <ui-view style="padding: 10px 10px;">
+      <ui-tags 
+        data="{{list3}}" 
+        bindchange="delate"
+        icon-position="right"
+        icon-size="12"
+        ></ui-tags>
+    </ui-view>
+
+    <ui-view class="sample_title">等宽标签</ui-view>
+    <ui-view style="padding: 10px 5px">
+     <ui-tags 
+        data="{{list8}}" 
+        fixed-width
+        col-number="3"
+        bindchange="multipleTap2" 
+        ></ui-tags>
+    </ui-view>
+
+   
+
+    <ui-view class="sample_title">多项选择--后置图标</ui-view>
+    <ui-view style="padding: 10px 10px;">
+      <ui-tags 
+        data="{{list2}}" 
+        fixed-width
+        item-space="15"
+        bindchange="multipleTap" 
+        icon-position="right" 
+        ></ui-tags>
+      <ui-button class="delAll" fullWidth="{{fullWidth}}" bindtap="cancel">清空</ui-button>
+      <ui-button class="sure" fullWidth="{{fullWidth}}" bindtap="sure">确定</ui-button>
+    </ui-view>
+
+    <ui-view class="sample_title">多项选择--前置图标</ui-view>
+    <ui-view style="padding: 10px 10px;">
+      <ui-tags 
+        data="{{list4}}" 
+        bindchange="multipleTap1"
+        icon-size="10"
+        ></ui-tags>
+    </ui-view>
+
+    <ui-view class="sample_title">单项选择--前置图标</ui-view>
+    <ui-view style="padding: 10px 10px;">
+      <ui-tags 
+        data="{{list5}}" 
+        bindchange="singleTap1"
+        icon-size="10"
+      ></ui-tags>
+    </ui-view>
+
+    <ui-view class="sample_title">角标选择</ui-view>
+    <ui-view style="padding: 10px 10px;">
+      <ui-tags 
+        data="{{list6}}" 
+        bindchange="singleTap2"
+        ></ui-tags>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义角标样式(背景镂空)</ui-view>
+    <ui-view style="padding: 10px 10px;">
+      <ui-tags 
+        data="{{list7}}" 
+        bindchange="singleTap3"
+        ></ui-tags>
+    </ui-view>
+
+    
+  </ui-page>
+</template>
+  
+
+<script>
+
+export default {
+  config: {
+    "navigationBarTitleText": "标签组"
+  },
+  data () {
+    return {
+      list0: [{
+        text: '速度与激情8',
+        tagClass: 'tag-before-0'
+      }, {
+        text: '铁道飞虎',
+        tagClass: 'tag-before-0'
+      }, {
+        text: '罗曼蒂克消亡史',
+        tagClass: 'tag-before-0'
+      }, {
+        text: '绑架者',
+        tagClass: 'tag-before-0'
+      }, {
+        text: '地心引力',
+        tagClass: 'tag-before-0'
+      }, {
+        text: '一条狗的使命',
+        tagClass: 'tag-before-0'
+      }],
+      list00: [{
+        text: '速度与激情8',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: true
+      }, {
+        text: '铁道飞虎',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '罗曼蒂克消亡史',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '绑架者',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '地心引力',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '一条狗的使命',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }],
+      list1: [{
+        text: '热门',
+        tagClass: 'tag-before-1'
+      }, {
+        text: '小吃快餐',
+        tagClass: 'tag-before-1'
+      }, {
+        text: '面包甜点',
+        tagClass: 'tag-before-1'
+      }, {
+        text: '北京菜',
+        tagClass: 'tag-before-1'
+      }, {
+        text: '川菜',
+        tagClass: 'tag-before-1'
+      }, {
+        text: '韩国料理',
+        tagClass: 'tag-before-1'
+      }, {
+        text: '江浙菜',
+        tagClass: 'tag-before-1'
+      }, {
+        text: '江浙菜',
+        tagClass: 'tag-before-1'
+      }],
+
+      list2: [{
+        text: '微型车',
+        tagClass: 'tag-before-2',
+        tagSelectedClass: 'select-class3',
+        icon: 'plus2',
+        iconSelected: 'duigou',
+        checked: true
+      }, {
+        text: '小型车',
+        tagClass: 'tag-before-2',
+        tagSelectedClass: 'select-class3',
+        icon: 'plus2',
+        iconSelected: 'duigou',
+        checked: true
+      }, {
+        text: '紧凑型',
+        tagClass: 'tag-before-2',
+        tagSelectedClass: 'select-class3',
+        icon: 'plus2',
+        iconSelected: 'duigou',
+        checked: false
+      }, {
+        text: '中型车',
+        tagClass: 'tag-before-2',
+        tagSelectedClass: 'select-class3',
+        icon: 'plus2',
+        iconSelected: 'duigou',
+        checked: false
+      }, {
+        text: '大中型',
+        tagClass: 'tag-before-2',
+        tagSelectedClass: 'select-class3',
+        icon: 'plus2',
+        iconSelected: 'duigou',
+        checked: false
+      }, {
+        text: '豪华车',
+        tagClass: 'tag-before-2',
+        tagSelectedClass: 'select-class3',
+        icon: 'plus2',
+        iconSelected: 'duigou',
+        checked: false
+      }],
+
+      list3: [{
+        text: '大众',
+        tagClass: 'tag-before-3',
+        icon: 'close'
+      }, {
+        text: '朗逸',
+        tagClass: 'tag-before-3',
+        icon: 'close'
+      }, {
+        text: '10-15万',
+        tagClass: 'tag-before-3',
+        icon: 'close'
+      }],
+      list4: [{
+        text: '品牌商家',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#fc4f4f',
+        checked: true
+      }, {
+        text: '外卖保',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#FFAC2A',
+        checked: false
+      }, {
+        text: '新店',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#3399ff',
+        checked: false
+      }, {
+        text: '开发票',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#fed009',
+        checked: false
+      }, {
+        text: '在线支付',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#41c4c9',
+        checked: false
+      }],
+      list5: [{
+        text: '品牌商家',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#fc4f4f',
+        checked: true
+      }, {
+        text: '外卖保',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#FFAC2A',
+        checked: false
+      }, {
+        text: '新店',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#3399ff',
+        checked: false
+      }, {
+        text: '开发票',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#3399ff',
+        checked: false
+      }, {
+        text: '在线支付',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#41c4c9',
+        checked: false
+      }],
+      list6: [{
+        text: '新用户优惠',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-6',
+        checked: true,
+        badge: [{
+          'badge-text': '新',
+          'badge-class': 'badge-class-0'
+        }]
+      }, {
+        text: '特价商品',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-6',
+        checked: false,
+        badge: [{
+          'badge-text': '特',
+          'badge-class': 'badge-class-1'
+        }]
+      }, {
+        text: '下单立减',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-6',
+        checked: false,
+        badge: [{
+          'badge-text': '减',
+          'badge-class': 'badge-class-2'
+
+        }]
+      }, {
+        text: '赠品优惠',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-6',
+        checked: false,
+        badge: [{
+          'badge-text': '赠',
+          'badge-class': 'badge-class-3'
+
+        }]
+      }, {
+        text: '下单返券',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-6',
+        checked: false,
+        badge: [{
+          'badge-text': '返',
+          'badge-class': 'badge-class-4'
+
+        }]
+      }, {
+        text: '进店领券',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-6',
+        checked: false,
+        badge: [{
+          'badge-text': '领',
+          'badge-class': 'badge-class-5'
+
+        }]
+      }],
+      list7: [{
+        text: '新用户优惠',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-6',
+        checked: true,
+        badge: [{
+          'badge-text': '新',
+          'badge-class': 'badge-class-6'
+        }]
+      }, {
+        text: '特价商品',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-6',
+        checked: false,
+        badge: [{
+          'badge-text': '特',
+          'badge-class': 'badge-class-7'
+        }]
+      }, {
+        text: '下单立减',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-6',
+        checked: false,
+        badge: [{
+          'badge-text': '减',
+          'badge-class': 'badge-class-8'
+
+        }]
+      }, {
+        text: '赠品优惠',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-6',
+        checked: false,
+        badge: [{
+          'badge-text': '赠',
+          'badge-class': 'badge-class-9'
+
+        }]
+      }, {
+        text: '下单返券',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-6',
+        checked: false,
+        badge: [{
+          'badge-text': '返',
+          'badge-class': 'badge-class-10'
+
+        }]
+      }, {
+        text: '进店领券',
+        tagClass: 'tag-before-5',
+        tagSelectedClass: 'tag-after-6',
+        checked: false,
+        badge: [{
+          'badge-text': '领',
+          'badge-class': 'badge-class-11'
+        }]
+      }],
+      list8: [
+        {
+          text: '早餐', tagClass: 'tag-6', tagSelectedClass: 'select-class2', checked: false
+        },
+        {
+          text: '午餐', tagClass: 'tag-6', tagSelectedClass: 'select-class2', checked: false
+        },
+        {
+          text: '下午茶', tagClass: 'tag-6', tagSelectedClass: 'select-class2', checked: false
+        },
+        {
+          text: '晚餐', tagClass: 'tag-6', tagSelectedClass: 'select-class2', checked: false
+        },
+        {
+          text: '夜宵', tagClass: 'tag-6', tagSelectedClass: 'select-class2', checked: false
+        }
+      ],
+      fullWidth: false,
+      showPop: true,
+      selectValue: []
+    }
+  },
+  methods: {
+    singleTap (opt) {
+      ui.showToast({
+        title: this.list00[opt].text
+      })
+      this.list00.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+    },
+    multipleTap (opt) {
+      this.list2[opt].checked = !this.list2[opt].checked
+    },
+    sure () {
+      var a = this.list2.filter((item, index) => {
+        return item.checked
+      })
+      this.selectValue = a
+      var str = a.map((item, index) => {
+        return item.text
+      }).join(',')
+      ui.showToast({
+        title: str || '未选择任何标签'
+      })
+    },
+    cancel () {
+      this.list2.forEach((item, index) => {
+        item.checked = false
+      })
+    },
+    delate (opt) {
+      this.list3 = this.list3.filter((item, index) => {
+        return index != opt
+      })
+      var str = this.list3.map((item, index) => {
+        return item.text
+      }).join(',')
+      ui.showToast({
+        title: str ? `还剩：` + str : '该组已经没有标签'
+      })
+    },
+    multipleTap1 (opt) {
+      this.list4[opt].checked = !this.list4[opt].checked
+    },
+    multipleTap2 (index) {
+      this.list8[index].checked = !this.list8[index].checked
+    },
+    multipleTap3 (opt) {
+      this.list9[opt].checked = !this.list9[opt].checked
+    },
+    singleTap1 (opt) {
+      this.list5.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+    },
+    singleTap2 (opt) {
+      this.list6.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+    },
+    singleTap3 (opt) {
+      this.list7.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+    },
+    singleTap4 (opt) {
+      this.list10.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .tag-before-0{
+  border: 1px solid #3693E8;
+  background: #ffffff;
+  color: #3693E8;
+  padding: 0 5px;
+  border-radius: 10px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+}
+.tag-before-00{
+  background: #efefef;
+  color: #555;
+  padding: 0 5px;
+  border-radius: 10px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+}
+.tag-before-1{
+  background: #EFEFEF;
+  color: #666;
+  padding: 5px 20px;
+  border-radius: 14px;
+}
+.tag-after-1{
+  background: #06C1AE;
+  color: #fff;
+}
+.tag-before-2{
+  .mix-1px(1, 1, 1, 1, #ccc);
+  background: #fff;
+  color: #666;
+  padding: 0 5px;
+  text-align: center;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+}
+.tag-after-2{
+  border: 1px solid #FD5623;
+  background: #FFE5DD;
+  color: #FD5623;
+}
+.tag-before-3{
+  border: 1px solid #ff5800;
+  background: #fff;
+  color: #ff5800;
+  padding: 0 5px;
+  border-radius: 10px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+}
+.tag-after-3{
+  display: none;
+}
+.tag-before-5{
+  background: #f7f7f7;
+  color: #333;
+  padding: 0 5px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+  border-radius: 30px;
+}
+
+.tag-after-5{
+  background: #fbfbfb;
+  color: #999;
+  padding: 0 5px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+  border-radius: 30px;
+  .ui-icon{
+    opacity: .6
+  }
+}
+
+
+.tag-after-6{
+  background: #e1eaef;
+  color: #333;
+  padding: 0 5px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+  border-radius: 30px;
+  .mix-1px(1, 1, 1, 1, #3399ff);
+  &:before{
+    border-radius: 30px;
+  }
+}
+
+.tag-6 {
+  border: 1px solid #f1f2f3;
+  border-radius: 3px;
+  text-align: center;
+  height: 25px;
+  line-height: 24px;
+}
+
+.page{
+  padding: 0 20px;
+  font-size: 14px;
+}
+.page1{
+  color: #06C1AE;
+  margin-bottom: 10px;
+}
+.page3{
+  color: #ff8000;
+  margin-bottom: 10px;
+}
+.delAll{
+  display: inline-block;
+  width: 48%;
+  margin-right:2%;
+  border: 1px solid #ccc;
+  font-size: 12px;
+  width: 48%;
+}
+.sure{
+  display: inline-block;
+  width: 48%;
+  font-size: 12px;
+  background: #FD5623;
+  border:1px solid #FD5623;
+  color: #fff;
+}
+
+.demo-title {
+  padding: 0 10px;
+}
+
+.select-class {
+  background: #54d09f;
+  color: #fff;
+  padding: 0 5px;
+  border-radius: 10px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+}
+
+.select-class2 {
+  background: #54d09f;
+  color: #fff;
+  padding: 0 5px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+  border-radius: 3px;
+}
+
+.select-class3 {
+  background: #ffe5de;
+  .mix-1px(1, 1, 1, 1, #c27851);
+  color: #666;
+  padding: 0 5px;
+  text-align: center;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+  .ui-icon{
+    color:#e60012;
+  }
+}
+
+.badge-class-0 {
+  color: #fff;
+  border-color: #70BC46;
+  background-color: #70BC46
+}
+
+.badge-class-1 {
+  color: #fff;
+  border-color: #0097FF;
+  background-color: #0097FF;
+}
+.badge-class-2 {
+  color: #fff;
+  border-color: #F07373;
+  background-color: #F07373;
+}
+.badge-class-3 {
+  color: #fff;
+  border-color: #3CC791;
+  background-color: #3CC791;
+}
+.badge-class-4 {
+  color: #fff;
+  border-color: #FF7239;
+  background-color: #FF7239;
+}
+.badge-class-5 {
+  color: #fff;
+  border-color: #FFAC2A;
+  background-color: #FFAC2A;
+}
+
+.badge-class-6 {
+  color: #70BC46;
+  border: 1px solid #70BC46;
+  background-color: #fff;
+}
+
+.badge-class-7 {
+  color: #0097FF;
+  border: 1px solid #0097FF;
+  background-color: #fff;
+}
+
+.badge-class-8 {
+  color: #F07373;
+  border: 1px solid #F07373;
+  background-color: #fff;
+}
+
+.badge-class-9 {
+  color: #3CC791;
+  border: 1px solid #3CC791;
+  background-color: #fff;
+}
+.badge-class-10 {
+  color: #FF7239;
+  border: 1px solid #FF7239;
+  background-color: #fff;
+}
+.badge-class-11 {
+  color: #FFAC2A;
+  border: 1px solid #FFAC2A;
+  background-color: #fff;
+}
+</style>

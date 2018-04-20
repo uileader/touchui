@@ -1,0 +1,67 @@
+<!--page8.ui-->
+<template>
+    <ui-page pull-down="{{ pullDown }}">
+      
+    <ui-view slot="pull-down" class="pull-down-content">
+
+      <ui-view class="img-layer">
+        <ui-view class="touch_ui" ></ui-view>
+      </ui-view>
+    </ui-view>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+  // page8.js
+export default {
+  config: {
+    navigationBarTitleText: "下拉彩蛋"
+  },
+  data () {
+    return {
+      items: [],
+      bottom: 30,
+      pullDown: {
+        distance: 150
+      }
+    }
+  },
+  methods: {
+
+  },
+  mounted () {
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.pull-down-content {
+  height: 60px;
+  margin-top: -60px;
+  .mix-flex-center();
+}
+
+
+.img-layer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .touch_ui{
+    width: 100px;
+    height:100px;
+    background: url('~images/logo-light.png') no-repeat;
+    background-position: center 0;
+    background-size: 100%;
+  }
+}
+</style>

@@ -1,0 +1,218 @@
+<template>
+
+  <ui-page class="circular-demo">
+    <ui-view class="sample_title">基本使用</ui-view>
+    <ui-view class="circular1" >
+      <ui-circular
+      radius="60"
+      top="60"
+      left="60"
+      color="#1ec695"
+      value="70"
+      line-width="8"
+      line-cap="butt"
+      ></ui-circular>
+      <ui-view class="text">
+        <ui-text>完成度</ui-text>
+        <ui-view>70%</ui-view>
+      </ui-view>
+    </ui-view>
+
+    <ui-view class="sample_title">外部控制value值</ui-view>
+    <ui-view class="circular1" >
+      <ui-circular
+      radius="60"
+      top="60"
+      left="60"
+      color="#3399ff"
+      line-cap="round"
+      value="{{value1}}"
+      line-width="8"
+      bindanimationend="beginAnimationEnd"
+      ></ui-circular>
+      <ui-view class="text text2">
+        <ui-view>{{ value1 }}%</ui-view>
+      </ui-view>
+    </ui-view>
+    <ui-row height="40">
+      <ui-col vertical-align="middle" align="right" space-right="10">
+        <ui-button type="default" size="mini" bindtap="minus" style="width:40px;">-</ui-button>
+      </ui-col>
+      <ui-col vertical-align="middle" align="left" space-left="10">
+        <ui-button type="default" size="mini" bindtap="add" style="width:40px;">+</ui-button>
+      </ui-col>
+    </ui-row>
+
+    <ui-view class="sample_title">倒计时</ui-view>
+    <ui-view class="circular1" >
+      <ui-circular
+      radius="60"
+      top="60"
+      left="60"
+      color="#FF9900"
+      value="{{value2}}"
+      line-width="5"
+      ></ui-circular>
+      <ui-view class="text">
+        <ui-view class="count">{{ count }}</ui-view>
+      </ui-view>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义样式1:内环背景</ui-view>
+    <ui-view class="circular1 circular1_1">
+      <ui-circular
+      radius="60"
+      top="60"
+      left="60"
+      color="#53DF15"
+      value="70"
+      line-width="8"
+      background-radius="53"
+      background-line-width="2"
+      background-color="#1E3576"
+      ></ui-circular>
+      <ui-view class="text text3">
+        <ui-view>70%</ui-view>
+      </ui-view>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义样式2:内环背景</ui-view>
+    <ui-view class="circular1 circular1_2">
+      <ui-circular
+      radius="60"
+      top="60"
+      left="60"
+      color="#196CFE"
+      value="70"
+      line-width="8"
+      background-radius="52"
+      background-line-width="8"
+      background-color="#0E1B40"
+      line-cap="butt"
+      ></ui-circular>
+      <ui-view class="text text3">
+        <ui-view>70%</ui-view>
+      </ui-view>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义样式3:外环背景</ui-view>
+
+    <ui-view class="circular1 circular1_3">
+      <ui-circular
+      radius="60"
+      top="60"
+      left="60"
+      color="#28868A"
+      value="70"
+      line-width="8"
+      background-radius="60"
+      background-line-width="2"
+      background-color="#28868A"
+      line-cap="butt"
+      ></ui-circular>
+      <ui-view class="text text3">
+        <ui-view>70%</ui-view>
+      </ui-view>
+    </ui-view>
+
+  </ui-page>
+</template>
+
+<script>
+  export default {
+    config: {
+    "navigationBarTitleText": "进度环"
+  },
+  data () {
+    return {
+      value1: 40,
+      value2: 40,
+      j: 60,
+      count: 0,
+      animate: 'Quad'
+    }
+  },
+
+  methods: {
+    minus () {
+      if (this.value1 <= 0) {
+        this.value1 = 0
+      } else {
+        this.value1 -= 10
+      }
+    },
+    add () {
+      if (this.value1 >= 100) {
+        this.value1 = 100
+      } else {
+        this.value1 += 10
+      }
+    },
+    beginAnimationEnd () {
+      this.animate = 'none'
+    }
+  },
+  mounted () {
+    setInterval(() => {
+      this.value2 = this.j / 0.6
+      if (this.j <= 9) {
+        if (this.j <= 0) {
+          this.j = 0
+        } else {
+          this.j--
+        }
+      } else {
+        this.j--
+      }
+      this.count = this.j
+    }, 1000)
+  }
+}
+
+</script>
+
+<style lang="less">
+  .circular1{
+  .mix-flex-center();
+  position: relative;
+  padding: 10px 0;
+  .text{
+    position: absolute;
+    text-align: center;
+    line-height: 30px;
+    transform: translate(-50%, -60%);
+    top: 50%;
+    left: 50%;
+    .ui-text{
+      font-size: 12px;
+      color: #a5a5a5;
+    }
+    .ui-view{
+      font-size: 30px;
+      color: #1ec695;
+      &.count{
+        color:#FF9900;
+      }
+    }
+    &.text2{
+      .ui-view{
+        color: #3399ff;
+      }
+    }
+    &.text3{
+      .ui-view{
+        color: #fff;
+      }
+    }
+  }
+  &.circular1_1{
+    background-color: #0E1F46;
+  }
+  &.circular1_2{
+    background-color: #060812;
+  }
+  &.circular1_3{
+    background-color: #070F1E;
+  }
+}
+</style>

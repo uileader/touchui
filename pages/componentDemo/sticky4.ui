@@ -1,0 +1,72 @@
+<template>
+  <ui-page>
+      <ui-image
+      src="http://images.uileader.com/20171117/a1fa37d0-fbd7-4316-be27-1136a97b459b.jpg"
+      height="{{ imgHeight }}"
+      load-effect="fade">
+      </ui-image>
+      <ui-scroll-view scroll-y height="421">
+        <ui-view class="sticky-in-relative-container">
+          <ui-sticky class="header header1" stick-on-tap>
+            <ui-view>
+              <ui-view class="title">本周精选活动</ui-view>
+            </ui-view>
+            <ui-view slot="sticky">
+              <ui-view class="title">本周精选活动</ui-view>
+            </ui-view>
+          </ui-sticky>
+        </ui-view>
+        <ui-view class="content_list">
+          <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+            {{ item }}
+          </ui-view>
+        </ui-view>
+      </ui-scroll-view>
+  </ui-page>
+</template>
+
+<script>
+  export default {
+  config: {
+    "navigationBarTitleText": "在scroll-view使用",
+    "disableScroll":true
+  },
+  data () {
+    return {
+      items: [],
+      imgHeight: parseInt(ui.WIN_WIDTH / 1125 * 628)
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= 20; i++) {
+      this.items.push(i + ' - 内容文本')
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .header {
+  padding: 0 15px;
+  height: 46px;
+  line-height: 46px;
+}
+
+.header1 {
+  background-color: #eee;
+}
+
+.ui-image-container{
+  background-color: #eee;
+}
+
+.sticky-in-relative-container {
+  position: relative;
+  height: 46px;
+}
+.title{
+  text-align: center;
+  font-size: 16px;
+}
+</style>

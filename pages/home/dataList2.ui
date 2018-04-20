@@ -1,0 +1,57 @@
+<!--dataList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row >
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// dataList.js
+export default {
+  config: {
+    "navigationBarTitleText": "网络与数据"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '表格 table',
+          items: [
+            { title: '基本使用', link: '/pages/componentDemo/table' },
+            { title: '单元格渲染', link: '/pages/componentDemo/table2' },
+            { title: '服务器数据的读取', link: '/pages/componentDemo/table3' },
+            // { title: '服务器数据的读取(布局二)', link: '/pages/componentDemo/table6' },
+            { title: '横向滑动', link: '/pages/componentDemo/table4' },
+            { title: '点击标签切换table数据', link: '/pages/componentDemo/table5' }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

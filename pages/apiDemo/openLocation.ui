@@ -1,0 +1,84 @@
+<!--openLocation.ui-->
+<template>
+  <ui-page>
+      <ui-view class="content">
+        <ui-row height="40" space="10">
+          <ui-col span="3" vertical-align="middle">
+            经度：
+          </ui-col>
+          <ui-col span="9" vertical-align="middle">
+              <ui-view>{{longitude}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space="10">
+          <ui-col span="3" vertical-align="middle">
+            纬度：
+          </ui-col>
+          <ui-col span="9" vertical-align="middle">
+              <ui-view>{{latitude}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space="10">
+          <ui-col span="3" vertical-align="middle">
+            位置名称：
+          </ui-col>
+          <ui-col span="9" vertical-align="middle">
+              <ui-view>{{name}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space="10">
+          <ui-col span="3" vertical-align="middle">
+            详细位置：
+          </ui-col>
+          <ui-col span="9" vertical-align="middle">
+              <ui-view>{{address}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-button type="primary" bindtap="openLocation">查看位置</ui-button>
+      </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+
+export default {
+  config: {
+    "navigationBarTitleText": "查看位置"
+  },
+  data () {
+    return {
+      longitude: 116.368650,
+      latitude: 39.855030,
+      name: '北京引领视觉科技有限公司',
+      address: '北京市丰台区南三环西路16号3'
+    }
+  },
+  methods: {
+    openLocation: function () {
+      ui.openLocation({
+        longitude: this.longitude,
+        latitude: this.latitude,
+        name: this.name,
+        address: this.address,
+        backgroundColor: '#fff',
+        color:'#000',
+        success: function () {
+
+        },
+        fail: function (res) {
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // openLocation.less
+.content{
+  padding: 10px;
+}
+
+</style>

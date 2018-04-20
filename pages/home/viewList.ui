@@ -1,0 +1,82 @@
+<!--layoutList.ui-->
+<template>
+    <ui-page>
+      <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+        <ui-view class="group-title">
+          <ui-row >
+            <ui-col width="5" align="center" vertical-align="middle">
+              <ui-view class="sign"></ui-view>
+            </ui-col>
+            <ui-col align="left" vertical-align="middle" space-left="10">
+              <ui-view >{{ group.title }}</ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+        <ui-row-list bordered>
+            <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+              <ui-col>{{ item.title }}</ui-col>
+              <ui-col align="right" width="30">
+                  <!-- {{ item.title }} -->
+                  <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+              </ui-col>
+            </ui-row>
+        </ui-row-list>
+      </ui-view>
+    </ui-page>
+  </template>
+
+<script>
+// layoutList.js
+export default {
+  config: {
+    "navigationBarTitleText": "容器"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '基础容器 view',
+          items: [
+            { title: '基本使用', link: '/pages/componentDemo/view/view' },
+            { title: '纵向全屏方案(px)', link: '/pages/componentDemo/view/verticalPx' },
+            { title: '纵向全屏方案(rpx)', link: '/pages/componentDemo/view/verticalRpx' }
+          ]
+        },
+        {
+          title: '布局',
+          items: [
+            { title: '栅格布局：row && col', link: '/pages/componentDemo/row' },
+            { title: '栅格布局综合', link: '/pages/componentDemo/rowImg' },
+            { title: '栅格列表：row-list', link: '/pages/componentDemo/rowList' }
+          ]
+        },
+        {
+          title: '滚动容器 scroll-view',
+          items: [
+            { title: '纵向滚动：基本使用', link: '/pages/componentDemo/scrollView' },
+            { title: '下拉刷新和到底加载', link: '/pages/componentDemo/scrollView2' },
+            { title: '下拉刷新自定义动画和上拉加载', link: '/pages/componentDemo/scrollView3' },
+            { title: '横向滚动：基本使用', link: '/pages/componentDemo/scrollView4' },
+            { title: '横向滚动：弹性拉动事件', link: '/pages/componentDemo/scrollView5' }
+
+          ]
+        },
+        {
+          title: '位置固定容器 fixed-view',
+          items: [
+              { title: '基本使用', link: '/pages/componentDemo/fixedView' },
+              { title: '应用案例', link: '/pages/componentDemo/fixedView2' }
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+
+</style>
+  

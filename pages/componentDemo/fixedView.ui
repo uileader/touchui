@@ -1,0 +1,62 @@
+<!--fixedView.ui-->
+<template>
+  <ui-page>
+    <ui-fixed-view top="146" left="50">
+      <ui-view class="fixed-view-content">左上固定</ui-view>
+    </ui-fixed-view>
+    <ui-fixed-view top="146" right="50">
+      <ui-view class="fixed-view-content">右上固定</ui-view>
+    </ui-fixed-view>
+    <ui-fixed-view bottom="100" left="50">
+      <ui-view class="fixed-view-content">左下固定</ui-view>
+    </ui-fixed-view>
+    <ui-fixed-view bottom="100" right="50">
+      <ui-view class="fixed-view-content">右下固定</ui-view>
+    </ui-fixed-view>
+    <ui-fixed-view top="{{ fixedTop }}" left="0" right="0">
+      <ui-view class="fixed-view-content">顶部固定</ui-view>
+    </ui-fixed-view>
+    <ui-fixed-view bottom="0" left="0" right="0">
+      <ui-view class="fixed-view-content">底部固定</ui-view>
+    </ui-fixed-view>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+  // fixedView.js
+export default {
+  config: {
+    "navigationBarTitleText": "位置固定容器"
+  },
+  data () {
+    return {
+      items: [],
+      bottom: 30,
+      fixedTop: ui.DEFAULT_HEADER_HEIGHT
+    }
+  },
+  methods: {},
+  mounted () {
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.fixed-view-content {
+  padding: 0 6px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  color: #fff;
+  background-color: #FFA060;
+  z-index: 99;
+}
+</style>

@@ -1,0 +1,373 @@
+<template>
+  <ui-view>
+    <ui-view class="top_content" style="{{{ top: headerTop +'px'}}}">
+    <ui-tabs bindchange="handleChange" active-tab-style="color:red;border-bottom:1px solid red">
+      <ui-tab>精选</ui-tab>
+      <ui-tab>医疗健康</ui-tab>
+      <ui-tab>文化娱乐</ui-tab>
+      <ui-tab>汽车出行</ui-tab>
+      <ui-tab>产业升级</ui-tab>
+      <ui-tab>教育</ui-tab>
+      <ui-tab>企业服务</ui-tab>
+      <ui-tab>消费电商</ui-tab>
+      <ui-tab>人工智能</ui-tab>
+      <ui-tab>前沿技术</ui-tab>
+      <ui-tab>金融</ui-tab>
+    </ui-tabs>
+    </ui-view>
+  <ui-page pull-down="{{ pullDown }}" top="{{headerTop+42}}">
+    <ui-nav-bar class="ui-nav-bar" slot="nav-bar">
+        <ui-row>
+          <ui-col width="80" bindtap="navigateBack" algin="center">
+            <ui-view style="width:80px">
+              <ui-icon type="arrow-left" font-size="24"></ui-icon>
+              <ui-text>返回</ui-text>
+            </ui-view>
+          </ui-col>
+          <ui-col align="center">
+            <ui-text>资讯列表</ui-text>
+          </ui-col>
+          <ui-col width="80"></ui-col>
+        </ui-row>
+      </ui-nav-bar>
+      
+
+        <ui-list-view ui:if="{{config}}" config="{{ config }}"
+      enable-reach-bottom-load>
+        <template scope="props">
+            <ui-list-view-item tap-effect bindtap="details">
+                <ui-view>
+                  <ui-row class="list-view" ui:if="props.item.type=== '0'">
+                    <!-- 左侧文字 -->
+                    <ui-col space-right="15">
+                      <ui-row>
+                        <ui-col>
+                          <ui-text class="titlename">{{props.item.titleName}}</ui-text>
+                        </ui-col>
+                      </ui-row>
+                      <ui-row>
+                        <ui-col width="15" vertical-align="bottom" algin="left">
+                            <ui-view ui:if="props.item.dataType=== 'hot'">
+                              <ui-icon type="huo" size="10" color="#e60012"></ui-icon>
+                            </ui-view>
+                            <ui-view ui:elif="props.item.dataType=== 'music'">
+                              <ui-icon type="erji" size="10" color="#e60012"></ui-icon>
+                            </ui-view>
+                        </ui-col>
+                        <ui-col vertical-align="bottom">
+                          <ui-view>
+                            <ui-text class="color6 small-font">{{props.item.source}} ·</ui-text>
+                            <ui-text class="color6 small-font">{{props.item.datetime}}</ui-text>
+                          </ui-view>
+                        </ui-col>
+                        <ui-col vertical-align="bottom" align="right" width="50">
+                          <ui-view>
+                            <ui-text class="color6 small-font">{{props.item.collect}}收藏</ui-text>
+                          </ui-view>
+                        </ui-col>
+                      </ui-row>
+                    </ui-col>
+                    <!-- 右侧图片 -->
+                    <ui-col class="imgbox-1" vertical-align="middle"> 
+                      <ui-image width="100%" ui:for="{{props.item.imgarr}}"	 ui:for-item="image" src="{{image.imgsrc}}"></ui-image>
+                    </ui-col>
+                  </ui-row>
+                  <!-- 3图，上下结构 -->
+                  <ui-view class="list-view" ui:if="props.item.type=== '1'">
+                    <ui-row space="20">
+                      <ui-col>
+                        <ui-text class="titlename">{{props.item.titleName}}</ui-text>
+                      </ui-col>
+                    </ui-row>
+                    <ui-row space="20">
+                      <ui-col space="10" ui:for="{{props.item.imgarr}}" ui:for-item="image" class="imgbox-2">
+                        <ui-image width="100%" height=""  src="{{image.imgsrc}}"  mode="aspectFill"></ui-image>
+                      </ui-col>
+                    </ui-row>
+                    <ui-row space="20">
+                      <ui-col vertical-align="bottom">
+                        <ui-view>
+                          <ui-text class="color6 small-font">{{props.item.source}} ·</ui-text>
+                          <ui-text class="color6 small-font">{{props.item.datetime}}</ui-text>
+                        </ui-view>
+                      </ui-col>
+                      <ui-col vertical-align="bottom" align="right" space-right="10">
+                        <ui-view>
+                          <ui-text class="color6 small-font">{{props.item.collect}}收藏</ui-text>
+                        </ui-view>
+                      </ui-col>
+                    </ui-row>
+                  </ui-view>
+                  <!-- 上下图结构，大图 -->
+                  <ui-view class="list-view" ui:if="props.item.type=== '2'">
+                      <ui-row space="10">
+                        <ui-col>
+                          <ui-text class="titlename">{{props.item.titleName}}</ui-text>
+                        </ui-col>
+                      </ui-row>
+                      <ui-row space="10">
+                        <ui-col space="10" ui:for="{{props.item.imgarr}}" ui:for-item="image">
+                          <ui-image width="100%" height="150" mode="center" src="{{image.imgsrc}}"></ui-image>
+                        </ui-col>
+                      </ui-row>
+                      <ui-row space="10">
+                        <ui-col vertical-align="bottom">
+                          <ui-view>
+                            <ui-text class="color6 small-font">{{props.item.source}} ·</ui-text>
+                            <ui-text class="color6 small-font">{{props.item.datetime}}</ui-text>
+                          </ui-view>
+                        </ui-col>
+                        <ui-col vertical-align="bottom" align="right" space-right="10">
+                          <ui-view>
+                            <ui-text class="color6 small-font">{{props.item.collect}}收藏</ui-text>
+                          </ui-view>
+                        </ui-col>
+                      </ui-row>
+                  </ui-view>
+                  <!-- 广告 -->
+                  <ui-view class="list-view" ui:if="props.item.type=== '3'">
+                    <ui-row space="10">
+                        <ui-col>
+                          <ui-text class="titlename">{{props.item.titleName}}</ui-text>
+                        </ui-col>
+                      </ui-row>
+                      <ui-row space="10">
+                        <ui-col space="10" ui:for="{{props.item.imgarr}}" ui:for-item="image">
+                          <ui-image width="100%" height="150" mode="center" src="{{image.imgsrc}}"></ui-image>
+                        </ui-col>
+                      </ui-row>
+                      <ui-row space="10">
+                        <ui-col vertical-align="bottom" align="right" space-right="10">
+                          <ui-view>
+                            <ui-text ui:for="{{props.item.articleType}}" ui:for-item="articleType" style="{{{backgroundColor:articleType.backgroundColor,color:articleType.color}}}" class="articletype small-font">{{articleType.content}}</ui-text>
+                          </ui-view>
+                        </ui-col>
+                      </ui-row>
+                  </ui-view>
+                  <!-- 无图 -->
+                  <ui-view class="list-view" ui:if="props.item.type=== '4'">
+                    <ui-row>
+                      <ui-col>
+                        <ui-text class="titlename">{{props.item.titleName}}</ui-text>
+                      </ui-col>
+                    </ui-row>
+                    <ui-row space="10">
+                      <ui-col vertical-align="bottom">
+                        <ui-view>
+                          <ui-text class="color6 small-font">{{props.item.source}} ·</ui-text>
+                          <ui-text class="color6 small-font">{{props.item.datetime}}</ui-text>
+                        </ui-view>
+                      </ui-col>
+                      <ui-col vertical-align="bottom" align="right" space-right="10">
+                        <ui-view>
+                            <ui-text ui:for="{{props.item.articleType}}" ui:for-item="articleType" style="{{{backgroundColor:articleType.backgroundColor,color:articleType.color}}}" class="articletype small-font">{{articleType.content}}</ui-text>
+                        </ui-view>
+                      </ui-col>
+                    </ui-row>
+                  </ui-view>
+                </ui-view>
+              </ui-list-view-item>
+        </template>
+    </ui-list-view>
+      
+  </ui-page>
+  </ui-view>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "资讯列表",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":"black",
+    "scrollType": "div"
+  },
+  data () {
+    return {
+      headerTop: ui.DEFAULT_HEADER_HEIGHT,
+      pullDown: {
+        distance: 84,
+        onBegin: () => {},
+        onActive: this.handleActive,
+        onAfter: this.handleAfter,
+        disableContentMove: ['android', 'ios', 'web']
+      },
+      height:ui.DEFAULT_CONTENT_HEIGHT,
+      config:null,
+      suffix:'',
+      url:'',
+      config1: {
+        url: '',
+        type: 'get',
+        pageSize: {
+          key: 'pageSize',
+          value: 5
+        },
+        pageNo: {
+          key: 'pageNo',
+          value: 1
+        },
+        dataKey: 'data',
+        reload: false,
+        refresh: false
+      },
+      tabIndex:0
+    }
+  },
+  methods:{
+    details(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/information/details'
+      })
+    },
+    navigateBack () {
+      ui.navigateBack()
+    },
+    handleActive () {
+      // 将返回的请求接管，实现让请求结果来控制下拉刷新的状态
+      return ui.request({
+        // promise设置为true，让请求返回promise，这样就可以接管请求
+        // 请求结束后页面自动回弹
+        promise: true,
+        url: '/touchui-backstage/listInfo.do?state=1',
+        success: (response) => {
+        },
+        fail: (err) => {
+        }
+      })
+    },
+     // 下拉结束后，执行的函数。因为只要下拉即时没有到达刷新的高度也会触发这个方法
+     // flag 为1表示执行了handleActive。为undefined代表handleActive没有执行。
+    handleAfter (flag) {
+      if (flag) {
+        this.config.refresh = true
+      }
+    },
+    handleChange(e){
+      setTimeout(()=>{
+        if(e === 0){
+        this.tabIndex = 0
+        this.config1.url=`/touchui-backstage/listNews.do?suffix=-精选文章列表`
+        this.config.clear = true
+        this.config.refresh = true
+      }else if(e === 1){
+        this.tabIndex = 1
+        this.config1.url=`/touchui-backstage/listNews.do?suffix=-医疗健康文章列表`
+        this.config.clear = true
+        this.config.refresh = true
+      }else if(e === 2){
+        this.tabIndex = 2
+        this.config1.url=`/touchui-backstage/listNews.do?suffix=-文化娱乐文章列表`
+        this.config.clear = true
+        this.config.refresh = true
+      }else if(e === 3){
+        this.tabIndex = 3
+        this.config1.url=`/touchui-backstage/listNews.do?suffix=-汽车出行文章列表`
+        this.config.clear = true
+        this.config.refresh = true
+      }else if(e === 4){
+        this.tabIndex = 4
+        this.config1.url=`/touchui-backstage/listNews.do?suffix=-产业升级文章列表`
+        this.config.clear = true
+        this.config.refresh = true
+      }else if(e === 5){
+        this.tabIndex = 5
+        this.config1.url=`/touchui-backstage/listNews.do?suffix=-教育文章列表`
+        this.config.clear = true
+        this.config.refresh = true
+      }else if(e === 6){
+        this.tabIndex = 6
+        this.config1.url=`/touchui-backstage/listNews.do?suffix=-企业服务文章列表`
+        this.config.clear = true
+        this.config.refresh = true
+      }else if(e === 7){
+        this.tabIndex = 7
+        this.config1.url=`/touchui-backstage/listNews.do?suffix=-消费电商文章列表`
+        this.config.clear = true
+        this.config.refresh = true
+      }else if(e === 8){
+        this.tabIndex = 8
+        this.config1.url=`/touchui-backstage/listNews.do?suffix=-人工智能文章列表`
+        this.config.clear = true
+        this.config.refresh = true
+      }else if(e === 9){
+        this.tabIndex = 9
+        this.config1.url=`/touchui-backstage/listNews.do?suffix=-前沿科技文章列表`
+        this.config.refresh = true
+      }else if(e === 10){
+        this.tabIndex = 10
+        this.config1.url=`/touchui-backstage/listNews.do?suffix=-金融文章列表`
+        this.config.clear = true
+        this.config.refresh = true
+      }
+      },250)
+
+      
+    }
+  },
+  mounted() {
+    this.config1.url=`/touchui-backstage/listNews.do?suffix=-精选文章列表`
+    this.config = this.config1
+  }
+}
+
+</script>
+
+<style lang="less">
+  .top_content{
+    position: absolute;
+    width: 100%;
+    background-color: #fff;
+    z-index: 999;
+  }
+  .ui-nav-bar{
+    background-color:#fff;
+  }
+  .list-view{
+  padding:10px;
+  .titlename{
+    color:#333;
+    font-size:16px;
+  }
+  .color6{
+    color:#666;
+  }
+  .color3{
+    color:#333;
+  }
+  .articletype{
+    padding:2px 3px;
+    border-radius: 2px;
+  }
+  .imgbox-1{
+    flex:0 0 260rpx;
+    .ui-image{
+      border-radius: 5px;
+    }
+  }
+
+  .imgbox-2{
+    .ui-image{
+      border-radius: 5px;
+    }
+  }
+
+  .imgbox-3{
+    .ui-image{
+      border-radius: 5px;
+    }
+  }
+
+  .small-font{
+    font-size:12px;
+  }
+
+}
+
+
+@media screen and (max-width: 320px) {
+  .small-font{
+    font-size:10px;
+  }
+}
+</style>

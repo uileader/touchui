@@ -1,0 +1,85 @@
+<!--modalList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row >
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <!-- {{ item.title }} -->
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// modalList.js
+export default {
+  config: {
+    "navigationBarTitleText": "容器"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '背景遮罩 mask',
+          items: [
+            { title: '基本使用', link: '/pages/componentDemo/mask/mask' },
+            { title: '图标导航', link: '/pages/componentDemo/mask/iconNav' },
+            { title: '弹出式提示', link: '/pages/componentDemo/mask/maskTip' },
+            { title: '操作引导一', link: '/pages/componentDemo/mask/maskGuide' },
+            { title: '操作引导二', link: '/pages/componentDemo/mask/maskGuide2' }
+
+          ]
+        },
+        {
+          title: '模态层 popup',
+          items: [
+            { title: '基本使用', link: '/pages/componentDemo/popup' }
+          ]
+        },
+        {
+          title: '弹出式气泡 popover',
+          items: [
+            { title: '自定义方向', link: '/pages/componentDemo/popover' },
+            { title: '自定义动画', link: '/pages/componentDemo/popover2' },
+            { title: '自定义样式', link: '/pages/componentDemo/popover3' },
+            { title: '单例模式', link: '/pages/componentDemo/popover4' }
+          ]
+        },
+        {
+          title: '弹出式图标导航 popicon',
+          items: [
+            { title: '横向排列', link: '/pages/componentDemo/popicon' },
+            { title: '环形排列', link: '/pages/componentDemo/popicon2' },
+            { title: '纵向排列', link: '/pages/componentDemo/popicon3' },
+            { title: '扇形排列', link: '/pages/componentDemo/popicon4' },
+            { title: '自定义图标动画', link: '/pages/componentDemo/popicon5' }
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+
+  }
+}
+
+</script>
+
+<style lang="less">
+
+</style>

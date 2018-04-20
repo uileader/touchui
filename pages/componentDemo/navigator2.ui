@@ -1,0 +1,38 @@
+<!--navigator2.ui-->
+<template>
+  <ui-page>
+      <ui-view class="sample_title">返回上级页面</ui-view>
+      <ui-view class="sample_content">
+        <ui-navigator open-type="navigateBack" delta="3">
+          <ui-button type="primary" plain="{{true}}">
+            返回上级页面
+          </ui-button>
+        </ui-navigator>
+      </ui-view>
+
+      
+  </ui-page>
+</template>
+
+<script>
+// navigator2.js
+export default {
+  config: {
+    "navigationBarTitleText": "新页面"
+  },
+  data () {
+    return {}
+  },
+  methods: {
+  },
+  mounted () {
+    let getData = ui.getQuery()
+    ui.showToast({ title: getData })
+  }
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

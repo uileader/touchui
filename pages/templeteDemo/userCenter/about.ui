@@ -1,0 +1,104 @@
+<!--about.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10"  width="50" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">关于TOUCH UI</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50"></ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-view class="about_content">
+      <ui-view>
+        <ui-image
+        src="{{ require('#/images/about_logo.png') }}"
+        mode='aspectFill'
+        width="60"
+        height="60"
+        class="logo"
+        ></ui-image>
+        <ui-view class="text">TouchUI Pro</ui-view>
+        <ui-view class="edition">v1.0.0</ui-view>
+      </ui-view>
+      
+    </ui-view>
+    <ui-fixed-view bottom="30">
+      <ui-view class="name">北京引领视觉科技有限公司</ui-view>
+      <ui-view class="copy">&copy; 2017 引领视觉 京ICP备17027201号</ui-view>
+    </ui-fixed-view>
+  </ui-page>
+</template>
+
+
+<script>
+// about.js
+export default {
+  config: {
+    navigationStyle: 'custom',
+    delay:false
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // about.less
+.nav_bar {
+  background: linear-gradient(to right, #1F97FE, #126DFE);
+  .nav_title{
+    color: #fff;
+  }
+}
+.about_content{
+  height: 300px;
+  .mix-flex-center();
+  // flex-grow: 1;
+  // display: -webkit-flex;
+  // display: flex;
+  // -webkit-align-items: center;
+  // align-items: center;
+  // -webkit-justify-content: center;
+  // justify-content: center;
+  text-align: center;
+  // flex-grow: 1;
+  .logo{
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+  .text{
+    color: #1F97FE;
+    font-size: 16px;
+    line-height: 40px;
+  }
+  .edition{
+    display: inline-block;
+    border-radius: 25px;
+    // .mix-1px(1, 1, 1, 1, #ccc);
+    padding: 0px 10px;
+    color:#ccc;
+    font-size: 12px;
+    border: 1px solid #ccc;
+  }
+}
+.ui-fixed-view{
+  width: 100%;
+  .name,
+  .copy{
+    font-size: 12px;
+    color: #ccc;
+    text-align: center
+  }
+}
+</style>

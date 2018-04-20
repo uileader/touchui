@@ -1,0 +1,99 @@
+<!--dataList.ui-->
+<template>
+    <ui-page>
+      <ui-view  class="sample_list">
+        <ui-view class="group-title">
+          <ui-row >
+            <ui-col width="5" align="center" vertical-align="middle">
+              <ui-view class="sign"></ui-view>
+            </ui-col>
+            <ui-col align="left" vertical-align="middle" space-left="10">
+              <ui-view >接入</ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+        <ui-row-list bordered>
+            <ui-row url="/pages/apiDemo/share" hover-class="touchui-hover">
+              <ui-col space-left="10">分享</ui-col>
+              <ui-col align="right" width="30">
+                  <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+              </ui-col>
+            </ui-row>
+            <ui-row url="/pages/apiDemo/pushinfo" hover-class="touchui-hover">
+              <ui-col space-left="10">推送</ui-col>
+              <ui-col align="right" width="30">
+                  <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+              </ui-col>
+            </ui-row>
+            <!-- <ui-row bindtap="meiQia1" hover-class="touchui-hover">
+              <ui-col space-left="10">客服：H5版</ui-col>
+              <ui-col align="right" width="30">
+                  <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+              </ui-col>
+            </ui-row> -->
+            <ui-row bindtap="meiQia2" hover-class="touchui-hover">
+              <ui-col space-left="10">客服</ui-col>
+              <ui-col align="right" width="30">
+                  <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+              </ui-col>
+            </ui-row>
+        </ui-row-list>
+      </ui-view>
+    </ui-page>
+  </template>
+  
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "接入"
+  },
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    // meiQia1 () {
+    //   var metadata = {}
+    //   metadata = {
+    //     'name': '未登录用户',
+    //     '来源': '联系我们页面',
+    //     '邀请码': '无',
+    //     'tel': '无',
+    //     '机型': '',
+    //     '客户端版本': ''
+    //   }
+    //   let url = 'https://static.meiqia.com/dist/standalone.html?eid=87603&metadata=' + encodeURIComponent(JSON.stringify(metadata))
+    //   if (ui.IS_APP) {
+    //     var browserManager = ui.openBrowser({
+    //       url: url
+    //     })
+    //   } else {
+    //     window.location.href = url
+    //   }
+    // },
+    meiQia2 () {
+      ui.startMeiqia({
+        info: {
+          name: '张三',
+          tel: '123456',
+          weixin: '5201314',
+          '爱好': '吃苹果'
+        },
+        message: '你好',
+        success: function (data) {
+        },
+        fail: function (data) {
+        }
+      })
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+
+</style>

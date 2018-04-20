@@ -1,0 +1,103 @@
+<template>
+  <ui-page>
+      <ui-view class="content">
+        <ui-row height="40" space="10">
+          <ui-col span="3" vertical-align="middle">
+            图片来源：
+          </ui-col>
+          <ui-col span="9" vertical-align="middle">
+              <ui-view>{{sourceType[sourceTypeIndex]}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space="10">
+          <ui-col span="3" vertical-align="middle">
+            图片质量：
+          </ui-col>
+          <ui-col span="9" vertical-align="middle">
+              <ui-view>{{sizeType[sizeTypeIndex]}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space="10">
+          <ui-col span="3" vertical-align="middle">
+            数量限制：
+          </ui-col>
+          <ui-col span="9" vertical-align="middle">
+              <ui-view>{{count[countIndex]}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-view class="imageList_win">
+          <ui-view class="image" ui:for="{{imageList}}" ui:for-item="image">
+            <ui-image src="{{image}}" width="90" height="90" mode="aspectFill"></ui-image>
+          </ui-view>
+        </ui-view>
+        <ui-button type="primary" bindtap="chooseImage">选择图片</ui-button>
+      </ui-view>
+  </ui-page>
+</template>
+
+<script>
+
+var sourceType = [['camera'], ['album'], ['camera', 'album']]
+var sizeType = [['compressed'], ['original'], ['compressed', 'original']]
+export default {
+  config: {
+    "navigationBarTitleText": "照片拍摄或选择"
+  },
+  data () {
+    return {
+      imageList: [
+
+      ],
+      sourceTypeIndex: 2,
+      sourceType: ['拍照', '相册', '拍照或相册'],
+      sizeTypeIndex: 1,
+      sizeType: ['压缩', '原图', '压缩或原图'],
+      countIndex: 8,
+      count: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    }
+  },
+  methods: {
+    chooseImage () {
+      var that = this
+      ui.chooseImage({
+        sourceType: sourceType[this.sourceTypeIndex],
+        sizeType: sizeType[this.sizeTypeIndex],
+        count: this.count[this.countIndex],
+        success: function (res) {
+          that.imageList = res.tempFilePaths
+          // that.previewImage()
+        },
+        fail: function (res) {
+        }
+      })
+    },
+    previewImage () {
+      var that = this
+      ui.previewImage({
+        urls: that.imageList, // 需要预览的图片http链接列表
+        success: function () {
+        },
+        fail () {
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .content{
+  padding: 10px;
+}
+.imageList_win{
+  display: flex;
+  flex-wrap: wrap;
+  // .mix-flex-x-center();
+  width: 300px;
+  margin: 0 auto;
+  .image{
+    margin: 5px;
+  }
+}
+</style>

@@ -1,0 +1,119 @@
+<template>
+  <ui-page>
+    <ui-view class="sample_title">多选，label在左侧</ui-view>
+    <ui-divider>样式为对号</ui-divider>
+    <ui-check-list label-position="left" options="{{ countryList }}" type="plain" ui:model="{{ checklist1 }}"></ui-check-list>
+    <ui-divider>样式为圆形</ui-divider>
+    <ui-check-list label-position="left" options="{{ countryList }}" type="circle" ui:model="{{ checklist2 }}"></ui-check-list>
+
+    <ui-view class="sample_title">多选，label在右侧</ui-view>
+    <ui-divider>样式为方形</ui-divider>
+    <ui-check-list label-position="right" options="{{ countryList }}" ui:model="{{ checklist3 }}" ></ui-check-list>
+    <ui-divider>样式为圆形</ui-divider>
+    <ui-check-list label-position="right" options="{{ countryList }}" type="circle" ui:model="{{ checklist4 }}"></ui-check-list>
+
+    <ui-view class="sample_title">单选</ui-view>
+    <ui-divider>label在左侧</ui-divider>
+    <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" ui:model="{{ checklist5 }}" ></ui-check-list>
+    <ui-divider>label在右侧</ui-divider>
+    <ui-check-list max="1" label-position="right" options="{{ countryList }}" type="circle" ui:model="{{ checklist6 }}" ></ui-check-list>
+
+    <ui-view class="sample_title">设置最大值checklist</ui-view>
+    <ui-check-list max="2" options="{{ countryList }}" ui:model="{{ checklist7 }}" ></ui-check-list>
+
+    <ui-view class="sample_title">自定义颜色</ui-view>
+    <ui-check-list options="{{ countryList }}" color="#e60012"></ui-check-list>
+
+    <ui-view class="sample_title">使用change事件</ui-view>
+    <ui-check-list options="{{ countryList }}" bindchange="change"></ui-check-list>
+
+    <ui-view class="sample_title">默认选中和禁用(中国被选中)</ui-view>
+    <ui-check-list options="{{ countryList }}" disabled ui:model="{{ checklist8 }}" ></ui-check-list>
+
+    <ui-view class="sample_title">使用对象数组数据源</ui-view>
+    <ui-check-list options="{{ objectList }}" ui:model="{{ objectListValue }}" ></ui-check-list>
+
+    <ui-view class="sample_title">使用副标题</ui-view>
+    <ui-divider>多选</ui-divider>
+    <ui-check-list options="{{ inlineDescList }}" ui:model="{{ inlineDescListValue }}"></ui-check-list>
+    <ui-divider>单选</ui-divider>
+    <ui-check-list max="1" options="{{ inlineDescList }}" ui:model="{{ inlineDescListValue2 }}" type="circle"></ui-check-list>
+
+    <ui-view class="sample_title">自定义样式</ui-view>
+    <ui-check-list class="demo" options="{{ countryList }}" label-position="left"></ui-check-list>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "选择列表"
+  },
+  data () {
+    return {
+      labelPosition: '',
+      countryList: ['中国', '香港', '澳大利亚'],
+      checklist1: ['中国'],
+      checklist2: [],
+      checklist3: [],
+      checklist4: [],
+      checklist5: [],
+      checklist6: [],
+      checklist7: [],
+      checklist8: ['中国'],
+      checklist9: [],
+      objectList: [{
+        key: 'SZ',
+        value: '深圳'
+      }, {
+        key: 'GZ',
+        value: '广州'
+      }, {
+        key: 'ZH',
+        value: '珠海'
+      }, {
+        key: 'ST',
+        value: '汕头'
+      }],
+      objectListValue: ['SZ'],
+      inlineDescList: [
+        {key: '1', value: '广东', subTitle: '深圳，广州，东莞'},
+        {key: '2', value: '浙江', subTitle: '杭州，宁波，嘉兴'},
+        {key: '3', value: '江苏', subTitle: '南京，苏州，无锡'}
+      ],
+      inlineDescListValue: ['1'],
+      inlineDescListValue2: ['1']
+    }
+  },
+  methods: {
+    change (val) {
+      ui.showToast({ title: val.join(',') })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .demo{
+  .is-checked .ui-checkbox-inner{
+    background-image: url('~images/duigou.svg');
+    background-size:70%;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border:none
+  }
+
+ .is-checked .weui-cell__bd{
+   color:#ff5723 
+ }
+  .ui-checkbox__check{
+    border:none;
+  }
+
+  .ui-checkbox-inner{
+    border:none
+  }
+}
+</style>

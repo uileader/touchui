@@ -1,0 +1,67 @@
+<!--interFace.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row >
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// interFace.js
+export default {
+  config: {
+    "navigationBarTitleText": "界面"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '交互反馈',
+          items: [
+            { title: '提示-Toast', link: '/pages/apiDemo/showToast' },
+            { title: '警告框-Alert', link: '/pages/apiDemo/showAlert' },
+            { title: '确认框-Confirm', link: '/pages/apiDemo/showConfirm' },
+            { title: '输入框-Prompt', link: '/pages/apiDemo/showPrompt' },
+            { title: '动作面板-ActionSheet', link: '/pages/apiDemo/showActionSheet' },
+            { title: '窗体-Dialog', link: '/pages/apiDemo/showDialog' },
+            { title: '加载框-Loading', link: '/pages/apiDemo/showLoading' }
+          ]
+        },
+        {
+          title: '头部控制',
+          items: [
+            { title: '导航栏控制 navBar', link: '/pages/apiDemo/changeNavbar' }
+          ]
+        }
+
+      ]
+    }
+  },
+  mounted () {
+
+  }
+}
+</script>
+
+<style lang="less">
+  
+</style>
+  

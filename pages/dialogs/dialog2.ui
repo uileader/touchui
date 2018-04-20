@@ -1,0 +1,90 @@
+<template>
+  <ui-page>
+    <ui-nav-bar class="search_box" slot="nav-bar">
+      <ui-row border-bottom>
+        <ui-col width="45" vertical-align="middle" align="left" space-left="10" bindtap="hideWindow">
+          <ui-icon type="close" size="16" color="#828282"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="search_content">
+            <ui-row height="30">
+              <ui-col vertical-align="middle" align="center" width="30">
+                <ui-icon type="search" color="#B5B5B5" size="18"></ui-icon>
+              </ui-col>
+              <ui-col vertical-align="middle">
+                <ui-input type="search" placeholder="搜索"></ui-input>
+              </ui-col>
+            </ui-row>
+          </ui-view>
+        </ui-col>
+        <ui-col width="45" vertical-align="middle" align="center"></ui-col>
+      </ui-row>
+    </ui-nav-bar>
+      <ui-check-list title="基本使用" max="1" options="{{ countryList }}" type="plain" label-position="left" ui:model="{{ checklist }}" bindchange="changeCountry"></ui-check-list>
+      <ui-view class="btn_win">
+          <ui-button type="success" bindtap="confirmSelect">确定选择</ui-button>
+      </ui-view>
+  </ui-page>
+</template>
+<script>
+export default {
+  config: {
+    "scrollType":"div"
+  },
+  data() {
+    return {
+      country: '',
+      countryList:['中国', '日本', '美国', '英国'],
+      checklist: []
+    }
+  },
+
+  mounted() {
+    this.$DialogOpen((data) => {
+      if (data && data.country) {
+        this.country = data.country
+      }
+    })
+  },
+
+  methods: {
+    changeCountry(val) {
+      this.country = val.join("-")
+    },
+
+    hideWindow (e) {
+      ui.hideDialog()
+    },
+
+    confirmSelect() {
+      ui.hideDialog({ country: this.country })
+    }
+  }
+}
+</script>
+<style lang="less">
+.btn_win{
+    padding: 0 10px;
+  }
+.search_box{
+  width: 100%;
+  background-color: #fff;
+  .search_content{
+    background-color: #F4F4F4;
+    height: 30px;
+    border-radius: 25px;
+    overflow: hidden;
+    width: 100%;
+    .ui-input {
+        border: 0;
+        padding: 0;
+        background-color: transparent
+    }
+    .ui-input-inner{
+        height: 30px;
+    }
+  }
+}
+
+
+</style>

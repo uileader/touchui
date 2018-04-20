@@ -1,0 +1,120 @@
+<template>
+  <ui-page>
+    <!-- 第一行 -->
+    <ui-row height="100">
+      <!-- 1行第一个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div class='rect_wrap'><div class='rect rect1'></div><div class='rect rect2'></div><div class='rect rect3'></div><div class='rect rect4'></div><div class='rect rect5'></div></div>
+      </ui-col>
+       <!-- 1行第二个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div class='ui-loading-pulse-box'><div class='ui-loading-pulse ui-loading-pulse-1'></div><div class='ui-loading-pulse ui-loading-pulse-2'></div><div class='ui-loading-pulse ui-loading-pulse-3'></div><div class='ui-loading-pulse ui-loading-pulse-4'></div></div>
+      </ui-col>
+      <!-- 1行第三个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div class='ui-loading-circle-box'><div class='ui-loading-circle ui-loading-circle-1'></div><div class='ui-loading-circle ui-loading-circle-2'></div><div class='ui-loading-circle ui-loading-circle-3'></div>
+        </div>
+      </ui-col>
+    </ui-row>
+
+    <!-- 第二行 -->
+    <ui-row height="100">
+       <!-- 2行第一个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div class='ui-loading-knock-box'><div class='ui-loading-knock ui-loading-knock-first'></div><div class='ui-loading-knock'></div><div class='ui-loading-knock'></div><div class='ui-loading-knock'></div><div class='ui-loading-knock ui-loading-knock-last'></div></div>
+      </ui-col>
+      <!-- 2行第二个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div><div class='ui-loading-spin'></div></div>
+      </ui-col>
+      <!-- 2行第三个 -->
+       <ui-col vertical-align="middle" align="center">
+        <div class='spinner_container_wrap'><div class='spinner-container container1'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div><div class='spinner-container container2'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div><div class='spinner-container container3'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div></div>
+      </ui-col>
+    </ui-row>
+
+    <!-- 第三行 -->
+    <ui-row height="100">
+      <!-- 3行第一个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div class='ui-loading-alipay'><div class='img-loading-circle'></div></div>
+      </ui-col>
+      <!-- 3行第二个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div class='ui-loading-img'><div class='img-loading-circle'></div></div>
+      </ui-col>
+      <!-- 3行第三个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div><div class='ui-loading-car'></div></div>
+      </ui-col>
+    </ui-row>
+
+    <!-- 第四行 -->
+    <ui-row height="100">
+      <!-- 4行第一个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div class='double_bounce_wrap'><div class='double-bounce1'></div><div class='double-bounce2'></div></div>
+      </ui-col>
+      <!-- 4行第二个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div><div class='ui-loading-fade'></div></div>
+      </ui-col>
+      <!-- 4行第三个 -->
+       <ui-col vertical-align="middle" align="center">
+        <div><div class='gauge-loader'>Loading&#8230;</div></div>
+      </ui-col>
+    </ui-row>
+
+    <!-- 第五行 -->
+    <ui-row height="100">
+       <!-- 5行第一个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div><div class='timer-loader'>Loading&#8230;</div></div>
+      </ui-col>
+      <!-- 5行第二个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div class='spinner2_wrap'><div class='spinner2'></div><div class='hourHand'></div><div class='dot'></div></div>
+      </ui-col>
+      <!-- 5行第三个 -->
+       <ui-col vertical-align="middle" align="center">
+        <div class='spinner1 spinnerMax'><div class='spinner1 spinnerMid'><div class='spinner1 spinnerMin'></div></div></div>
+      </ui-col>
+    </ui-row>
+
+    <!-- 第六行 -->
+    <ui-row height="100">
+      <!-- 6行第一个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div class='figure_wrap'><div class='figure'><div class='dot white'></div><div class='dot'></div><div class='dot'></div><div class='dot'></div><div class='dot'></div></div></div>
+      </ui-col>
+      <!-- 6行第二个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div><div class='dots-loader'>Loading&#8230;</div></div>
+      </ui-col>
+      <!-- 6行第三个 -->
+      <ui-col vertical-align="middle" align="center">
+        <div class='spinner2_warp'><div class='spinner2 spinnerMax2'><div class='spinner2 spinnerMid2'><div class='spinner2 spinnerMin2'></div></div></div><div class='timer-loader2'>Loading&#8230;</div></div>
+      </ui-col>
+    </ui-row>
+
+  </ui-page>
+</template>
+
+
+<script>
+// loadingStyle.js
+export default {
+  config: {
+    "navigationBarTitleText": "loading样式库"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  @import '~static/css/loading.less';
+</style>

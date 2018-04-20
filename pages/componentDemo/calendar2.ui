@@ -1,0 +1,387 @@
+<template>
+    <ui-page>
+          <!-- 双选，默认不选 -->
+          <ui-view class="sample_title">双选，默认不选</ui-view>
+          <ui-view class="win">
+          <ui-row>
+            <ui-col width="30" vertical-align="middle">
+              <ui-icon type="store"></ui-icon>
+            </ui-col>
+            <ui-col bindtap="rangeCalendaropen">
+              <ui-row height="15">
+                <ui-col align="left" class="smalltitle">入住</ui-col>
+              </ui-row>
+              <ui-row height="27" border-bottom="true" style="padding-bottom:10px">
+                <ui-col align="left">{{rangestart}}</ui-col>
+                <ui-col width="35" align="center">
+                  <ui-text class="smalltitle2" ui:if="{{differShow}}">{{differ}}晚</ui-text>
+                </ui-col>
+              </ui-row>
+            </ui-col>
+            <ui-col bindtap="rangeCalendaropen" vertical-align="middle">
+                <ui-row height="15" >
+                    <ui-col space-right="25" align="right" class="smalltitle">离店</ui-col>
+                  </ui-row>
+                  <ui-row height="27" border-bottom="true" style="padding-bottom:10px">
+                    <ui-col space-right="25" align="right">{{rangeend}}</ui-col>
+                  </ui-row>
+            </ui-col>
+            <ui-view style="position:absolute;right:0">
+                <ui-icon type="arrow-right" size="12"></ui-icon>
+            </ui-view>
+          </ui-row>
+          </ui-view>
+          <!-- 双选，默认不选 popup -->
+          <ui-popup ui:model="{{ rangeCalendar }}">
+              <ui-view  class="popup1">
+                <ui-row space-top="{{statusBarHeight}}" height="{{headerHeight}}" > 
+                  <ui-col align="center" vertical-align="middle" width="70"></ui-col>
+                  <ui-col align="center" vertical-align="middle">
+                    <ui-text>请选择入住离店日期</ui-text>
+                  </ui-col>
+                  <ui-col align="right" space-right="10" width="70" vertical-align="middle" bindtap="handleSelect('rangeCalendar')">
+                    <ui-text>完成</ui-text>
+                  </ui-col>
+                </ui-row>
+              <ui-v-calendar
+                ui:if="{{ rangeCalendar }}"
+                height="{{height - headerHeight}}"
+                select-range-mode="{{true}}"
+                max-range="{{30}}"
+                bindselectedend="selectedEndHandler"
+                bindfailed="failedHandler"
+                value = "{{rangeDate}}"
+              ></ui-v-calendar>
+              </ui-view>
+          </ui-popup>
+          <!-- 双选，默认不选结束 -->
+          <!-- 双选，默认选中 -->
+          <ui-view class="sample_title">双选，默认选中</ui-view>
+          <ui-view class="win">
+              <ui-row>
+                  <ui-col width="30" vertical-align="middle">
+                    <ui-icon type="store"></ui-icon>
+                  </ui-col>
+                  <ui-col bindtap="rangeCalendarDefaultOpen">
+                    <ui-row height="15">
+                      <ui-col align="left" class="smalltitle">入住</ui-col>
+                    </ui-row>
+                    <ui-row height="27" border-bottom="true" style="padding-bottom:10px">
+                      <ui-col align="left">{{rangestart2}}</ui-col>
+                      <ui-col width="35" align="center">
+                        <ui-text class="smalltitle2">{{differ2}}晚</ui-text>
+                      </ui-col>
+                    </ui-row>
+                  </ui-col>
+                  <ui-col bindtap="rangeCalendarDefaultOpen" vertical-align="middle">
+                      <ui-row height="15" >
+                          <ui-col space-right="25" align="right" class="smalltitle">离店</ui-col>
+                        </ui-row>
+                        <ui-row height="27" border-bottom="true" style="padding-bottom:10px">
+                          <ui-col space-right="25" align="right">{{rangeend2}}</ui-col>
+                        </ui-row>
+                  </ui-col>
+                  <ui-view style="position:absolute;right:0">
+                      <ui-icon type="arrow-right" size="12"></ui-icon>
+                  </ui-view>
+                </ui-row>
+          </ui-view>
+          <!-- 双选，默认选中 popup -->
+          <ui-popup ui:model="{{ rangeCalendarDefault }}">
+            <ui-view  class="popup2">
+              <ui-row space-top="{{statusBarHeight}}" height="{{headerHeight}}" > 
+                <ui-col align="center" vertical-align="middle" width="70">
+                </ui-col>
+                <ui-col align="center" vertical-align="middle">
+                  <ui-text>请选择入住离店日期</ui-text>
+                </ui-col>
+                <ui-col align="right" space-right="10" vertical-align="middle" width="70" bindtap="handleSelect('rangeCalendarDefault')">
+                  <ui-text>完成</ui-text>
+                </ui-col>
+              </ui-row>
+              <ui-v-calendar
+              ui:if="{{ rangeCalendarDefault }}"
+              height="{{height - headerHeight}}"
+              select-range-mode="{{true}}"
+              max-range="{{30}}"
+              value="{{defaultMonthrange}}"
+              bindselectedend="selectedEndHandler2"
+              bindfailed="failedHandler2"
+            ></ui-v-calendar>
+            </ui-view>
+          </ui-popup>
+          <!-- 双选，默认选中结束 -->
+          <ui-view class="sample_title">单选</ui-view>
+          <ui-view class="win">
+          <ui-row height="46" space-top="15" bindtap="radioCalendaropen">
+              <ui-col width="30" vertical-align="middle">
+                <ui-icon type="store"></ui-icon>
+              </ui-col>
+              <ui-col>
+                <ui-row height="15">
+                  <ui-col align="left" class="smalltitle">时租房（仅限一天）</ui-col>
+                </ui-row>
+                <ui-row border-bottom="true" style="padding-bottom:10px">
+                  <ui-col align="left">{{radioMonth}}月{{radioDay}}日</ui-col>
+                  <ui-col width="25">
+                  </ui-col>
+                </ui-row>
+              </ui-col>
+              <ui-col width="30" vertical-align="middle" align="right" style="border-bottom:1px solid #ddd;">
+                  <ui-icon type="arrow-right" size="12"></ui-icon>
+              </ui-col>
+            </ui-row>
+          </ui-view>
+  
+          <!-- 单选，半屏 popup -->
+          <ui-popup ui:model="{{ radioCalendar }}">
+            <ui-view class="popup1">
+              <ui-row height="{{headerHeight}}">
+                <ui-col align="left" vertical-align="middle" width="70" space-left="10" bindtap="handleSelect('radioCalendar')">
+                    <ui-icon type="close" color="#e60012"></ui-icon>
+                </ui-col>
+                <ui-col align="center" vertical-align="middle">
+                  <ui-text>选择日期</ui-text>
+                </ui-col>
+                <ui-col align="center" vertical-align="middle" width="70">
+                </ui-col>
+                
+              </ui-row>
+              <ui-v-calendar
+              ui:if="{{ radioCalendar }}"
+              select-range-mode="{{false}}"
+              header-height="30"
+              height="319"
+              show-today
+              bindchange="selectedChange"
+              value="{{radioDate}}"
+            ></ui-v-calendar>
+            </ui-view>
+          </ui-popup>
+            <!-- 单选结束 -->
+          <ui-view class="win">
+              <ui-row space-top="15">
+                <ui-button class="btnyd">立即预订</ui-button>
+              </ui-row>
+          </ui-view>
+        
+    </ui-page>
+  </template>
+  
+  
+  <script>
+  export default {
+    config: {
+      "navigationBarTitleText": "纵向日历"
+    },
+    data () {
+      return {
+        statusBarHeight: ui.STATUS_BAR_HEIGHT,
+        headerHeight: ui.DEFAULT_HEADER_HEIGHT,
+        // 单选日历，popup显隐控制
+        radioCalendar: false,
+        // 单选日历value
+        radioDate: '',
+        // 单选月
+        radioMonth: '',
+        // 单选天
+        radioDay: '',
+        // 存储临时变化的时间
+        dateobj: {},
+        // 双选，默认选中的时间
+        defaultMonthrange: [],
+        // 双选默认不选中日历，popup显隐控制
+        rangeCalendar: false,
+        // 双选默认选中日历，popup显隐控制
+        rangeCalendarDefault: false,
+        // 双选默认不选中 时间差
+        differ: '',
+        // 时间差显隐控制
+        differShow: false,
+        // 双选默认选中 时间差
+        differ2: '2',
+        // 双选默认不选中日历 value
+        rangeDate: '',
+        // 双选默认选中日历 value
+        rangeDate2: '',
+        // 双选默认不选中日历 开始日期
+        rangestart: '',
+        // 双选默认不选中日历 结束日期
+        rangeend: '',
+        // 双选默认选中日历 开始日期
+        rangestart2: '',
+        // 双选默认选中日历 结束日期
+        rangeend2: '',
+        height: ui.WIN_HEIGHT
+      }
+    },
+    methods: {
+      // 单选日历。获取月和天
+      radioinit (thisdate) {
+        this.dateobj.radioDate = thisdate
+        this.dateobj.radioDate = thisdate.split('/')
+        this.radioMonth = this.dateobj.radioDate[1]
+        this.radioDay = this.dateobj.radioDate[2]
+      },
+      // 双选默认不选中日历。格式化日期格式，将开始和结束的日期格式化为‘年-月’
+      rangeinit (thisdate) {
+        let start, end
+        this.dateobj.rangestart = thisdate.rangedate[0]
+        this.dateobj.rangeend = thisdate.rangedate[1]
+        start = this.dateobj.rangestart.split('/')
+        end = this.dateobj.rangeend.split('/')
+        this.rangestart = `${start[1]}月${start[2]}日`
+        this.rangeend = `${end[1]}月${end[2]}日`
+      },
+      // 双选默认选中日历。格式化日期格式，将开始和结束的日期格式化为‘年-月’
+      rangeinit2 (thisdate) {
+        let start, end
+        this.dateobj.rangestart2 = thisdate.rangedate2[0]
+        this.dateobj.rangeend2 = thisdate.rangedate2[1]
+        start = this.dateobj.rangestart2.split('/')
+        end = this.dateobj.rangeend2.split('/')
+        this.rangestart2 = `${start[1]}-${start[2]}`
+        this.rangeend2 = `${end[1]}-${end[2]}`
+      },
+      // 单选change事件，选择日期后触发。改变绑定的val值，关闭相应popup
+      selectedChange (e) {
+        this.radioDate = e
+        this.radioinit(e)
+        setTimeout(() => {
+          this.radioCalendar = false
+        }, 200)
+      },
+      // 双选默认不选日历。结束事件。改变绑定的val值，关闭相应popup
+      selectedEndHandler (e) {
+        this.rangeDate = e
+        this.dateobj.rangedate = e
+        setTimeout(() => {
+          this.rangeCalendar = false
+        }, 200)
+        this.calculationDays()
+        this.rangeinit(this.dateobj)
+      },
+    // 双选默认不选。选择范围错误
+      failedHandler (err) {
+        if (err === 1) {
+          ui.showToast({ title: '您选择的时间超过30天,请重新选择' })
+        }
+      },
+      // 双选默认选中日历。结束事件。改变绑定的val值，关闭相应popup
+      selectedEndHandler2 (e) {
+        this.rangeDate2 = e
+        this.defaultMonthrange = e
+        this.dateobj.rangedate2 = e
+        setTimeout(() => {
+          this.rangeCalendarDefault = false
+        }, 200)
+        this.calculationDays2()
+        this.rangeinit2(this.dateobj)
+      },
+      // 双选默认选中。选择范围错误
+      failedHandler2 (err) {
+        if (err === 1) {
+          ui.showToast({ title: '您选择的时间超过30天,请重新选择' })
+        }
+      },
+      // 将日期格式化成 "年/月/日" 格式
+      format (obj) {
+        var date = new Date(obj)
+        var y = 1900 + date.getYear()
+        var m = '0' + (date.getMonth() + 1)
+        var d = '0' + date.getDate()
+        return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+      },
+      // 单选日历 打开事件
+      radioCalendaropen () {
+        this.radioCalendar = true
+      },
+      // 双选默认不选中 日历打开事件
+      rangeCalendaropen (state) {
+        this.rangeCalendar = true
+      },
+      
+      //双选默认选中 日历打开事件
+      rangeCalendarDefaultOpen () {
+        this.rangeCalendarDefault = true
+      },
+      // 关闭popup
+      handleSelect (key) {
+        this[key] = false
+      },
+      // 双选默认不选中，根据选择日期，计算几晚
+      calculationDays () {
+        let start, end
+        start = Date.parse(this.dateobj.rangedate[0])
+        end = Date.parse(this.dateobj.rangedate[1])
+        this.differ = Math.floor((end - start) / (24 * 3600 * 1000))
+        this.differShow = true
+      },
+      //双选默认选中。根据选择日期，计算几晚
+      calculationDays2 () {
+        let start, end
+        start = Date.parse(this.dateobj.rangedate2[0])
+        end = Date.parse(this.dateobj.rangedate2[1])
+        this.differ2 = Math.floor((end - start) / (24 * 3600 * 1000))
+      }
+    },
+    mounted () {
+      //单选日期 获取当前日期，并格式化赋值给日历
+      let radiodate = new Date()
+      this.radioDate = this.format(Date.parse(radiodate))
+
+      //获取单选日历 获取月和天。
+      let date = new Date()
+      this.radioinit(this.format(date))
+
+      // 双选默认选中日历，获取默认选中时间范围【开始：当前日期。结束：当前日期推后2天】
+      let rangedate2 = new Date()
+      let defaultStart, defaultEnd
+      defaultStart = this.format(rangedate2.setDate(new Date().getDate()))
+      defaultEnd = this.format(rangedate2.setDate(new Date().getDate() + 2))
+      this.defaultMonthrange.push(defaultStart, defaultEnd)
+
+      //双选默认选中日历，获取日历范围的 月和天。
+      let start, end
+      start = this.defaultMonthrange[0].split('/')
+      end = this.defaultMonthrange[1].split('/')
+      this.rangestart2 = `${start[1]}月${start[2]}日`
+      this.rangeend2 = `${end[1]}月${end[2]}日`
+      
+    }
+  }
+  
+  </script>
+  
+  <style lang="less">
+  // calendar2.less
+  .swiper-slide {
+    .ui-image {
+      width: 100%;
+  }
+  }
+  .win{
+    padding:10px 30px; 
+  }
+  .smalltitle{
+    font-size:12px;
+    color:#666
+  }
+  .smalltitle2{
+    background-color:#ebc7c8;
+    color: #C01920;
+    padding:0px 3px;
+    border-radius: 5px;
+    font-size:12px;
+  }
+  
+  .btnyd {
+    background-color: #C01920;
+    border-radius: 20px;
+    border-color: #C01920;
+    box-shadow: 3px 3px 8px #E57A7E;
+    color: #fff;
+  }
+  
+  
+  </style>

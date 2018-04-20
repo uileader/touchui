@@ -1,0 +1,158 @@
+<!--navBar2.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {'border-bottom':'1px solid rgba(231, 231, 231, 0.6)','background':'linear-gradient(to right, #4075FF 10% ,#29B6FD 80%, #32A8FE 100%)'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60">
+          <ui-view class="nav_left"></ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">消息</ui-view>
+        </ui-col>
+        <ui-col width="60" align="center" bindtap="handleShow10">
+          <ui-popover ui:model="show10" position="bottom" mask-style="{{ maskStyle }}">
+            <ui-view>
+              <ui-view class="popover_item">
+                <ui-row height="35" bindtap="handleHide('发起群聊')" border-bottom>
+                  <ui-col vertical-align="middle" align="center" width="30">
+                    <ui-icon type="comment" color="#fff"></ui-icon>
+                  </ui-col>
+                  <ui-col vertical-align="middle" space-left="5">发起群聊</ui-col>
+                </ui-row>
+              </ui-view>
+              <ui-view class="popover_item">
+                <ui-row height="35" bindtap="handleHide('添加朋友')" border-bottom>
+                  <ui-col vertical-align="middle" align="center" width="30">
+                    <ui-icon type="qn-addressbook_fill" size="20" color="#fff"></ui-icon>
+                  </ui-col>
+                  <ui-col vertical-align="middle" space-left="5">添加朋友</ui-col>
+                </ui-row>
+              </ui-view>
+              <ui-view class="popover_item">
+                <ui-row height="35" bindtap="handleHide('扫一扫')" border-bottom>
+                  <ui-col vertical-align="middle" align="center" width="30">
+                    <ui-icon type="scan-qrcode" color="#fff"></ui-icon>
+                  </ui-col>
+                  <ui-col vertical-align="middle" space-left="5">扫一扫</ui-col>
+                </ui-row>
+              </ui-view>
+              <ui-view class="popover_item">
+                <ui-row height="35" bindtap="handleHide('收付款')">
+                  <ui-col vertical-align="middle" align="center" width="30">
+                    <ui-icon type="qrcode" color="#fff"></ui-icon>
+                  </ui-col>
+                  <ui-col vertical-align="middle" space-left="5" vertical-align="middle" space-left="5">收付款</ui-col>
+                </ui-row>
+              </ui-view>
+            </ui-view>
+            <ui-icon slot="content" type="plus2" size="20" color="#fff"></ui-icon>
+          </ui-popover>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+    <ui-fixed-view bindtap="navigateBack">返回上页</ui-fixed-view>
+  </ui-page>
+</template>
+
+<script>
+  export default {
+  config: {
+    navigationStyle: 'custom',
+    navigationBarTextStyle:"white"
+  },
+  data () {
+    return {
+      items: [],
+      show10: false,
+      maskStyle: { backgroundColor: 'transparent' }
+    }
+  },
+  methods: {
+    handleShow10 () {
+      this.show10 = true
+    },
+    handleHide (text) {
+      this.show10 = false
+      ui.showToast({
+        title: text
+      })
+    },
+    navigateBack () {
+      ui.navigateBack()
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= 30; i++) {
+      this.items.push(i + ' - 内容文本')
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // navBar2.less
+.nav_title{
+    color: #fff;
+    font-weight: bold;
+  }
+  .nav_left{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: url('~images/indexList/t5.png') no-repeat center center;
+    background-size: 100%;
+    overflow: hidden;
+  }
+.ui-fixed-view {
+  bottom: 100px;
+  right: 20px;
+  width: 46px;
+  padding: 7px;
+  height: 46px;
+  line-height: 16px;
+  border: 1px solid #348EFE;
+  border-radius: 50%;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: #348EFE;
+  z-index: 99;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+.ui-popover-overlay {
+  padding: 0;
+  width: 125px;
+  background-color: #39383B;
+  .ui-col{
+    color: #fff;
+  }
+}
+.touch_end {
+    background: #eee;
+}
+.ui-popover-arrow{
+  background-color: #39383B;
+}
+
+.popover_item{
+  padding: 0 10px;
+  &:active{
+    background-color: #484646;
+  }
+}
+.ui-row{
+  &:after{
+    border-bottom: 1px solid #6b6969;
+  }
+}
+</style>

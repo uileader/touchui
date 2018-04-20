@@ -1,0 +1,1032 @@
+<!--note.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10"  width="50" bindtap="navigateBack">
+          <ui-view>
+            <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-text class="nav_title">付款申请</ui-text>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50" bindtap="leadIn">
+          <ui-view>
+          导入
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <ui-view class="form_content">
+      <ui-row height="50">
+        <ui-col vertical-align="middle" align="left" width="70" space-left="10">
+          <ui-view>申请人</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" space="20">
+          <ui-view class="right_column">{{ userName }}</ui-view>
+        </ui-col>
+      </ui-row>
+
+      <ui-row height="50">
+        <ui-col vertical-align="middle" align="left" width="70" space-left="10">
+          <ui-view>项目</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" space="20">
+          <ui-view class="right_column">
+            <ui-picker title="" range="{{ projectList }}" value="{{ projectValue }}" bindchange="projectChange">
+          </ui-view>
+        </ui-col>
+      </ui-row>
+
+      <ui-row height="50">
+        <ui-col vertical-align="middle" align="left" width="70" space-left="10">
+          <ui-view>币种</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" space="20" bindtap="showIndexList">
+          <ui-view class="right_column">
+            {{ currency }}
+            <!-- <ui-picker title="" range="{{ currencyList }}" value="{{ currencyValue }}" bindchange="currencyChange"> -->
+          </ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col vertical-align="middle" align="left" width="70" space-left="10">
+          <ui-view>付款金额</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" space="20">
+          <ui-input type="number"
+          placeholder="请输入金额"
+          placeholder-style="color:#999B9E"
+          show-clear="{{false}}"
+          ui:model="{{ money }}"
+          bindinput="inputChange"
+          bindblur="inputBlur"
+           ></ui-input>
+        </ui-col>
+      </ui-row>
+
+      <ui-row height="50">
+        <ui-col vertical-align="middle" align="left" width="70" space-left="10">
+          <ui-view>付款事由</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" space="20">
+          <ui-view class="right_column">
+            <ui-picker mode="multiSelector" is-chain value="{{ reasonValue }}" range="{{ reasonList }}" range-key="name" bindchange="reasonChange"></ui-picker>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col vertical-align="middle" align="left" width="70" space-left="10"></ui-col>
+        <ui-col vertical-align="middle" space="20">
+          <ui-input placeholder="其他付款事由" placeholder-style="color:#999B9E" show-clear="{{false}}" ui:model="{{ reasonName3 }}"></ui-input>
+        </ui-col>
+      </ui-row>
+
+
+
+
+
+      <ui-row height="50">
+        <ui-col vertical-align="middle" align="left" width="100" space-left="10">
+          <ui-view>最迟付款日期</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" space="20" bindtap="radioCalendaropen">
+          <ui-view class="right_column">{{ dataValue }}</ui-view>
+        </ui-col>
+      </ui-row>
+
+      <ui-row height="50" class="payee" space-top="10">
+        <ui-col vertical-align="middle" align="left" width="100" space-left="10">
+          <ui-view>收款人信息</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" space="20">
+          <ui-button plain="true" full-width="{{false}}" bindtap="payee">选择收款人</ui-button>
+        </ui-col>
+      </ui-row>
+      <ui-view class="payee_content" ui:for="{{ payeeInfo }}" ui:for-item="item">
+        <ui-row height="35">
+          <ui-col vertical-align="middle" align="left" width="70" space-left="10">
+            <ui-view>账户名称</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" space="20">
+            <ui-input placeholder="请输入账户名称" placeholder-style="color:#999B9E" show-clear="{{false}}" value="{{ item.account }}" ui:model="{{ item.account }}"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-row height="35">
+          <ui-col vertical-align="middle" align="left" width="70" space-left="10">
+            <ui-view>开户行</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" space="20">
+            <ui-input placeholder="请输入开户行" placeholder-style="color:#999B9E" show-clear="{{false}}" value="{{ item.bank }}" ui:model="{{ item.bank }}"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-row height="35">
+          <ui-col vertical-align="middle" align="left" width="70" space-left="10">
+            <ui-view>账号</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" space="20">
+            <ui-input type="number" placeholder="请输入账号" placeholder-style="color:#999B9E" show-clear="{{false}}" value="{{ item.cardNum }}" ui:model="{{ item.cardNum }}"></ui-input>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+
+
+
+      <ui-view class="detail_description">
+        <ui-text block>备注</ui-text>
+        <ui-textarea maxlength="-1" placeholder="请输入备注内容" placeholder-style="color:#999B9E" ui:model="{{ memo }}"></ui-textarea>
+      </ui-view>
+      <!-- 附件 -->
+      <ui-view class="accessory_wrap">
+        <ui-text block>附件</ui-text>
+        <ui-view class="accessory_content">
+          <ui-view class="accessory_list"
+          ui:for="{{ accessoryContent }}"
+          >
+            <ui-view class="close">x</ui-view>
+            <ui-image
+            src="{{ item }}"
+            mode='aspectFill'
+            width="60"
+            height="60"
+            ></ui-image>
+          </ui-view>
+          <ui-view class="add_accessory" bindtap="addAccessory">
+            <ui-view>
+              <ui-icon type="plus2" size="20" color="#B3B5B5"></ui-icon>
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-view>
+
+      <!-- 审批人 -->
+      <ui-view class="recipients">
+        <ui-view class="title">审批人</ui-view>
+        <ui-view class="recipients_content">
+          <ui-view class="recipients_list" ui:for="{{ approverList }}" ui:for-item="item">
+            <ui-view class="list_content" bindtap="deleteApprovers(index)">
+              <ui-view class="close">x</ui-view>
+              <ui-image
+              src="{{ item.head }}"
+              ></ui-image>
+              <ui-text>{{ item.userName }}</ui-text>
+            </ui-view>
+          </ui-view>
+          <ui-view class="recipients_list" bindtap="addApprovers">
+            <ui-view class="add_recipients">
+              <ui-icon type="plus2" size="20" color="#B3B5B5"></ui-icon>
+            </ui-view>
+          </ui-view>
+        </ui-view>
+
+      </ui-view>
+
+
+
+
+
+
+
+      <!-- 抄送人 -->
+      <ui-view class="recipients">
+        <ui-view class="title">抄送人</ui-view>
+        <ui-view class="recipients_content">
+          <ui-view class="recipients_list" ui:for="{{ recipientsList }}" ui:for-item="item">
+            <ui-view class="list_content" bindtap="deleteRecipients(index)">
+              <ui-view class="close">x</ui-view>
+              <ui-image
+              src="{{ item.head }}"
+              ></ui-image>
+              <ui-text>{{ item.userName }}</ui-text>
+            </ui-view>
+          </ui-view>
+          <ui-view class="recipients_list" bindtap="addRecipients">
+            <ui-view class="add_recipients">
+              <ui-icon type="plus2" size="20" color="#B3B5B5"></ui-icon>
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-view>
+      <ui-row height="50" space-top="10">
+        <ui-col vertical-align="middle" align="right" space="20">
+          <ui-button type="default" size="small" plain="true" bindtap="saveDraft">保存为草稿</ui-button>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space="20">
+          <ui-button type="primary" size="small" bindtap="submit">立即提交</ui-button>
+        </ui-col>
+      </ui-row>
+      <ui-view class="iphonex-bottom"></ui-view>
+    </ui-view>
+
+
+
+    <!-- 报销日期 -->
+    <ui-popup ui:model="{{ radioCalendar }}">
+      <ui-view>
+        <ui-row height="{{headerHeight}}">
+          <ui-col align="left" vertical-align="middle" width="70" space-left="10" bindtap="handleSelect('radioCalendar')">
+              <!-- <ui-icon type="close" color="#e60012"></ui-icon> -->
+          </ui-col>
+          <ui-col align="center" vertical-align="middle">
+            <ui-text>选择日期</ui-text>
+          </ui-col>
+          <ui-col align="center" vertical-align="middle" width="70">
+          </ui-col>
+        </ui-row>
+        <ui-v-calendar
+        select-range-mode="{{false}}"
+        header-height="30"
+        height="319"
+        show-today
+        show-month-range="{{ monthrange }}"
+        bindchange="selectedChange($event)"
+        value="{{radioDate}}"
+        can-select-today="true"
+        ></ui-v-calendar>
+      </ui-view>
+    </ui-popup>
+
+  </ui-page>
+</template>
+
+<script>
+const getDoubleNumber = function (num) {
+  return num < 10 ? '0' + num : '' + num
+}
+const sourceType = [['camera'], ['album'], ['camera', 'album']]
+const sizeType = [['compressed'], ['original'], ['compressed', 'original']]
+export default {
+  config: {
+    navigationStyle: 'custom',
+    backgroundColor: '#F6F6F6',
+    disableIosGesture: true,
+    navigationBarTextStyle: 'white'
+  },
+  data () {
+    return {
+      userName: 'touchUI',
+      userId: '10010',
+
+      projectList: ['请选择','出国','拜访','旅游','结婚','其他'],
+      projectIdList: ['',1,2,3,4,5],
+      projectId: '',
+      projectValue: 0,
+
+      recipientsList: [
+
+      ],
+      reasonValue: null,
+      reasonId: '',
+      reasonName1: '请选择',
+      reasonName2: '请选择',
+      reasonName3: '',
+      reasonList: [
+        {
+          name: '请选择',
+          value: '1',
+          children: [
+            { name: '', value: '000' }
+          ]
+        },
+        {
+          "id":18,
+          "parentId":0,
+          "name":"基础建设费",
+          "value":"基础建设费",
+          "lv":0,
+          "children":[
+            {
+              "id":34,
+              "parentId":0,
+              "name":"办公固定电话费",
+              "value":"办公固定电话费",
+              "lv":0,
+              "children":[]
+            },
+            {
+              "id":35,
+              "parentId":0,
+              "name":"水电费",
+              "value":"水电费",
+              "lv":0,
+              "children":[]
+            }
+          ]
+        },
+        {
+          "id":19,
+          "parentId":0,
+          "name":"人力资源费",
+          "value":"人力资源费",
+          "lv":0,
+          "children":[
+            {
+              "id":42,
+              "parentId":0,
+              "name":"招聘广告费",
+              "value":"招聘广告费",
+              "lv":0,
+              "children":[]
+            },
+            {
+              "id":43,
+              "parentId":0,
+              "name":"社保和公积金",
+              "value":"社保和公积金",
+              "lv":0,
+              "children":[]
+            }
+          ]
+        },
+        {
+          "id":20,
+          "parentId":0,
+          "name":"服务费",
+          "value":"服务费",
+          "lv":0,
+          "children":[
+            {
+              "id":44,
+              "parentId":0,
+              "name":"签证服务费",
+              "value":"签证服务费",
+              "lv":0,
+              "children":[]
+            },
+            {
+              "id":45,
+              "parentId":0,
+              "name":"翻译服务费",
+              "value":"翻译服务费",
+              "lv":0,
+              "children":[]
+            },
+            {
+              "id":46,
+              "parentId":0,
+              "name":"财务服务费",
+              "value":"财务服务费",
+              "lv":0,
+              "children":[]
+            }
+          ]
+        }
+
+      ],
+      isReason: false,
+
+      money: '',
+      memo: '',
+      currency: '请选择',
+      ccuserIds: [],
+      currencyId: '',
+
+      // -----------------
+      // 收款人信息
+      payeeInfo: [
+        {
+          account: '',
+          bank: '',
+          cardNum: ''
+        }
+      ],
+      // 日期选择
+      dataValue: '',
+
+      // 审批人
+      isApprover: false,
+      addroverHead: '',
+      approverName: '',
+
+      approverList: [],
+      approvalUserId: null,
+      approvalUserId2: null,
+
+      // 附件
+      accessoryContent: [],
+      imgs: [],
+
+      // 付款日期
+      radioDate: '',
+      radioYear: '',
+      radioMonth: '',
+      radioDay: '',
+      radioCalendar: false,
+      headerHeight: ui.DEFAULT_HEADER_HEIGHT,
+      // 时间对象，存储临时变化的时间
+      dateobj: {},
+      // 时间可选范围
+      monthrange: [],
+      isFrist: true,
+
+      // 币种
+      currencyList: [
+        {
+          currencyId:"1",
+          currencyName:"人民币（CNY）",
+          del:false,
+          name:"人民币（CNY）",
+          rate:1,
+        },
+        {
+          currencyId:"2",
+          currencyName:"美元（USD）",
+          del:false,
+          name:"美元（USD）",
+          rate:6.2879,
+        },
+        {
+          currencyId:"3",
+          currencyName:"欧元（EUR）",
+          del:false,
+          name:"欧元（EUR）",
+          rate:7.8234,
+        },
+        {
+          currencyId:"4",
+          currencyName:"英镑（GBP）",
+          del:false,
+          name:"英镑（GBP）",
+          rate:8.915,
+        }
+      ],
+      rate: null
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.showConfirm({
+        content: '表单尚未提交，你要离开么？',
+        confirmButtonText: '离开',
+        cancelButtonText: '继续填写',
+        success: (result) => {
+          if (result.confirm) {
+            ui.offBackButtonClick({
+              listener: this.navigateBack
+            })
+            ui.navigateBack()
+          }
+        }
+      })
+    },
+    // 付款日期
+    radioinit (thisdate) {
+      this.dateobj.radioDate = thisdate
+      this.dateobj.radioDate = thisdate.split('/')
+      console.log(this.dateobj)
+      this.radioDate = this.dateobj.radioDate
+      this.radioYear = this.dateobj.radioDate[0]
+      this.radioMonth = this.dateobj.radioDate[1]
+      this.radioDay = this.dateobj.radioDate[2]
+      this.dataValue = this.radioYear + '-' + this.radioMonth + '-' + this.radioDay
+
+      // 第一次进入默认2个工作日
+      if (this.isFrist) {
+        let today = new Date()
+        let year = today.getFullYear() + ''
+        let month = getDoubleNumber(today.getMonth() + 1)
+        let day = getDoubleNumber(today.getDate() + 2)// 按需求默认两个工作日
+
+        this.dataValue = year + '-' + month + '-' + day
+        this.isFrist = false
+      }
+    },
+    // 日期选择
+    selectedChange (e) {
+      this.radioinit(e)
+      setTimeout(() => {
+        this.radioCalendar = false
+      }, 300)
+    },
+    radioCalendaropen () {
+      this.radioCalendar = true
+    },
+    format (obj) {
+      var date = new Date(obj)
+      var y = 1900 + date.getYear()
+      var m = '0' + (date.getMonth() + 1)
+      var d = '0' + date.getDate()
+      return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+    },
+
+    // 添加抄送人
+    addRecipients () {
+      import(`#/pages/templeteDemo/form/recipients.ui`).then((content) => {
+        ui.showDialog({
+          content: content,
+          statusBarColor: 'black',
+          data: {},
+          // 接收ui.hideDialog回传的数据
+          onHide: (data) => {
+            console.log('接收返回的参数', data)
+            if (data && data.recipients) {
+              let isSame = false
+              data.recipients.forEach((item, index) => {
+                if (this.ccuserIds.length < 1) {
+                  this.recipientsList.push(item)
+                  this.ccuserIds.push(item.userId)
+                } else {
+                  for (let i = 0; i < this.ccuserIds.length; i++) {
+                    if (item.userId === this.ccuserIds[i]) {
+                      ui.showToast({ title: '请勿选择同一个抄送人！' })
+                      isSame = false
+                      return false
+                    } else {
+                      isSame = true
+                    }
+                  }
+                  if (isSame) {
+                    this.recipientsList.push(item)
+                    this.ccuserIds.push(item.userId)
+                  }
+                }
+              })
+            }
+          }
+        })
+      })
+    },
+    deleteRecipients (index) {
+      console.log(index)
+      this.recipientsList.splice(index, 1)
+      this.ccuserIds.splice(index, 1)
+    },
+    // 添加审批人
+    addApprovers () {
+      if (this.approverList.length > 0) {
+        ui.showToast({ title: '审批人只能为一人,请删除后添加' })
+      } else if (this.currency === '请选择') {
+        ui.showToast({ title: '请选择币种' })
+      } else if (this.money === '') {
+        ui.showToast({ title: '请先填写金额' })
+      } else {
+        console.log('换算后', this.money * this.rate)
+        import(`#/pages/templeteDemo/form/approver.ui`).then((content) => {
+          ui.showDialog({
+            content: content,
+            statusBarColor: 'black',
+            data: {
+              money: this.money * this.rate
+            },
+            // 接收ui.hideDialog回传的数据
+            onHide: (data) => {
+              console.log('接收返回的参数', data)
+              if (data && data.approvers) {
+                this.approverList = []
+                data.approvers.forEach((item, index) => {
+                  this.approverList.push(item)
+                  this.approvalUserId = item.userId
+                })
+              }
+              if (data && data.approvers2) {
+                this.approvalUserId2 = null
+                data.approvers2.forEach((item, index) => {
+                  this.approvalUserId2 = item.userId
+                })
+              }
+            }
+          })
+        })
+      }
+    },
+    // 删除审批人
+    deleteApprovers (index) {
+      // console.log(index)
+      this.approverList.splice(index, 1)
+      this.approvalUserId = null
+    },
+    excuseChange (val) {
+      console.log('val change', val)
+      // console.log(this.siteValue)
+    },
+    // 日期选择
+    dataChange (val) {
+      console.log('val change', val)
+      this.dataValue = val
+    },
+    // 收款人
+    payee () {
+      import(`#/pages/templeteDemo/form/payeeInfo.ui`).then((content) => {
+        ui.showDialog({
+          content: content,
+          statusBarColor: 'black',
+          data: {},
+          // 接收ui.hideDialog回传的数据
+          onHide: (data) => {
+            console.log('接收返回的参数', data)
+            if (data && data.payeeInfo) {
+              this.payeeInfo = []
+              data.payeeInfo.forEach((item, index) => {
+                this.payeeInfo.push(item)
+              })
+            }
+          }
+        })
+      })
+    },
+
+    // 项目列表选择
+    projectChange (val) {
+      console.log('val change', val)
+      this.projectId = this.projectIdList[val]
+    },
+    // 付款事由列表选择
+    reasonChange (val) {
+      if (val[0] !== '1') {
+        this.reasonName1 = val[0]
+        this.reasonName2 = val[1]
+      }
+    },
+
+    inputChange (e) {
+      console.log(e)
+      if (e < 0) {
+        this.money = 0
+      } else {
+        this.money = e
+      }
+      this.approverList = []
+    },
+    // 失去焦点后获取审批人
+    inputBlur () {
+
+    },
+    // 提交附件
+    addAccessory () {
+      this.chooseImage(2)
+    },
+
+    submit () {
+      if (this.projectId === '') {
+        ui.showToast({ title: '请选择项目' })
+      } else if (this.reasonName1 === '请选择') {
+        ui.showToast({ title: '请选择付款事由' })
+      } else if (this.money === '') {
+        ui.showToast({ title: '请填写付款金额' })
+      } else if (this.currencyId === '') {
+        ui.showToast({ title: '请选择币种' })
+      } else if (this.payeeInfo[0].account === '') {
+        ui.showToast({ title: '请填写账户名称' })
+      } else if (this.payeeInfo[0].bank === '') {
+        ui.showToast({ title: '请填写开户行名称' })
+      } else if (this.payeeInfo[0].cardNum === '') {
+        ui.showToast({ title: '请填写银行账号' })
+      } else if (this.approvalUserId === null) {
+        ui.showToast({ title: '请选择审批人' })
+      } else {
+       this.paySubmit()
+      }
+    },
+    // 保存为草稿
+    saveDraft () {
+      if (this.projectId === '') {
+        ui.showToast({ title: '请选择项目' })
+      } else if (this.reasonName1 === '') {
+        ui.showToast({ title: '请选择付款事由' })
+      } else if (this.money === '') {
+        ui.showToast({ title: '请填写付款金额' })
+      } else if (this.currencyId === '') {
+        ui.showToast({ title: '请选择币种' })
+      } else if (this.payeeInfo[0].account === '') {
+        ui.showToast({ title: '请填写账户名称' })
+      } else if (this.payeeInfo[0].bank === '') {
+        ui.showToast({ title: '请填写开户行名称' })
+      } else if (this.payeeInfo[0].cardNum === '') {
+        ui.showToast({ title: '请填写银行账号' })
+      } else {
+        this.paySubmit()
+      }
+    },
+    paySubmit () {
+      ui.showToast({ title: '成功', icon: 'success' })
+      setTimeout(() => {
+        ui.navigateBack()
+      }, 1000)
+
+    },
+    chooseImage (index) {
+      ui.chooseImage({
+        sourceType: sourceType[index],
+        sizeType: sizeType[1],
+        success: (res) => {
+          res.tempFilePaths.forEach((item, index) => {
+            this.accessoryContent.push(item)
+          })
+        },
+        fail: (res) => {
+
+        }
+      })
+    },
+    // 币种选择
+    showIndexList () {
+      let itemList = []
+      this.currencyList.forEach((item, index) => {
+        itemList.push(item.currencyName)
+      })
+      ui.showActionSheet({
+        itemList: itemList,
+        success: (index) => {
+          console.log(index)
+          if (index >= 0) {
+            this.rate = this.currencyList[index].rate
+            this.currency = this.currencyList[index].currencyName
+            this.currencyId = this.currencyList[index].currencyId
+            console.log(this.rate)
+          }
+        }
+      })
+    },
+
+    // 导入
+    leadIn () {
+      import(`#/pages/templeteDemo/form/draftsList.ui`).then((content) => {
+        ui.showDialog({
+          content: content,
+          data: {},
+          // 接收ui.hideDialog回传的数据
+          onHide: (data) => {
+            console.log('回传的数据1', data)
+            if (data && data.info) {
+              console.log('回传的数据2', data.info)
+              // this.currency = data.currency.currencyName
+              // this.currencyId = data.currency.currencyId
+              this.projectId = data.info.projectId
+              this.projectList.forEach((item, index) => {
+                if (item === data.info.projectName) {
+                  this.projectValue = index
+                }
+              })
+              this.reasonValue = [data.info.reasonName1, data.info.reasonName2]
+              this.reasonName1 = data.info.reasonName1
+              this.reasonName2 = data.info.reasonName2
+              this.reasonName3 = data.info.reasonName3
+              this.money = data.info.money
+              this.currencyId = data.info.currencyId
+              this.currency = data.info.currencyName
+              this.payeeInfo[0].account = data.info.account
+              this.payeeInfo[0].bank = data.info.bank
+              this.payeeInfo[0].cardNum = data.info.cardNum
+              this.memo = data.info.memo
+            }
+          }
+        })
+      })
+    }
+
+  },
+  // 日期组件计算
+  created () {
+    // 计算时间范围
+    let radiodate = new Date()
+    let rangedate = new Date()
+    this.radioDate = this.format(Date.parse(radiodate))
+    let start, end
+    console.log('时间', radiodate)
+    // start = this.format(rangedate.setMonth(new Date().getMonth()))
+
+    radiodate.setMonth(radiodate.getMonth())
+    let year = radiodate.getFullYear()
+    let month = radiodate.getMonth() + 1
+    month = (month < 10 ? '0' + month : month)
+    start = (year.toString() + '/' + month.toString())
+
+    end = this.format(rangedate.setMonth(new Date().getMonth() + 2))
+    // start = start.substring(0, 7)
+    end = end.substring(0, 7)
+
+    console.log('前三个月', start, end)
+    this.monthrange.push(start, end)
+  },
+  mounted () {
+    //监听安卓返回
+    ui.onBackButtonClick(this.navigateBack)
+  }
+}
+</script>
+
+<style lang="less">
+  .ui-actionsheet-menu-cell {
+    font-size: 14px;
+    color: #666;
+  }
+.nav_bar {
+  background: linear-gradient(to right, #1F97FE, #126DFE);
+  .ui-view{
+    color: #fff;
+    font-size: 14px;
+  }
+  .ui-text{
+    color: #fff;
+    font-size: 16px;
+  }
+}
+
+.form_content{
+  // padding: 15px 0;
+  .ui-row{
+    background: #fff;
+    .mix-1px(0, 0, 1, 0, #ccc);
+    .ui-view{
+      font-size: 14px;
+      color: #1A1E23;
+      &.right_column{
+        width: 100%;
+        height: 35px;
+        line-height: 35px;
+      }
+    }
+    .ui-row{
+      width: 100%;
+      .right_column{
+        width: 95%;
+        font-size: 12px;
+      }
+      .ui-textarea-wrapper{
+        padding: 10px;
+      }
+    }
+    .weui-cell{
+      padding: 0;
+      .ui-picker-select{
+        font-size: 14px;
+      }
+    }
+    .ui-input{
+      border:0px;
+      padding: 0px;
+      .ui-input-inner{
+        height: 33px;
+        width: 100%;
+        text-align: right;
+      }
+    }
+    &.payee{
+      &:before{
+        border-bottom-width: 0px;
+      }
+      .ui-button{
+        line-height: 30px;
+      }
+    }
+
+  }
+  .payee_content{
+    margin-bottom: 10px;
+    // width: 95%;
+    // margin: 0 auto;
+    // border-radius: 5px;
+    // overflow: hidden;
+    // box-shadow: 0px 0px 13px 0px #d6d7d8;
+  }
+}
+.weui-cell__hd{
+  display: none;
+}
+.money_tip{
+  text-align: right;
+  padding-right: 10px;
+  font-size: 12px;
+  color:#999B9E;
+  line-height: 30px;
+  background-color: #fff;
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .ui-text{
+    color:red;
+  }
+}
+.detail_description{
+  margin-bottom: 10px;
+  background: #fff;
+  .ui-text{
+    // width: 70px;
+    text-align: left;
+    line-height: 30px;
+    color: #1A1E23;
+    padding-left: 10px;
+  }
+  .ui-textarea-wrapper{
+    border: 0;
+    padding: 10px;
+  }
+}
+.recipients{
+  margin-top: 10px;
+  background-color: #fff;
+  .title{
+    text-align: left;
+    padding-left: 10px;
+    line-height: 40px;
+    .ui-text{
+      font-size: 12px;
+      color: #ccc;
+    }
+  }
+  .recipients_content{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-bottom: 20px;
+    .recipients_list{
+      display: inline-flex;
+      text-align: center;
+      padding: 5px 15px;
+      .list_content{
+        position: relative;
+        .close{
+          position: absolute;
+          top: -3px;
+          right: -3px;
+          width: 13px;
+          height: 13px;
+          border-radius: 50%;
+          z-index: 9;
+          background-color: #14171B;
+          line-height:13px;
+          font-size: 12px;
+          color: #fff;
+        }
+        .ui-image{
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          margin-bottom: 10px;
+        }
+        .ui-text{
+          color: #060606;
+          font-size: 12px;
+        }
+      }
+      .add_recipients{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #F4F4F4;
+        line-height: 40px;
+        text-align: center;
+      }
+    }
+
+  }
+}
+
+// 附件
+
+.accessory_wrap{
+  margin-bottom: 10px;
+  background: #fff;
+  padding: 10px;
+  .ui-text{
+    text-align: left;
+    line-height: 40px;
+    color: #1A1E23;
+  }
+  .accessory_content{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .add_accessory{
+      display: inline-flex;
+      text-align: center;
+      .ui-view{
+        margin-right: 10px;
+        text-align: center;
+        width: 60px;
+        height: 60px;
+        background-color: #F4F4F4;
+        line-height: 60px;
+        text-align: center;
+      }
+    }
+    .accessory_list{
+      display: inline-flex;
+      margin-right: 5px;
+      position: relative;
+      .close{
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        z-index: 9;
+        background-color: #14171B;
+        line-height:15px;
+        text-align: center;
+        font-size: 12px;
+        color: #fff;
+      }
+    }
+  }
+}
+//弹窗
+.ui-confirm-content{
+  text-align: center;
+}
+
+</style>

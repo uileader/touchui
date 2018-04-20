@@ -1,0 +1,34 @@
+<!--browserAPP.ui-->
+<template>
+  <ui-page>
+    
+  </ui-page>
+</template>
+
+
+<script>
+// browserAPP.js
+export default {
+  config: {
+    "navigationBarTitleText": "浏览器与APP交互"
+  },
+  data () {
+    return {
+      url: 'http://www.uileader.com'
+    }
+  },
+  methods: {},
+  mounted () {
+    ui.openBrowser({
+      url: this.url,
+      backgroundColor: '#3399ff',
+      color: '#ffffff'
+    })
+  }
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

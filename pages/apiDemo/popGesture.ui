@@ -1,0 +1,56 @@
+<!--popGesture.ui-->
+<template>
+  <ui-page>
+      <ui-view class="content">
+        <ui-row height="40">
+          <ui-col span="4" vertical-align="middle">侧滑手势状态：</ui-col>
+          <ui-col span="8" vertical-align="middle">
+              <ui-view>{{openType?'开启':'关闭'}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-button type="primary" bindtap="open">开启iOS侧滑手势</ui-button>
+        <ui-button bindtap="close">关闭iOS侧滑手势</ui-button>
+      </ui-view>
+  </ui-page>
+</template>
+
+<script>
+
+export default {
+  config: {
+    "navigationBarTitleText": "侧滑手势"
+  },
+  data () {
+    return {
+      openType: true
+    }
+  },
+  methods: {
+    open () {
+      ui.setPagePopGesture({
+        openPagePopGesture: true,
+        success: () => {
+          this.openType = true
+        }
+      })
+    },
+    close () {
+      ui.setPagePopGesture({
+        openPagePopGesture: false,
+        success: () => {
+          this.openType = false
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // popGesture.less
+.content{
+  padding: 10px;
+}
+
+</style>

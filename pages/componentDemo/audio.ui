@@ -1,0 +1,75 @@
+<!--audio.ui-->
+<template>
+  <ui-page>
+    <ui-view class="text-center">
+      <ui-audio id="myAudio" style="text-align: left" src="{{current.src}}" poster="{{current.poster}}" name="{{current.name}}"
+        author="{{current.author}}" controls binderror="binderror" bindplay="bindplay" bindpause="bindpause"
+        bindtimeupdate="bindtimeupdate" bindended="bindended"></ui-audio>
+    </ui-view>
+    <ui-view class="btn-area">
+      <ui-button type="primary" bindtap="play">播放</ui-button>
+      <ui-button type="default" bindtap="pause">暂停</ui-button>
+      <ui-button type="default" bindtap="seek">跳转到开头</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// audio.js
+var audioCtx
+export default {
+  config: {
+    "navigationBarTitleText": "音频组件"
+  },
+  data () {
+    return {
+      current: {
+        poster: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+        name: '此时此刻',
+        author: '许巍',
+        src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46'
+      }
+    }
+  },
+  methods: {
+    onReady () {
+      audioCtx = ui.createAudioContext('myAudio')
+    },
+    play () {
+      audioCtx.play()
+    },
+    pause () {
+      audioCtx.pause()
+    },
+    seek () {
+      audioCtx.seek(0)
+    },
+    binderror (e) {
+    },
+    bindplay (e) {
+    },
+    bindpause (e) {
+    },
+    bindtimeupdate (e) {
+    },
+    bindended (e) {
+    }
+  },
+  mounted () {
+    this.onReady()
+  }
+}
+
+</script>
+
+<style lang="less">
+  // audio.less
+.text-center {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.btn-area {
+  padding: 0px 15px;
+}
+</style>

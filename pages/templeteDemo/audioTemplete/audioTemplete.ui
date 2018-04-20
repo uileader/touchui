@@ -1,0 +1,529 @@
+<template>
+  <ui-page 
+    top="0" 
+    bindscroll="handleScroll" 
+    bindscrollstart="handleScrollStart"
+  >
+    <ui-nav-bar class="nab_bar {{ className }}" slot="nav-bar" style="{{{ 'background-color': `rgba(255, 255, 255, ${alpha})` }}}">
+      <ui-row height="46" class="">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+          <ui-view class="back">
+            <ui-icon type="arrow-left" size="18" color="#fff"></ui-icon>返回
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">知识内参</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60"></ui-col>
+      </ui-row>
+      
+    </ui-nav-bar>
+    <ui-view class="banner">
+      <!-- src="http://piccdn.igetget.com/img/201705/27/201705272357345061639498.jpg" -->
+      <!-- <ui-image
+        src="{{ require('#/images/indexList/t4.png') }}"
+        load-effect="fade"
+        height="{{ imgHeight }}" 
+      ></ui-image> -->
+      <ui-blur height="300" url="{{ require('#/images/indexList/t5.png') }}"></ui-blur>
+      <ui-view class="mask"></ui-view>
+      <ui-row height="40">
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>
+            <ui-icon type="search" size="16" color="#fff"></ui-icon>
+            <ui-text>搜索</ui-text>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="3">
+          <ui-view class="line"></ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>
+            <ui-icon type="qn-activity" size="16" color="#fff"></ui-icon>
+            <ui-text>详情</ui-text>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="3">
+          <ui-view class="line"></ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>
+            <ui-icon type="download" size="16" color="#fff"></ui-icon>
+            <ui-text>下载</ui-text>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="3">
+          <ui-view class="line"></ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>
+            <ui-icon type="forward" size="16" color="#fff"></ui-icon>
+            <ui-text>分享</ui-text>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+    <ui-row height="40" class="list_top">
+      <ui-col vertical-align="middle" align="center" width="50">
+        <ui-icon type="playmusic" color="#989898" size="20"></ui-icon>
+      </ui-col>
+      <ui-col vertical-align="middle" align="left" width="80">
+        <ui-view>播放全部</ui-view>
+      </ui-col>
+      <ui-col vertical-align="middle" align="left">
+        <ui-view>已更新{{ audioList.length }}条</ui-view>
+      </ui-col>
+      <ui-col vertical-align="middle" align="center" width="30">
+        <ui-icon type="switchover" color="#989898" size="18"></ui-icon>
+      </ui-col>
+      <ui-col vertical-align="middle" align="left" width="40">
+        <ui-view>倒序</ui-view>
+      </ui-col>
+    </ui-row>
+    <ui-row height="60" class="audio_list" ui:for="{{ audioList }}" ui:for-item="item">
+      <ui-col vertical-align="middle" align="center" width="50">
+        <ui-icon type="playmusic" color="#5f5e5e" size="25"></ui-icon>
+      </ui-col>
+      <ui-col vertical-align="middle" align="left" space-left="5" bindtap="playList(index)">
+        <ui-view class="{{{ nowSong : index === curIndex }}}">{{ item.epname }}</ui-view>
+        <!-- <ui-view>{{ item.epname }}</ui-view> -->
+        <ui-text>时常{{ maxFormat(item.duration) }}</ui-text>
+      </ui-col>
+      <ui-col vertical-align="middle" align="center" width="40" bindtap="details">
+        <ui-icon type="draft" color="#5f5e5e" size="20"></ui-icon>
+      </ui-col>
+      <ui-col vertical-align="middle" align="center" width="40" bindtap="moreOperation">
+        <ui-icon type="more2" color="#5f5e5e" size="20"></ui-icon>
+      </ui-col>
+    </ui-row>
+
+
+    <ui-popup value="{{ popupShow }}" bindhide="log('hide')" bindshow="log('show')" bindinit="log('init')">
+      <ui-view class="">
+        <ui-row height="40" bindtap="log('hide')">
+          <ui-col vertical-align="middle" align="center" width="50">
+            <ui-icon type="praiseago" color="#5f5e5e" size="20"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" align="left">
+            <ui-text>收藏</ui-text>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" bindtap="log('hide')">
+          <ui-col vertical-align="middle" align="center" width="50">
+            <ui-icon type="download" color="#5f5e5e" size="20"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" align="left">
+            <ui-text>下载</ui-text>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" bindtap="log('hide')">
+          <ui-col vertical-align="middle" align="center" width="50">
+            <ui-icon type="forward" color="#5f5e5e" size="20"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" align="left">
+            <ui-text>分享</ui-text>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" bindtap="log('hide')">
+          <ui-col vertical-align="middle" align="center">
+            <ui-text class="cancel">取消</ui-text>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+    </ui-popup>
+
+      
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    navigationStyle: 'custom',
+    navigationBarTextStyle: 'black',
+    scrollType: 'body'
+  },
+  data () {
+    return {
+      alpha: 0,
+      className: '',
+      scrollChange: 0,
+      imgHeight: parseInt(ui.WIN_WIDTH / 492 * 495),
+      audioList:[
+        {
+          src: 'http://h6apptest.duapp.com/xjl.mp3',
+          startTime: 0,
+          coverImgUrl: 'http://images.uileader.com/20170927/ca859f0e-68ab-416a-a4d7-7324a98c7479.jpg',
+          epname: '方法：如何用“标杆管理”实现目标',
+          singer: 'TFBOYS',
+          duration: 112.770,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+          startTime: 0,
+          coverImgUrl: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+          epname: '洞察：小说创作的本质是什么',
+          singer: '许巍',
+          duration: 284.368,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://h6apptest.duapp.com/xjl.mp3',
+          startTime: 0,
+          coverImgUrl: 'http://images.uileader.com/20170927/ca859f0e-68ab-416a-a4d7-7324a98c7479.jpg',
+          epname: '曾鸣：区块链是跌幅性技术吗？',
+          singer: 'TFBOYS',
+          duration: 112.770,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+          startTime: 0,
+          coverImgUrl: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+          epname: '招聘：没有职位空缺也应积极招人',
+          singer: '许巍',
+          duration: 284.368,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://h6apptest.duapp.com/xjl.mp3',
+          startTime: 0,
+          coverImgUrl: 'http://images.uileader.com/20170927/ca859f0e-68ab-416a-a4d7-7324a98c7479.jpg',
+          epname: '新研究：理智比我们认为的强大',
+          singer: 'TFBOYS',
+          duration: 112.770,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+          startTime: 0,
+          coverImgUrl: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+          epname: '观点：城市要和人产生关系',
+          singer: '许巍',
+          duration: 284.368,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://h6apptest.duapp.com/xjl.mp3',
+          startTime: 0,
+          coverImgUrl: 'http://images.uileader.com/20170927/ca859f0e-68ab-416a-a4d7-7324a98c7479.jpg',
+          epname: '提升客户忠诚度的三个准则',
+          singer: 'TFBOYS',
+          duration: 112.770,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+          startTime: 0,
+          coverImgUrl: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+          epname: '营销人创业的6个“坑”',
+          singer: '许巍',
+          duration: 284.368,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://h6apptest.duapp.com/xjl.mp3',
+          startTime: 0,
+          coverImgUrl: 'http://images.uileader.com/20170927/ca859f0e-68ab-416a-a4d7-7324a98c7479.jpg',
+          epname: '方法：帮你达成计划的PDCA笔记法',
+          singer: 'TFBOYS',
+          duration: 112.770,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+          startTime: 0,
+          coverImgUrl: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+          epname: '新研究：睡眠不足影响记忆力',
+          singer: '许巍',
+          duration: 284.368,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://h6apptest.duapp.com/xjl.mp3',
+          startTime: 0,
+          coverImgUrl: 'http://images.uileader.com/20170927/ca859f0e-68ab-416a-a4d7-7324a98c7479.jpg',
+          epname: '瑞·达利欧：怎样在压力之下做决策',
+          singer: 'TFBOYS',
+          duration: 112.770,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+          startTime: 0,
+          coverImgUrl: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+          epname: '心理学：“人的身体侵入了大脑”',
+          singer: '许巍',
+          duration: 284.368,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://h6apptest.duapp.com/xjl.mp3',
+          startTime: 0,
+          coverImgUrl: 'http://images.uileader.com/20170927/ca859f0e-68ab-416a-a4d7-7324a98c7479.jpg',
+          epname: '建议：该换工作的5种迹象',
+          singer: 'TFBOYS',
+          duration: 112.770,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+          startTime: 0,
+          coverImgUrl: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+          epname: '信息垄断：医疗系统的根本问题',
+          singer: '许巍',
+          duration: 284.368,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://h6apptest.duapp.com/xjl.mp3',
+          startTime: 0,
+          coverImgUrl: 'http://images.uileader.com/20170927/ca859f0e-68ab-416a-a4d7-7324a98c7479.jpg',
+          epname: '为什么我们看不到自己的致命缺点',
+          singer: 'TFBOYS',
+          duration: 112.770,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+          startTime: 0,
+          coverImgUrl: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+          epname: '驱动公司的是经济学，而不是天才',
+          singer: '许巍',
+          duration: 284.368,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://h6apptest.duapp.com/xjl.mp3',
+          startTime: 0,
+          coverImgUrl: 'http://images.uileader.com/20170927/ca859f0e-68ab-416a-a4d7-7324a98c7479.jpg',
+          epname: '如何引导孩子正确使用电子设备',
+          singer: 'TFBOYS',
+          duration: 112.770,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+          startTime: 0,
+          coverImgUrl: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+          epname: '哈佛商学院：有关工作的三个迷思',
+          singer: '许巍',
+          duration: 284.368,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://h6apptest.duapp.com/xjl.mp3',
+          startTime: 0,
+          coverImgUrl: 'http://images.uileader.com/20170927/ca859f0e-68ab-416a-a4d7-7324a98c7479.jpg',
+          epname: '库克：要对一大堆伟大想法说“不”',
+          singer: 'TFBOYS',
+          duration: 112.770,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+          startTime: 0,
+          coverImgUrl: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+          epname: '三个可以提升道德感的科学方法',
+          singer: '许巍',
+          duration: 284.368,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://h6apptest.duapp.com/xjl.mp3',
+          startTime: 0,
+          coverImgUrl: 'http://images.uileader.com/20170927/ca859f0e-68ab-416a-a4d7-7324a98c7479.jpg',
+          epname: '观点：自动驾驶不是科研，而是产品',
+          singer: 'TFBOYS',
+          duration: 112.770,
+          webUrl: 'http://uileader.com'
+        },
+        {
+          src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+          startTime: 0,
+          coverImgUrl: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+          epname: '数学家：向前探索以对抗消沉',
+          singer: '许巍',
+          duration: 284.368,
+          webUrl: 'http://uileader.com'
+        }
+      ],
+      popupShow: false,
+      curIndex: ui.getApp().curIndex
+    }
+  },
+  methods: {
+    handleScrollStart (scrollTop) {
+      this.scrollChange = scrollTop
+      console.log('开始的位置：',this.scrollChange)
+    },
+    handleScroll (scrollTop) {
+      if (scrollTop > 50) {
+        this.alpha = 1
+        this.className="active"
+      } else {
+        let val = scrollTop / 50
+        this.alpha = val
+        this.className=""
+      }
+      if(scrollTop>this.scrollChange){
+        ui.getApp().fixedClassName = 'active'
+      }else{
+        ui.getApp().fixedClassName = ''
+      }
+    },
+    moreOperation(){
+      console.log(123)
+      this.popupShow=true
+    },
+    log(val){
+      if(val==='hide'){
+        console.log('hide')
+        this.popupShow=false
+      }else if(val==='show'){
+        console.log('show')
+      }else{
+        console.log('init')
+      }
+    },
+    navigateBack () {
+      ui.navigateBack()
+    },
+    details(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/audioTemplete/details'
+      })
+    },
+    playList(index){
+      console.log(index)
+      ui.getApp().globalData.audioShow = true
+      ui.getApp().fixedClassName = ''
+
+      if(ui.getApp().musicList.length > 0){
+        if(ui.getApp().musicList[0].epname === this.audioList[0].epname){
+          ui.getApp().setInfo(index)
+        }else{
+          ui.getApp().musicList = this.audioList
+          ui.getApp().setInfo(index)
+        }
+      }
+      this.curIndex = ui.getApp().curIndex
+    },
+    maxFormat: function (num) {
+      return parseInt(num / 60) + ':' + parseInt((num % 60 >= 10 ? '' : '00') + (num % 60))
+    }
+  },
+  mounted () {
+    if(ui.getApp().musicList.length < 1){
+      ui.getApp().musicList = this.audioList
+    }
+    ui.getApp().onLoad()
+    console.log('执行么？')
+  }
+}
+
+</script>
+
+<style lang="less">
+  .ui-image-container{
+    background-color: #eee;
+  }
+  .nab_bar{
+    .back,
+    .nav_title{
+      color: #fff;
+      font-size: 14px;
+    }
+    &.active{
+      .ui-icon{
+        color: #3c3c3c!important;
+      }
+      .back,
+      .nav_title{
+        color: #3c3c3c;
+      }
+    }
+  }
+  
+  .opacity{
+    opacity:0;
+    transition: opacity .25s ease-in;
+  }
+  .opacity1{
+    opacity:1;
+  }
+  .banner{
+    position: relative;
+    .mask{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height:100%;
+      background:rgba(0, 0, 0, 0.3);
+      z-index: 2; 
+    }
+    .ui-row{
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 10;
+      width:100%;
+      .ui-view{
+        font-size: 14px;
+        color: #fff;
+        &.line{
+          width: 1px;
+          height: 20px;
+          background-color: #fff;
+        }
+      }
+    }
+  }
+  .list_top{
+    background-color: #fff;
+    .mix-1px(0, 0, 1, 0, #ccc);
+    .ui-view{
+      color: #989898;
+      font-size:14px;
+    }
+  }
+  .audio_list{
+    .mix-1px(0, 0, 1, 0, #ccc);
+    .ui-view{
+      width:100%;
+      .mix-text-overflow();
+      font-size: 14px;
+      color: #5f5e5e;
+      &.nowSong{
+        color: #FF9D1F;
+      }
+    }
+    .ui-text{
+      font-size:12px;
+      color: #ccc;
+    }
+  }
+
+  
+  .ui-popup-content{
+    .ui-view{
+      padding-left: 10px;
+      .ui-row{
+        .mix-1px(0, 0, 1, 0, #ccc);
+        .ui-text{
+          color: #5f5e5e;
+          &.cancel{
+            color:#F2961C;
+          }
+        }
+      }
+    }
+  }
+
+
+
+
+</style>

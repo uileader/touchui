@@ -1,0 +1,361 @@
+<!--register.ui-->
+<template>  
+  <ui-page page-load="{{ pageLoad }}">
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col width="50" align="left" space-left="10" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-text>购物车</ui-text>  
+        </ui-col>
+        <ui-col width="50" vertical-align="middle" align="center">
+          <!-- <ui-view>编辑</ui-view> -->
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+     <ui-view class="info_list" style="{{{ height:item.height+'px' }}}" ui:for="{{ v3_ui_shopList }}" ui:for-item="item">
+      <ui-row height="80" border-bottom>
+        <ui-col vertical-align="middle">
+          <ui-swipe-out operate-width="80" ref="swipe"  class="swipe-out-dome-1" bindchange="changeHandler(index)" height="80">
+            <ui-view slot="content">
+              <ui-checkbox-group bindchange="checkboxChange">
+                <ui-label class="checkbox">
+                <ui-row height="80" class="top_tip">
+                  <ui-col width="40" vertical-align="middle" align="center">
+                    <ui-checkbox value="{{ index }}" checked="{{ item.checked }}" ></ui-checkbox>
+                  </ui-col>
+                  <ui-col width="80" align="center" vertical-align="middle" space="10">
+                    <!-- <ui-view class="left_icon"> -->
+                        <!-- <ui-icon type="currency02" color="#fff" size="16"></ui-icon> -->
+                        <ui-image
+                          src="{{ item.img }}"
+                        ></ui-image>
+                    <!-- </ui-view> -->
+                  </ui-col>
+                  <ui-col class="text" align="left" vertical-align="middle" space="10">
+                    <ui-view style="width: 100%;">
+                      <ui-row height="30">
+                        <ui-col align="left" vertical-align="middle">
+                          <ui-text>{{ item.title }}</ui-text>
+                        </ui-col>
+                        <!-- <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                          <ui-view>{{ item.title2 }}</ui-view>
+                        </ui-col> -->
+                      </ui-row>
+                      <ui-view>数量：{{ item.serialNumber }}</ui-view>
+                      <ui-view>价格：¥{{ item.price }}</ui-view>
+                    </ui-view>
+                  </ui-col>
+                </ui-row>
+                </ui-label>
+              </ui-checkbox-group>
+            </ui-view>
+            <ui-view slot="operate">
+              <ui-row height="80">
+                <ui-col vertical-align="middle" align="center">
+                  <!-- 删除 -->
+                  <ui-view class="delete" bindtap="del(index)">删除</ui-view>
+                </ui-col>
+              </ui-row>
+            </ui-view>
+          </ui-swipe-out>
+
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+
+   
+
+   <ui-view class="content" style="{{{ height : contentHeight + 'px' }}}" ui:show="{{ v3_ui_shopList.length<1 }}">
+      <ui-view class="shopcar_empty">
+        <ui-view class="car_img">
+          <ui-image
+          src="http://images.uileader.com/20180202/1b367edd-27e2-4fc2-a3e5-cabffdebe8e8.png"
+          width="80"
+          height="80"
+          ></ui-image>
+        </ui-view>
+        <ui-view class="tip_text">购物车还是空的，赶紧行动吧！</ui-view>
+        <ui-view class="look" bindtap="goShopping">去逛逛</ui-view>
+      </ui-view>
+    </ui-view>
+
+    <ui-fixed-view class="list_bottom" bottom="0" ui:if="{{ v3_ui_shopList.length>0 }}">
+      <ui-row border-bottom border-top height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-checkbox-group bindchange="allCheckboxChange">
+            <ui-label class="checkbox">
+              <ui-row height="46">
+                <ui-col width="30" vertical-align="middle" align="center" width="25">
+                  <ui-checkbox></ui-checkbox>
+                </ui-col>
+                <ui-col vertical-align="middle" align="left" width="40">
+                  <ui-view>全选</ui-view>
+                </ui-col>
+                <ui-col></ui-col>
+              </ui-row>
+            </ui-label>
+          </ui-checkbox-group>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" width="180" space-right="10">
+          <ui-row height="46">
+            <ui-col vertical-align="middle" align="center">
+              <ui-view>合计：</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-view class="price">¥ {{ allPrice }}</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="80" bindtap="settleAccounts">
+              <ui-view class="settle_accounts {{ className }}">结算</ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-col>
+      </ui-row>
+    </ui-fixed-view>
+    
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black"
+  },
+  data () {
+    return {
+      contentHeight: ui.DEFAULT_CONTENT_HEIGHT - 46,
+      v3_ui_shopList: [],
+      el: 0,
+      fixedShow:true,
+      allPrice:0,
+      className:'',
+      pageLoad: {
+        trigger: 'always',
+        handle: () => {
+
+        }
+      }
+    }
+  },
+  methods: {
+    navigateBack() {
+      ui.navigateBack()
+    },
+    goShopping() {
+      ui.navigateBack()
+    },
+    changeHandler(index) {
+      if (this.el !== index) {
+        this.$refs.swipe[this.el].close()
+        this.el = index
+      }
+    },
+    del(index) {
+      this.v3_ui_shopList[index].height = 0
+      // 删除缓存的数据
+      let new_ui_shopList = ui.getStorageSync('v3_ui_shopList')
+      new_ui_shopList.splice(index, 1)
+      // ui.setStorageSync('v3_ui_shopList', new_ui_shopList)
+      ui.removeStorageSync('v3_ui_shopList')
+      console.log(new_ui_shopList)
+      if (new_ui_shopList.length < 1) {
+        this.v3_ui_shopList = []
+      }
+    },
+    allCheckboxChange(obj){
+      console.log(obj)
+      this.v3_ui_shopList.forEach((item, index) => {
+        item.checked = obj.current.checked
+      })
+    },
+    checkboxChange(obj){
+      console.log(obj)
+      this.v3_ui_shopList[obj.current.value].checked = obj.current.checked
+      if(obj.current.checked){
+        this.className='active'
+        this.allPrice += this.v3_ui_shopList[obj.current.value].price*this.v3_ui_shopList[obj.current.value].serialNumber
+      }else{
+        this.className=''
+        this.allPrice -= this.v3_ui_shopList[obj.current.value].price*this.v3_ui_shopList[obj.current.value].serialNumber
+      }
+    },
+    settleAccounts(){
+      if(this.allPrice>0){
+        ui.navigateTo({
+          url: '/pages/templeteDemo/store/payment'
+        })
+      }
+      /*
+      if(this.allPrice>0){
+        ui.showConfirm({
+          content: '您的商品总额为'+ this.allPrice +'元',
+          confirmButtonText: '付款',
+          cancelButtonText: '取消',
+          success (result) {
+            if(result.confirm){
+              ui.showToast({title: '付款成功', icon: 'success'})
+              setTimeout(() => {
+                ui.navigateBack()
+              }, 500);
+            }
+          }
+        })
+      }
+      */
+    }
+  },
+  mounted () {
+    let v3_ui_shopList = ui.getStorageSync('v3_ui_shopList')
+    if (v3_ui_shopList !== null) {
+      v3_ui_shopList.forEach((item, index) => {
+        this.v3_ui_shopList.push(item)
+      });
+    }
+    console.log(this.v3_ui_shopList)
+  }
+}
+
+</script>
+
+
+<style lang="less">
+.nav_bar{
+  .mix-1px(0, 0, 1, 0, #ccc);
+   background-color: #fff;
+  .ui-text{
+    color: #2F2F2F;
+    font-size: 16px;
+  }
+  .ui-view{
+    color: #454545;
+    font-size: 12px;
+  }
+}
+
+//列表css
+
+
+.swipe-out-dome-1{
+   transition: height .25s ease-in;
+   overflow: hidden;
+   border-bottom: 1px solid #efefef;
+  // .mix-1px(0, 0, 1, 0, #efefef);
+   width: 100%!important;
+   .ui-swipe-out-content{
+     width: 100%!important;
+   }
+ }
+.delete,
+.edit{
+  width: 100%;
+  // height: 100%;
+  line-height: 80px;
+  font-size: 14px;
+  color: #fff;
+  background: #f22;
+}
+.edit{
+  background-color: #BBBBC1;
+}
+.info_list{
+  transition: height .25s ease-in;
+  overflow: hidden;
+}
+
+.top_tip{
+  background-color: #fff;
+  .left_icon{
+    width: 70px;
+    height: 70px;
+    text-align: center;
+  }
+  .ui-image{
+    width: 100%;
+  }
+  
+  .text{
+    .ui-text{
+      font-size: 14px;
+      color: #6d6d6d;
+    }
+    .ui-view{
+      color: #9C9FA4;
+      font-size: 12px;
+      .mix-text-overflow();
+    }
+  }
+}
+
+//复选框
+
+.ui-checkbox{
+  .ui-checkbox-inner__circle{
+    width: 18px;
+    height: 18px;
+    .ui-checkbox__check{
+      width: 3px;
+      height: 6px;
+      top: 4px;
+      left: 6px;
+    }
+  }
+}
+
+
+
+
+
+
+.content{
+  .mix-flex-center();
+  .shopcar_empty{
+    width:280px;
+    text-align: center;
+    .car_img{
+      display: inline-block;
+    }
+    .tip_text{
+      color: #666;
+      font-size: 14px;
+      line-height: 55px;
+    }
+    .look{
+      border-radius: 3px;
+      line-height: 40px;
+      color: #fff;
+      font-size: 12px;
+      background-color: #39f;
+    }
+  }
+  
+}
+
+.list_bottom{
+  width: 100%;
+  height: 46px;
+  background-color: #fff;
+  .ui-row{
+    width: 100%;
+  }
+  .price{
+    color: #f22;
+  }
+  .settle_accounts{
+    display: inline-block;
+    padding: 5px 20px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #6D6D6D;
+    box-shadow: 0 5px 10px -5px #6D6D6D;
+    border-radius: 5px;
+    &.active{
+      background-color: #F41928;
+      box-shadow: 0 5px 10px -5px #F78487;
+    }
+  }
+}
+</style>

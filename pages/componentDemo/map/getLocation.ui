@@ -1,0 +1,121 @@
+<!--getLocation.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_content">
+        <ui-row height="40" space="10">
+          <ui-col span="2" vertical-align="middle">
+            纬度： 
+          </ui-col>
+          <ui-col span="10">
+            <ui-input type="text" value="{{latitude}}"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space="10">
+          <ui-col span="2" vertical-align="middle">
+            经度：
+          </ui-col>
+          <ui-col span="10">
+            <ui-input type="text" value="{{longitude}}"></ui-input>
+          </ui-col>
+        </ui-row>
+      <ui-button type="primary" bindtap="getLocation">获取位置</ui-button>
+      <ui-button bindtap="openLocation">查看位置</ui-button>
+      <ui-view class="tips">注：PC开发环境下由于没有GPS定位模块，建议在移动设备上查看效果</ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+  
+
+<script>
+var amapFile = require('amap-touchui')
+var key = '4216f7d550dc95ef4ac91e3c0ee6a19a'
+export default {
+  config: {
+    "navigationBarTitleText": "获取位置并查看"
+  },
+  data () {
+    return {
+      latitude: '',
+      longitude: '',
+      location: {},
+      hasLocation: false,
+      textDatas: {}
+    }
+  },
+  mounted () {
+
+  },
+  methods: {
+    getLocation () {
+      ui.getLocation({
+        type: 'gcj02',
+        success: (res) => {
+          this.setData({
+            location: {
+              latitude: res.latitude,
+              longitude: res.longitude
+            },
+            longitude: res.longitude,
+            latitude: res.latitude,
+            hasLocation: true
+          })
+          this.getLocalInfo()
+        },
+        fail: (res) => {
+        }
+      })
+    },
+    getLocalInfo () {
+      var myAmapFun = new amapFile.AMapWX({ key: key })
+      myAmapFun.getRegeo({
+        location: `${this.longitude},${this.latitude}`,
+        success: (data) => {
+          // 调用成功则将相关数据存储至textData
+          this.setData({
+            textDatas: {
+              name: data[0].regeocodeData.formatted_address,
+              address: data[0].name,
+              latitude: data[0].latitude,
+              longitude: data[0].longitude
+            }
+          })
+        },
+        fail: (info) => {
+        }
+      })
+    },
+    openLocation () {
+      if (!this.hasLocation) return
+      ui.openLocation({
+        backgroundColor: '#fff',
+        color:'#000',
+        longitude: Number(this.longitude),
+        latitude: Number(this.latitude),
+        name: this.textDatas.name,
+        address: this.textDatas.address,
+        scale: 16
+      })
+      // ui.openSysMap({
+      //   latitude: Number(this.longitude),
+      //   longitude: Number(this.latitude),
+      //   name: this.textDatas.name,
+      //   success: function(res) {
+      //   },
+      //   fail: function(res) {
+      //   },
+      //   complete: function(res) {
+      //   }
+      // })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.tips {
+  padding: 20px 0;
+  text-align: center
+}
+
+</style>

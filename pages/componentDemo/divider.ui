@@ -1,0 +1,43 @@
+<!--divider.ui-->
+<template>
+  <ui-page>
+    <ui-divider>我是有底线的</ui-divider>
+    <ui-divider padding="20">我是有底线的</ui-divider>
+    <ui-divider color="#ff2a00">我是红色的底线</ui-divider>
+    <ui-divider color="#3399ff">我是蓝色的底线</ui-divider>
+    <ui-divider color="#a1e76a">我是绿色的底线</ui-divider>
+    <ui-divider color="#ff2a00">
+      <ui-view style="color:#ff2a00">
+        内容也是红色的
+      </ui-view>
+    </ui-divider>
+    <ui-divider color="#3399ff">
+      <ui-view style="color:#3399ff">
+        内容也是蓝色的
+      </ui-view>
+    </ui-divider>
+    <ui-divider color="#a1e76a">
+      <ui-view style="color:#a1e76a">
+        内容也是绿色的
+      </ui-view>
+    </ui-divider>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "分隔符"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

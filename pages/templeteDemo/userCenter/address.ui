@@ -1,0 +1,137 @@
+<!--notice.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10"  width="50" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">收货地址</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50" >
+          
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <ui-swipe-out operate-width="80" class="swipe-out-dome-1" bindchange="changeHandler(index)" ui:model="{{item.switcher}}" ui:for="{{list}}"  height="{{ item.height}}">
+      <ui-view slot="content">
+        <ui-row class="swipe-out-dome-1-content" height="80" border-bottom>
+          <ui-col vertical-align="middle" space-left="10">
+            <ui-view class="address_name">{{ item.addressName }}</ui-view>
+            <ui-view class="address_tel">{{ item.tel }}</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="50" bindtap="editAddress">
+            <ui-icon type="write" size="18" color="#B4B4B4"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-view slot="operate">
+        <ui-view class="delete" bindtap="del(index)">删除</ui-view>
+      </ui-view>
+    </ui-swipe-out>
+
+    <ui-fixed-view class="add_address" bottom="0" bindtap="addAddress">
+      <ui-icon type="plus3" size="20" color="#358EFE"></ui-icon>
+      <ui-text>新增地址</ui-text>
+    </ui-fixed-view>
+  </ui-page>
+</template>
+
+<script>
+// notice.js
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "backgroundColor": "#F2F2F2"
+  },
+  data () {
+    return {
+      list: [
+        { height: 70, addressName: '丰台区马家堡搜宝商务中心3号楼1205', tel: 'TOUCH UI(先生)13716365888', switcher: 'off' }
+      ]
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    del (index) {
+      this.list[index].height = 0
+      // 实际使用时将该项id传给后台即可，不需要在前台真正删除数据。
+      // 前台直接删除数据会导致一些问题。
+      // setTimeout(() => {
+      //   this.list.splice(index, 1, {})
+      // }, 500)
+    },
+    changeHandler (index) {
+      for (var i = 0; i < this.list.length; i++) {
+        if (i !== index) {
+          this.list[i].switcher = 'off'
+        }
+      }
+    },
+    addAddress () {
+      ui.navigateTo({
+        url: '/pages/templeteDemo/userCenter/addAddress'
+      })
+    },
+    editAddress () {
+      ui.navigateTo({
+        url: '/pages/templeteDemo/userCenter/updateAddress'
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // notice.less
+.nav_bar {
+  background: linear-gradient(to right, #1F97FE, #126DFE);
+  .nav_title{
+    color: #fff;
+  }
+}
+.swipe-out-dome-1{
+  transition: height .25s ease-in;
+  overflow: hidden;
+  background: #fff;
+}
+.swipe-out-dome-1-content {
+  overflow: hidden;
+  background: #fff;
+  // padding: 10px;
+  .address_name{
+    font-size: 16px;
+    color: #2E2E2E;
+    font-weight: 500;
+  }
+  .address_tel{
+    font-size: 12px;
+    color: #535353;
+  }
+}
+
+.delete{
+  width: 80px;
+  height: 80px;
+  .mix-flex-center();
+  font-size: 14px;
+  color: #fff;
+  background: #f22;
+}
+.add_address{
+  width: 100%;
+  height: 50px;
+  background-color: #FFFFFF;
+  .mix-flex-center();
+  .ui-text{
+    margin-left: 10px;
+    color: #358efe;
+    font-size: 16px;
+  }
+}
+</style>

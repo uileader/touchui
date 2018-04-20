@@ -1,0 +1,66 @@
+<!--navigator4.ui-->
+<template>
+  <ui-page>
+      <ui-nav-bar slot="nav-bar"  class="nav_bar">
+          <ui-row height="46">
+            <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+              <ui-view class="nav_left">
+                  <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>返回
+              </ui-view>
+             
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-view class="nav_title">新页面</ui-view>
+            </ui-col>
+            <ui-col width="60"></ui-col>
+          </ui-row>
+        </ui-nav-bar>
+      <ui-view class="sample_title">返回上级页面并传参</ui-view>
+      <ui-view class="sample_content">
+          <ui-text>输入传的参数</ui-text>
+          <ui-input ui:model="{{ value }}"></ui-input>
+          <ui-button type="primary" plain="{{true}}" bindtap="navigateBack">
+            返回上级页面并传参
+          </ui-button>
+      </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// navigator4.js
+export default {
+  config: {
+    "navigationBarTitleText": "navigator4",
+    "navigationStyle": "custom"
+  },
+  data () {
+    return {
+      value: ''
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.setStorageSync('backParameter', this.value)
+      // localStorage.backParameter = this.value
+      ui.navigateBack()
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+// navigator4.less
+.nav_bar{
+  .mix-1px(0, 0, 1, 0, #ccc);
+  background-color: #39f;
+  .nav_title{
+    color: #fff;
+    font-weight: bold;
+  }
+  .nav_left{
+    color: #fff;
+  }
+}
+</style>

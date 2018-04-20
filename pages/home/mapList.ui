@@ -1,0 +1,56 @@
+<!--mapList.ui-->
+<template>
+    <ui-page>
+      <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+        <ui-view class="group-title">
+          <ui-row >
+            <ui-col width="5" align="center" vertical-align="middle">
+              <ui-view class="sign"></ui-view>
+            </ui-col>
+            <ui-col align="left" vertical-align="middle" space-left="10">
+              <ui-view >{{ group.title }}</ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+        <ui-row-list bordered>
+            <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+              <ui-col>{{ item.title }}</ui-col>
+              <ui-col align="right" width="30">
+                  <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+              </ui-col>
+            </ui-row>
+        </ui-row-list>
+      </ui-view>
+    </ui-page>
+  </template>
+    
+
+<script>
+// mapList.js
+export default {
+  config: {
+    "navigationBarTitleText": "地图"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '地图组件',
+          items: [
+            { title: '自定义标点和气泡', link: '/pages/componentDemo/map/mapDemo' },
+            { title: '地图绘制', link: '/pages/componentDemo/map/mapDraw' },
+            { title: '轨迹移动缩放', link: '/pages/componentDemo/map/trajectory' },
+            { title: '获取位置并查看', link: '/pages/componentDemo/map/getLocation' },
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+
+</style>

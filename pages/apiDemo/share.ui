@@ -1,0 +1,133 @@
+<template>
+  <ui-page>
+    <ui-view class="content">
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="3" vertical-align="middle">
+           分享类型：
+          </ui-col>
+          <ui-col span="9">
+              <ui-input class="input" type="string" name="input" ui:model="type"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="3" vertical-align="middle">
+           分享图标：
+          </ui-col>
+          <ui-col span="9">
+              <ui-image src="{{icon}}" alt="" width="36"></ui-image>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="3" vertical-align="middle">
+           分享标题：
+          </ui-col>
+          <ui-col span="9">
+              <ui-input class="input" type="string" name="input" ui:model="title"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="3" vertical-align="middle">
+           分享内容：
+          </ui-col>
+          <ui-col span="9">
+              <ui-input class="input" type="string" name="input" ui:model="content"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="3" vertical-align="middle">
+           分享链接：
+          </ui-col>
+          <ui-col span="9">
+              <ui-input class="input" type="string" name="input" ui:model="href"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-button type="primary" bindtap="popSwitch">分享</ui-button>
+        <ui-popup ui:model="{{ show }}" bindhide="log('hide')" bindshow="log('show')" class="popup">
+          <ui-row height="110">
+            <ui-col align="center" vertical-align="middle">
+                <ui-image src="{{imgSrc.weixin_message}}" alt="" width="48" bindtap="share('weixin_message')"></ui-image>
+                <ui-view>微信</ui-view>
+            </ui-col>
+            <ui-col align="center" vertical-align="middle">
+                <ui-image src="{{imgSrc.weixin_timeline}}" alt="" width="48" height="48" bindtap="share('weixin_timeline')"></ui-image>
+                <ui-view>朋友圈</ui-view>
+            </ui-col>
+            <ui-col align="center" vertical-align="middle">
+                <ui-image src="{{imgSrc.qq}}" alt="" width="48" bindtap="share('qq')"></ui-image>
+                <ui-view>QQ</ui-view>
+            </ui-col>
+            <ui-col align="center" vertical-align="middle">
+                <ui-image src="{{imgSrc.weibo}}" alt="" width="48" bindtap="share('weibo')"></ui-image>
+                <ui-view>微博</ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-popup>
+      </ui-view>
+
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "分享"
+  },
+  data () {
+    return {
+      target: 'qq',
+      type: 'link',
+      icon: require('#/images/slogo.png'),
+      title: 'Touch UI',
+      content: 'Touch UI是一款很棒的移动开发框架',
+      href: 'http://www.uileader.com/',
+      show: false,
+      imgSrc: {
+        weixin_message: require('#/images/share_weixin_friend.png'),
+        weixin_timeline: require('#/images/share_weixin_circle.png'),
+        qq: require('#/images/share_qq.png'),
+        weibo: require('#/images/share_weibo.png')
+      }
+    }
+  },
+  methods: {
+    share (val) {
+      this.target = val
+      ui.share({
+        target: this.target,
+        type: this.type,
+        icon: this.icon,
+        title: this.title,
+        content: this.content,
+        href: this.href
+      }, function () {
+      }, function () {
+      })
+    },
+    popSwitch () {
+      if (this.show) {
+        this.show = false
+      } else {
+        this.show = true
+      }
+    },
+    log (str) {
+    },
+    handleShow (key) {
+      this[key] = false
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+    .content{
+  padding: 10px;
+}
+
+.popup{
+  .ui-view{
+    margin-top: 10px;
+  }
+}
+</style>

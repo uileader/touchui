@@ -1,0 +1,57 @@
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row>
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered >
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "基础"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '自定义导航栏 nav-bar',
+          items: [
+
+            { title: '右侧自定义图标', link: '/pages/componentDemo/navBar' },
+            { title: '右侧自定义图标：收藏和分享', link: '/pages/componentDemo/navBar2' },
+            { title: '右侧自定义图标+badge', link: '/pages/componentDemo/navBar3' },
+            { title: '左侧自定义图标+badge', link: '/pages/componentDemo/navBar4' },
+            { title: '中间自定义搜索框+滚动变宽', link: '/pages/componentDemo/navBar5' },
+            { title: '导航栏背景为渐变色', link: '/pages/componentDemo/navBar6' }
+
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+  
+</style>

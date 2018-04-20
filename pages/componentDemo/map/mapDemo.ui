@@ -1,0 +1,274 @@
+<template>
+  <ui-page class="map-wrap">
+    <ui-map 
+      id="map" 
+      map-service="tencent"
+      longitude="{{longitude}}" 
+      latitude="{{latitude}}"
+      scale="{{scale}}"
+      show-location="{{showLocation}}"
+      markers="{{markers}}"
+      controls="{{controls}}"
+      bindcontroltap="controltap"
+      bindregionchange="regionchange"
+      bindcallouttap="callouttap"
+      style="width:100%;height:93vh;">
+    </ui-map>
+  </ui-page>
+</template>
+
+<script>
+// mapDemo.js
+// mapDemo02.js
+var pathIcon = require('#/images/map/path.png')
+export default {
+  config: {
+    "navigationBarTitleText": "自定义标点和气泡"
+  },
+  data () {
+    return {
+      latitude: 39.855060,
+      longitude: 116.368650,
+      scale: 16,
+      showLocation: true,
+      mapCtx: null,
+      markers: [
+        {
+        id: 1,
+        latitude: 39.855060,
+        longitude: 116.368650,
+        iconPath: require('#/images/map/posi.png'),
+        label: {
+          fontSize: 12,
+          color: '#FF0000',
+          content: '',
+          x: 0.5,
+          y: 0.5
+        },
+        callout: {
+          content: `<div class="c-wrap">
+                    <div class="info">
+                      <p class="a-name">北京引领视觉科技有限公司</p>
+                      <p class="a-info">丰台区南三环搜宝商务中心3号楼1205</p>
+                    </div>
+                    <div class="click">导航</div>
+                   </div>
+                  `,
+          color: '#000000',
+          fontSize: 16,
+          bgColor: '#ffffff',
+          borderRadius: 10,
+          display: 'ALWAYS',
+          padding: 6
+          // boxShadow: '0 0 1px 1px rgba(0,0,0,.2)'
+        },
+        width: 30,
+        height: 40
+      }, {
+        id: 2,
+        latitude: 39.851297,
+        longitude: 116.368175,
+        iconPath: require('#/images/map/qcsc_ic_location_pin.png'),
+        label: {
+          fontSize: 12,
+          color: '#FF0000',
+          content: '',
+          x: 0.5,
+          y: 0.5
+        },
+        callout: {
+          content: `在这里上车`,
+          color: '#000000',
+          fontSize: 16,
+          bgColor: '#ffffff',
+          borderRadius: 14,
+          display: 'ALWAYS',
+          padding: 8,
+          boxShadow: '0 0 4px 1px rgba(0,0,0,.1)'
+        },
+        width: 22,
+        height: 54
+      }, {
+        id: 3,
+        latitude: 39.858620,
+        longitude: 116.369580,
+        iconPath: require('#/images/map/trip_hotelreuse_map_poi_around_info_stations_selected.png'),
+        label: {
+          content: '点击查看详情',
+          fontSize: 12,
+          color: '#FF0000',
+          x: 100,
+          y: 100
+        },
+        callout: {
+          content: `<div class="s-map">
+                      <p class="s-name clearfix">右安门翠林小区二里</p>
+                      <div class="btn">
+                        <img src="${pathIcon}"/>
+                        <span>导航</span>
+                      </div>
+                    </div>`,
+          color: '#000000',
+          fontSize: 16,
+          bgColor: '#ffffff',
+          borderRadius: 5,
+          display: 'BYCLICK',
+          padding: 8,
+          boxShadow: '0 0 4px 1px rgba(0,0,0,.1)'
+        },
+        width: 32,
+        height: 45
+      }],
+      controls: [{
+        id: 1,
+        iconPath: require('#/images/map/location.png'),
+        clickable: true,
+        position: {
+          left: 15,
+          top: 570,
+          width: 64,
+          height: 64
+        }
+      }],
+      controls: [{
+        id: 1,
+        iconPath: require('#/images/map/location.png'),
+        clickable: true,
+        position: {
+          left: 15,
+          top: ui.DEFAULT_CONTENT_HEIGHT - 100,
+          width: 64,
+          height: 64
+        }
+      }],
+      circles: [{
+        latitude: 39.855060,
+        longitude: 116.368650,
+        color: '#0000FF33',
+        fillColor: '#0000FF33',
+        radius: 100,
+        strokeWidth: 1
+
+      }]
+    }
+  },
+  created () {
+    // this.setData({
+    //   mapCtx: ui.createMapContext('map')
+
+    // })
+  },
+  mounted () {
+    this.mapCtx = ui.createMapContext('map')
+  },
+  methods: {
+    controltap (e) {
+      if (e.controlId === 1) {
+        this.mapCtx.moveToLocation()
+      }
+    },
+    regionchange () {
+
+    },
+    callouttap (e) {
+      if (e.markerId === 2) return
+      if (e.markerId === 1) {
+        this.toSysMap(39.855060, 116.368650, '北京引领视觉科技有限公司')
+      }
+      if (e.markerId === 3) {
+        this.toSysMap(39.858620, 116.369580, '右安门翠林小区二里')
+      }
+    },
+    toSysMap (lat, lng, names) {
+      ui.openSysMap({
+        latitude: lat,
+        longitude: lng,
+        name: names,
+        success: function (res) {
+        },
+        fail: function (res) {
+        },
+        complete: function (res) {
+        }
+      })
+    },
+    go () {
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // mapDemo.less
+.c-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-right: 25px;
+  p {
+      padding: 0 5px;
+  }
+}
+.a-name {
+  font-size: 14px;
+  color: #000;
+  line-height: 20px;
+}
+.a-info {
+  font-size: 12px;
+  color: #000;
+  line-height: 16px;
+}
+.click {
+  position: absolute;
+  left: calc(100% - 6px);
+  top: 0;
+  width: 50px;
+  height: 100%;
+  background-color: #FF6600;
+  line-height: 48px;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 0 10px 10px 0; 
+}
+
+.s-map {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.s-name {
+  margin-right: 10px;
+  font-size: 16px;
+}
+.btn{
+  height: 25px;
+  padding: 0 5px;
+  background-color: #3783fe;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+      width: 16px;
+      height: 16px;
+      margin-right: 3px;
+  }
+  span {
+      font-size: 13px;
+      color: #fff;
+      
+  }
+}
+</style>
+  

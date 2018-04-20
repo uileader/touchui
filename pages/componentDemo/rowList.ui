@@ -1,0 +1,284 @@
+<!--rowList.ui-->
+<template>
+    <ui-page>
+      <ui-view class="sample_title">无缩进</ui-view>
+      <ui-row-list>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+              <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text" >
+            飞行模式
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            Wi-Fi
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            蓝牙
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            蜂窝移动网络
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            个人热点
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            VPN
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            运营商
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-row-list>
+
+      <ui-view class="sample_title">底部边线左侧缩进</ui-view>
+      <ui-row-list border-left-indent>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            飞行模式
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            Wi-Fi
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            蓝牙
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            蜂窝移动网络
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            个人热点
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            VPN
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            运营商
+          </ui-col>
+          <ui-col width="40" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-row-list>
+
+      <ui-view class="sample_title">底部边线两侧缩进</ui-view>
+      <ui-row-list border-indent>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            飞行模式
+          </ui-col>
+          <ui-col width="25" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            Wi-Fi
+          </ui-col>
+          <ui-col width="25" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            蓝牙
+          </ui-col>
+          <ui-col width="25" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            蜂窝移动网络
+          </ui-col>
+          <ui-col width="25" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            个人热点
+          </ui-col>
+          <ui-col width="25" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            VPN
+          </ui-col>
+          <ui-col width="25" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="40" vertical-align="middle" align="center">
+            <ui-icon type="comment" size="20" color="#545454"></ui-icon>
+          </ui-col>
+          <ui-col class="text">
+            运营商
+          </ui-col>
+          <ui-col width="25" vertical-align="middle">
+            <ui-icon type="arrow-right"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-row-list>
+    </ui-page>
+  </template>
+
+
+<script>
+// rowList.js
+export default {
+  config: {
+    navigationBarTitleText: "静态列表组件",
+    backgroundColor:"#fff"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  // rowList.less
+
+.ui-view.title{
+  background-color: #f5f5f5;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 50px;
+  padding-left: 20px;
+  // .ui-view{
+  //   font-weight: bold;
+  // }
+}
+
+
+.text {
+  line-height: 50px;
+}
+
+</style>

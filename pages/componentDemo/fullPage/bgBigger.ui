@@ -1,0 +1,250 @@
+<!--navBar4.ui-->
+<template>
+  <ui-page top="0" bindscroll="handleScroll" id="Bigger">
+    <ui-nav-bar class="nab_bar" slot="nav-bar" style="{{{ 'background-color': `rgba(232, 52, 52, ${alpha})` }}}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="70">
+          <ui-view class="city">
+            <ui-icon type="map" size="18" color="#fff"></ui-icon>北京市
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" space="20">
+          <ui-view class="search">
+            <ui-row height="35">
+              <ui-col vertical-align="middle" align="center" width="40">
+                <ui-icon type="magnifier" size="18" color="#fff"></ui-icon>
+              </ui-col>
+              <ui-col vertical-align="middle" align="left">
+                <ui-view>0元保养</ui-view>
+              </ui-col>
+            </ui-row>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35">
+          <ui-icon type="scan-qrcode" size="20" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35">
+          <ui-icon type="comment" size="22" color="#fff"></ui-icon>
+        </ui-col>
+      </ui-row>
+      
+    </ui-nav-bar>
+    <ui-view style="{{imgObj}}">
+      <ui-image src="{{ require('#/images/personal_bg.jpg') }}"
+      mode="aspectFill"
+      width="100%"
+      ></ui-image>
+    </ui-view>
+    <!-- 以上需要给ui-view加一个imgObj -->
+  
+    <ui-view style="{{placeObj}}"></ui-view>
+    <!-- 以上需要给ui-view加一个placeObj, 此为占位元素 -->
+    
+
+    <ui-view style="{{underObj}}" class="all_content">
+      <!-- 此为underObj,下面的元素 -->
+      <ui-view class="login_content">
+        <ui-row height="140">
+          <ui-col vertical-align="middle" align="center" width="120">
+            <ui-view class="portrait">
+              <ui-icon type="user" size="40"></ui-icon>
+            </ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" space-left="10">
+            <ui-view class="login">登录／注册</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="70" class="operation">
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="comment" size="24" color="#fff"></ui-icon>
+            <ui-view>消息</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="20">
+            <ui-view class="line"></ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="collect2" size="24" color="#fff"></ui-icon>
+            <ui-view>收藏</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="20">
+            <ui-view class="line"></ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="wenti1" size="24" color="#fff"></ui-icon>
+            <ui-view>反馈</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="20">
+            <ui-view class="line"></ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="setting" size="24" color="#fff"></ui-icon>
+            <ui-view>设置</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+
+
+
+
+
+      <ui-view class="content_list">
+        <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+          {{ item }}
+        </ui-view>
+      </ui-view>
+    </ui-view>
+    
+    <ui-fixed-view bindtap="navigateBack">返回上页</ui-fixed-view>
+  </ui-page>
+</template>
+
+
+<script>
+import Bigger from '#/static/utils/bigger.js'// 仅仅需要将bigger.js引入即可
+// var Bigger = require('#/static/utils/bigger.js')
+export default {
+  config: {
+    "navigationBarTitleText": "自定义透明导航",
+    "navigationStyle": "custom",
+    "scrollType": "body",
+    "navigationBarTextStyle":"white"
+  },
+  data () {
+    return {
+      ...Bigger.data, // Bigger所需data
+      items: [],
+      bottom: 30,
+      swiperHeight: ui.WIN_WIDTH / 750 * 499,
+      alpha: 0,
+      items1: [{
+        src: 'http://images.uileader.com/20171103/5906a28c-0f12-4b71-8df2-98791d8716f6.jpg',
+        title: '放肆玩乐，轻巧办公'
+      },
+      {
+        src: 'http://images.uileader.com/20171103/34795a1c-1365-4256-b9c1-6fb4af1de3da.jpg',
+        title: '高温保护，一路驰骋'
+      },
+      {
+        src: 'http://images.uileader.com/20171103/926a6fdc-80f6-4244-8354-860627c88115.jpg',
+        title: '七夕好货，独家礼赠'
+      }]
+    }
+  },
+  computed: {
+    imgObj () {
+      return Bigger.imgObj(this)
+    },
+    underObj () {
+      return Bigger.underObj(this)
+    },
+    placeObj () {
+      return Bigger.placeObj(this)
+    }
+  },
+  methods: {
+    handleScroll (scrollTop) {
+      if (scrollTop === 0) {
+        Bigger.setPrevent(true)
+      } else {
+        Bigger.setPrevent(false)
+      }
+      if (scrollTop > 100) {
+        this.alpha = 1
+      } else {
+        var val = scrollTop / 100
+        this.alpha = val
+      }
+    },
+    navigateBack () {
+      ui.navigateBack()
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+    Bigger.init('#Bigger', this, this.swiperHeight)// 传入三个参数,id,this,图片高度
+  }
+}
+
+</script>
+
+<style lang="less">
+  // navBar4.less
+.city {
+    color: #fff;
+    font-size: 14px;
+}
+
+.search {
+    width: 100%;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, .4);
+    .ui-view {
+        height: 35px;
+        line-height: 35px;
+        color: #fff;
+        font-size: 14px;
+    }
+}
+
+
+.swiper-slide {
+    color: #fff;
+    text-align: center;
+    .ui-image {
+        width: 100%;
+        display: block;
+    }
+}
+
+.ui-fixed-view {
+    bottom: 100px;
+    right: 20px;
+    width: 46px;
+    padding: 7px;
+    height: 46px;
+    line-height: 16px;
+    border: 1px solid #F76346;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: #F76346;
+    z-index: 99;
+    &:active {
+        opacity: 0.8;
+    }
+}
+.all_content{
+    margin-top: -210px;
+}
+.login_content{
+    width: 100%;
+    .portrait{
+        width: 60px;
+        height: 60px;
+        background: #fff;
+        border-radius: 50%;
+        line-height: 60px;
+        text-align: center; 
+    }
+    .login{
+        color: #fff;
+        font-size: 16px;
+    }
+    .operation{
+        background: rgba(0,0,0,0.3);
+        .ui-view{
+            color: #fff;
+        }
+        .line{
+            width: 1px;
+            height: 25px;
+            background: #4d4b58;
+        }
+    }
+}
+</style>

@@ -1,0 +1,137 @@
+<template>
+    <ui-page>
+      <ui-nav-bar >
+        <ui-row height="46" class="nav_bar">
+          <ui-col vertical-align="middle" align="left" space-left="10" width="50" bindtap="hideWindow">
+            <ui-view>
+              <ui-icon type="arrow-left" size="16" color="#3399ff"></ui-icon>
+            </ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-view class="nav_title">收款人信息</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="50" bindtap="hideWindow">
+            <ui-view>取消</ui-view>
+          </ui-col>
+        </ui-row>
+    </ui-nav-bar>
+
+      <ui-view class="content" style="{{{ height:contentHeight+'px' }}}">
+        <ui-view class="payee_list" ui:for="{{ payeeList }}" ui:for-item="item" bindtap="choose(index)">
+          <ui-row height="40">
+            <ui-col vertical-align="middle" align="left" width="70" space-left="10">
+              <ui-view>账户名称</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" space="20">
+              <ui-view class="right_column">{{ item.account }}</ui-view>
+            </ui-col>
+          </ui-row>
+          <ui-row height="40">
+            <ui-col vertical-align="middle" align="left" width="70" space-left="10">
+              <ui-view>开户行</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" space="20">
+              <ui-view class="right_column">{{ item.bank }}</ui-view>
+            </ui-col>
+          </ui-row>
+          <ui-row height="40">
+            <ui-col vertical-align="middle" align="left" width="70" space-left="10">
+              <ui-view>账号</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" space="20">
+              <ui-view class="right_column">{{ item.cardNum }}</ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+      </ui-view>
+    </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F6F6F6"
+  },
+  data () {
+    return {
+      contentHeight: ui.DEFAULT_CONTENT_HEIGHT,
+      payeeList: [
+        {
+          account:"北京引领视觉",
+          bank:"工行二里庄",
+          cardNum:"36520"
+        },
+        {
+          account:"北京引领视觉2",
+          bank:"北京工商银行",
+          cardNum:"123456"
+        },
+        {
+          account:"北京引领视觉3",
+          bank:"北京建设银行",
+          cardNum:"123456789"
+        }
+      ],
+      payeeInfo: []
+
+    }
+  },
+  methods: {
+    hideWindow (e) {
+      ui.hideDialog()
+    },
+    choose (index) {
+      this.payeeInfo = []
+      let info = {
+        account: this.payeeList[index].account,
+        bank: this.payeeList[index].bank,
+        cardNum: this.payeeList[index].cardNum
+      }
+      this.payeeInfo.push(info)
+      ui.hideDialog({
+        payeeInfo: this.payeeInfo
+      })
+    }
+  },
+  mounted () {
+    
+  }
+}
+</script>
+
+<style lang="less">
+.nav_bar {
+  // background: linear-gradient(to right, #1F97FE, #126DFE);
+  .ui-view{
+    color: #3399ff;
+    font-size: 14px;
+  }
+  .nav_title{
+    color: #010101;
+  }
+}
+.content{
+  background-color: #F6F6F6;
+  padding-top: 10px;
+  .payee_list{
+    width: 95%;
+    margin: 0 auto;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0px 0px 13px 0px #d6d7d8;
+    margin-bottom: 20px;
+    .ui-view{
+      font-size: 14px;
+      color: #1A1E23;
+      &.right_column{
+        width: 100%;
+        height: 40px;
+        line-height: 35px;
+      }
+    }
+  }
+}
+</style>

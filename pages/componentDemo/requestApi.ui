@@ -1,0 +1,64 @@
+<!--requestApi.ui-->
+<template>
+  <ui-page class="win">
+      <ui-button class="selfbtn" bindtap="navigateurl('normal')">正常请求</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('backnull')">请求结果为空</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('overtime')">请求超时</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('normal')">网络错误（可以将手机打开飞行模式）</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('failed')">请求失败（这里设置了一个错误的url）</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('isnull')">已知为空（请求前已知结果为空，不发请求）</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('login')">需要登录（请求前已知未登录，不发请求）</ui-button>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "使用框架Loading"
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    navigateurl (staterefer) {
+      let state
+      switch (staterefer) {
+        // 正常请求
+        case 'normal':
+          state = '1'
+          break
+        // 返回结果为空
+        case 'backnull':
+          state = '3'
+          break
+        // 网络超时
+        case 'overtime':
+          state = '4'
+          break
+        // 请求失败
+        case 'failed':
+          state = '5'
+          break
+        // 已知结果为空，不发请求
+        case 'isnull':
+          state = '7'
+          break
+        // 需要登录，不发请求
+        case 'login':
+          state = '6'
+          break
+      }
+      ui.navigateTo({
+        url: 'requestApi2?state=' + state
+      })
+    }
+  }
+}
+</script>
+
+<style lang="less">
+  .win{
+  padding:10px;
+}
+</style>

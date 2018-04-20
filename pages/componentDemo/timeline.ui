@@ -1,0 +1,92 @@
+<!--timeline.ui-->
+<template>
+  <ui-page>
+    <ui-view class="wrap">
+      <ui-timeline style="width:100%">
+        <ui-timeline-item 
+          ui:for="{{list}}"  
+          wx:key="index" 
+          point-color="{{index <= 2 ? '#3399ff' : '#8a8a8a'}}"  
+          line-color="{{index<=1?'#3399ff':''}}"
+          shadow-class="{{index === 2 ? 'shadow-class' : ''}}"
+          show-line="{{index === (list.length - 1) ? false : true}}"
+          >
+        <ui-row class="zindex">
+          <ui-col span=12 class="continer">
+            <ui-row class="list">
+            <ui-col span=6 class="item" style="color:#AAAAAA;" :style="{'color': index === 2 ? '#3399ff' : '#AAAAAA','font-weight':index === 2 ? 600 : ''}">{{item.time}}
+              </ui-col>
+            <ui-col span=6 class="item" style="text-align: left">{{item.content}} </ui-col>
+            </ui-row>
+          </ui-col>
+        </ui-row>
+        </ui-timeline-item>
+      </ui-timeline>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// timeline.js
+export default {
+  config: {
+    "navigationBarTitleText": "竖向时间轴"
+  },
+  data () {
+    return {
+      list: [],
+      left: (window.innerWidth - 280) / 2,
+      winWidth: window.innerWidth,
+      color: ''
+    }
+  },
+  mounted () {
+    this.list.splice(0,0,{time: '今天 05-14', content: '0.28'},
+    {time: '周一 05-15', content: '0.52'},
+    {time: '周二 05-16', content: '待领取'},
+    {time: '周三 05-17', content: '支付后获得'},
+    {time: '周四 05-18', content: '支付后获得'},
+    {time: '周五 / 周六', content: '已累积'})
+  }
+}
+
+</script>
+
+<style lang="less">
+  // timeline.less
+.wrap{
+  display: flex;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 4px;
+  width: 80%;
+  margin: 50px auto;
+  .continer{
+    padding: 42px;
+    position: relative;
+    .list{
+      position: absolute;
+      top: -5px;
+      width: 100%;
+      left: 40px;
+      .item{
+        font-size: 15px;
+      }
+    }
+  }
+}
+.shadow-class {
+  &:before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(51, 153, 255,.3);
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    z-index: 1;
+  }
+}
+</style>

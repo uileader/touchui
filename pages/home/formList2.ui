@@ -1,0 +1,58 @@
+<!--formList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row type="flex">
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+        <ui-row type="flex" ui:for="{{ group.items }}" url="{{ item.link }}" hover-class="touchui-hover">
+          <ui-col>{{ item.title }}</ui-col>
+          <ui-col align="right" width="30">
+              <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+  // formList.js
+export default {
+  config: {
+    "navigationBarTitleText": "表单"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '输入类',
+          items: [
+            { title: '单行输入框 input', link: '/pages/componentDemo/input' },
+            { title: '虚拟键盘输入框 virtual-input', link: '/pages/componentDemo/virtualInput' },
+            { title: '短信验证码输入框 sms-input', link: '/pages/componentDemo/smsInput' },
+            { title: '多行输入框 textarea', link: '/pages/componentDemo/textarea' },
+            { title: '全屏搜索框 srarch', link: '/pages/componentDemo/search' },
+            { title: '单行搜索框 search', link: '/pages/componentDemo/search2' }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+
+</style>

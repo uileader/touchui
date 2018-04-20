@@ -1,0 +1,267 @@
+<template>
+    <ui-page>
+      <ui-nav-bar slot="nav-bar" class="nav_bar">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="left" space-left="10" width="50" bindtap="navigateBack">
+              <ui-icon type="arrow-left" size="18" color="#6E6E6E"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" bindtap="showFullScreenSearch">
+            <ui-view class="search">
+              <ui-row height="30">
+                <ui-col vertical-align="middle" align="center" width="35">
+                  <ui-icon type="search" size="18" color="#6E6E6E"></ui-icon>
+                </ui-col>
+                <ui-col vertical-align="middle" align="left">
+                  <ui-view>请输入要搜索的课程</ui-view>
+                </ui-col>
+              </ui-row>
+            </ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="50">
+            <ui-icon type="mail" size="24" color="#888888"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+
+        <ui-row>
+          <ui-col width="90" border-right>
+              <ui-v-tabs vertical
+              height="{{ height }}"
+              class="tab-item"
+              index="{{ current }}"
+              tab-style="padding:14px 10px"
+              active-tab-style="border-right:1px solid #F01414;color:#F01414"
+              bindchange="handleChange($event, 'current')">
+              <ui-v-tab ui:for="{{ tabItems }}">
+                {{ item.name }}
+              </ui-v-tab>
+            </ui-v-tabs>
+          </ui-col>
+          <ui-col>
+             
+        <ui-ex-swiper
+        class="tab-content"
+        style="height: {{ height }}px"
+        boundary-swipe
+        vertical
+        index="{{ current }}"
+        bindchange="handleContentChange($event, 'current')">
+        <ui-ex-swiper-item ui:for="{{ tabContents }}" boundary-config="{{ boundaryConfig }}">
+          <ui-view class="class_list" bindtap="classDetails">
+            <ui-row space-bottom="25" ui:for="{{ tabContents }}" ui:for-item="item">
+              <ui-col vertical-align="middle" align="center" span="5">
+                <ui-image
+                  src="{{ item.img }}"
+                  mode="aspectFill"
+                  height="60"
+                ></ui-image>
+              </ui-col>
+              <ui-col vertical-align="top" align="left" space-left="10">
+                <ui-view class="title">{{ item.title }}</ui-view>
+                <ui-view class="title2">{{ item.title2 }}</ui-view>
+              </ui-col>
+            </ui-row>
+          </ui-view>
+        </ui-ex-swiper-item>
+      </ui-ex-swiper>
+          </ui-col>
+        </ui-row>
+       
+
+
+
+      
+    </ui-page>
+  </template>
+
+<script>
+export default {
+  config: {
+    
+    "disableScroll":true,
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black"
+  },
+  data () {
+    return {
+      current: 0,
+      boundaryConfig: {
+        topTip: {
+          beginText: '↓下拉查看上一分类',
+          activeText: '↑释放查看上一分类'
+        },
+        bottomTip: {
+          beginText: '↑上拉查看下一分类',
+          activeText: '↓释放查看下一分类'
+        }
+      },
+      tabItems: [
+        { name: '前端开发' },
+        { name: '后端开发' },
+        { name: '移动开发' },
+        { name: '数据库' },
+        { name: '人工智能' },
+        { name: '云计算&大数据' },
+        { name: '运维&测试' },
+        { name: 'UI设计' }
+      ],
+      tabContents: [
+        {
+          img:'https://img1.mukewang.com/5a97d4000001d97906000338-590-330.jpg',
+          title:'ES6快速入门',
+          title2:'初级 · 201人在学'
+        },{
+          img:'https://img1.mukewang.com/5a93556000017ae906000338-590-330.jpg',
+          title:'Promise 入门',
+          title2:'高级 · 2732人在学'
+        },{
+          img:'https://img4.mukewang.com/5a7d64da0001032d06000338-590-330.jpg',
+          title:'ajax跨域完全讲解',
+          title2:'中级 · 8494人在学'
+        },{
+          img:'https://img3.mukewang.com/5a81337f000118a306000338-590-330.jpg',
+          title:'Weex入门',
+          title2:'中级 · 4375人在学'
+        },{
+          img:'https://img1.mukewang.com/5a73f54f000190d206000338-590-330.jpg',
+          title:'React组件',
+          title2:'中级 · 2945人在学'
+        },{
+          img:'https://img3.mukewang.com/5a71255d0001400e06000338-590-330.jpg',
+          title:'移动web开发适配秘籍Rem',
+          title2:'初级 · 6917人在学'
+        },{
+          img:'https://img1.mukewang.com/59df4dd500013d0606000338-590-330.jpg',
+          title:'从JS到TS开发数独游戏（TS版）',
+          title2:'中级 · 8097人在学'
+        },{
+          img:'https://img1.mukewang.com/59bfab740001369a06000338-590-330.jpg',
+          title:'阿里D2前端技术论坛——2016初心',
+          title2:'高级 · 7564人在学'
+        },{
+          img:'https://img.mukewang.com/586b64ee0001df7906000338-590-330.jpg',
+          title:'Requirejs和自动打包',
+          title2:'中级 · 9104人在学'
+        }
+      ],
+      height: ui.DEFAULT_CONTENT_HEIGHT
+    }
+  },
+  mounted () {
+
+  },
+  methods: {
+    handleChange (index, key) {
+      this[key] = index
+    },
+    handleContentChange (index, key) {
+      this[key] = index
+    },
+    showFullScreenSearch () {
+      ui.getApp().globalData.searchShow = true
+      ui.setStatusBarStyle({ style: 'dark' })
+    },
+    navigateBack () {
+      ui.navigateBack()
+    },
+    classDetails(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/videoTemplete/videoTemplete'
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.nav_bar{
+  .mix-1px(0, 0, 1, 0, #ccc);
+  background-color: #fff;
+  .search{
+    width: 100%;
+    line-height: 30px;
+    text-align: center;
+    background-color: #EFEFEF;
+    border-radius: 3px;
+    color: #888888;
+    font-size: 14px;
+  }
+}
+.container {
+  display: flex;
+}
+
+.tab-content {
+  flex: 1;
+  color: #999;
+  .swiper-slide {
+    // padding: 0 5px;
+    -webkit-overflow-scrolling: touch;
+  }
+  // .swiper-slide-top-tip:frist-child{
+  
+}
+
+.tabcontent{
+  display: flex;
+  flex-wrap:wrap;
+  .tabcontent-1{
+    flex:0 0 33.33%
+  }
+}
+.class_list{
+  padding: 10px;
+  .ui-row{
+    .ui-col{
+      overflow: hidden;
+    }
+    .ui-image{
+      border-radius: 3px;
+    }
+    .title{
+      color: #2B333B;
+      font-size: 14px;
+      line-height:20px;
+    }
+    .title2{
+      font-size: 12px;
+      color: #71777D;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+.swiper-slide-tip{
+  padding-top:20px;
+  font-size:10px;
+  color:#ccc;
+}
+.swiper-slide-top-tip{
+  padding:0;
+}
+.swiper-wrapper .swiper-slide:first-child{
+  .swiper-slide-top-tip{
+    display:none;
+  }
+} 
+.swiper-wrapper .swiper-slide:last-child{
+  
+  .swiper-slide-tip{
+    display:none;
+  }
+  .swiper-slide-top-tip{
+    display:block;
+  }
+} 
+
+</style>

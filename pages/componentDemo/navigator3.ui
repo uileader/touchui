@@ -1,0 +1,41 @@
+<!--navigator3.ui-->
+<template>
+  <ui-page page-load="{{ pageLoad }}">
+      <ui-view class="sample_title">保留当前页面，跳转到新页面</ui-view>
+      <ui-view class="sample_content">
+        <ui-navigator url="/pages/componentDemo/navigator4">
+          <ui-button type="primary" plain="{{true}}">
+            navigator组件
+          </ui-button>
+        </ui-navigator>
+        <ui-text>接收到的参数为：{{value}}</ui-text>
+      </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// navigator3.js
+export default {
+  config: {
+    "navigationBarTitleText": "回退传参"
+  },
+  data () {
+    return {
+      value: '',
+      pageLoad: {
+        trigger: 'always',
+        handle: () => {
+          // this.value = localStorage.backParameter
+          this.value = ui.getStorageSync('backParameter')
+        }
+      }
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+
+</style>

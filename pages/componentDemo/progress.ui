@@ -1,0 +1,99 @@
+<!--progress.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_block">
+      <ui-view class="sample_title">基本使用</ui-view>
+      <ui-view class="sample_content">
+        <ui-progress percent="50"></ui-progress>
+        <ui-progress percent="60" active-color="#20a0ff"></ui-progress>
+      </ui-view>
+    </ui-view>
+
+    <ui-view class="sample_block">
+      <ui-view class="sample_title">渐变色</ui-view>
+      <ui-view class="sample_content">
+        <ui-progress percent="70" stroke-width="10" active-color="#9266FB,#F55691"></ui-progress>
+        <ui-progress percent="80" stroke-width="10" active-color="#FC8609, #f40" background-color="#FCD9C1"></ui-progress>
+      </ui-view>
+    </ui-view>
+
+    <ui-view class="sample_block">
+      <ui-view class="sample_title">添加文本</ui-view>
+      <ui-view class="sample_content">
+        <ui-progress percent="50" show-info></ui-progress>
+        <ui-progress percent="60" show-info active-color="#ff4949"></ui-progress>
+      </ui-view>
+    </ui-view>
+    <ui-view class="sample_block">
+      <ui-view class="sample_title">初始动画效果</ui-view>
+      <ui-view class="sample_content">
+        <ui-progress percent="50" show-info active active-color="#20a0ff"></ui-progress>
+      </ui-view>
+    </ui-view>
+    <ui-view class="sample_block">
+      <ui-view class="sample_title">进度条粗细</ui-view>
+      <ui-view class="sample_content">
+        <ui-progress percent="50" show-info active stroke-width="1"></ui-progress>
+        <ui-progress percent="60" show-info active stroke-width="2" active-color="#20a0ff"></ui-progress>
+        <ui-progress percent="70" show-info active stroke-width="3" active-color="#ff4949"></ui-progress>
+      </ui-view>
+    </ui-view>
+    <ui-view class="sample_block">
+      <ui-view class="sample_title">外部控制进度条</ui-view>
+      <ui-view class="sample_content">
+        <ui-progress percent="{{ percent }}" show-info></ui-progress>
+        <ui-button bindtap="handleProgressChange" disabled="{{ disabled }}" type="primary">设置进度条</ui-button>
+      </ui-view>
+    </ui-view>
+    <ui-view class="sample_block">
+      <ui-view class="sample_title">设置圆角</ui-view>
+      <ui-view class="sample_content">
+        <ui-progress border-radius="4" percent="{{ percent }}" show-info></ui-progress>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// progress.js
+export default {
+  config: {
+    "navigationBarTitleText": "进度条",
+    "scrollType": "body"
+  },
+  data () {
+    return {
+      percent: 30,
+      disabled: false,
+      arrcolor: ['#20a0ff', 'red']
+    }
+  },
+  methods: {
+    handleProgressChange () {
+      if (this.percent > 0) {
+        this.percent = 0
+      }
+      let sid = window.setInterval(() => {
+        this.disabled = true
+        this.percent++
+        if (this.percent >= 100) {
+          this.disabled = false
+          window.clearInterval(sid)
+        }
+      }, 20)
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.sample_block {
+  font-size: 14px;
+}
+
+.ui-progress {
+  margin: 15px 0;
+}
+</style>

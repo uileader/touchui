@@ -1,0 +1,373 @@
+<!--requestApi2.ui-->
+<template>
+  <ui-page show-loading="{{isloading}}" auto-hide-loading="{{false}}" pull-down="{{ pullDown }}" class="win">
+    <ui-view ui:show={{isnormal}} class="ui-view top_tip">
+      <ui-row ui:for="{{datalist}}" ui:for-item="datalist" height="80" border-bottom>
+          <ui-col width="80" align="center" vertical-align="middle">
+            <ui-view class="left_icon left_icon1" style="{{datalist.iconcolor}}">
+                <ui-icon type="{{datalist.iconfont}}" color="#fff" size="20"></ui-icon>
+            </ui-view>
+          </ui-col>
+          <ui-col class="text" align="left" vertical-align="middle" space="20">
+            <ui-view style="width: 100%;">
+              <ui-row height="30">
+                <ui-col align="left" vertical-align="middle">
+                  <ui-text>{{datalist.title}}</ui-text>
+                </ui-col>
+                <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                  <ui-text>{{datalist.datatime}}</ui-text>
+                </ui-col>
+              </ui-row>
+              <ui-view>{{datalist.describe}}</ui-view>
+            </ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>   
+
+    <ui-view ui:show="{{isnull}}" class="main" style="{{ { height: height + 'px'} }}">
+          <ui-view class="show_tip">
+            <ui-icon type="ico_nodata" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">暂时还没有任何通知</ui-view>
+          </ui-view>
+
+      </ui-view>
+
+      <ui-view ui:show="{{overtime}}" class="main" style="{{ { height: height + 'px'} }}">
+        <ui-view class="show_tip">
+            <ui-icon type="qingqiuchaoshi" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">请求超时</ui-view>
+            <ui-button type="primary" class="selfrequestbtn" bindtap="InitiatingRequest('normal')">点击重试</ui-button>
+          </ui-view>
+      </ui-view>
+
+      <ui-view ui:show="{{isconnect}}" class="main" style="{{ { height: height + 'px'} }}">
+        <ui-view class="show_tip">
+            <ui-icon type="networkError" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">网络无法连接，请检查您的网络</ui-view>
+            <ui-button type="primary" class="selfrequestbtn" bindtap="InitiatingRequest('normal')">点击重试</ui-button>
+          </ui-view>
+      </ui-view>
+
+      <ui-view ui:show="{{isfail}}" class="main" style="{{ { height: height + 'px'} }}">
+        <ui-view class="show_tip">
+            <ui-icon type="networkOffline" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">请求失败啦</ui-view>
+            <ui-button type="primary" class="selfrequestbtn" bindtap="failedRequest()">点击重试</ui-button>
+          </ui-view>
+      </ui-view>
+
+      <ui-view ui:show="{{islogin}}" class="main" style="{{ { height: height + 'px'} }}">
+        <ui-view class="show_tip">
+            <ui-icon type="login" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">请先登录</ui-view>
+            <ui-button type="primary" class="selfrequestbtn" bindtap="loginfn">立即登录</ui-button>
+          </ui-view>
+      </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "request请求"
+  },
+  data () {
+    return {
+      height: ui.DEFAULT_CONTENT_HEIGHT,
+      // 数据
+      datalist: [],
+      // 下拉时临时存储数据
+      pulldownlist: [],
+      // 有3个值，默认notnull：不为空。nullval：返回值为空。error：错误
+      pulldownlistflag: 'notnull',
+      // 下拉刷新时返回的具体错误提示。
+      requesterror: '',
+      // 正常显示
+      isnormal: false,
+      // loading
+      isloading: true,
+      // 为空
+      isnull: false,
+      // 超时
+      overtime: false,
+      // 断网
+      isconnect: false,
+      // 请求失败
+      isfail: false,
+      // 是否登录
+      islogin: false,
+      // 下拉刷新时用来设置每次添加新的条目所使用的页码，实际开发中不需要
+      afterPageNo: 2,
+      // 请求参数
+      state: '',
+      pullDown: {
+        distance: 60,
+        onBegin: () => {},
+        onActive: this.handleActive,
+        onAfter: this.handleAfter
+      }
+    }
+  },
+  methods: {
+    // 请求函数
+    InitiatingRequest () {
+      // 每次请求前，把所有状态初始化
+      this.initialize()
+      var self = this
+      // 每次发送请求时，显示loading效果
+      self.isloading = true
+        ui.request({
+          url: '/touchui-backstage/listInfo.do?state=' + this.state,
+          data: {pageSize: 1, pageNo: 1},
+          success: function (data) {
+            // 成功后，关闭loading效果
+            self.isloading = false
+            // 判断数据为空
+            if (data.data === '' || data.data === 'undefined') {
+              // 将为空提示的容器显示出来
+              self.isnull = true
+            } else {
+              // 将内容所在的容器显示出来
+              self.isnormal = true
+              // 将返回数据赋值给组件
+              self.datalist = data.data.datalist
+            }
+          },
+          fail: function (error) {
+            self.isloading = false
+            // 网络异常
+            if (error.errMsg === 'offline') {
+              self.isconnect = true
+            } else if (error.errMsg === 'timeout') {  // 超时
+              self.overtime = true
+            } else {   // 失败
+              self.isfail = true
+            }
+          }
+        })
+    },
+    // 请求失败函数
+    failedRequest () {
+      this.initialize()
+      var self = this
+      self.isloading = true
+      ui.request({
+        url: 'http://192.168.1.160:3000/posts2',
+        success: function (data) {
+          self.isloading = false
+        },
+        fail: function (data) {
+          self.isloading = false
+          self.isfail = true
+        }
+      })
+    },
+    // 初始时，重置所有状态变量
+    initialize () {
+      this.isnormal = false
+      this.datalist = []
+      this.isloading = false
+      this.isnull = false
+      this.overtime = false
+      this.isconnect = false
+      this.isfail = false
+      this.islogin = false
+    },
+    loginfn () {
+      ui.showToast({ title: '登录登录~~' })
+    },
+    // 下拉时，进行的操作。
+    handleActive () {
+      let that = this
+      // 将返回的请求接管，实现让请求结果来控制下拉刷新的状态
+      return ui.request({
+        url: '/touchui-backstage/listInfo.do?state=' + that.state,
+        // promise设置为true，让请求返回promise，这样就可以接管请求
+        // 请求结束后页面自动回弹
+        promise: true,
+        // 请求的参数
+        data: {pageSize: 1, pageNo: that.afterPageNo},
+        success: function (data) {
+          // 返回数据为空
+          if (data.data === '' || data.data === 'undefined') {
+            that.pulldownlistflag = 'nullval'
+          } else {  // 返回数据不为空
+            that.pulldownlistflag = 'notnull'
+            that.pulldownlist = data.data.datalist
+            that.afterPageNo++
+          }
+        },
+        fail: function (error) {
+          if (error.offline) {
+            that.pulldownlistflag = 'error'
+            that.requesterror = '网络异常'
+          } else if (error.timeout) {
+            that.pulldownlistflag = 'error'
+            that.requesterror = '请求超时'
+          } else {
+            that.pulldownlistflag = 'error'
+            that.requesterror = '请求失败'
+          }
+        }
+      })
+    },
+    // 下拉结束后，执行的函数。因为只要下拉即时没有到达刷新的高度也会触发这个方法
+     // flag 为1表示执行了handleActive。为undefined代表handleActive没有执行。
+    handleAfter (flag) {
+      if (flag) {
+        // 返回数据不为空，增加一条数据
+        if (this.pulldownlistflag === 'notnull') {
+          for (let i = 0; i < this.pulldownlist.length; i++) {
+            this.datalist.unshift(this.pulldownlist[i])
+          }
+        } else if (this.pulldownlistflag === 'nullval') {  // 返回数据为空，不操作
+          return false
+        } else if (this.pulldownlistflag === 'error') {    // 返回错误，弹出错误提示
+          ui.showToast({
+            title: this.requesterror
+          })
+        }
+      }
+    }
+  },
+
+  mounted () {
+    // 获取url参数
+    let getData = ui.getQuery()
+    this.state = getData.state
+    // 初始化
+    this.initialize()
+    // 请求结果失败
+    if (this.state === '5') {
+      this.failedRequest()
+    } else if (this.state === '6') {   // 需要登录，不发请求
+      this.islogin = true
+      this.isloading = false
+    } else if (this.state === '7') {  // 已知结果为空，不发请求
+      this.isnull = true
+      this.isloading = false
+    } else {    // 正常发起请求
+      this.InitiatingRequest()
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  @loading-color: #3399ff;
+.win{display:flex;
+  flex-direction:column;
+  justify-content:space-between;}
+.main{
+    flex-grow:1;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center; 
+    text-align: center;
+    flex-grow:1;
+}
+.show_tip{
+    height: 160px;
+    .ui-icon{
+      line-height: 1.1;
+    }
+  }
+.selfrequestbtn{
+  background-color: #41ad72;
+  color:#fff;
+  border-color:#41ad72
+}
+.selfrequestbtn-hover{
+  background-color:#318a59;
+  border-color:#318a59
+}
+
+
+.ui-loading-circle {
+  width: 20rem/75;
+  height: 20rem/75;
+  background: @loading-color;
+  border-radius: 50%;
+  margin-left: 15rem/75;
+  display: inline-block;
+}
+
+.ui-loading-circle-1 {
+  -webkit-animation: circle 1s linear infinite alternate;
+  animation: circle 1s linear infinite alternate;
+}
+
+.ui-loading-circle-2 {
+  -webkit-animation: circle 1s linear infinite alternate;
+  animation: circle 1s linear infinite alternate;
+  animation-delay: 0.5s;
+}
+
+.ui-loading-circle-3 {
+  -webkit-animation: circle 1s linear infinite alternate;
+  animation: circle 1s linear infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes circle {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+.btnbox{
+  padding:0 10px;
+  }
+.title{
+  color:#A5A5A4;
+  font-size:14px;}
+.selfbtn{
+  padding:0 5px;
+}
+
+@keyframes rotate{
+  0%{transform: rotate(0deg);}
+  100%{transform: rotate(360deg);}
+}
+
+.top_tip{
+  overflow: scroll;
+  .ui-row{
+    background-color: #fff;
+  }
+  .left_icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color:#FCB300; 
+    text-align: center;
+    line-height: 50px;
+  }
+  .left_icon2{
+    background-color: #FF7360;
+  }
+  .left_icon3{
+    background-color: #39CCC5;
+  }
+  .text{
+    .ui-text{
+      font-size: 16px;
+      color: #313338;
+    }
+    .ui-view{
+      color: #9C9FA4;
+      font-size: 12px;
+      .mix-text-overflow ()
+    }
+  }
+}
+</style>

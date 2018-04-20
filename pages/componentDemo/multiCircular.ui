@@ -1,0 +1,138 @@
+<template>
+  <ui-page>
+    <ui-view class="sample_title">仿Apple Watch</ui-view>
+    <ui-view class="circular1">
+      <ui-view class="circular1_content">
+        <ui-multi-circular
+        width="250"
+        left="150"
+        value="{{ value1 }}"
+        gap="1"
+        color-array="{{ colorArray }}"
+        line-width="20"
+        background-color="darken"
+        labels="{{ labels }}"
+        bindclickedindex="getCircular"
+        hover-style="darken"
+        ></ui-multi-circular>
+        <ui-view class="index">{{ index }}</ui-view>
+      </ui-view>
+
+    </ui-view>
+
+    <ui-view class="sample_title sample_title2">纯色背景</ui-view>
+    <ui-view class="circular1 circular2">
+      <ui-multi-circular
+      value="{{ value2 }}"
+      gap="3"
+      color-array="{{ colorArray2 }}"
+      background-color="{{ backgroundColor2 }}"
+      ></ui-multi-circular>
+      <ui-text block>数据占比</ui-text>
+    </ui-view>
+
+    <ui-view class="sample_title">无背景带文字</ui-view>
+    <ui-view class="circular1">
+      <ui-view class="circular4_content">
+        <ui-multi-circular
+        width="275"
+        height="290"
+        left="175"
+        top="120"
+        value="{{ value4 }}"
+        gap="10"
+        line-width="5"
+        color-array="{{ colorArray4 }}"
+        labels="{{ labels4 }}"
+        have-background="{{false}}"
+        line-cap="butt"
+        ></ui-multi-circular>
+      </ui-view>
+    </ui-view>
+
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '多层进度环',
+    navigationBarBackgroundColor: '#000',
+    navigationBarBorderColor: '#000',
+    navigationBarTextStyle: 'white',
+    backgroundColor: '#000'
+  },
+  data () {
+    return {
+      value1: [40, 80, 70],
+      colorArray: ['#F40064', '#A9FF09', '#3EFDC5'],
+      labels: ['站立', '锻炼', '活动'],
+      index: '',
+
+      value2: [60, 70, 80, 90],
+      colorArray2: ['#FF9E6F', '#2284F0', '#1160E3', '#1345DF'],
+      backgroundColor2: 'rgba(26,39,72,0.5)',
+
+      value4: [70, 60, 50, 40, 30],
+      colorArray4: ['#3EFEC4', '#33D9DF', '#30CEE5', '#28B3E9', '#2196E2'],
+      backgroundColor4: 'rgba(255,255,255,0)',
+      labels4: ['成本输出', '数量', '价格', '盈利', '盈利']
+    }
+  },
+  methods: {
+    getCircular (val) {
+       // 得到点击的环的index
+      this.index = this.value1[val]
+    }
+  },
+  mounted () {
+
+  }
+}
+
+</script>
+
+<style lang="less">
+  .circular1 {
+  position: relative;
+  padding: 20px 0;
+  .mix-flex-center();
+  background-color: #000;
+  .circular1_content{
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+    .index{
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+    }
+  }
+  .circular4_content{
+    width: 275px;
+    height: 235px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  &.circular2{
+    background-color: #0A1A33;
+    .ui-text{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 14px;
+      color: #bfbdbd;
+    }
+  }
+}
+.sample_title{
+  color: #fff;
+  background-color: #000;
+  &.sample_title2{
+    background-color: #0A1A33;
+  }
+}
+</style>

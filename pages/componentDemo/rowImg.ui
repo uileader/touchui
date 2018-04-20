@@ -1,0 +1,249 @@
+<template>
+  <ui-page>
+    <ui-view class="top_tip">
+      <ui-row height="80" border-bottom hover-class="touchui-hover">
+        <ui-col width="80" align="center" vertical-align="middle">
+          <ui-view class="left_icon left_icon1">
+              <ui-icon type="api-access" color="#fff" size="20"></ui-icon>
+          </ui-view>
+        </ui-col>
+        <ui-col class="text" align="left" vertical-align="middle" space="20">
+          <ui-view style="width: 100%;">
+            <ui-row height="30">
+              <ui-col align="left" vertical-align="middle">
+                <ui-text>票房总结</ui-text>
+              </ui-col>
+              <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                <ui-text>09-18</ui-text>
+              </ui-col>
+            </ui-row>
+            <ui-view>第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿</ui-view>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row height="80" border-bottom hover-class="touchui-hover">
+        <ui-col width="80" align="center" vertical-align="middle">
+          <ui-view class="left_icon left_icon2">
+              <ui-icon type="api-network" color="#fff" size="20"></ui-icon>
+          </ui-view>
+        </ui-col>
+        <ui-col class="text" align="left" vertical-align="middle" space="20">
+          <ui-view style="width: 100%;">
+            <ui-row height="30">
+              <ui-col align="left" vertical-align="middle">
+                <ui-text>广播</ui-text>
+              </ui-col>
+              <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                <ui-text>08-28</ui-text>
+              </ui-col>
+            </ui-row>
+            <ui-view>总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿</ui-view>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row height="80" border-bottom hover-class="touchui-hover">
+        <ui-col width="80" align="center" vertical-align="middle">
+          <ui-view class="left_icon left_icon3">
+              <ui-icon type="api-configure" color="#fff" size="20"></ui-icon>
+          </ui-view>
+        </ui-col>
+        <ui-col class="text" align="left" vertical-align="middle" space="20" >
+          <ui-view style="width: 100%;">
+            <ui-row height="30">
+              <ui-col align="left" vertical-align="middle">
+                <ui-text>票房总结</ui-text>
+              </ui-col>
+              <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                <ui-text>08-11</ui-text>
+              </ui-col>
+            </ui-row>
+            <ui-view>本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。</ui-view>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+  <ui-view class="box">
+    <ui-row space-top=20 style="box-shadow: 0 0 10px #d0d0d0;" height="200">
+      <ui-col span=5>
+          <ui-image src="http://images.uileader.com/20180313/89c57f8a-f215-4611-bf66-3a160a2d3428.jpg" width="100%" height="100%"></ui-image>
+      </ui-col>
+      <ui-col span=7>
+        <ui-row border-bottom>
+          <ui-col>
+            <ui-view class="right1">
+              <ui-view class="title">进口优选</ui-view>
+              <ui-view class="p">15天售后无忧</ui-view>
+              <ui-view class="p">99元任选三件</ui-view>
+            </ui-view>
+          </ui-col>
+          <ui-col align="center" vertical-align="middle">
+              <ui-image src="http://images.uileader.com/20180313/5e11e029-b931-45df-9cd9-ec103ebce1a8.jpg" height="80" width="80"></ui-image>
+          </ui-col>
+        </ui-row>
+
+        <ui-row>
+          <ui-col border-right class="right2" vertical-align="middle" align="center">
+              <ui-view class="title">天猫生鲜</ui-view>
+              <ui-view class="p">秋补进行时</ui-view>
+              <ui-image src="http://images.uileader.com/20180313/64b7a43f-87b2-48b7-8646-a183bcec8a7d.jpg" height="45" width="45"></ui-image>              
+          </ui-col>
+          <ui-col class="right2" vertical-align="middle" align="center">
+              <ui-view class="title">魅力惠</ui-view>
+              <ui-view class="p">折后减500</ui-view>
+              <ui-image src="http://images.uileader.com/20180313/fb7bead5-83e9-4785-b720-33f4aa84e002.jpg" height="45" width="45"></ui-image>              
+          </ui-col>
+        </ui-row>
+      </ui-col>
+    </ui-row>
+  </ui-view>
+
+
+  <ui-view class="box">
+      <ui-row space-top=20 style="box-shadow: 0 0 10px #d0d0d0;" height="200">
+        <ui-col span=5 vertical-align="middle" align="center">
+            <ui-image src="http://images.uileader.com/20180313/6fa61fe1-1819-4038-9743-7ecc6a0eaea5.jpg" height="100%" width="100%"></ui-image>              
+        </ui-col>
+        <ui-col span=7>
+          <ui-row border-bottom>
+            <ui-col>
+              <ui-view class="right1">
+                  <ui-view class="title">小黑盒</ui-view>
+                  <ui-view class="p">Bose 蓝牙音响</ui-view>
+                  <ui-view class="p">Bose Micro</ui-view>
+              </ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-image src="http://images.uileader.com/20180313/03cd5304-79cf-45fe-9c57-00a3957ac4b6.jpg" height="80" width="80"></ui-image>              
+            </ui-col>
+          </ui-row>
+
+          <ui-row>
+            <ui-col class="right2" vertical-align="middle" align="center">
+              <ui-view class="title">大牌珍选</ui-view>
+              <ui-view class="time">
+                  <ui-view class="p">已结束抢购</ui-view>
+                <!--<ui-count-down time="2018/09/20 00:00:00">
+                  <span class="">{%h1}{%h2}</span>:
+                  <span>{%m1}{%m2}</span>:
+                  <span>{%s1}{%s2}</span>
+                </ui-count-down>-->
+              </ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-image src="http://images.uileader.com/20180313/c4904eeb-601f-4488-9a3b-abb8a8180e40.jpg" height="70" width="70"></ui-image>              
+            </ui-col>
+          </ui-row>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+    </ui-page>
+
+
+</template>
+
+<script>
+// grid-img.js
+export default {
+  config: {
+    navigationBarTitleText: "栅格布局综合"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+
+.right1,.right2{
+    height: 100px;
+}
+.right1{
+  text-align: center;
+  justify-content: center;
+  overflow: hidden;
+  .title{
+      font-size: 16px;
+      color:#6f13e4;
+      margin-top: 5px;
+      font-weight: 600;
+  }
+  .p{
+      font-size: 14px;
+      color: black;
+  }
+  img{
+      margin-top: 10px;
+      width: 85%;
+      height: 80%;
+  }
+}
+.right2{
+    // text-align: center;
+    // justify-content: center;
+    // overflow: hidden;
+    img{
+        width: 50%;
+        height: 45%; 
+    }
+    .title{
+        font-size: 16px;
+        color:#efb200;
+        margin-top: 5px;
+        font-weight: 600; 
+    } 
+    .p{
+        font-size: 14px;
+        color: black;  
+    }
+    .time{
+        padding-top:10px;
+        font-size: 16px;
+        i, em {
+          font-style: normal;
+        }
+        em {
+          background: #ccc;
+          margin-right: 2px;
+          padding: 2px;
+        }
+        
+    }
+}
+.box{
+    padding: 10px;
+    // border: 1px solid red;
+}
+
+
+.top_tip{
+    .left_icon{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color:#FCB300; 
+      text-align: center;
+      line-height: 50px;
+    }
+    .left_icon2{
+      background-color: #FF7360;
+    }
+    .left_icon3{
+      background-color: #39CCC5;
+    }
+    .text{
+      .ui-text{
+        font-size: 16px;
+        color: #313338;
+      }
+      .ui-view{
+        color: #9C9FA4;
+        font-size: 12px;
+        .mix-text-overflow();
+      }
+    }
+  }
+</style>

@@ -1,0 +1,68 @@
+<!--getSetting.ui-->
+<template>
+  <ui-page>
+    <ui-view class="setting">
+      <ui-view class="btn-area">
+        <ui-view class="title">获取用户的当前设置</ui-view>
+        <ui-button type="primary" bindtap="showConfirm('scope.camera')">相机</ui-button>
+        <ui-button type="primary" bindtap="showConfirm('scope.notifition')">推送通知</ui-button>
+        <ui-button type="primary" bindtap="showConfirm('scope.userLocation')">地理位置</ui-button>
+        <ui-button type="primary" bindtap="showConfirm('scope.address')">通讯地址</ui-button>
+        <ui-button type="primary" bindtap="showConfirm('scope.record')">录音功能</ui-button>
+        <ui-button type="primary" bindtap="showConfirm('scope.writePhotosAlbum')">访问相册 </ui-button>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+  // getSetting.js
+export default {
+  config: {
+    "navigationBarTitleText": "授权管理"
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    showConfirm (scope) {
+      ui.getSetting({
+        success: (res) => {
+          if (res[scope]) {
+            ui.showToast({ title: '已授权', icon: 'success' })
+          } else {
+            ui.showConfirm({
+              content: '您未授权，是否前往授权',
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              success (result) {
+                if (result.confirm) {
+                  ui.openSetting()
+                }
+              }
+            })
+          }
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // getSetting.less
+.setting{
+  padding: 15px ;
+}
+.btn-area {
+  padding: 0px 15px;
+  box-shadow: 0 0 10px 1px #EBEBEB;
+  border-radius: 5px;
+  overflow: hidden;
+  .title{
+    padding: 5px 0px;
+    line-height: 40px;
+  }
+}
+</style>

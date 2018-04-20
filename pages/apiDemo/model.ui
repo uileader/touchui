@@ -1,0 +1,50 @@
+<!--model.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">input</ui-view>
+    <ui-view class="sample_content">
+        <ui-view class="title">input的值为：{{ value1 }}</ui-view>
+        <ui-input ui:model="{{ value1 }}"></ui-input>
+        <ui-button bindtap="hanldeChangeInput">将input的值变为'Hello Touch UI!'</ui-button>
+    </ui-view>
+    <ui-view class="sample_title">switch</ui-view>
+    <ui-view class="sample_content">
+        <ui-view class="title">switch的值为：{{ value2 }}</ui-view>
+        <ui-switch ui:model="{{ value2 }}"></ui-switch>
+        <ui-button bindtap="hanldeChangeSwitch">将switch的值变为false</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// model.js
+export default {
+  config: {
+    "navigationBarTitleText": "双向绑定"
+  },
+  data () {
+    return {
+      value1: '',
+      value2: false
+    }
+  },
+  methods: {
+    hanldeChangeInput () {
+      this.value1 = 'Hello, Touch UI!'
+    },
+    hanldeChangeSwitch () {
+      this.value2 = false
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+// model.less
+.code {
+  color: #40B883;
+  font-size: 14px;
+  overflow-x: scroll;
+}
+</style>

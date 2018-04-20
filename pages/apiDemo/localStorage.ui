@@ -1,0 +1,110 @@
+<template>
+  <ui-page>
+      <ui-view class="sample_title">写入缓存</ui-view>
+      <ui-view class="sample_content">
+        <ui-row height="45" space-bottom="10">
+          <ui-col span="2" vertical-align="middle">
+              key：
+          </ui-col>
+          <ui-col span="10" vertical-align="middle">
+              <ui-input placeholder="请输入缓存的key" ui:model="{{key}}"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-row height="45" space-bottom="10">
+          <ui-col span="2" vertical-align="middle">
+              value：
+          </ui-col>
+          <ui-col span="10" vertical-align="middle">
+              <ui-input placeholder="请输入缓存的内容" ui:model="{{text}}"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-button bindtap="storage">写入缓存</ui-button>
+      </ui-view>
+
+      <ui-view class="sample_title">获取缓存</ui-view>
+      <ui-view class="sample_content">
+        <ui-picker title="" range="{{ list }}" value="{{ val }}" bindchange="handleChange"></ui-picker>
+        <ui-button bindtap="getStorage">获取缓存</ui-button>
+      </ui-view>
+
+      <ui-view class="sample_title">移除缓存</ui-view>
+      <ui-view class="sample_content">
+        <ui-input placeholder="缓存的内容" ui:model="{{gettext}}"></ui-input>
+        <ui-row >
+          <ui-col span="6" space-right="5">
+              <ui-button bindtap="removeStorage">移除缓存的key</ui-button>
+          </ui-col>
+          <ui-col span="6" space-left="5">
+              <ui-button bindtap="clearStorage">清理本地数据缓存</ui-button>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "本地缓存"
+  },
+  data () {
+    return {
+      key: '',
+      text: '',
+      gettext: '',
+      list: ['请选择'],
+      val: 0
+    }
+  },
+  methods: {
+    handleChange (val) {
+      this.val = val
+    },
+    storage () {
+      ui.setStorageSync(this.key, this.text)
+      if (!this.contains(this.list, this.key)) {
+        this.list.push(this.key)
+      }
+      ui.showToast({
+        title: '已缓存'
+      })
+    },
+    contains (arr, obj) {
+      var i = arr.length
+      while (i--) {
+        if (arr[i] === obj) {
+          return true
+        }
+      }
+      return false
+    },
+    getStorage () {
+      var value = ui.getStorageSync(this.list[this.val])
+      this.gettext = value
+    },
+    removeStorage () {
+      this.removePicker(this.list[this.val])
+      ui.removeStorageSync(this.list[this.val])
+      ui.showToast({
+        title: '已移除'
+      })
+    },
+    removePicker (val) {
+      var index = this.val
+      if (index > -1) { this.list.splice(index, 1) }
+    },
+    clearStorage () {
+      ui.clearStorageSync()
+      this.list = ['请选择']
+      ui.showToast({
+        title: '已清理'
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

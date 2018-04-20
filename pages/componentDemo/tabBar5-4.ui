@@ -1,0 +1,34 @@
+<!--tabBar5-4.ui-->
+<template>
+  <ui-page>
+    <ui-view class="content">
+      <ui-text class="title">5-4</ui-text>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// tabBar5-4.js
+export default {
+  config: {
+    "navigationBarTitleText": "5-4，TabChange"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  // tabBar5-4.less
+.content{
+  padding:10px;
+  height:60px;
+  .title{
+  font-size:20px;
+  text-align: center
+}
+}
+</style>

@@ -1,0 +1,130 @@
+<!--note.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10"  width="50" bindtap="navigateBack">
+          <ui-view>
+            <ui-icon type="arrow-left" size="16" color="#39f"></ui-icon>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>每间人数</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50"></ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-view class="wrap">
+      <ui-row height="50" border-bottom>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view>成人</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right">
+          <ui-stepper max=9 min=0 bindsubtraction="subtraction" bindaddition="addition"></ui-stepper>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" width="50" space-left="5">
+          <ui-text>人/间</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view>儿童</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right">
+          <ui-stepper max=9 min=0 bindsubtraction="subtraction2" bindaddition="addition2"></ui-stepper>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" width="50" space-left="5">
+          <ui-text>人/间</ui-text>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+    <ui-view class="wrap2">
+      <ui-button bindtap="confirm">确定</ui-button>
+    </ui-view>
+
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "backgroundColor":"#F6F6F6",
+    "navigationBarTextStyle":"black"
+  },
+  data () {
+    return {
+      adult:0,
+      children:0
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    subtraction (val) {
+      this.adult=val
+    },
+    addition (val) {
+      this.adult=val
+    },
+    subtraction2 (val) {
+      this.children=val
+    },
+    addition2 (val) {
+      this.children=val
+    },
+    confirm(){
+      console.log(this.adult,this.children)
+      let people={
+        adult:this.adult,
+        children:this.children
+      }
+      ui.setStorageSync('people', people)
+      ui.navigateBack()
+    }
+  },
+  mounted () {
+    
+   
+  }
+
+}
+</script>
+
+<style lang="less">
+
+.nav_bar {
+  // background: linear-gradient(to right, #1F97FE, #126DFE);
+  .mix-1px(0, 0, 1, 0, #ccc);
+  background-color: #fff;
+  .ui-view{
+    color: #020202;
+    font-size: 14px;
+  }
+}
+.wrap{
+  padding-top: 10px;
+  .ui-row{
+    background-color: #fff;
+    .ui-view{
+      font-size:14px;
+      color:#4C4C4C;
+    }
+    .ui-text{
+      font-size:12px;
+      color:#4C4C4C;
+    }
+    
+  }
+}
+.wrap2{
+  padding:10px;
+  .ui-button{
+    background-color: #fff;
+    color: #39f;
+    border: 0;
+    border-color:#e8e8e8;
+  }
+}
+</style>

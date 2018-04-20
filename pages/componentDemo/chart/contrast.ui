@@ -1,0 +1,299 @@
+<!--canvas.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">受众性别占比</ui-view>
+    <ui-view class="sample_content">
+      <ui-row height="30" class="text">
+        <ui-col vertical-align="middle" align="left">
+          <ui-view class="left">
+            54.3%<ui-text>男</ui-text>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right">
+          <ui-view class="right">
+            <ui-text>女</ui-text>45.7%
+          </ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-contrast
+      value="{{ contrastValue }}"
+      color="{{ colorArry }}"
+      gap="true"
+      ></ui-contrast>
+    </ui-view>
+
+    <ui-view class="sample_title">教育程度</ui-view>
+    <ui-view class="sample_content">
+      <ui-row height="30" class="text text2">
+        <ui-col vertical-align="middle" align="left">
+          <ui-view class="left">
+            68.8%<ui-text>本科及以上</ui-text>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right">
+          <ui-view class="right">
+            <ui-text>本科及以下</ui-text>31.2%
+          </ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-contrast
+      value="{{ contrastValue2 }}"
+      color="{{ colorArry2 }}"
+      ></ui-contrast>
+    </ui-view>
+
+    <ui-view class="sample_title">用户画像</ui-view>
+    <ui-view class="sample_content">
+      <ui-row height="100" border-bottom>
+        <ui-col vertical-align="middle" align="left" width="100">
+          <ui-view class="name">猩球崛起3:终极之战</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" space-left="20">
+          <ui-view class="right_content">
+            <ui-row height="40" class="text text3">
+              <ui-col vertical-align="middle" align="left">
+                <ui-view class="left">
+                  <ui-text>男 54.3%</ui-text>
+                </ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="right">
+                <ui-view class="right">
+                  <ui-text>45.7% 女</ui-text>
+                </ui-view>
+              </ui-col>
+            </ui-row>
+            <ui-contrast
+            value="{{ contrastValue3 }}"
+            color="{{ colorArry3 }}"
+            round-corner="true"
+            ></ui-contrast>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row height="100">
+        <ui-col vertical-align="middle" align="left" width="100">
+          <ui-view class="name">长城</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" space-left="20">
+          <ui-view class="right_content">
+            <ui-row height="40" class="text text3">
+              <ui-col vertical-align="middle" align="left">
+                <ui-view class="left">
+                  <ui-text>男 49.8%</ui-text>
+                </ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="right">
+                <ui-view class="right">
+                  <ui-text>50.2% 女</ui-text>
+                </ui-view>
+              </ui-col>
+            </ui-row>
+            <ui-contrast
+            value="{{ contrastValue4 }}"
+            color="{{ colorArry3 }}"
+            round-corner="true"
+            ></ui-contrast>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+    <ui-view class="sample_title">点赞</ui-view>
+    <ui-view class="sample_content">
+      <ui-row height="80">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="praise">
+          <ui-view class="praise_wrap">
+            <ui-icon type="praise" size="24" color="#F1961C"></ui-icon>
+          </ui-view>
+          <ui-view>赞({{ upCount }})</ui-view>
+        </ui-col>
+        <ui-col style="padding-top:22px;" align="center" space="20">
+          <ui-contrast
+            value="{{ contrastValue5 }}"
+            color="{{ colorArry5 }}"
+            round-corner="true"
+            mode="full"
+            height="15"
+          ></ui-contrast>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center"  width="60" bindtap="tread">
+          <ui-view class="tread_wrap">
+            <ui-icon type="tread" size="24" color="#3C7ADA"></ui-icon>
+          </ui-view>
+          <ui-view>呵呵({{ downCount }})</ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+    <ui-view class="sample_title">男女比例对比图</ui-view>
+      <ui-view class="contrast_wrap">
+        <ui-row class="contrast">
+          <ui-col vertical-align="middle" align="center" width="60">
+            <ui-view ui:for="{{ ageArry }}" ui:for-item="item">{{ item.age }}</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+              <ui-contrast
+                height="5"
+                value="{{ item.value }}"
+                color="{{ colorArry6 }}"
+                mode="maximum"
+                ui:for="{{ contrast }}" 
+                ui:for-item="item"
+              ></ui-contrast>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "对比图",
+    "scrollType":"body"
+  },
+  data () {
+    return {
+      contrastValue: [54.3, 45.7],
+      colorArry: ['#65A2ED', '#F6564A'],
+
+      contrastValue2: [68.8, 31.2],
+      colorArry2: ['#4ECEA6', '#A8DB3D'],
+
+      contrastValue3: [54.3, 45.7],
+      contrastValue4: [29.8, 70.2],
+      colorArry3: ['#5C9AFF', '#EB2429'],
+
+      contrastValue5: [1, 1],
+      colorArry5: ['#F1961C', '#3C7ADA'],
+      upCount: 0,
+      downCount: 0,
+      colorArry6: ['#406DE0', '#F6C538'],
+      ageArry: [
+        {
+          age: [17, 22]
+        }, {
+          age: [27, 32]
+        }, {
+          age: [37, 42]
+        }, {
+          age: [47, 52]
+        }, {
+          age: [57, 62]
+        }, {
+          age: [67, 72]
+        }, {
+          age: [77, 82]
+        }, {
+          age: [87, 92]
+        }
+      ],
+      contrast: [
+        {
+          value: [50, 50]
+        }, {
+          value: [60, 75]
+        }, {
+          value: [48, 80]
+        }, {
+          value: [45, 85]
+        }, {
+          value: [40, 82]
+        }, {
+          value: [38, 78]
+        }, {
+          value: [35, 68]
+        }, {
+          value: [30, 55]
+        }, {
+          value: [28, 45]
+        }, {
+          value: [25, 35]
+        }, {
+          value: [20, 30]
+        }, {
+          value: [18, 25]
+        }, {
+          value: [15, 15]
+        }, {
+          value: [10, 10]
+        }, {
+          value: [5, 5]
+        }
+      ]
+    }
+  },
+
+  methods: {
+    praise () {
+      this.contrastValue5 = [this.upCount += 1, this.downCount]
+    },
+    tread () {
+      this.contrastValue5 = [this.upCount, this.downCount += 1]
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .text{
+  .left{
+    font-size: 20px;
+    color: #65A2ED;
+  }
+  .ui-text{
+      font-size: 14px;
+    }
+  .right{
+    font-size: 20px;
+    color: #F6564A;
+  }
+  &.text2{
+    .left{
+      color: #4ECEA6;
+    }
+    .right{
+      color: #A8DB3D;
+    }
+  }
+  &.text3{
+    width: 100%;
+    .left{
+      color: #555557;
+    }
+    .right{
+      color: #555557;
+    }
+  }
+}
+.name{
+  font-size: 16px;
+}
+.right_content{
+  width: 100%;
+}
+.praise_wrap,
+.tread_wrap{
+  width:40px;
+  height: 40px;
+  border-radius: 50%;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid #F1961C;
+}
+.tread_wrap{
+  border: 1px solid #3C7ADA;
+}
+.contrast_wrap{
+  padding:10px;
+  .contrast{
+    font-size: 12px;
+    color: #58596A;
+  }
+  .ui-contrast-bar{
+    margin-bottom: 5px;
+  }
+}
+
+</style>

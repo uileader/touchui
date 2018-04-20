@@ -1,0 +1,149 @@
+<!--image1.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">缩放</ui-view>
+    <ui-view class="sample_content">
+      <ui-divider>默认scaleToFill，变形</ui-divider>
+      <ui-image src="{{ img1 }}" width="200" height="200" mode="scaleToFill"></ui-image>
+
+      <ui-divider>aspectFit, 保持比例长边充满，短边留白</ui-divider>
+      <ui-image src="{{ img1 }}" mode="aspectFit" width="200" height="200"></ui-image>
+
+      <ui-view>aspectFit, 宽度100%</ui-view>
+      <ui-image src="{{ img1 }}" width="100%" mode="aspectFit"></ui-image>
+      
+      <!--  <ui-view>aspectFit, 宽高各200（宽图）</ui-view>
+      <ui-image src="{{ img1 }}" mode="aspectFit" width="200" height="200"></ui-image>
+
+      <ui-view>aspectFit, 宽高各200（高图）</ui-view>
+      <ui-image src="{{ img2 }}" mode="aspectFit" width="200" height="200"></ui-image>
+      
+      <ui-view>aspectFit, 宽200*高100（宽图）</ui-view>
+      <ui-image src="{{ img1 }}" mode="aspectFit" width="200" height="100"></ui-image>
+      <ui-view>aspectFit, 宽200*高100（高图）</ui-view>
+      <ui-image src="{{ img2 }}" mode="aspectFit" width="200" height="100"></ui-image>
+      
+      <ui-view>aspectFit, 宽100*高200（宽图）</ui-view>
+      <ui-image src="{{ img1 }}" mode="aspectFit" width="100" height="200"></ui-image>
+      <ui-view>aspectFit, 宽100*高200（高图）</ui-view>
+      <ui-image src="{{ img2 }}" mode="aspectFit" width="100" height="200"></ui-image> -->
+
+      <ui-divider>aspectFill, 保持比例充满容器，超出部分裁剪</ui-divider>
+      <ui-image src="{{ img1 }}" mode="aspectFill" width="150" height="200"></ui-image>
+     
+      <ui-divider>widthFix, 宽度不变，高度自动，保持原图宽高比</ui-divider>
+      <ui-image src="{{ img1 }}" mode="widthFix" width="200"></ui-image>
+      
+      <ui-divider>宽度100%，高度固定，scaleToFill缩放变形</ui-divider>
+      <ui-image src="{{ img1 }}" mode="scaleToFill" width="100%" height="100"></ui-image>
+
+      <ui-divider>宽度100%，高度固定，aspectFill超出部分裁剪</ui-divider>
+      <ui-image src="{{ img1 }}" mode="aspectFill" width="100%" height="100"></ui-image>
+
+      <ui-divider>宽度100%，高度自适应</ui-divider>
+      <ui-image src="{{ img1 }}" width="100%"></ui-image>
+
+    </ui-view>
+
+      <ui-view class="sample_title">填充容器</ui-view>
+      <ui-view class="sample_content">
+      <ui-divider>默认填充容器效果</ui-divider>
+      这里设置容器宽度为200px，高度200px
+      <ui-view class="img_view1">
+      <ui-image src="{{ img1 }}" width="100%"></ui-image>
+      </ui-view>
+      
+      <ui-divider>宽度自适应容器，裁剪高度，保持比例</ui-divider>
+      这里设置容器宽度为100%，高度100px
+      <ui-view class="img_view2">
+      <ui-image src="{{ img1 }}" width="100%"></ui-image>
+      </ui-view>
+
+      <ui-divider>高度自适应容器，裁剪宽度，保持比例</ui-divider>
+      这里设置容器宽度为100px，高度200px。
+      <ui-view class="img_view3">
+      <ui-image src="{{ img1 }}" height="100%"></ui-image>
+      </ui-view>
+    </ui-view>
+  
+
+  <ui-view class="sample_title">裁剪</ui-view>
+  <ui-view class="section section_gap" ui:for="{{array}}">
+    <ui-view class="section__title">{{item.text}}</ui-view>
+    <ui-view class="section__ctn">
+      <ui-image style="background-color: #eeeeee;" mode="{{item.mode}}" width="150" height="150" src="{{img1}}"></ui-image>
+    </ui-view>
+  </ui-view>
+
+  </ui-page>
+</template>
+
+<script>
+// image1.js
+export default {
+  config: {
+    "navigationBarTitleText": "裁剪与缩放"
+  },
+  data () {
+    return {
+      array: [{
+        mode: 'top',
+        text: 'top：不缩放图片，只显示图片的顶部区域'
+      }, {
+        mode: 'bottom',
+        text: 'bottom：不缩放图片，只显示图片的底部区域'
+      }, {
+        mode: 'center',
+        text: 'center：不缩放图片，只显示图片的中间区域'
+      }, {
+        mode: 'left',
+        text: 'left：不缩放图片，只显示图片的左边区域'
+      }, {
+        mode: 'right',
+        text: 'right：不缩放图片，只显示图片的右边边区域'
+      }, {
+        mode: 'top left',
+        text: 'top left：不缩放图片，只显示图片的左上边区域'
+      }, {
+        mode: 'top right',
+        text: 'top right：不缩放图片，只显示图片的右上边区域'
+      }, {
+        mode: 'bottom left',
+        text: 'bottom left：不缩放图片，只显示图片的左下边区域'
+      }, {
+        mode: 'bottom right',
+        text: 'bottom right：不缩放图片，只显示图片的右下边区域'
+      }],
+      img1: require('#/images/cat.jpg'),
+      img2: 'http://images.uileader.com/20171025/ec314eef-fe0d-4426-8194-6896615e7703.jpg',
+      winWidth: ui.WIN_WIDTH
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  // image1.less
+.ui-image-container {
+  background-color: #eee;
+}
+.img_view1{
+  width: 200px;
+  height:200px;
+  overflow: hidden;
+  background-color: #999;
+}
+.img_view2{
+  width: 100%;
+  height:100px;
+  overflow: hidden;
+}
+.img_view3{
+  width:100px;
+  height:200px;
+  overflow: hidden;
+}
+
+</style>

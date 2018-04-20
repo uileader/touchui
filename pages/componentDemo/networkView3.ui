@@ -1,0 +1,67 @@
+<template>
+  <ui-page class="win">
+      <ui-button class="selfbtn" bindtap="navigateurl('normal')">正常请求</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('backnull')">请求结果为空</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('overtime')">请求超时</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('normal')">网络错误（可以将手机打开飞行模式）</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('failed')">请求失败（这里设置了一个错误的url）</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('isnull')">已知为空（请求前已知结果为空，不发请求）</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('login')">需要登录（请求前已知未登录，不发请求）</ui-button>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "自定义网络提示"
+  },
+  data () {
+    return {
+    }
+  },
+  methods: {
+    navigateurl (staterefer) {
+      let state
+      switch (staterefer) {
+        case 'normal':
+          state = '1'
+          break
+        case 'backnull':
+          state = '3'
+          break
+        case 'overtime':
+          state = '4'
+          break
+        case 'failed':
+          state = '5'
+          break
+        case 'isnull':
+          state = '7'
+          break
+        case 'login':
+          state = '6'
+          break
+      }
+
+      ui.navigateTo({
+        url: 'networkView4?state=' + state
+      })
+    },
+    noRequest () {
+      var msg = ''   // 已经接受到的消息
+      if (msg === '') {
+        ui.navigateTo({
+          url: 'networkView2?state=' + 'false'
+        })
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.win{
+  padding:10px
+}
+</style>

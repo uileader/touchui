@@ -1,0 +1,274 @@
+<template>
+  <ui-page>
+      <ui-nav-bar slot="nav-bar" class="nav_bar">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="center"  width="50" bindtap="navigateBack">
+            <ui-view>
+              <ui-icon type="arrow-left" size="16" color="#2F1417"></ui-icon>
+            </ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-text>地图模式</ui-text>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="50">
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+    <ui-map 
+    id="map" 
+    map-service="tencent"
+    longitude="116.38059"
+    latitude="39.84566"
+    show-location="{{true}}"
+    scale="14"
+    markers="{{markers}}"
+    bindcallouttap="hotelDetails"
+    style="{{{width:'100%',height:conHeight+'px'}}}">
+  </ui-map>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "backgroundColor":"#FFFFFF",
+    "navigationBarTextStyle":'black'
+  },
+  data () {
+    return {
+      conHeight:ui.DEFAULT_CONTENT_HEIGHT,
+      headerHeight:ui.DEFAULT_HEADER_HEIGHT,
+      markers:[
+        {
+          id:1,
+          latitude:'39.85246',
+          longitude:'116.37509',
+          iconPath:require('#/images/markes.png'),
+          title:'马家堡宾馆',
+          address:'北京市丰台区马家堡西里40号楼',
+          callout: {
+            content: `¥302起`,
+            color: '#fff',
+            fontSize: 16,
+            bgColor: '#f6ac07',
+            borderRadius: 14,
+            display: 'ALWAYS',
+            padding: 8,
+            boxShadow: '0 0 4px 1px rgba(0,0,0,.1)'
+          },
+        },{
+          id:2,
+          latitude:'39.84566',
+          longitude:'116.38059',
+          iconPath:require('#/images/markes.png'),
+          title:'汉庭酒店(北京马家堡店)',
+          address:'北京市丰台区西马场北里甲13号',
+          callout: {
+            content: `¥342起`,
+            color: '#fff',
+            fontSize: 16,
+            bgColor: '#f6ac07',
+            borderRadius: 14,
+            display: 'ALWAYS',
+            padding: 8,
+            boxShadow: '0 0 4px 1px rgba(0,0,0,.1)'
+          },
+        },{
+          id:3,
+          latitude:'39.84285',
+          longitude:'116.38694',
+          iconPath:require('#/images/markes.png'),
+          title:'月桂树酒店',
+          address:'北京市丰台区马家堡东路106号院1号楼(近大红门西路)',
+          callout: {
+            content: `¥205起`,
+            color: '#fff',
+            fontSize: 16,
+            bgColor: '#f6ac07',
+            borderRadius: 14,
+            display: 'ALWAYS',
+            padding: 8,
+            boxShadow: '0 0 4px 1px rgba(0,0,0,.1)'
+          },
+        },{
+          id:4,
+          latitude:'39.84519',
+          longitude:'116.36535',
+          iconPath:require('#/images/markes.png'),
+          title:'派·酒店',
+          address:'北京市丰台区嘉园路与嘉和路交叉口东南角',
+          callout: {
+            content: `¥342起`,
+            color: '#fff',
+            fontSize: 16,
+            bgColor: '#b86879',
+            borderRadius: 14,
+            display: 'ALWAYS',
+            padding: 8,
+            boxShadow: '0 0 4px 1px rgba(0,0,0,.1)'
+          },
+        },{
+          id:5,
+          latitude:'39.84326',
+          longitude:'116.37771',
+          iconPath:require('#/images/markes.png'),
+          title:'锦江之星北京马家堡酒店',
+          address:'北京市丰台区太平桥路华源一里甲9号',
+          callout: {
+            content: `¥342起`,
+            color: '#fff',
+            fontSize: 16,
+            bgColor: '#b86879',
+            borderRadius: 14,
+            display: 'ALWAYS',
+            padding: 8,
+            boxShadow: '0 0 4px 1px rgba(0,0,0,.1)'
+          },
+        },{
+          id:6,
+          latitude:'39.84101',
+          longitude:'116.37903',
+          iconPath:require('#/images/markes.png'),
+          title:'如家快捷酒店(马家堡角门南站店)',
+          address:'北京市丰台区马家堡路154号院3号楼',
+          callout: {
+            content: `¥231起`,
+            color: '#fff',
+            fontSize: 16,
+            bgColor: '#b86879',
+            borderRadius: 14,
+            display: 'ALWAYS',
+            padding: 8,
+            boxShadow: '0 0 4px 1px rgba(0,0,0,.1)'
+          },
+        },{
+          id:7,
+          latitude:'39.83625',
+          longitude:'116.37935',
+          iconPath:require('#/images/markes.png'),
+          title:'速8酒店(北京马家堡店)',
+          address:'北京市丰台区马家堡路西马厂南里一区28号楼,近公益桥',
+          callout: {
+            content: `¥432起`,
+            color: '#fff',
+            fontSize: 16,
+            bgColor: '#879439',
+            borderRadius: 14,
+            display: 'ALWAYS',
+            padding: 8,
+            boxShadow: '0 0 4px 1px rgba(0,0,0,.1)'
+          },
+        },{
+          id:8,
+          latitude:'39.854',
+          longitude:'116.39373',
+          iconPath:require('#/images/markes.png'),
+          title:'如家快捷酒店(木樨园店)',
+          address:'北京市丰台区木樨园西罗园南里45号院1号楼',
+          callout: {
+            content: `¥234起`,
+            color: '#fff',
+            fontSize: 16,
+            bgColor: '#918491',
+            borderRadius: 14,
+            display: 'ALWAYS',
+            padding: 8,
+            boxShadow: '0 0 4px 1px rgba(0,0,0,.1)'
+          },
+        },{
+          id:9,
+          latitude:'39.83385',
+          longitude:'116.38735',
+          iconPath:require('#/images/markes.png'),
+          title:'汉庭连锁酒店',
+          address:'北京市丰台区大红门西马场甲14号集美家居西门(公益东桥北)',
+          callout: {
+            content: `¥234起`,
+            color: '#fff',
+            fontSize: 16,
+            bgColor: '#918491',
+            borderRadius: 14,
+            display: 'ALWAYS',
+            padding: 8,
+            boxShadow: '0 0 4px 1px rgba(0,0,0,.1)'
+          },
+        },{
+          id:10,
+          latitude:'39.85247',
+          longitude:'116.38646',
+          iconPath:require('#/images/markes.png'),
+          title:'斯洛主题酒店',
+          address:'北京市丰台区马家堡东路71号(北京京剧院对面、立业大厦旁边)',
+          callout: {
+            content: `¥453起`,
+            color: '#fff',
+            fontSize: 16,
+            bgColor: '#f6ac07',
+            borderRadius: 14,
+            display: 'ALWAYS',
+            padding: 8,
+            boxShadow: '0 0 4px 1px rgba(0,0,0,.1)'
+          },
+        }
+      ]
+    }
+  },
+  methods: {
+    hotelDetails(e){
+      console.log(e,'34124234234')
+      ui.navigateTo({
+        url: '/pages/templeteDemo/O2O/hotelDetails'
+      })
+    },
+    navigateBack () {
+      ui.navigateBack()
+    }
+  },
+  mounted () {
+  },
+  created () {
+    
+  }
+
+}
+</script>
+
+<style lang="less">
+.nav_bar {
+  .mix-1px(0, 0, 1, 0, #ccc);
+  background-color: #fff;
+  .map{
+    color: #020202;
+    font-size: 14px;
+  }
+
+  .nav_top{
+    border-radius: 25px;
+    background-color: #EBEBEB;
+    width:100%;
+    .time{
+      font-size:12px;
+      color: #2F1417;
+      line-height:15px;
+      .ui-text{
+        color: #C72D3A;
+        margin-left: 5px;
+      }
+    }
+    .line{
+      width:1px;
+      height:20px;
+      background-color: #d4d4d4;
+    }
+  }
+  .address{
+    width: 100%;
+    .address_title{
+      font-size:12px;
+      color:#402527;
+    }
+  }
+}
+
+</style>

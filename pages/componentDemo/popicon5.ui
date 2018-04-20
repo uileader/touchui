@@ -1,0 +1,236 @@
+<template>
+  <ui-page>
+    <ui-nav-bar class="nab_bar" slot="nav-bar">
+       <ui-row height="46" >
+        <ui-col vertical-align="middle" align="left" space-left="10" width="70" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="18" color="#262626"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>自定义图标动画</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" space-right="10" width="70" bindtap="share">
+          <ui-icon type="share2" size="18" color="#262626"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <!-- 分享 -->
+    <ui-view class="content_list" style="z-index:9">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+    <!-- <ui-fixed-view style="z-index:99" top="60" right="50">
+      <ui-button type="primary" bindtap="share">分享</ui-button>
+    </ui-fixed-view> -->
+    <ui-mask ui:model="{{shareMask}}" class="share_mask" hide-delay="400" top="0" blur="light" bindshow="maskShow" bindtap="columnHide">
+      <ui-view class="column_wrap {{ className }}">
+
+        <ui-view class="column_content" ui:for="{{ shareColumn }}" ui:for-index="index" style="{{{ 'animation-duration':animationDuration[index] }}}" bindtap="maskHide(item.share)">
+          <ui-view >
+            <ui-view style="{{{ 'background-color':item.bgColor }}}">
+              <ui-icon type="{{ item.icon }}" size="30" color="#fff"></ui-icon>
+            </ui-view>
+            <ui-text block>{{ item.name }}</ui-text>
+          </ui-view>
+        </ui-view>
+
+        <ui-view class="close" bindtap="maskHide('plus')">
+          <ui-icon type="close" size="20" color="#5E5E5E"></ui-icon>
+        </ui-view>
+
+      </ui-view>
+    </ui-mask>
+  </ui-page>
+</template>
+
+<script>
+export default{
+  config: {
+    navigationStyle: 'custom'
+  },
+  data () {
+    return {
+      items: [],
+      bottom: 30,
+      animationDuration: ['0.1s', '0.2s', '0.3s', '0.4s', '0.5s', '0.6s'],
+      searchShow: false,
+      shareMask:false,
+      href: 'http://www.uileader.com/touchui_jdfinance/#/pages/share/greenHand/greenHand',
+      className:'',
+      showTime: ['0.1s', '0.2s', '0.3s', '0.4s', '0.5s', '0.6s'],
+      hideTime: ['0.6s', '0.5s', '0.4s', '0.3s', '0.2s', '0.1s'],
+      shareColumn:[
+        {
+          icon: 'wexin',
+          name: '朋友圈',
+          bgColor: '#41C451',
+          share:'weixin_timeline'
+        }, {
+          icon: 'friends-circle',
+          name: '微信好友',
+          bgColor: '#41C451',
+          share: 'weixin_message'
+        }, {
+          icon: 'QQ',
+          name: 'QQ好友',
+          bgColor: '#27A9EE',
+          share: 'qq'
+        }, {
+          icon: 'weibo',
+          name: '微博',
+          bgColor: '#F53B43',
+          share: 'weibo'
+        }
+      ]
+    }
+  },
+  methods: {
+    share(){
+      this.shareMask = true
+    },
+    maskHide(share) {
+      if(share === 'plus'){
+        this.shareMask = false
+      }else{
+        // setTimeout(() => {
+          this.shareMask = false
+        // }, 500);
+        console.log(share)
+        // this.target = val
+        this.target = share
+        ui.share({
+          target: this.target,
+          type: this.type,
+          icon: this.icon,
+          title: this.title,
+          content: this.content,
+          href: this.href
+        }, function () {
+          console.log('分享成功')
+        }, function () {
+          console.log('分享失败')
+        })
+    }
+      
+    },
+   columnHide(){
+      this.className = 'hideActive'
+      this.animationDuration=this.hideTime
+      this.shareMask = false
+    },
+    maskShow() {
+      this.className='active'
+      this.animationDuration = this.showTime
+    },
+    navigateBack() {
+      ui.navigateBack();
+    }
+  },
+  mounted () {
+   for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.nab_bar {
+  background-color: #fff;
+  .ui-view {
+    color: #262626;
+    font-size: 16px;
+  }
+}
+// 分享
+
+.share_mask{
+  .column_wrap{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-bottom: 60px;
+    .column_content{
+      width: 25%;
+      height: 80px;
+      text-align: center;
+      margin-bottom: 20px;
+      .mix-flex-center();
+      &>.ui-view{
+        width: 100%;
+        .ui-view{
+          display: inline-block;
+          width:50px;
+          height: 50px;
+          background-color: #41C451;
+          border-radius: 50%;
+          line-height: 50px;
+          text-align: center;
+          margin-bottom: 5px;
+        }
+        .ui-text{
+          font-size: 14px;
+          color: #2C2C2C;
+        }
+      }
+      
+    }
+    .close{
+      margin-top: 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    &.active{
+      .column_content,
+      .close{
+        animation: showMove ease 1;
+        transform:translate(0px,0px);
+      }
+      .close{
+        animation-duration:0.6
+      }
+    }
+    &.hideActive{
+      .column_content,
+      .close{
+        animation: hideMove ease 1;
+        transform:translate(0px,500px);
+      }
+      .close{
+        animation-duration:0.1;
+      }
+    }
+  }
+}
+
+@keyframes showMove{
+  0% {
+    transform:translate(0px,500px);
+  }
+  50%{
+    transform:translate(0px,-30px);
+  }
+  100% {
+   transform:translate(0px,0px);
+  }
+}
+
+@keyframes hideMove{
+  0% {
+    transform:translate(0px,0px);
+  }
+  50%{
+    transform:translate(0px,-30px);
+  }
+  100% {
+   transform:translate(0px,500px);
+  }
+}
+
+</style>

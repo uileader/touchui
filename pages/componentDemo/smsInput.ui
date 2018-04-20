@@ -1,0 +1,181 @@
+<template>
+    <ui-page>
+      <ui-view class="sample_title">自定义倒计时</ui-view>
+      <ui-row-list border-left-indenet>
+        <ui-row>
+          <ui-col vertical-align="middle">
+            <ui-sms-input bindsend="handleSend"></ui-sms-input>
+          </ui-col>
+        </ui-row>
+        <ui-row>
+          <ui-col vertical-align="middle">
+            <ui-sms-input bindsend="handleSend" second="45"></ui-sms-input>
+          </ui-col>
+        </ui-row>
+        <ui-row>
+          <ui-col vertical-align="middle">
+            <ui-sms-input bindsend="handleSend" second="30"></ui-sms-input>
+          </ui-col>
+        </ui-row>
+        <ui-row>
+          <ui-col vertical-align="middle">
+            <ui-sms-input bindsend="handleSend" second="15"></ui-sms-input>
+          </ui-col>
+        </ui-row>
+      </ui-row-list>
+      <ui-view class="sample_title">自定义按钮文字和样式</ui-view>
+      <ui-row-list border-left-indenet>
+        <ui-row class="sms-code2">
+          <ui-col vertical-align="middle">
+            <ui-sms-input bindsend="handleSend" init-text="验证码"></ui-sms-input>
+          </ui-col>
+        </ui-row>
+        <ui-row class="sms-code3">
+          <ui-col vertical-align="middle">
+            <ui-sms-input bindsend="handleSend" init-text="获取验证码"></ui-sms-input>
+          </ui-col>
+        </ui-row>
+        <ui-row class="sms-code4">
+          <ui-col vertical-align="middle">
+            <ui-sms-input bindsend="handleSend" init-text="短信验证码"></ui-sms-input>
+          </ui-col>
+        </ui-row>
+        <ui-row class="sms-code5">
+          <ui-col vertical-align="middle">
+            <ui-sms-input bindsend="handleSend" init-text="短信验证码"></ui-sms-input>
+          </ui-col>
+        </ui-row>
+        <ui-row class="sms-code6">
+          <ui-col vertical-align="middle">
+            <ui-sms-input bindsend="handleSend" init-text="短信验证码" placeholder-style="color: #39f;"></ui-sms-input>
+          </ui-col>
+        </ui-row>
+        <ui-row class="sms-code7">
+          <ui-col vertical-align="middle">
+            <ui-sms-input bindsend="handleSend" init-text="短信验证码" placeholder-class="sms-code7-placeholder"></ui-sms-input>
+          </ui-col>
+        </ui-row>
+      </ui-row-list>
+
+      <ui-view class="sample_title">登录与注册</ui-view>
+      <ui-view class="log_box">
+        <ui-view>
+          <ui-input ui:model="phoneNumber" type="number" placeholder="请输入手机号码"></ui-input>
+        </ui-view>
+        <ui-view>
+          <ui-sms-input bindsend="handleSend2" init-text="短信验证码"></ui-sms-input>
+        </ui-view>
+        <ui-button class="login">登录／注册</ui-button>
+      </ui-view>
+    </ui-page>
+  </template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "短信验证"
+  },
+  data () {
+    return {
+      phoneNumber: '',
+      disabled: false
+    }
+  },
+  methods: {
+    handleSend (run) {
+      run()
+      ui.showToast({ title: '验证码已发送' })
+    },
+    handleSend2 (run) {
+      if (/^1[34578]\d{9}$/.test(this.phoneNumber)) {
+        run()
+        ui.showToast({ title: '验证码已发送' })
+      } else {
+        ui.showToast({ title: '请输入正确的手机号码' })
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.ui-row {
+  height: 50px;
+  line-height: 50px;
+  background-color: #fff;
+  font-size: 14px;
+}
+
+.ui-sms-input {
+  .ui-button {
+    width: 110px;
+  }
+}
+
+.sms-code2 {
+  .ui-button {
+    background-color: #04be02;
+    border-color: #04be02;
+  }
+}
+
+.sms-code3 {
+  .ui-button {
+    background-color: #ffb400;
+    border-color: #ffb400;
+  }
+}
+
+.sms-code4 {
+  .ui-button {
+    background-color: #ef4f4f;
+    border-color: #ef4f4f;
+  }
+}
+.sms-code5 {
+  .ui-button {
+    background-color: #F64E16;
+    border-color: #F64E16;
+    border-radius: 25px;
+  }
+}
+.sms-code7 {
+  .ui-button {
+    background-color: #ef4f4f;
+    border-color: #ef4f4f;
+  }
+}
+.sms-code7-placeholder::-webkit-input-placeholder {
+  color: #ef4f4f;
+}
+
+.log_box{
+  padding: 20px 50px;
+  .ui-view{
+    padding: 10px 0 5px 0;
+    .mix-1px(0, 0, 1, 0, #ccc);
+    .ui-input{
+      border: 0;
+    }
+    .ui-input-inner{
+      height: 30px;
+    }
+    .ui-button {
+      background-color: #F64E16;
+      border-color: #F64E16;
+      border-radius: 25px;
+    }
+  }
+  .login{
+    background-color: #F64E16;
+    border: 0;
+    border-radius: 25px;
+    font-size: 14px;
+    color: #fff;
+    margin-top: 30px;
+  }
+}
+
+</style>

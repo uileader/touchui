@@ -1,0 +1,50 @@
+<template>
+  <ui-page>
+      <ui-view class="content">
+        <ui-row height="40">
+          <ui-col span="3">
+            <ui-text class="ui-text">电话号码：</ui-text>
+          </ui-col>
+          <ui-col span="9">
+              <ui-input class="input" type="string" name="input" value="{{phoneNumber}}"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-button type="primary" bindtap="pick">选择电话号码</ui-button>
+      </ui-view>
+
+  </ui-page>
+</template>
+
+
+<script>
+
+export default {
+  config: {
+    "navigationBarTitleText": "获取联系人信息"
+  },
+  data () {
+    return {
+      phoneNumber: ''
+    }
+  },
+  methods: {
+    pick () {
+      ui.pickPhoneNumber({
+        success: ({ phoneNumber }) => {
+          this.phoneNumber = phoneNumber
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="less">
+  // addressBook.less
+.content{
+  padding: 10px;
+}
+.ui-text{
+  line-height: 36px;
+}
+</style>

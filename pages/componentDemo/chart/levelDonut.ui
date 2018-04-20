@@ -1,0 +1,97 @@
+<!--level-donut.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">多层环形图</ui-view>
+    <ui-view class="circular2">
+      <ui-level-donut
+      radius= "40"
+      animate= "true"
+      width="320"
+      height="300"
+      value-array="{{ valueArray }}" 
+      color-array="{{ colorArray }}" 
+      line-width-array="{{ lineWidthArray }}"
+      center-left="200"
+      center-top= "200"
+      ></ui-level-donut>
+    </ui-view>
+    <ui-view class="tags_wrap">
+      <ui-tags 
+        data="{{list5}}" 
+        icon-size="10"
+        icon-class="icon-class"></ui-tags>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+  // level-donut.js
+export default {
+  config: {
+    "navigationBarTitleText": "多级环形图"
+  },
+  data () {
+    return {
+      valueArray: [50, 15, 25, 10],
+      colorArray: ['#E23724', '#FCCD1F', '#FBB936', '#F8882C'],
+      lineWidthArray: [20, 15, 10, 5],
+      list5: [{
+        text: '购物',
+        tagClass: 'tag-before-5',
+        icon: 'circle',
+        iconColor: '#F8882C'
+      }, {
+        text: '出行',
+        tagClass: 'tag-before-5',
+        icon: 'circle',
+        iconColor: '#FBB936'
+      }, {
+        text: '交友',
+        tagClass: 'tag-before-5',
+        icon: 'circle',
+        iconColor: '#FCCD1F'
+      }, {
+        text: '理财',
+        tagClass: 'tag-before-5',
+        icon: 'circle',
+        iconColor: '#E23724'
+      }]
+    }
+  },
+  methods: {
+    singleTap1 (opt) {
+      this.list5.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // level-donut.less
+.circular2{
+  .mix-flex-center();
+}
+.tag-before-5{
+  background: #f7f7f7;
+  color: #333;
+  padding: 0 5px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+  border-radius: 30px;
+}
+.icon-class {
+  width: 20px;
+  height: 20px;
+}
+.tags_wrap{
+  padding-top: 10px 0;
+  .mix-flex-center();
+}
+</style>

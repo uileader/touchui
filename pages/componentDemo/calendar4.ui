@@ -1,0 +1,240 @@
+<template>
+    <ui-page>
+      <ui-nav-bar slot="nav-bar">
+        <ui-row>
+          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+              <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+          </ui-col>
+          <ui-col>
+            <ui-view>{{date}}</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="60">
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+      <ui-view>
+          <!-- <ui-text type="mixed" bindchange="selectedHandler($event)">
+            <ui-checkbox-group bindchange="checkchange">
+            <ui-view class="swieper-box">
+              <ui-swipe-out ui:for="{{list}}"  operate-width="100" height="{{ item.height }}" ui:model="{{item.switcher}}" bindchange="changeHandler1(index)">
+                  <ui-view slot="content">
+                    <ui-row class="listbox">
+                      <ui-col width="50" vertical-align="middle">
+                          <ui-checkbox value="{{item.value}}"></ui-checkbox>
+                      </ui-col>
+                      <ui-col vertical-align="middle">
+                        <ui-view class="{{item.state}}">{{item.name}}</ui-view>
+                      </ui-col>
+                    </ui-row>
+                </ui-view>
+                <ui-view slot="operate">
+                  <ui-row>
+                    <ui-col>
+                      <ui-view class="know">
+                        <ui-icon type="playmusic" size="24" color="#fff"></ui-icon>
+                      </ui-view>
+                    </ui-col>
+                    <ui-col>
+                      <ui-view class="delete" bindtap="del(index)">
+                        <ui-icon type="delete" size="24" color="#fff"></ui-icon>
+                      </ui-view>
+                    </ui-col>
+                  </ui-row>
+                </ui-view>
+                </ui-swipe-out>
+              </ui-view>
+              </ui-checkbox-group>
+          </ui-text> -->
+      </ui-view>
+    </ui-page>
+  </template> 
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "calendar3",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":"black"
+  },
+  data () {
+    return {
+      date: '',
+      dateDay: '',
+      dateObj: {},
+      list: [{
+        name: '拜访张总',
+        value: '0',
+        state: '',
+        height: 50,
+        switcher: 'off'
+      }, {
+        name: '2点会议室开会',
+        value: '1',
+        state: '',
+        height: 50,
+        switcher: 'off'
+      }, {
+        name: '接待工厂客户',
+        value: '2',
+        state: '',
+        height: 50,
+        switcher: 'off'
+      }]
+    }
+  },
+  methods: {
+    selectedHandler (e) {
+      this.dateObj = e.split('/')
+      this.date = `${this.dateObj[0]}年${this.dateObj[1]}月`
+      this.dateDay = `${this.dateObj[0]}年${this.dateObj[1]}月${this.dateObj[2]}日`
+    },
+    navigateBack () {
+      ui.navigateBack()
+    },
+    del (index) {
+      let that = this
+      this.list[index].height = 0
+      that.list.splice(index, 1)
+    },
+    changeHandler1 (index) {
+      for (var i = 0; i < this.list.length; i++) {
+        if (i !== index) {
+          this.list[i].switcher = 'off'
+        }
+      }
+    },
+    checkchange (val) {
+      for (var i = 0; i < this.list.length; i++) {
+        if (val.current.checked) {
+          if (this.list[i].value === val.current.value) {
+            this.list[i].state = 'check-text'
+          }
+        } else {
+          if (this.list[i].value === val.current.value) {
+            this.list[i].state = ''
+          }
+        }
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // mixed-calendar.less
+.ui-calendar{
+}
+.ui-calendar, .w-calendar-template{
+  .not-this-month{
+    color:#acacac
+  }
+  .calendar-head{
+    background-color:#fff !important;
+    color:#666;
+  }
+
+  .calendar-head .calendar-week-head:first-of-type{
+    color:#f19a9c
+  }
+  .calendar-head .calendar-week-head:last-of-type{
+    color:#f19a9c
+  }
+  .calendar-week-head{
+    color:#333;
+  }
+  .calendar-body{
+    background-color:#fff
+    
+  }
+}
+
+.calendar-day-inner{
+  .is-this-month.is-holiday{
+    color:#666 !important;
+  }
+
+  .is-holiday{
+    color:#666 !important;
+  }
+  .is-selected{
+    color:#fff !important
+  }
+}
+.ui-nav-bar{
+  background-color: #fff;
+  color:#333
+}
+
+.ui-checkbox-inner{
+  border: 1px solid #39f;
+}
+
+.draggable-item-template{
+  overflow:hidden
+}
+
+.swieper-box{
+  background-color:#fff
+}
+.listbox{
+  border-bottom: 1px solid #ececec;
+  padding:0 5px;
+  overflow: hidden;
+  background: #fff;
+}
+.ui-checkbox{
+  line-height: 48px;
+}
+.is-checked{
+  border:1px solid #999;
+  background-color: transparent !important;
+}
+
+.ui-checkbox-inner.is-checked .ui-checkbox__check{
+  border-color: #999
+}
+
+.check-text{
+  color:#999;
+  text-decoration: line-through;
+}
+
+.swipe-out-dome-1{
+  transition: height .25s ease-in;
+  // overflow: hidden;
+}
+.swipe-out-dome-1-content {
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  
+  .text {
+    font-size: 14px;
+  }
+}
+.dome_operate {
+ background: #3ECBE8;
+}
+.delete{
+  width:50px;
+  color:#fff;
+  line-height: 48px;
+  height:48px;
+  display: inline-block;
+  background: #f22;
+  text-align: center;
+  .ui-image{
+    height:48px
+  }
+}
+.know{
+  width:50px;
+  color:#fff;
+  height:48px;
+  line-height: 48px;
+  display: inline-block;
+  background: #f39826;
+  text-align: center
+}
+</style>

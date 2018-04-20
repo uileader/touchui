@@ -1,0 +1,218 @@
+<template>
+    <ui-page>
+      <ui-view class="demo">
+        <ui-view class="demo-block">
+          <ui-view class="sample_title">文字在右</ui-view>
+          <ui-view class="demo-content">
+            <ui-checkbox-group>
+              <ui-label class="checkbox" ui:for="{{items}}">
+                <ui-checkbox value="{{item.name}}" checked="{{ item.checked }}" ></ui-checkbox>{{item.value}}
+              </ui-label>
+            </ui-checkbox-group>
+            <ui-view class="sample_title">文字在左</ui-view>
+            <ui-checkbox-group>
+              <ui-label class="checkbox" ui:for="{{items}}">
+                {{item.value}}
+                <ui-checkbox value="{{item.name}}" checked="{{ item.checked }}"></ui-checkbox>
+              </ui-label>
+            </ui-checkbox-group>
+            </ui-view>
+          </ui-view>
+        </ui-view>
+
+        <ui-view class="demo">
+        <ui-view class="demo-block">
+          <ui-view class="sample_title">change事件</ui-view>
+          <ui-view class="demo-content">
+            <ui-checkbox-group bindchange="checkboxChange">
+              <ui-label class="checkbox" ui:for="{{items}}">
+                <ui-checkbox value="{{item.value}}" checked="{{ item.checked }}"></ui-checkbox>{{item.value}}
+              </ui-label>
+            </ui-checkbox-group>
+            </ui-view>
+          </ui-view>
+        </ui-view>
+
+        <ui-view class="demo">
+          <ui-view class="demo-block">
+            <ui-view class="sample_title">复选框颜色</ui-view>
+              <ui-view class="demo-content">
+                <ui-checkbox-group>
+                  <ui-label class="checkbox" ui:for="{{items}}">
+                    <ui-checkbox value="{{item.name}}" color="#ffa42f" checked="{{ item.checked }}" disabled="{{ item.disabled }}" ></ui-checkbox>{{item.value}}
+                  </ui-label>
+                </ui-checkbox-group>
+              </ui-view>
+          </ui-view>
+        </ui-view>
+
+        <ui-view class="demo">
+          <ui-view class="demo-block">
+            <ui-view class="sample_title">圆角checkbox</ui-view>
+              <ui-view class="demo-content">
+                <ui-checkbox-group>
+                  <ui-label class="checkbox" ui:for="{{items}}">
+                    <ui-checkbox value="{{item.name}}" checked="{{ item.checked }}" type="circle"></ui-checkbox>{{item.value}}
+                  </ui-label>
+                </ui-checkbox-group>
+                <ui-view class="sample_title">圆角checkbox</ui-view>
+                <ui-checkbox-group>
+                  <ui-label class="checkbox" ui:for="{{items}}">
+                    {{item.value}}
+                    <ui-checkbox value="{{item.name}}" checked="{{ item.checked }}" type="circle"></ui-checkbox>
+                  </ui-label>
+                </ui-checkbox-group>
+              </ui-view>
+          </ui-view>
+        </ui-view>
+
+
+        <ui-view class="demo">
+          <ui-view class="demo-block">
+            <ui-view class="sample_title">对号checkbox</ui-view>
+              <ui-view class="demo-content">
+                <ui-checkbox-group>
+                  <ui-label class="checkbox" ui:for="{{items}}">
+                    <ui-checkbox value="{{item.name}}" checked="{{ item.checked }}" type="plain" disabled="{{ item.disabled }}" ></ui-checkbox>{{item.value}}
+                  </ui-label>
+                </ui-checkbox-group>
+                <ui-view class="sample_title">对号checkbox</ui-view>
+                <ui-checkbox-group>
+                  <ui-label class="checkbox" ui:for="{{items}}">
+                    {{item.value}}
+                    <ui-checkbox value="{{item.name}}" checked="{{ item.checked }}" type="plain" disabled="{{ item.disabled }}"></ui-checkbox>
+                  </ui-label>
+                </ui-checkbox-group>
+              </ui-view>
+          </ui-view>
+        </ui-view>
+
+        
+        
+            <ui-view class="sample_title">外部选择</ui-view>
+            <ui-view class="demo-content">
+              <ui-checkbox-group>
+                <ui-label class="checkbox" ui:for="{{items2}}">
+                  <ui-checkbox value="{{item.name}}" checked="{{ item.checked }}" ></ui-checkbox>{{item.value}}
+                </ui-label>
+              </ui-checkbox-group>
+              <ui-view class="check_all">
+                全选<ui-checkbox bindchange="checkAll"></ui-checkbox>
+              </ui-view>
+              
+            </ui-view>
+
+        
+
+        <ui-view class="demo">
+          <ui-view class="demo-block">
+            <ui-view class="sample_title">综合实例</ui-view>
+              <ui-view class="demo-content">
+                <ui-checkbox-group>
+                  <ui-label class="checkbox" ui:for="{{textdata}}">
+                    <ui-row>
+                      <ui-col width="45" vertical-align="middle">
+                        <ui-checkbox value="{{item.title}}" color="#ffa42f" type="circle" ></ui-checkbox>
+                      </ui-col>
+                      <ui-col content-direction="column">
+                        <ui-view class="main-title">{{item.title}}</ui-view>
+                        <ui-view class="sub-title">{{item.duration}} {{item.size}}</ui-view>
+                      </ui-col>
+                    </ui-row>
+                  </ui-label>
+                </ui-checkbox-group>
+              </ui-view>
+          </ui-view>
+        </ui-view>
+    </ui-page>
+  </template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "多选框"
+  },
+  data () {
+    return {
+      value1: true,
+      value2: false,
+      items: [
+        { name: 'USA', value: '美国' },
+        { name: 'CHN', value: '中国', checked: true },
+        { name: 'BRA', value: '巴西', checked: true }
+      ],
+      items2: [
+        { name: 'USA', value: '美国', checked: false },
+        { name: 'CHN', value: '中国', checked: false },
+        { name: 'BRA', value: '巴西', checked: false }
+      ],
+      textdata: [
+        {
+          title: 'CEO如何避免决策错误',
+          duration: '时长01:43',
+          size: '600kb'
+        }, {
+          title: '认知多样性更能提高团队效率',
+          duration: '时长02:17',
+          size: '824kb'
+        }, {
+          title: '如何驾驭性格中的阴暗面',
+          duration: '时长02:43',
+          size: '748kb'
+        }
+      ]
+    }
+  },
+  methods: {
+    checkboxChange (obj) {
+      ui.showToast({ title: obj.value.join(',') + '，当前点击的选中结果：' + obj.current.checked })
+    },
+    checkAll (obj) {
+      if (obj.checked) {
+        this.items2.forEach((item, index) => {
+          item.checked = true
+        })
+      } else {
+        this.items2.forEach((item, index) => {
+          item.checked = false
+        })
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // checkbox.less
+
+.demo-content {
+  .sub-title{
+    color:#888;
+    font-size:12px
+  }
+  .ui-checkbox-group {
+    background-color: #fff;
+  }
+
+  .checkbox {
+    display: block;
+    margin-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 14px;
+
+    &:not(:first-of-type) {
+      .mix-1px(1, 0, 0, 0, #d4d4d4);
+    }
+  }
+}
+
+.check_all{
+  text-align: right;
+  padding: 10px;
+  .mix-1px(1, 0, 0, 0, #d4d4d4);
+}
+</style>
+  

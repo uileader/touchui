@@ -1,0 +1,187 @@
+<!--star.ui-->
+<template>
+  <ui-page>
+      <ui-view class="sample_title">基本使用</ui-view>
+      <ui-view class="star-demo">
+        <ui-star></ui-star>
+      </ui-view>
+  
+      <ui-view class="sample_title">可打半星</ui-view>
+      <ui-view style="padding: 10px">
+        <ui-star half></ui-star>
+      </ui-view>
+  
+      <ui-view class="sample_title">自定义图案</ui-view>
+      <ui-view class="star-demo">
+        <ui-star data="{{stars1}}"></ui-star>
+      </ui-view>
+    
+     <ui-view class="sample_title">自定义数量</ui-view>
+      <ui-view class="star-demo">
+        <ui-star length=8 value=3></ui-star>
+      </ui-view>
+  
+      <ui-view class="sample_title">自定义评价文字</ui-view>
+      <ui-view class="star-demo">
+        <ui-view class="result">{{starResult}}</ui-view>
+        <ui-star  bindchange="handleStar"></ui-star>
+      </ui-view>
+  
+      <ui-view class="sample_title">只读评价</ui-view>
+      <ui-view class="star-demo">
+        <ui-star value=2.5 read-only half ></ui-star>
+      </ui-view>
+  
+      <ui-view class="sample_title">颜色渐变</ui-view>
+      <ui-view class="star-demo">
+        <ui-star data={{stars3}}  bindchange="bindcolor"></ui-star>
+      </ui-view>
+  
+      <ui-view class="sample_title">自定义宽高</ui-view>
+       <ui-view class="star-demo">
+        <ui-star star-width="50" star-height=50></ui-star>
+      </ui-view>
+  
+        
+      <ui-view class="sample_title">综合实例</ui-view>
+      <ui-view class="star-demo-top">
+        <ui-view class="result">{{starResult1}}</ui-view>
+          <ui-star data={{stars}}  bindchange="handleStar1"></ui-star>
+        </ui-view>
+      <ui-view class="star-demo-middle">请您对不满意之处打分，督促商家去改善</ui-view>
+      <ui-view class="star-demo-bottom">
+        <ui-row>
+          <ui-col vertical-align="middle" width="38">口味</ui-col>
+          <ui-col vertical-align="middle" align="left">
+              <ui-star data={{stars1}} ></ui-star>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-view class="star-demo-bottom">
+        <ui-row>
+          <ui-col vertical-align="middle" width="38">服务</ui-col>
+          <ui-col vertical-align="middle" align="left">
+              <ui-star data={{stars1}} ></ui-star>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-view class="star-demo-bottom">
+        <ui-row>
+          <ui-col vertical-align="middle" width="38">环境</ui-col>
+          <ui-col vertical-align="middle" align="left">
+              <ui-star data={{stars1}} ></ui-star>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+
+  </ui-page>
+</template>
+
+
+<script>
+// star.js
+export default {
+  config: {
+    "navigationBarTitleText": "星级评价"
+  },
+  data () {
+    return {
+      stars: {
+        normalSrc: 'http://images.uileader.com/20180403/7ea55056-3fe9-4f8c-a500-1734cf955b5b.png',
+        selectedSrc: 'http://images.uileader.com/20180403/5d063eda-9e1b-49b6-b270-63a8318a6881.png',
+        halfSrc: 'http://images.uileader.com/20180403/e9bede50-e470-46cc-83c0-f078e8c645bb.png'
+      },
+      stars1: {
+        normalSrc: 'http://images.uileader.com/20180403/7ef96e57-5a9a-42c5-87a5-a14656becd7d.png',
+        selectedSrc: 'http://images.uileader.com/20180403/4c9729f1-889b-4bbd-b373-69ca80a44b33.png'
+      },
+      stars3: {
+        normalSrc: 'http://images.uileader.com/20180403/7ea55056-3fe9-4f8c-a500-1734cf955b5b.png',
+        selectedSrc: 'http://images.uileader.com/20180403/5d063eda-9e1b-49b6-b270-63a8318a6881.png'
+      },
+      starResult: '感觉怎么样，打个分吧',
+      starResult1: '感觉怎么样，打个分吧'
+    }
+  },
+  methods: {
+    handleStar (index) {
+      if (index === 1) {
+        this.starResult = '非常差，不会再来'
+      } else if (index === 2) {
+        this.starResult = '感觉很一般'
+      } else if (index === 3) {
+        this.starResult = '满意，感觉不错'
+      } else if (index === 4) {
+        this.starResult = '很满意，下次还要来'
+      } else if (index === 5) {
+        this.starResult = '非常棒，值得推荐给朋友'
+      }
+    },
+    handleStar1 (index) {
+      if (index === 1) {
+        this.starResult1 = '非常差，不会再来'
+      } else if (index === 2) {
+        this.starResult1 = '感觉很一般'
+      } else if (index === 3) {
+        this.starResult1 = '满意，感觉不错'
+      } else if (index === 4) {
+        this.starResult1 = '很满意，下次还要来'
+      } else if (index === 5) {
+        this.starResult1 = '非常棒，值得推荐给朋友'
+      }
+    },
+    bindcolor (index) {
+      if (index <= 2) {
+        this.stars3.selectedSrc = 'http://images.uileader.com/20180403/74ca1ccb-954d-466a-9a6b-bea3d6b43ff5.png'
+      } else if (index <= 4) {
+        this.stars3.selectedSrc = 'http://images.uileader.com/20180403/5d063eda-9e1b-49b6-b270-63a8318a6881.png'
+      } else if (index = 5) {
+        this.stars3.selectedSrc = 'http://images.uileader.com/20180403/2749b462-1550-4104-ad47-a9883b1a78ef.png'
+      }
+    }
+  },
+  mounted () {
+
+  }
+}
+
+</script>
+
+<style lang="less">
+// star.less
+.star-demo-top {
+  margin-left: 98px;
+  padding-top: 10px;
+  .result {
+    padding-left: 20px; 
+    font-size: 14px; 
+    color: #ff5800;
+  }
+}
+.star-demo-middle {
+  text-align: center;
+  font-size: 12px;
+  color: #707070;
+  margin-top: 10px;
+}
+.star-demo-bottom {
+  width: 220px;
+  margin: 0 auto;
+  .title {
+    flex: 1;
+    font-size: 14px;
+    height: 36px;
+    line-height: 30px;
+    margin-right: 5px;
+    color: #707070;
+  }
+}
+.star-demo {
+  padding: 10px;
+  .result {
+    padding-left: 10px; 
+    font-size: 14px; 
+    color: #ff5800;
+  }
+}
+</style>

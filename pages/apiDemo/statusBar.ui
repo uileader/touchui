@@ -1,0 +1,55 @@
+<!--statusBar.ui-->
+<template>
+  <ui-page>
+      <ui-view class="content">
+        <ui-row height="40">
+          <ui-col span="3" vertical-align="middle">
+            当前样式：
+          </ui-col>
+          <ui-col span="9">
+              <ui-input class="input" type="string" name="input" value="{{style}}"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-button bindtap="set('black')">设置为黑色</ui-button>
+        <ui-button bindtap="set('white')">设置为白色</ui-button>
+        <ui-button type="primary" bindtap="get">获取当前样式</ui-button>
+      </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// statusBar.js
+export default {
+  config: {
+    "navigationBarTitleText": "状态栏"
+  },
+  data () {
+    return {
+      style: '未获取'
+    }
+  },
+  methods: {
+    get () {
+      ui.getStatusBarStyle({
+        success: ({ style }) => {
+          this.style = style === 'dark' ? '黑色' : '白色'
+        }
+      })
+    },
+    set (style) {
+      this.style = '未获取'
+      ui.setStatusBarStyle({
+        style
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // statusBar.less
+.content{
+  padding: 10px;
+}
+</style>

@@ -1,0 +1,79 @@
+<!--showPrompt.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">显示输入框</ui-view>
+    <ui-view class="sample_content">
+      <ui-button bindtap="showPrompt1">默认Prompt</ui-button>
+      <ui-button bindtap="showPrompt2">有初始值的Prompt</ui-button>
+      <ui-button bindtap="showPrompt3">带自定义html内容的Prompt</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// showPrompt.js
+export default {
+  config: {
+    "navigationBarTitleText": "showPrompt"
+  },
+  data () {
+    return {
+      value1: '',
+      value2: '开发组',
+      value3: ''
+    }
+  },
+  methods: {
+    showPrompt1 () {
+      ui.showPrompt({
+        title: '新建分组',
+        placeholder: '请输入分组名',
+        value: this.value1,
+        success: (result) => {
+          let title = result.confirm ? `点击了确认按钮，文本框值为：${result.value}` : `点击了取消按钮，文本框值为：${result.value}`
+          this.value1 = result.value
+          ui.showToast({
+            title: title
+          })
+        }
+      })
+    },
+    showPrompt2 () {
+      ui.showPrompt({
+        title: '修改分组',
+        placeholder: '请输入分组名',
+        confirmButtonText: '确认修改',
+        cancelButtonText: '放弃修改',
+        value: this.value2,
+        success: (result) => {
+          let title = result.confirm ? `点击了确认修改按钮，文本框值为：${result.value}` : `点击了放弃修改按钮，文本框值为：${result.value}`
+          this.value2 = result.value
+          ui.showToast({
+            title: title
+          })
+        }
+      })
+    },
+    showPrompt3 () {
+      ui.showPrompt({
+        title: '删除分组',
+        placeholder: '请输入分组名',
+        content: `
+                  <div class="prompt3">
+                    <div class="danger">这是一个危险的操作</div>
+                  </div>
+                  `,
+        value: this.value3,
+        cancelButtonStyle: { color: '#D3DCE6' },
+        confirmButtonStyle: { color: '#ff2a00' }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

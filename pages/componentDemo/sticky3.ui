@@ -1,0 +1,2553 @@
+<!--sticky3.ui-->
+<template>
+  <ui-page>
+    <ui-swiper indicator-dots circular style="height: {{ swiperHeight }}px;">
+      <ui-swiper-item ui:for="{{items1}}" ui:for-item="item" ui:for-index="index">
+        <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+      </ui-swiper-item>
+    </ui-swiper>
+
+    <ui-view class="sticky-in-relative-container" id="suggestion-title">
+      <ui-sticky class="header header1" stick-on-tap="stick-on-tap">
+        <ui-view>
+          <ui-row height="46" class="nav_top">
+            <ui-col vertical-align="middle" align="center" bindtap="openPopup(index)" ui:for="{{ navList }}" class="{{ item.active }}">
+              <ui-row height="46">
+                <ui-col vertical-align="middle" align="right" space-right="5">
+                  <ui-view>
+                    {{ item.name}}
+                  </ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="left" span="4" space-left="5">
+                  <ui-icon type="{{item.arrow}}" size="8" color="#878787;" class="{{ item.active }}"></ui-icon>
+                </ui-col>
+              </ui-row>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+        <ui-view slot="sticky">
+          <ui-row height="46" class="nav_top">
+            <ui-col vertical-align="middle" align="center" bindtap="openPopup(index)" ui:for="{{ navList }}" class="{{ item.active }}">
+              <ui-row height="46">
+                <ui-col vertical-align="middle" align="right" space-right="5">
+                  <ui-view>
+                    {{ item.name}}
+                  </ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="left" span="4" space-left="5">
+                  <ui-icon type="{{item.arrow}}" size="8" color="#878787;" class="{{ item.active }}"></ui-icon>
+                </ui-col>
+              </ui-row>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+      </ui-sticky>
+    </ui-view>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+
+    <ui-popup ui:model="{{show1 }}" position="top" top="{{ popupTop }}" height="{{ scroHeight }}" mask-style="{{{ top: popupTop+'px' }}}" bindhide="popHide" bindshow="popShow">
+      <ui-view class="top_pop">
+        <ui-scroll-view scroll-y="scroll-y" height="{{scroHeight}}">
+          <ui-check-list max="1" label-position="left" options="{{ foodList }}" type="plain" ui:model="{{ checklist1 }}" bindchange="change" color="#3AC3B0"></ui-check-list>
+        </ui-scroll-view>
+      </ui-view>
+    </ui-popup>
+
+    <ui-popup ui:model="{{show2 }}" position="top" top="{{ popupTop }}" height="{{ scroHeight }}" mask-style="{{{ top: popupTop+'px' }}}" bindhide="popHide1" bindshow="popShow1">
+      <ui-view class="top_pop">
+        <ui-view style="background-color:#fff;margin-left:10px;border-bottom:1px solid #ccc;">
+          <ui-tabs  auto-width="{{false}}" bindchange="tabChange" active-tab-style="color:#09C2B1;border-bottom:2px solid #09C2B1;flex:0 0 30px;" tab-style="background-color:#fff;font-size:14px">
+            <ui-tab>商圈</ui-tab>
+            <ui-tab>地铁</ui-tab>
+          </ui-tabs>
+        </ui-view>
+        <ui-cascader border="{{false}}" bindselected="bindselected1" class="sample_title_6" ui:show="{{ isDistrict }}"  show-title="{{false}}" data="{{data2}}" theme-color="#09C2B1" height="{{ scroHeight-46 }}"></ui-cascader>
+        <ui-cascader border="{{false}}" bindselected="bindselected2" class="sample_title_6" ui:show="{{ isSubway }}" show-title="{{false}}" data="{{data3}}" theme-color="#09C2B1"  height="{{ scroHeight-46 }}"></ui-cascader>
+
+      </ui-view>
+    </ui-popup>
+
+    <ui-popup ui:model="{{ show3 }}" position="top" top="{{ popupTop }}" height="180" mask-style="{{{ top: popupTop+'px' }}}" bindhide="popHide2" bindshow="popShow2">
+      <ui-view class="top_pop">
+        <ui-check-list max="1" label-position="left" options="{{ sortList }}" type="plain" ui:model="{{ checklist2 }}" bindchange="change2" color="#3AC3B0"></ui-check-list>
+      </ui-view>
+    </ui-popup>
+
+    <ui-popup ui:model="{{ show4 }}" position="top" top="{{ popupTop }}" height="{{ scroHeight }}" mask-style="{{{ top: popupTop+'px' }}}" bindhide="popHide3" bindshow="popShow3">
+      <ui-view class="top_pop">
+        <ui-scroll-view scroll-y="scroll-y" >
+          <ui-form >
+            <ui-row height="50">
+              <ui-col>
+                <ui-switch title="只看免预约" value="{{ switch1 }}" color="#09C2B1"></ui-switch>
+              </ui-col>
+            </ui-row>
+            <ui-row height="50" border-bottom="border-bottom">
+              <ui-col>
+                <ui-switch title="节假日可用" color="#09C2B1"></ui-switch>
+
+              </ui-col>
+            </ui-row>
+            <ui-view class="time_content">
+              <ui-text>用餐时段</ui-text>
+              <ui-tags data="{{eatTime}}" bindchange="singleTap1" fixed-width></ui-tags>
+            </ui-view>
+            <ui-view class="time_content">
+              <ui-text>餐厅服务</ui-text>
+              <ui-tags data="{{service}}" bindchange="singleTap2" fixed-width></ui-tags>
+            </ui-view>
+            <ui-view class="time_content">
+              <ui-text>用餐人数</ui-text>
+              <ui-tags data="{{eatNumber}}" bindchange="singleTap3" fixed-width></ui-tags>
+            </ui-view>
+
+          </ui-form>
+        </ui-scroll-view>
+        <ui-row border-top="border-top" height="50" class="sub">
+          <ui-col vertical-align="middle" align="center" border-right="border-right" bindtap="formReset">
+            重置
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" bindtap="change3" class="complete">
+            完成
+          </ui-col>
+        </ui-row>
+      </ui-view>
+    </ui-popup>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "吸顶容器应用案例",
+    "navigationBarBorderColor": "rgba(231, 231, 231, 0.6)",
+    "navigationBarBackgroundColor":"#FFFFFF",
+    "navigationBarTextStyle":"black",
+    "navigationBarTextStyle":"black",
+    "scrollType":"div"
+  },
+  data () {
+    return {
+      swiperHeight: ui.WIN_WIDTH / 1125 * 263,
+      items: [],
+      items2: [],
+      scroHeight: parseInt(ui.DEFAULT_CONTENT_HEIGHT * 0.8),
+      items1: [{
+        src: 'http://images.uileader.com/20171110/e5b64484-b5e0-472a-bf52-ac95fb5685d3.jpg'
+      },
+      {
+        src: 'http://images.uileader.com/20171110/e33376a8-c599-42e5-87ed-84aec360a61d.jpg'
+      },
+      {
+        src: 'http://images.uileader.com/20171110/37cc4a4e-a253-4fcd-a4f6-d9710e8f63e8.jpg'
+      }],
+      foodList: ['全部', '甜点饮品', '生日蛋糕', '火锅', '自助餐', '小吃快餐',
+        '日韩料理', '聚餐宴请', '烧烤烤肉', '大闸蟹', '川湘菜', '江浙菜',
+        '香锅烤鱼', '小龙虾', '粤菜', '西北菜', '咖啡酒吧', '徽菜', '云贵菜', '北京菜'
+      ],
+      sortList: [
+        '智能排序', '离我最近', '好评优先', '人气最高'
+      ],
+      eatTime: [{
+        text: '早餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '午餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '下午茶',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '晚餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '夜宵',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }],
+      service: [{
+        text: '买单',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '在线点菜',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '外卖送餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '在线排队',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '预订',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }],
+      eatNumber: [{
+        text: '单人餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '双人餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '3～4人餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '5-10人餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '10人以上',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }],
+      checklist1: [],
+      checklist2: [],
+      checkContent: '全部',
+      cityName: '附近',
+      sortName: '智能排序',
+      navList: [
+        {
+          name: '全部',
+          active: '',
+          arrow: 'slide_down',
+          bindtap: 'openPopup1'
+        }, {
+          name: '附近',
+          active: '',
+          arrow: 'slide_down',
+          bindtap: 'openPopup2'
+        }, {
+          name: '智能排序',
+          active: '',
+          arrow: 'slide_down',
+          bindtap: 'openPopup3'
+        }, {
+          name: '筛选',
+          active: '',
+          arrow: 'slide_down',
+          bindtap: 'openPopup4'
+        }
+      ],
+      winWidth: ui.WIN_WIDTH,
+      popupTop: ui.DEFAULT_HEADER_HEIGHT + 46,
+      show1: false,
+      show2: false,
+      show3: false,
+      show4: false,
+      switch1: false,
+      switch2: false,
+
+      show: {
+
+      },
+      current: 0,
+      data2: [
+        {
+          name: '附近',
+          children: [{
+            name: '附近',
+            
+          }, {
+            name: '1km',
+            
+          }, {
+            name: '3km',
+            
+          }, {
+            name: '5km',
+            
+          }, {
+            name: '10km',
+            
+          }, {
+            name: '全城',
+            
+          }]
+        }, {
+          name: '推荐商圈',
+          children: [{
+            name: '大望路（208）',
+            
+          }, {
+            name: '双井（168）',
+            
+          }, {
+            name: '上地（191）',
+            
+          }, {
+            name: '远大路（168）',
+            
+          }, {
+            name: '牡丹园／北太平庄（200）',
+            
+          }, {
+            name: '昌平镇（150）',
+            
+          }, {
+            name: '亦庄（450）',
+            
+          }, {
+            name: '望京（750）',
+            
+          }, {
+            name: '中关村（103）',
+            
+          }, {
+            name: '亚运村（203）',
+            
+          }, {
+            name: '国贸／建外（125）',
+            
+          }, {
+            name: '黄村（230）',
+            
+          }, {
+            name: '西红门（402）',
+            
+          }, {
+            name: '良乡（135）',
+            
+          }]
+        }, {
+          name: '朝阳区',
+          children: [{
+            name: '北苑家园（301）',
+            
+          }, {
+            name: '酒仙桥（203）',
+            
+          }, {
+            name: '安贞（100）',
+            
+          }, {
+            name: '管庄（150）',
+            
+          }, {
+            name: '十八里店（400）',
+            
+          }, {
+            name: '建外大街（210）',
+            
+          }, {
+            name: '望京（153）',
+            
+          }, {
+            name: '亮马桥（213）',
+            
+          }, {
+            name: '朝外大街／世贸天阶（377）',
+            
+          }, {
+            name: '左家庄（89）',
+            
+          }, {
+            name: '亚运村（256）',
+            
+          }, {
+            name: '四惠（12）',
+            
+          }, {
+            name: '四惠东（23）',
+            
+          }, {
+            name: '团结湖／朝阳公园（230）',
+            
+          }, {
+            name: '三元桥（230）',
+            
+          }, {
+            name: '太阳宫（320）',
+            
+          }, {
+            name: '国贸／建外（280）',
+            
+          }, {
+            name: '三里屯／工体（491）',
+            
+          }, {
+            name: '对外经贸（173）',
+            
+          }, {
+            name: '首都机场（32）',
+            
+          }, {
+            name: '十里堡（12）',
+            
+          }, {
+            name: '悠唐生活广场（47）',
+            
+          }, {
+            name: '朝阳大悦城（267）',
+            
+          }, {
+            name: '东坝（98）',
+            
+          }, {
+            name: '石佛营（39）',
+            
+          }, {
+            name: '甜水园（28）',
+            
+          }, {
+            name: '八里庄（77）',
+            
+          }, {
+            name: '工体（46）',
+            
+          }, {
+            name: '百子湾（127）',
+            
+          }, {
+            name: '传媒大学（77）',
+            
+          }, {
+            name: '双桥（99）',
+            
+          }, {
+            name: '北京欢乐谷（72）',
+            
+          }, {
+            name: '高碑店（61）',
+            
+          }, {
+            name: '北京东站（31）',
+            
+          }, {
+            name: '霄云路（56）',
+            
+          }, {
+            name: '蓝色港湾（19）',
+            
+          }, {
+            name: '朝阳公园（32）',
+            
+          }, {
+            name: '燕莎（54）',
+            
+          }, {
+            name: '农业展览馆（4）',
+            
+          }, {
+            name: '劲松（130）',
+            
+          }, {
+            name: '潘家园（12）',
+            
+          }, {
+            name: '十里河（102）',
+            
+          }, {
+            name: '立水桥／北苑家园（134）',
+            
+          }, {
+            name: '小营（67）',
+            
+          }, {
+            name: '北沙滩（16）',
+            
+          }, {
+            name: '大屯（67）',
+            
+          }, {
+            name: '常营（193）',
+            
+          }, {
+            name: '鸟巢／水立方（110）',
+            
+          }, {
+            name: '世贸天阶（51）',
+            
+          }, {
+            name: '草房（6）',
+            
+          }, {
+            name: '王四营（6）',
+            
+          }, {
+            name: '霄云路／三元桥（3）',
+            
+          }, {
+            name: '首都机场生活区',
+            
+          }, {
+            name: '四惠交通枢纽',
+            
+          }]
+        }, {
+          name: '海淀区',
+          children: [{
+            name: '全部（4089）',
+            
+          }, {
+            name: '双榆树（133）',
+            
+          }, {
+            name: '上地（190）',
+            
+          }, {
+            name: '远大路（168）',
+            
+          }, {
+            name: '五棵松（209）',
+            
+          }, {
+            name: '魏公村（162）',
+            
+          }, {
+            name: '牡丹园／北太平庄（139）',
+            
+          }, {
+            name: '清河（251）',
+            
+          }, {
+            name: '北下关（204）',
+            
+          }, {
+            name: '中关村（346）',
+            
+          }, {
+            name: '五道口（490）',
+            
+          }, {
+            name: '航天桥（160）',
+            
+          }, {
+            name: '苏州桥（16）',
+            
+          }, {
+            name: '紫竹桥（98）',
+            
+          }, {
+            name: '颐和园（56）',
+            
+          }, {
+            name: '公主坟／万寿路（174）',
+            
+          }, {
+            name: '大钟寺（165）',
+            
+          }, {
+            name: '知春路（85）',
+            
+          }, {
+            name: '西三旗（87）',
+            
+          }, {
+            name: '四季春（208）',
+            
+          }, {
+            name: '香山／植物园（24）',
+            
+          }, {
+            name: '北京大学（64）',
+            
+          }, {
+            name: '人民大学（56）',
+            
+          }, {
+            name: '万柳（886）',
+            
+          }, {
+            name: '学院路（46）',
+            
+          }, {
+            name: '北京西站／军博',
+            
+          }, {
+            name: '农业大学西区',
+            
+          }, {
+            name: '百望山森林公园／309医院',
+            
+          }]
+        }, {
+          name: '丰台区',
+          children: [{
+            name: '全部（2156）',
+            
+          }, {
+            name: '洋桥／木樨园（192）',
+            
+          }, {
+            name: '刘家窑／宋家庄（174）',
+            
+          }, {
+            name: '北京南站／开阳里（55）',
+            
+          }, {
+            name: '看丹桥（65）',
+            
+          }, {
+            name: '北大地／万丰路（130）',
+            
+          }, {
+            name: '方庄／蒲黄榆（158）',
+            
+          }, {
+            name: '北京西站／六里桥（238）',
+            
+          }, {
+            name: '青塔（115）',
+            
+          }, {
+            name: '草桥／公益西桥（87）',
+            
+          }, {
+            name: '分钟寺／成寿寺（36）',
+            
+          }, {
+            name: '夏家胡同／纪家庙（93）',
+            
+          }, {
+            name: '马家堡／交门（90）',
+            
+          }, {
+            name: '丽泽桥／丰管路（90）',
+            
+          }, {
+            name: '大红门（10）',
+            
+          }, {
+            name: '南苑／东高地（48）',
+            
+          }, {
+            name: '卢沟桥（29）',
+            
+          }, {
+            name: '云冈（69）',
+            
+          }, {
+            name: '花乡／新发地（37）',
+            
+          }, {
+            name: '世界公园（228）',
+            
+          }]
+        }, {
+          name: '西城区',
+          children: [{
+            name: '全部（1516）',
+            
+          }, {
+            name: '后海／什刹海（118）',
+            
+          }, {
+            name: '西直门／动物园（109）',
+            
+          }, {
+            name: '西四（48）',
+            
+          }, {
+            name: ' 虎坊桥（56）',
+            
+          }, {
+            name: '复兴门（45）',
+            
+          }, {
+            name: '德外大街（120）',
+            
+          }, {
+            name: '广外大街（78）',
+            
+          }, {
+            name: '右安门（89）',
+            
+          }, {
+            name: '西单（195）',
+            
+          }, {
+            name: '菜市口／陶然亭（35）',
+            
+          }, {
+            name: '广内大街（21）',
+            
+          }, {
+            name: '前门／大栅栏（110）',
+            
+          }, {
+            name: '阜成门（57）',
+            
+          }, {
+            name: '新街口（108）',
+            
+          }, {
+            name: '宣武门（57）',
+            
+          }, {
+            name: '牛街（6）',
+            
+          }, {
+            name: '月坛（70）',
+            
+          }, {
+            name: '地安门（26）',
+            
+          }, {
+            name: '西便门（26）',
+            
+          }, {
+            name: '金融街（56）',
+            
+          }, {
+            name: '白纸坊（34）',
+            
+          }, {
+            name: '和平门（18）',
+            
+          }, {
+            name: '首都博物馆／莲花池东路（10）',
+            
+          }]
+        }, {
+          name: '东城区',
+          children: [{
+            name: '全部（1576）',
+            
+          }, {
+            name: '东直门（60）',
+            
+          }, {
+            name: '安定门（137）',
+            
+          }, {
+            name: '和平里（53）',
+            
+          }, {
+            name: '沙子口（12）',
+            
+          }, {
+            name: '崇文门（114）',
+            
+          }, {
+            name: '王府井／东单（277）',
+            
+          }, {
+            name: '天坛（57）',
+            
+          }, {
+            name: '东四（28）',
+            
+          }, {
+            name: '朝阳门（86）',
+            
+          }, {
+            name: '建国门／北京站（74）',
+            
+          }, {
+            name: '东四十条（119）',
+            
+          }, {
+            name: '广渠门（39）',
+            
+          }, {
+            name: '雍和宫（65）',
+            
+          }, {
+            name: '左安门（17）',
+            
+          }, {
+            name: '南锣鼓巷（46）',
+            
+          }, {
+            name: '北新桥／簋街（102）',
+            
+          }, {
+            name: '崇文门新世界（56）',
+            
+          }, {
+            name: '王府井／前门（6）',
+            
+          }, {
+            name: '南锣鼓巷／鼓楼后海（14）',
+            
+          }]
+        }, {
+          name: '昌平区',
+          children: [{
+            name: '全部（1581）',
+            
+          }, {
+            name: '昌平镇（414）',
+            
+          }, {
+            name: '回龙观（481）',
+            
+          }, {
+            name: '天通苑（252）',
+            
+          }, {
+            name: '南口镇（36）',
+            
+          }, {
+            name: '小汤山镇（54）',
+            
+          }, {
+            name: '北七家（58）',
+            
+          }, {
+            name: '沙河（130）',
+            
+          }, {
+            name: '明十三陵（5）',
+            
+          }, {
+            name: '十三陵水库',
+            
+          }, {
+            name: '蟒山国家森林公园',
+            
+          }, {
+            name: '居庸关长城',
+            
+          }, {
+            name: '小汤山',
+            
+          }]
+        }, {
+          name: '石景山区',
+          children: [{
+            name: '全部（580）',
+            
+          }, {
+            name: '苹果园（115）',
+            
+          }, {
+            name: '古城八角（182）',
+            
+          }, {
+            name: '鲁谷（181）',
+            
+          }, {
+            name: '模式口（39）',
+            
+          }, {
+            name: '八大处（30）',
+            
+          }]
+        }, {
+          name: '通州区',
+          children: [{
+            name: '全部（1225）',
+            
+          }, {
+            name: '梨园（185）',
+            
+          }, {
+            name: '新华大街（55）',
+            
+          }, {
+            name: '新华联（48）',
+            
+          }, {
+            name: '武夷花园（30）',
+            
+          }, {
+            name: '九棵树（90）',
+            
+          }, {
+            name: '通州北苑（251）',
+            
+          }, {
+            name: '果园（12）',
+            
+          }, {
+            name: '八里桥（42）',
+            
+          }, {
+            name: '马驹桥（94）',
+            
+          }, {
+            name: '次渠（53）',
+            
+          }, {
+            name: '宋庄（90）',
+            
+          }, {
+            name: '土桥（71）',
+            
+          }]
+        }, {
+          name: '大兴区',
+          children: [{
+            name: '全部（1376）',
+            
+          }, {
+            name: '亦庄（361）',
+            
+          }, {
+            name: '旧宫（147）',
+            
+          }, {
+            name: '黄村（529）',
+            
+          }, {
+            name: '西红门（213）',
+            
+          }, {
+            name: '庞各庄（12）',
+            
+          }]
+        }, {
+          name: '顺义区',
+          children: [{
+            name: '全部（997）',
+            
+          }, {
+            name: '顺义城区（282）',
+            
+          }, {
+            name: '石园（64）',
+            
+          }, {
+            name: '后沙峪（103）',
+            
+          }, {
+            name: '天竺（80）',
+            
+          }, {
+            name: '南彩镇（47）',
+            
+          }, {
+            name: '马坡牛栏山镇（73）',
+            
+          }, {
+            name: '首都机场T3航站楼（34）',
+            
+          }, {
+            name: '莲花山滑雪场',
+            
+          }, {
+            name: '小汤山／央美博艺艺术馆',
+            
+          }]
+        },
+        {
+          name: '房山区',
+          children: [{
+            name: '全部（649）',
+            
+          }, {
+            name: '长阳镇（171）',
+            
+          }, {
+            name: '良乡（276）',
+            
+          }, {
+            name: '十渡（22）',
+            
+          }, {
+            name: '孤山寨（4）',
+            
+          }, {
+            name: '房山城关（56）',
+            
+          }, {
+            name: '阎村（20）',
+            
+          }, {
+            name: '窦店（32）',
+            
+          }, {
+            name: '霞云岭国家森林公园（1）',
+            
+          }, {
+            name: '东湖巷（1）',
+            
+          }, {
+            name: '云居滑雪场',
+            
+          }, {
+            name: '仙栖洞',
+            
+          }, {
+            name: '上方山国家森林公园',
+            
+          }]
+        }, {
+          name: '密云区',
+          children: [{
+            name: '全部（338）',
+            
+          }, {
+            name: '桃源仙谷（3）',
+            
+          }, {
+            name: '司马台长城（34）',
+            
+          }, {
+            name: '密云水库（19）',
+            
+          }, {
+            name: '南山滑雪场（1）',
+            
+          }, {
+            name: '密云县县城（88）',
+            
+          }, {
+            name: '古北口',
+            
+          }, {
+            name: '古北水镇',
+            
+          }, {
+            name: '云蒙山',
+            
+          }, {
+            name: '金鼎湖滑雪场',
+            
+          }, {
+            name: '云佛山滑雪场',
+            
+          }, {
+            name: '白龙谭',
+            
+          }]
+        }, {
+          name: '怀柔区',
+          children: [{
+            name: '慕田峪长城（2）',
+            
+          }, {
+            name: '青龙峡（7）',
+            
+          }, {
+            name: '怀柔城区（123）',
+            
+          }, {
+            name: '雁栖湖（26）',
+            
+          }, {
+            name: '白河湾（1）',
+            
+          }, {
+            name: '喇叭沟门白桦林景区（4）',
+            
+          }, {
+            name: '神堂峪（9）',
+            
+          }, {
+            name: '莲花池（4）',
+            
+          }, {
+            name: '红螺寺（23）',
+            
+          }, {
+            name: '黄花城水长城（5）',
+            
+          }, {
+            name: '怀北滑雪场（6）',
+            
+          }, {
+            name: '幽谷深潭（3）',
+            
+          }, {
+            name: '怀柔经济开发区（7）',
+            
+          }]
+        }, {
+          name: '延庆区',
+          children: [{
+            name: '全部（147）',
+            
+          }, {
+            name: '八达岭（7）',
+            
+          }, {
+            name: '龙庆峡（8）',
+            
+          }, {
+            name: '延庆城区（54）',
+            
+          }, {
+            name: '康庄（7）',
+            
+          }, {
+            name: '柳沟（21）',
+            
+          }, {
+            name: '百里画廊（2）',
+            
+          }, {
+            name: '康西草原（1）',
+            
+          }, {
+            name: '辉煌国际度假区（1）',
+            
+          }, {
+            name: '玉渡山风景区',
+            
+          }]
+        }, {
+          name: '门头沟',
+          children: [{
+            name: '全部（136）',
+            
+          }, {
+            name: '门头沟城区（108）',
+            
+          }, {
+            name: '潭拓寺（1）',
+            
+          }, {
+            name: '妙峰山（2）',
+            
+          }, {
+            name: '龙凤山滑雪场',
+            
+          }, {
+            name: '百花山',
+            
+          }, {
+            name: '靊底下村',
+            
+          }, {
+            name: '京西十八潭',
+            
+          }]
+        }, {
+          name: '平谷区',
+          children: [{
+            name: '全部（261）',
+            
+          }, {
+            name: '平谷城区（205）',
+            
+          }, {
+            name: '金海区（8）',
+            
+          }, {
+            name: '石林峡（2）',
+            
+          }, {
+            name: '天云山（2）',
+            
+          }, {
+            name: '玻璃台',
+            
+          }]
+        }
+      ],
+      data3: [
+        {
+          name: '全城',
+          children: [{
+            name: '',
+            
+          }]
+        },
+        {
+          name: '1号线',
+          children: [{
+            name: '四惠东（82）',
+            
+          }, {
+            name: '四惠（166）',
+            
+          }, {
+            name: '大望路（267）',
+            
+          }, {
+            name: '国贸（363）',
+            
+          }, {
+            name: '永安里（377）',
+            
+          }, {
+            name: '建国门（377）',
+            
+          }, {
+            name: '东单（240）',
+            
+          }, {
+            name: '王府井（259）',
+            
+          }, {
+            name: '天安门东（94）',
+            
+          }, {
+            name: '天安门西（34）',
+            
+          }, {
+            name: '西单（215）',
+            
+          }, {
+            name: '复兴门（95）',
+            
+          }, {
+            name: '南礼士路（95）',
+            
+          }, {
+            name: '木樨地（79）',
+            
+          }, {
+            name: '军事博物馆（48）',
+            
+          }, {
+            name: '公主坟（91）',
+            
+          }, {
+            name: '万寿路（129）',
+            
+          }, {
+            name: '五棵松（148）',
+            
+          }, {
+            name: '玉泉路（45）',
+            
+          }, {
+            name: '八宝山（95）',
+            
+          }, {
+            name: '八角游乐园（89）',
+            
+          }, {
+            name: '古城（77）',
+            
+          }, {
+            name: '苹果园（54）',
+            
+          }]
+        }, {
+          name: '2号线',
+          children: [{
+            name: '建国门（149）',
+            
+          }, {
+            name: '北京站（126）',
+            
+          }, {
+            name: '崇文门（228）',
+            
+          }, {
+            name: '前门（146）',
+            
+          }, {
+            name: '和平门（109）',
+            
+          }, {
+            name: '宣武门（99）',
+            
+          }, {
+            name: '长椿街（76）',
+            
+          }, {
+            name: '复兴门（99）',
+            
+          }, {
+            name: '阜成门（179）',
+            
+          }, {
+            name: '车公庄（91）',
+            
+          }, {
+            name: '积水潭（90）',
+            
+          }]
+        }, {
+          name: '4号线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '公益西桥（74）',
+            
+          }, {
+            name: '角门西（85）',
+            
+          }, {
+            name: '马家堡（98）',
+            
+          }, {
+            name: '北京南站（55）',
+            
+          }, {
+            name: '陶然亭（48）',
+            
+          }, {
+            name: '菜市口（87）',
+            
+          }, {
+            name: '宣武门（99）',
+            
+          }, {
+            name: '西单（223）',
+            
+          }, {
+            name: '灵境胡同（227）',
+            
+          }, {
+            name: '西四（80）',
+            
+          }, {
+            name: '平安里（122）',
+            
+          }, {
+            name: '新街口（131）',
+            
+          }, {
+            name: '西直门（137）',
+            
+          }, {
+            name: '动物园（82）',
+            
+          }, {
+            name: '国家图书馆（62）',
+            
+          }, {
+            name: '魏公村（192）',
+            
+          }, {
+            name: '人民大学（184）',
+            
+          }, {
+            name: '海淀黄庄（290）',
+            
+          }, {
+            name: '中关村（315）',
+            
+          }, {
+            name: '北京大学东门（74）',
+            
+          }, {
+            name: '圆明园（25）',
+            
+          }, {
+            name: '西苑（42）',
+            
+          }, {
+            name: '北宫门（15）',
+            
+          }, {
+            name: '安河桥北（39）',
+            
+          }]
+        }, {
+          name: '5号线',
+          children: [{
+            name: '北新桥（269）',
+            
+          }, {
+            name: '张自忠路（216）',
+            
+          }, {
+            name: '东西（163）',
+            
+          }, {
+            name: '灯市口（296）',
+            
+          }, {
+            name: '东单（239）',
+            
+          }, {
+            name: '崇文门（228）',
+            
+          }, {
+            name: '磁器口（228）',
+            
+          }, {
+            name: '天坛东门（34）',
+            
+          }, {
+            name: '蒲黄榆（127）',
+            
+          }, {
+            name: '刘家窑（155）',
+            
+          }, {
+            name: '宋家庄（99）',
+            
+          }]
+        }, {
+          name: '6号线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '海淀五路居（75）',
+            
+          }, {
+            name: '慈寿路（38）',
+            
+          }, {
+            name: '花园桥（77）',
+            
+          }, {
+            name: '白石桥南（115）',
+            
+          }, {
+            name: '车公庄南（115）',
+            
+          }, {
+            name: '车公庄（66）',
+            
+          }, {
+            name: '平安里（119）',
+            
+          }, {
+            name: '北海北（109）',
+            
+          }, {
+            name: '南锣鼓巷（199）',
+            
+          }, {
+            name: '东四（157）',
+            
+          }, {
+            name: '朝阳门（269）',
+            
+          }, {
+            name: '东大桥（186）',
+            
+          }, {
+            name: '呼家楼（289）',
+            
+          }, {
+            name: '金台桥（122）',
+            
+          }, {
+            name: '十里堡（138）',
+            
+          }, {
+            name: '青年路（207）',
+            
+          }, {
+            name: '褡裢坡（47）',
+            
+          }, {
+            name: '黄渠（47）',
+            
+          }, {
+            name: '常营（202）',
+            
+          }, {
+            name: '草房（50）',
+            
+          }, {
+            name: '物资学院路（28）',
+            
+          }, {
+            name: '通州北关（3）',
+            
+          }, {
+            name: '北运河西（17）',
+            
+          }, {
+            name: '郝家府',
+            
+          }, {
+            name: '冬夏园',
+            
+          }, {
+            name: '潞城',
+            
+          }]
+        }, {
+          name: '7号线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '焦化厂（3）',
+            
+          }, {
+            name: '双合（9）',
+            
+          }, {
+            name: '欢乐谷景区（55）',
+            
+          }, {
+            name: '南楼辛庄（36）',
+            
+          }, {
+            name: '化工（19）',
+            
+          }, {
+            name: '百子湾（75）',
+            
+          }, {
+            name: '大郊亭（161）',
+            
+          }, {
+            name: '九龙山（191）',
+            
+          }, {
+            name: '双井（268）',
+            
+          }, {
+            name: '广渠门外（147）',
+            
+          }, {
+            name: '广渠门内（147）',
+            
+          }, {
+            name: '磁器口（224）',
+            
+          }, {
+            name: '桥湾（146）',
+            
+          }, {
+            name: '珠市口（224）',
+            
+          }, {
+            name: '虎坊桥（91）',
+            
+          }, {
+            name: '菜市口（79）',
+            
+          }, {
+            name: '广安门内（67）',
+            
+          }, {
+            name: '达官营（129）',
+            
+          }, {
+            name: '湾子（136）',
+            
+          }, {
+            name: '北京西站（119）',
+            
+          }]
+        }, {
+          name: '8号线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '育知路（28）',
+            
+          }, {
+            name: '平西府（30）',
+            
+          }, {
+            name: '回龙观东大街（70）',
+            
+          }, {
+            name: '霍营（32）',
+            
+          }, {
+            name: '育xin（96）',
+            
+          }, {
+            name: '西小口（18）',
+            
+          }, {
+            name: '永泰庄（70）',
+            
+          }, {
+            name: '林萃桥（3）',
+            
+          }, {
+            name: '森林公园南门（23）',
+            
+          }, {
+            name: '奥林匹克公园（79）',
+            
+          }, {
+            name: '奥体中心（27）',
+            
+          }, {
+            name: '北土城（67）',
+            
+          }, {
+            name: '安华桥（104）',
+            
+          }, {
+            name: '安德里北街（84）',
+            
+          }, {
+            name: '鼓楼大街（147）',
+            
+          }, {
+            name: '什刹海（232）',
+            
+          }, {
+            name: '南锣鼓巷（203）',
+            
+          }, {
+            name: '朱辛庄',
+            
+          }]
+        }, {
+          name: '9号线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '国家图书馆',
+            
+          }, {
+            name: '白石桥南（114）',
+            
+          }, {
+            name: '白堆子（64）',
+            
+          }, {
+            name: '军事博物馆（53）',
+            
+          }, {
+            name: '北京西站（118）',
+            
+          }, {
+            name: '六里桥东（146）',
+            
+          }, {
+            name: '六里桥（72）',
+            
+          }, {
+            name: '七里庄（80）',
+            
+          }, {
+            name: '丰台东大街（63）',
+            
+          }, {
+            name: '丰台南路（62）',
+            
+          }, {
+            name: '科怡路（160）',
+            
+          }, {
+            name: '丰台科技园（200）',
+            
+          }, {
+            name: '郭公庄（84）',
+            
+          }]
+        }, {
+          name: '10号线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '车道沟（46）',
+            
+          }, {
+            name: '慈寿路（46）',
+            
+          }, {
+            name: '西钓鱼台（60）',
+            
+          }, {
+            name: '公主坟（90）',
+            
+          }, {
+            name: '莲花桥（66）',
+            
+          }, {
+            name: '六里桥（72）',
+            
+          }, {
+            name: '西局（84）',
+            
+          }, {
+            name: '泥洼（110）',
+            
+          }, {
+            name: '丰台路（51）',
+            
+          }, {
+            name: '首经贸（55）',
+            
+          }, {
+            name: '纪家庙（26）',
+            
+          }, {
+            name: '草桥（36）',
+            
+          }, {
+            name: '角门西（85）',
+            
+          }, {
+            name: '角门东（140）',
+            
+          }, {
+            name: '大红门（29）',
+            
+          }, {
+            name: '石榴庄（69）',
+            
+          }, {
+            name: '宋家庄（99）',
+            
+          }, {
+            name: '成寿寺（35）',
+            
+          }, {
+            name: '分钟寺（26）',
+            
+          }, {
+            name: '十里河（90）',
+            
+          }, {
+            name: '潘家园（137）',
+            
+          }, {
+            name: '劲松（184）',
+            
+          }, {
+            name: '双井（268）',
+            
+          }, {
+            name: '国贸（393）',
+            
+          }, {
+            name: '金台夕照（401）',
+            
+          }, {
+            name: '呼家楼（314）',
+            
+          }, {
+            name: '团结湖（357）',
+            
+          }, {
+            name: '农业展览馆（233）',
+            
+          }, {
+            name: '亮马桥（277）',
+            
+          }, {
+            name: '三元桥（209）',
+            
+          }, {
+            name: '太阳宫（125）',
+            
+          }, {
+            name: '芍药居（125）',
+            
+          }, {
+            name: '惠新西街南口（125）',
+            
+          }, {
+            name: '安贞门（71）',
+            
+          }, {
+            name: '北土城（67）',
+            
+          }, {
+            name: '健德门（118）',
+            
+          }, {
+            name: '牡丹园（136）',
+            
+          }, {
+            name: '西土城（99）',
+            
+          }, {
+            name: '知春路（99）',
+            
+          }, {
+            name: '知春里（194）',
+            
+          }, {
+            name: '海淀黄庄（291）',
+            
+          }, {
+            name: '苏州街（319）',
+            
+          }, {
+            name: '巴沟（64）',
+            
+          }, {
+            name: '火器营（172）',
+            
+          }, {
+            name: '长春桥（157）',
+            
+          }]
+        }, {
+          name: '13号线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '西直门（137）',
+            
+          }, {
+            name: '大钟寺（166）',
+            
+          }, {
+            name: '知春路（126）',
+            
+          }, {
+            name: '五道口（303）',
+            
+          }, {
+            name: '上地（82）',
+            
+          }, {
+            name: '西二旗（58）',
+            
+          }, {
+            name: '龙泽（84）',
+            
+          }, {
+            name: '回龙观（78）',
+            
+          }, {
+            name: '霍营（31）',
+            
+          }, {
+            name: '立水桥（122）',
+            
+          }, {
+            name: '北苑（45）',
+            
+          }, {
+            name: '望京西（32）',
+            
+          }, {
+            name: '芍药居（121）',
+            
+          }, {
+            name: '光熙门（132）',
+            
+          }, {
+            name: '柳芳（99）',
+            
+          }, {
+            name: '东直门（166）',
+            
+          }]
+        }, {
+          name: '14号线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '枣营（162）',
+            
+          }, {
+            name: '善各庄（8）',
+            
+          }, {
+            name: '来广营（35）',
+            
+          }, {
+            name: '东湖渠（142）',
+            
+          }, {
+            name: '望京（267）',
+            
+          }, {
+            name: '阜通（371）',
+            
+          }, {
+            name: '望京南（224）',
+            
+          }, {
+            name: '金台路（126）',
+            
+          }, {
+            name: '东风北桥（27）',
+            
+          }, {
+            name: '将台（135）',
+            
+          }, {
+            name: '张郭庄（7）',
+            
+          }, {
+            name: '园博园（1）',
+            
+          }, {
+            name: '大瓦窑（8）',
+            
+          }, {
+            name: '郭庄子（17）',
+            
+          }, {
+            name: '大井（33）',
+            
+          }, {
+            name: '七里庄（91）',
+            
+          }, {
+            name: '西局（85）',
+            
+          }, {
+            name: '永定门外（33）',
+            
+          }, {
+            name: '景泰（59）',
+            
+          }, {
+            name: '方庄（76）',
+            
+          }, {
+            name: '十里河（98）',
+            
+          }, {
+            name: '北工大西门（72）',
+            
+          }, {
+            name: '北京南站',
+            
+          }, {
+            name: '蒲黄榆',
+            
+          }, {
+            name: '九龙山',
+            
+          }, {
+            name: '大望路',
+            
+          }]
+        }, {
+          name: '15号线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '俸伯（6）',
+            
+          }, {
+            name: '顺义（193）',
+            
+          }, {
+            name: '石门（185）',
+            
+          }, {
+            name: '南法信（3）',
+            
+          }, {
+            name: '后沙峪（22）',
+            
+          }, {
+            name: '花梨坎（5）',
+            
+          }, {
+            name: '国展（22）',
+            
+          }, {
+            name: '孙河（4）',
+            
+          }, {
+            name: '马泉营（18）',
+            
+          }, {
+            name: '崔各庄（4）',
+            
+          }, {
+            name: '望京东（4）',
+            
+          }, {
+            name: '望京西（40）',
+            
+          }, {
+            name: '关庄（47）',
+            
+          }, {
+            name: '大屯路东（118）',
+            
+          }, {
+            name: '安立路（148）',
+            
+          }, {
+            name: '奥林匹克公园（70）',
+            
+          }, {
+            name: '北沙滩（73）',
+            
+          }, {
+            name: '六道口（143）',
+            
+          }, {
+            name: '清华东路西口（239）',
+            
+          }]
+        }, {
+          name: '16号线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '农大南路（48）',
+            
+          }, {
+            name: '马连洼（28）',
+            
+          }, {
+            name: '西北旺（11）',
+            
+          }, {
+            name: '永丰南（16）',
+            
+          }, {
+            name: '屯佃（2）',
+            
+          }, {
+            name: '西苑',
+            
+          }, {
+            name: '永丰',
+            
+          }, {
+            name: '稻香湖路',
+            
+          }, {
+            name: '温阳路',
+            
+          }, {
+            name: '北安河',
+            
+          }]
+        }, {
+          name: '亦庄线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '宋家庄（99）',
+            
+          }, {
+            name: '肖村（14）',
+            
+          }, {
+            name: '小红门（7）',
+            
+          }, {
+            name: '旧宫（99）',
+            
+          }, {
+            name: '亦庄桥（32）',
+            
+          }, {
+            name: '亦庄文化园（97）',
+            
+          }, {
+            name: '万源街（134）',
+            
+          }, {
+            name: '荣京东街（24）',
+            
+          }, {
+            name: '荣昌东街（23）',
+            
+          }, {
+            name: '同济南路（12）',
+            
+          }, {
+            name: '经海路（1）',
+            
+          }, {
+            name: '次渠路（14）',
+            
+          }, {
+            name: '次渠（4）',
+            
+          }]
+        }, {
+          name: '八通线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '土桥（87）',
+            
+          }, {
+            name: '临河里（48）',
+            
+          }, {
+            name: '梨园（109）',
+            
+          }, {
+            name: '九棵树（106）',
+            
+          }, {
+            name: '果园（85）',
+            
+          }, {
+            name: '通州北苑（290）',
+            
+          }, {
+            name: '八里桥（2）',
+            
+          }, {
+            name: '管庄（47）',
+            
+          }, {
+            name: '双桥（72）',
+            
+          }, {
+            name: '传媒大学（83）',
+            
+          }, {
+            name: '高碑店（55）',
+            
+          }, {
+            name: '四惠东（83）',
+            
+          }, {
+            name: '四惠（175）',
+            
+          }]
+        }, {
+          name: '大兴线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '公益西桥（72）',
+            
+          }, {
+            name: '新宫（71）',
+            
+          }, {
+            name: '西红门（120）',
+            
+          }, {
+            name: '高米店北（58）',
+            
+          }, {
+            name: '高米店南（86）',
+            
+          }, {
+            name: '枣园（78）',
+            
+          }, {
+            name: '清源路（78）',
+            
+          }, {
+            name: '黄村西大街（106）',
+            
+          }, {
+            name: '黄村火车站（33）',
+            
+          }, {
+            name: '义和庄（1）',
+            
+          }, {
+            name: '生物医药基地（129）',
+            
+          }, {
+            name: '天宫院（7）',
+            
+          }]
+        }, {
+          name: '房山线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '苏庄（33）',
+            
+          }, {
+            name: '大葆台（24）',
+            
+          }, {
+            name: '长阳（30）',
+            
+          }, {
+            name: '篱笆房（13）',
+            
+          }, {
+            name: '广阳城（13）',
+            
+          }, {
+            name: '良乡大学城北（1）',
+            
+          }, {
+            name: '良乡大学城（37）',
+            
+          }, {
+            name: '良乡大学城西（26）',
+            
+          }, {
+            name: '良乡南关（66）',
+            
+          }, {
+            name: '郭公庄（84）',
+            
+          }, {
+            name: '稻田',
+            
+          }]
+        }, {
+          name: '昌平线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '西二旗（58）',
+            
+          }, {
+            name: '生命科学园（50）',
+            
+          }, {
+            name: '沙河（63）',
+            
+          }, {
+            name: '南邵（3）',
+            
+          }, {
+            name: '北邵洼（2）',
+            
+          }, {
+            name: '昌平东关（35）',
+            
+          }, {
+            name: '昌平西山口（1）',
+            
+          }, {
+            name: '朱辛店',
+            
+          }, {
+            name: '巩华城',
+            
+          }, {
+            name: '沙河高教园',
+            
+          }, {
+            name: '昌平',
+            
+          }, {
+            name: '十三陵景区',
+            
+          }]
+        }, {
+          name: '机场线',
+          children: [{
+            name: '全线',
+            
+          }, {
+            name: '东直门（185）',
+            
+          }, {
+            name: '三元桥（198）',
+            
+          }, {
+            name: 'T2航站楼',
+            
+          }, {
+            name: 'T3航站楼',
+            
+          }]
+        }
+      ],
+      className: 'active',
+      className2: '',
+      isDistrict: true,
+      isSubway: false
+    }
+  },
+  methods: {
+    bindselected1(e){
+      this.show2 = false
+      let choose =''
+      for(var i = 0;i<e.length;i++){
+        choose = e[i].name
+      }
+      this.navList[1].name=choose
+    },
+    bindselected2(e){
+      this.show2 = false
+      let choose =''
+      for(var i = 0;i<e.length;i++){
+        choose = e[i].name
+      }
+      this.navList[1].name=choose
+    },
+    tabChange(index){
+      console.log(index)
+      if(index === 0){
+        this.isDistrict = true
+        this.isSubway = false
+      }else if(index === 1){
+        this.isDistrict = false
+        this.isSubway = true
+      }
+    },
+    openPopup (index) {
+      if (index === 0) {
+        this.show2 = false
+        this.show3 = false
+        this.show4 = false
+        this.show1 = !this.show1
+      } else if (index === 1) {
+        this.show1 = false
+        this.show3 = false
+        this.show4 = false
+        this.show2 = !this.show2
+      } else if (index === 2) {
+        this.show1 = false
+        this.show2 = false
+        this.show4 = false
+        this.show3 = !this.show3
+      } else {
+        this.show1 = false
+        this.show2 = false
+        this.show3 = false
+        this.show4 = !this.show4
+      }
+    },
+
+    change (val) {
+      this.navList[0].name = val.join('-')
+      this.show1 = false
+    },
+    change1 (result) {
+      this.navList[1].name = result.area
+      this.show2 = false
+    },
+    change2 (val) {
+      this.navList[2].name = val.join('-')
+      this.show3 = false
+    },
+    change3 (val) {
+      this.show4 = false
+    },
+
+    singleTap1 (opt) {
+      console.log('tagstap1')
+      this.eatTime[opt].checked = !this.eatTime[opt].checked
+    },
+    singleTap2 (opt) {
+      console.log('tagstap2')
+      this.service[opt].checked = !this.service[opt].checked
+    },
+    singleTap3 (opt) {
+      console.log('tagstap3')
+      this.eatNumber.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+    },
+    formReset () {
+      this.switch1 = false
+      this.switch2 = false
+      this.eatTime.forEach((item, index) => {
+        item.checked = false
+      })
+      this.service.forEach((item, index) => {
+        item.checked = false
+      })
+      this.eatNumber.forEach((item, index) => {
+        item.checked = false
+      })
+    },
+    popHide () {
+      this.navList[0].active = ''
+    },
+    popShow () {
+      this.navList[0].active = 'active'
+    },
+    popHide1 () {
+      this.navList[1].active = ''
+    },
+    popShow1 () {
+      this.navList[1].active = 'active'
+    },
+    popHide2 () {
+      this.navList[2].active = ''
+    },
+    popShow2 () {
+      this.navList[2].active = 'active'
+    },
+    popHide3 () {
+      this.navList[3].active = ''
+      console.log(this.show4)
+    },
+    popShow3 () {
+      this.navList[3].active = 'active'
+      console.log(this.show4)
+    },
+    handleChange (index, key) {
+      this[key] = index
+    },
+    handleContentChange (index, key) {
+      this[key] = index
+    },
+    select (result) {
+      this.navList[1].name = result.city
+      this.show2 = false
+    },
+    districtShow () {
+      this.className = 'active'
+      this.className2 = ''
+      this.isDistrict = true
+      this.isSubway = false
+    },
+    subwayShow () {
+      this.className = ''
+      this.className2 = 'active'
+      this.isDistrict = false
+      this.isSubway = true
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= 10; i++) {
+      this.items.push(i + ' - 内容文本')
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // sticky3.less
+
+.header1 {
+  background-color: #fff;
+}
+
+.swiper-slide {
+  color: #fff;
+  text-align: center;
+  .ui-image {
+    width: 100%;
+    display: block;
+}
+}
+
+
+
+.sticky-in-relative-container {
+  position: relative;
+  height: 46px;
+}
+
+.nav_top{
+  background: #fff;
+  font-size:14px;
+  color:#878787;
+  .ui-col.active{
+    color: #09C2B1;
+  }
+  .ui-row{
+    width: 100%;
+    height: 100%;
+    .ui-view{
+      width: 100%;
+      .mix-text-overflow();
+    }
+  }
+}
+.top_pop{
+  background: #fff;
+}
+.ui-icon{
+  display: inline-block;
+  transform:rotate(0deg);
+  transition: all .3s ease-in;
+  &.active{
+    transform:rotate(180deg);
+    color:#09C2B1!important;
+  }
+}
+.time_content{
+  padding:0 10px 10px 10px; 
+  .ui-text{
+    color: #AFAFAF;
+    font-size: 12px;
+    line-height: 40px;
+  }
+  .tag-before-00{
+    width: 90px;
+    color: #555;
+    border: 1px solid #E3E3E3;
+    border-radius: 3px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+  }
+  .select-class{
+    width: 90px;
+    border-radius: 3px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    background: #00C5B4;
+    border: 0;
+    color: #fff;
+  }
+}
+.sub{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  .complete{
+    color:#09C2B1;
+  }
+}
+
+
+.is-checked .weui-cell__bd{
+  color:#09C2B1 
+}
+
+
+.content {
+  height: 60px;
+  line-height: 60px;
+
+  .swiper-slide {
+    padding-left: 1em;
+    padding-right: 1em;
+    color: #333;
+  }
+}
+
+.tabs_head{
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .ui-view{
+    width: 45px;
+    height: 100%;
+    line-height: 46px;
+    border-bottom: 2px solid transparent;
+    &.active{
+      border-bottom: 2px solid #09C2B1;
+    }
+  }
+}
+
+.sample_title_6 > .ui-cascader-content > .ui-cascader-item {
+  background-color: white;
+  border: 0;
+  width:35%;
+  flex: 0 0 40%;
+}
+.sample_title_6 > .ui-cascader-content > .ui-cascader-item > .ui-cascader-item-box > a:before{
+  height: 0;
+  border: 0;
+}
+.ui-cascader-content > .ui-cascader-item:nth-child(2n){
+  width: 65%;
+  flex: 0 0 60%;
+}
+</style>

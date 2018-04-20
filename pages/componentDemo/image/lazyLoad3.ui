@@ -1,0 +1,69 @@
+<!--image4.ui-->
+<template>
+    <ui-page>
+      <ui-view ui:for="{{ list }}">
+        <ui-image
+          class="img"
+          src="{{item.src}}"
+          lazy-load
+          width="300"
+          height="200"
+          load-effect="fade"
+          >
+          <ui-view class="custom-placeholder">
+            <ui-view class="text">TOUCH UI</ui-view>
+          </ui-view>
+        </ui-image>
+      </ui-view>
+    </ui-page>
+  </template>
+  
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "自定义背景色和文字"
+  },
+  data () {
+    return {
+      list: [
+        {
+          src: 'https://o5omsejde.qnssl.com/demo/test1.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test2.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test3.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test4.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test5.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test5.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test7.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test8.jpg'
+        }
+      ]
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+.img{
+  margin: 0 auto;
+}
+
+.custom-placeholder{
+  height: 100%;
+  background-color: #F7F9FB;
+  text-align: center;
+  padding-top: 30px;
+  .text{
+    font-size: 20px;
+    color: #e6e6e6;
+  }
+}
+</style>

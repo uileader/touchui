@@ -1,0 +1,77 @@
+<!--mediaList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row >
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <!-- {{ item.title }} -->
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+  
+<script>
+// mediaList.js
+export default {
+  config: {
+    "navigationBarTitleText": "媒体"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '图标 icon',
+          items: [
+            { title: '图标库', link: '/pages/componentDemo/icon' }
+            // { title: '图标库索引', link: '/pages/componentDemo/icon/iconIndex' }
+          ]
+        },
+        {
+          title: '图片 image',
+          items: [
+            { title: '图片加载效果', link: '/pages/componentDemo/image/loadEffect' },
+            { title: '缩放与裁剪', link: '/pages/componentDemo/image/scale' },
+            { title: '高度自适应', link: '/pages/componentDemo/image/autoHeight' },
+            { title: '图片懒加载', link: '/pages/componentDemo/image/lazyLoad' },
+            { title: '图片懒加载-blur效果', link: '/pages/componentDemo/image/lazyLoad2' },
+            { title: '图片懒加载-自定义背景色和文字', link: '/pages/componentDemo/image/lazyLoad3' },
+            { title: '图片懒加载-自定义背景图片', link: '/pages/componentDemo/image/lazyLoad4' },
+            { title: '图片预览', link: '/pages/componentDemo/image/previewer' }
+
+          ]
+        },
+        {
+          title: '朦胧图 blur',
+          items: [
+            { title: '基本使用', link: '/pages/componentDemo/blur' },
+            { title: '影片选择', link: '/pages/componentDemo/blur2' },
+            { title: '个人中心', link: '/pages/componentDemo/blur3' }
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+
+  }
+}
+</script>
+
+<style lang="less">
+  
+</style>

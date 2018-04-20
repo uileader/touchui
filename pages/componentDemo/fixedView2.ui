@@ -1,0 +1,84 @@
+<!--fixedView2.ui-->
+<template>
+  <ui-page>
+    
+      <ui-row height="40" class="fixed_top"  ui:show="{{isShow}}">
+        <ui-col align="center" vertical-align="middle" width="50" bindtap="show">
+          <ui-icon type="cancel" size="20" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle">
+          拼货规则为24小时一场，每日21点开始。
+        </ui-col>
+      </ui-row>
+    <ui-view class="shop_view">
+      <ui-view ui:for="{{ arry }}" class="shop_list" ui:for-item="i">{{i}}号商品</ui-view>
+    </ui-view>
+    <ui-fixed-view bottom="0" left="0" right="0">
+      <ui-row height="50" class="fixed_bottom" >
+        <ui-col align="right" vertical-align="middle" space-right="10">
+          <ui-view>合计：¥575.37</ui-view>
+          <ui-view style="color:#FE6A3C;">（满1200元可免邮费）</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" width="120">
+          <ui-view class="form_list">提交订单</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-view class="iphonex-bottom"></ui-view>
+    </ui-fixed-view>
+
+    
+  </ui-page>
+</template>
+
+<script>
+  // fixedView2.js
+export default {
+  config: {
+    navigationBarTitleText: "进货车",
+  },
+  data () {
+    return {
+      arry: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      isShow: true
+    }
+  },
+  methods: {
+    show () {
+      this.isShow = false
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // fixedView2.less
+.shop_view{
+  padding-bottom: 50px;
+}
+.shop_list{
+  height: 100px;
+  border-bottom: 1px solid #DBDBDB;
+  line-height: 100px;
+  padding-left: 20px;
+}
+.fixed_top{
+  background: #FF774F;
+  .ui-col{
+    color: #fff;
+  }
+}
+.fixed_bottom{
+  background: #fff;
+  box-shadow: 0 -8px 10px 0 #eaeaea;
+  .form_list{
+    background: #FE6A3C;
+    color: #fff;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 14px;
+  }
+}
+
+</style>

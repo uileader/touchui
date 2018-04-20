@@ -1,0 +1,101 @@
+<!--compass.ui-->
+<template>
+  <ui-page>
+    <ui-view class="page-body">
+      <ui-view class="page-section page-section_center">
+        <ui-view class="page-body-div">旋转手机即可获取方位信息</ui-view>
+        <ui-view class="direction">
+          <ui-view class="bg-compass-line"></ui-view>
+          <ui-image class="bg-compass" src="{{ imgSrc }}" height="100%" style="{{'transform: rotate('+direction+'deg)'}}"></ui-image>
+          <ui-view class="direction-value">
+            {{direction}}
+          </ui-view>
+        </ui-view>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// compass.js
+export default {
+  config: {
+    "navigationBarTitleText": "罗盘"
+  },
+  data () {
+    return {
+      direction: 0,
+      imgSrc:require('#/images/compass.png')
+    }
+  },
+  mounted () {
+    var that = this
+    ui.onCompassChange(function (res) {
+      that.direction = parseInt(res.direction)
+    })
+  }
+}
+
+</script>
+
+<style lang="less">
+  // compass.less
+.page-section_center {
+  text-align: center;
+}
+
+.page-body-div {
+  padding-top: 20px;
+  font-size: 20px;
+  color: #666666;
+}
+
+.direction {
+  position: relative;
+  margin: auto;
+  margin-top: 70rpx;
+  width: 540rpx;
+  height: 540rpx;
+  justify-content: center;
+}
+
+.direction-value {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 180rpx;
+  color: #353535;
+  z-index: 1;
+  &::after{
+    content: '°';
+    position: absolute;
+    width: 0.5em;
+    right: -0.5em;
+    top: 0;
+  }
+}
+
+.bg-compass {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 540rpx;
+  height: 540rpx;
+  transition: .1s;
+}
+
+.bg-compass-line {
+  position: absolute;
+  left: 267rpx;
+  top: -10rpx;
+  width: 6rpx;
+  height: 56rpx;
+  background-color: #1AAD19;
+  border-radius: 999rpx;
+  z-index: 1;
+}
+</style>
+
+

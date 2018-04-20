@@ -1,0 +1,149 @@
+<!--navBar3.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {'border-bottom':'1px solid rgba(231, 231, 231, 0.6)','background-color':'#fff'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="70" bindtap="navigateBack">
+          <ui-view class="nav_left">
+              <ui-icon type="arrow-left" size="16" color="#2DBAAA"></ui-icon>返回
+          </ui-view>
+          
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">影院</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35" bindtap="msgTap">
+          <ui-icon type="{{collect}}" size="22" color="#2DBAAA"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35" bindtap="popSwitch">
+          <ui-icon type="share2" size="22" color="#2DBAAA"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+
+    <ui-popup ui:model="{{ show }}" bindhide="log('hide')" bindshow="log('show')" class="popup">
+      <ui-row height="110">
+        <ui-col align="center" vertical-align="middle">
+            <ui-image src="{{imgSrc.weixin_message}}" alt="" width="48" bindtap="share('weixin_message')"></ui-image>
+            <ui-view>微信</ui-view>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+            <ui-image src="{{imgSrc.weixin_timeline}}" alt="" width="48" height="48" bindtap="share('weixin_timeline')"></ui-image>
+            <ui-view>朋友圈</ui-view>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+            <ui-image src="{{imgSrc.qq}}" alt="" width="48" bindtap="share('qq')"></ui-image>
+            <ui-view>QQ</ui-view>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+            <ui-image src="{{imgSrc.weibo}}" alt="" width="48" bindtap="share('weibo')"></ui-image>
+            <ui-view>微博</ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-popup>
+
+  </ui-page>
+</template>
+
+<script>
+  // navBar3.js
+export default {
+  config: {
+    navigationBarTitleText: "右侧自定义两个图标",
+    navigationStyle: 'custom',
+    navigationBarTextStyle:"black"
+  },
+  data () {
+    return {
+      target: '',
+      type: 'link',
+      icon: require('#/images/slogo.png'),
+      title: 'Touch UI',
+      content: 'Touch UI是一款很棒的移动开发框架',
+      href: 'http://www.uileader.com/',
+      show: true,
+      show: false,
+      show2: false,
+      items: [],
+      collect: 'collect1',
+      imgSrc: {
+        weixin_message: require('#/images/share_weixin_friend.png'),
+        weixin_timeline: require('#/images/share_weixin_circle.png'),
+        qq: require('#/images/share_qq.png'),
+        weibo: require('#/images/share_weibo.png')
+      }
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    msgTap () {
+      if (this.show2) {
+        this.collect = 'collect1'
+        this.show2 = false
+      } else {
+        this.collect = 'collect2'
+        this.show2 = true
+      }
+    },
+    share (val) {
+      this.target = val
+      ui.showToast({ title: val })
+      // ui.share({
+      //   target: this.target,
+      //   type: this.type,
+      //   icon: this.icon,
+      //   title: this.title,
+      //   content: this.content,
+      //   href: this.href
+      // }, function () {
+      //   ui.showToast({ title: '分享成功' })
+      // }, function () {
+      //   ui.showToast({ title: '分享失败' })
+      // })
+    },
+    popSwitch () {
+      this.show = true
+    },
+    log (str) {
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= 30; i++) {
+      this.items.push(i + ' - 内容文本')
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.nav_title{
+    color: #666;
+    font-weight: bold;
+  }
+  .nav_left{
+    color: #2DBAAA;
+  }
+.msg{
+  position: relative;
+  width: 35px;
+  height: 46px;
+  .small-dot {
+    position: absolute;
+    top: 13px;
+    right: 5px;
+  }
+}
+.popup{
+  .ui-view{
+    margin-top: 10px;
+  }
+}
+</style>

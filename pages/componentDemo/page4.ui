@@ -1,0 +1,72 @@
+<template>
+    <ui-page
+    bindscroll="handleScroll"
+    bindscrollstart="handleScrollStart"
+    bindscrollend="handleScrollEnd">
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+    <ui-fixed-view class="{{ className }}">
+      <ui-icon type="service" size="28" color="#fff"></ui-icon>
+    </ui-fixed-view>
+  </ui-page>
+</template>
+
+<script>
+// page3.js
+export default {
+  config: {
+     navigationBarTitleText: "滚动事件"
+  },
+  data () {
+    return {
+      items: [],
+      className: '',
+      scrollChange: 0
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= 50; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  },
+  methods: {
+    handleScrollStart (scrollTop) {
+      this.scrollChange = scrollTop
+    },
+    handleScroll (scrollTop) {
+      if (Math.abs(scrollTop - this.scrollChange) > 100) {
+        this.className = 'active'
+      }
+    },
+    handleScrollEnd (scrollTop) {
+      this.className = ''
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.ui-fixed-view {
+  bottom: 100px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #F76346;
+  z-index: 99;
+  transition: all .25s ease-in;
+  box-shadow: 0px 0px 0px 5px #FCD4B9;
+  opacity: 1;
+  &.active {
+    right: -60px;
+    opacity: 0;
+  }
+}
+</style>

@@ -1,0 +1,49 @@
+<!--miniSwiper.ui-->
+<template>
+  <ui-page>
+    <ui-swiper indicator-dots  style="height:{{height}}px">
+      <ui-swiper-item ui:for="{{items}}" ui:for-item="item">
+				<ui-image src="{{ item.src }}"></ui-image>
+			</ui-swiper-item>
+    </ui-swiper>
+
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "",
+    "disableScroll":true,
+    "navigationBarBackgroundColor":'#ffffff',
+    "navigationBarTextStyle":"black"
+  },
+  data () {
+    return {
+      items: [{
+        src: 'http://images.uileader.com/20180314/a168d679-5154-4b0c-9059-61adc636b657.png',
+        title: '放肆玩乐，轻巧办公'
+      }, {
+        src: 'http://images.uileader.com/20180314/08403e07-eb20-4a4e-9582-762e5079d0e3.png',
+        title: '高温保护，一路驰骋'
+      }, {
+        src: 'http://images.uileader.com/20180314/bf961fd5-a8b0-4a47-91ad-dfaec82d3f6f.png',
+        title: '七夕好货，独家礼赠'
+      }, {
+        src: 'http://images.uileader.com/20180314/96c454cd-af86-4b32-ab94-f123be4e94c4.png',
+        title: '七夕好货，独家礼赠'
+      }],
+      height:ui.DEFAULT_CONTENT_HEIGHT
+    }
+  },
+  methods: {
+  }
+}
+
+</script>
+
+<style lang="less">
+.ui-swiper-item{
+  overflow-y:hidden !important;
+}
+</style>

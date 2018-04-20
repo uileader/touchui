@@ -1,0 +1,186 @@
+<template>
+  <ui-page>
+    <ui-view class="manage_money" ui:for="{{ manageList }}" ui:for-item="item">
+      <ui-row height="150">
+        <ui-col vertical-align="middle" align="left">
+          <ui-view class="left_content">
+            <ui-view class="left_01">
+              {{ item.num1 }}<ui-text>%</ui-text>
+            </ui-view>
+            <ui-view class="left_02">预期年化</ui-view>
+            <ui-view class="left_03">预计收益不承诺等于实际收益</ui-view>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="10">
+          <ui-view class="line"></ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-view class="right_contetn">
+            <ui-row height="66">
+              <ui-col vertical-align="middle" align="left" space-right="10">
+                <ui-view class="right_01">{{ item.days }}<ui-text>天</ui-text></ui-view>
+                <ui-view class="right_02">1000元起投</ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="center" ui:if="{{ item.value }}">
+                <ui-mini-circular
+                  animate-after-show="true"
+                  size="66"
+                  line-width="3"
+                  value="{{item.value}}"
+                ></ui-mini-circular>
+                <ui-view class="right_03">抢</ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="center" ui:else>
+                <ui-view class="right_04">已抢光</ui-view>
+              </ui-col>
+            </ui-row>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '理财产品列表',
+    navigationBarBackgroundColor: '#F53F09',
+    backgroundColor: '#F4F4F4',
+    navigationBarTextStyle: 'white',
+  },
+  data () {
+    return {
+      manageList: [
+        {
+          num1: 7,
+          days: 147,
+          value: 60
+        },
+        {
+          num1: 6.8,
+          days: 121,
+          value: 90
+        },
+        {
+          num1: 6,
+          days: 78,
+          value: 0
+        },
+        {
+          num1: 5.66,
+          days: 46,
+          value: 60
+        },
+        {
+          num1: 7,
+          days: 147,
+          value: 95
+        },
+        {
+          num1: 6.8,
+          days: 121,
+          value: 90
+        },
+        {
+          num1: 6,
+          days: 78,
+          value: 0
+        },
+        {
+          num1: 5.66,
+          days: 46,
+          value: 60
+        }, {
+          num1: 7,
+          days: 147,
+          value: 95
+        },
+        {
+          num1: 6.8,
+          days: 121,
+          value: 90
+        }
+      ]
+    }
+  },
+  methods: {
+
+  }
+}
+
+</script>
+
+<style lang="less">
+  .manage_money{
+  background-color: #fff;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .title{
+    color: #A0A0A0;
+    line-height: 30px;
+    font-size: 14px;
+    .mix-1px(0, 0, 1, 0, #ccc);
+  }
+  .left_content{
+    width: 100%;
+    .left_01{
+      font-size: 24px;
+      color: #F53808;
+      .ui-text{
+        font-size: 14px;
+      }
+    }
+    .left_02{
+      font-size: 14px;
+      color: #A0A0A0;
+      margin-top: 20px;
+    }
+    .left_03{
+      font-size: 12px;
+      color: #A0A0A0;
+      margin-top: 20px;
+      .mix-text-overflow();
+    }
+  }
+  .line{
+    width: 1px;
+    height: 100px;
+    background-color: #F1F1F1;
+  }
+  .right_contetn{
+    width: 100%;
+    .right_01{
+      color: #606060;
+      font-size: 30px;
+      font-weight: 300;
+      .ui-text{
+        font-size: 16px;
+      }
+    }
+    .right_02{
+      color: #A0A0A0;
+      font-size: 14px;
+    }
+    .right_03{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #F66655;
+      font-size: 20px;
+      z-index: 20;
+    }
+    .right_04{
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      background: url('~images/progress3.png') no-repeat center center;
+      background-size: 100%;
+      color: #888888;
+    }
+  }
+}
+</style>

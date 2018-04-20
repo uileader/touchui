@@ -1,0 +1,35 @@
+<!--tabBar7-1.ui-->
+<template>
+  <ui-page>
+    <ui-view class="content">
+      <ui-text class="title">7-1</ui-text>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// tabBar7-1.js
+export default {
+  config: {
+    "navigationBarTitleText": "改变tabBar位置"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  // tabBar7-1.less
+.content{
+  padding:10px;
+  height:60px;
+  .title{
+  font-size:20px;
+  text-align: center
+}
+}
+</style>

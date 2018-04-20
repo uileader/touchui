@@ -1,0 +1,114 @@
+<!--getSetting2.ui-->
+<template>
+  <ui-page>
+    <ui-view class="setting">
+        <ui-button type="primary" bindtap="handleShowMask(true)">弹出自定义授权通知</ui-button>
+    </ui-view>
+    <ui-mask ui:model="showMask">
+      <ui-view class="content">
+        <ui-view class="tip">
+          <ui-view class="tip_top" bindtap="handleShowMask(false)">
+            <ui-icon type="x" size="16" color="#A4A4A4"></ui-icon>
+          </ui-view>
+          <ui-view class="tip_content">
+            未开启推送通知 您可能错过物流配送、客服回复、资产变动消息
+            <ui-view>“设置”-“通知”-“京东”开启</ui-view>
+          </ui-view>
+          <ui-view class="tip_bottom" bindtap="setting">
+            立即开启
+          </ui-view>
+        </ui-view>
+      </ui-view>
+    </ui-mask>
+  </ui-page>
+</template>
+  
+
+<script>
+// getSetting2.js
+export default {
+  config: {
+    "navigationBarTitleText": "自定义授权通知"
+  },
+  data () {
+    return {
+      showMask: false,
+    }
+  },
+  methods: {
+    handleShowMask (show) {
+      this.showMask = show
+    },
+    setting(){
+      ui.openSetting({
+        success: () => {
+          ui.showToast({ title: '调取成功' })
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+// getSetting2.less
+.setting{
+  padding: 15px ;
+}
+.btn-area {
+  padding: 0px 15px;
+  box-shadow: 0 0 10px 1px #EBEBEB;
+  border-radius: 5px;
+  overflow: hidden;
+  .title{
+    padding: 5px 0px;
+    line-height: 40px;
+  }
+}
+
+.ui-mask{
+  .content{
+    height: 100%;
+    .mix-flex-center();
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .tip{
+    width: 250px;
+    height: 250px;
+    border-radius:8px;
+    overflow: hidden; 
+    background: #fff url('~images/tip.png') no-repeat center 20px;
+    background-size:50px;
+  }
+  .tip_top{
+    padding: 5px 10px;
+    text-align: right;
+  }
+  .tip_content{
+    padding: 60px 15px 20px 15px;
+    color: #484848;
+    font-size: 14px;
+    .ui-view{
+      text-align: center;
+      color: #717171;
+      font-size: 12px;
+      line-height: 30px
+    }
+  }
+  .tip_bottom{
+    width: 80%;
+    line-height: 40px;
+    background-color: #FF1717;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    margin: 0 auto;
+    border-radius:20px; 
+  }
+}
+</style>

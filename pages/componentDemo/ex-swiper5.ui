@@ -1,0 +1,116 @@
+<!--swiper5.ui-->
+<template>
+  <ui-page>
+      <ui-view class="demo1">
+        <ui-divider>居中</ui-divider>
+        <ui-ex-swiper pagination centered-slides loop space-between="5" slides-per-view="auto">
+          <ui-ex-swiper-item ui:for="{{items}}" ui:for-item="item" ui:for-index="index">
+            <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+          </ui-ex-swiper-item>
+        </ui-ex-swiper>
+      </ui-view>
+      <ui-view class="demo2">
+        <ui-divider>居中并自定义可见范围</ui-divider>
+        <ui-ex-swiper pagination centered-slides space-between="10" loop slides-per-view="auto">
+          <ui-ex-swiper-item ui:for="{{items}}" ui:for-item="item" ui:for-index="index">
+            <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+          </ui-ex-swiper-item>
+        </ui-ex-swiper>
+      </ui-view>
+
+      <ui-view class="demo3">
+      <ui-divider>靠左显示</ui-divider>
+      <ui-ex-swiper pagination loop space-between="15" slides-per-view="auto">
+        <ui-ex-swiper-item ui:for="{{items}}" ui:for-item="item" ui:for-index="index">
+          <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+        </ui-ex-swiper-item>
+      </ui-ex-swiper>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+  // swiper5.js
+export default {
+  config: {
+    "navigationBarTitleText": "边界露出其他item",
+    "disableIosGesture":true
+  },
+  data () {
+    return {
+      items: [{
+        src: 'http://images.uileader.com/20171110/e5b64484-b5e0-472a-bf52-ac95fb5685d3.jpg',
+        title: '放肆玩乐，轻巧办公'
+      },
+      {
+        src: 'http://images.uileader.com/20171110/e33376a8-c599-42e5-87ed-84aec360a61d.jpg',
+        title: '高温保护，一路驰骋'
+      },
+      {
+        src: 'http://images.uileader.com/20171110/37cc4a4e-a253-4fcd-a4f6-d9710e8f63e8.jpg',
+        title: '七夕好货，独家礼赠'
+      }]
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  // swiper5.less
+.swiper-slide {
+  .ui-image {
+    width: 100%;
+  }
+}
+
+.swiper-container{
+  margin-bottom:20px
+}
+
+.demo1 {
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    width: 90%;
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.demo2 {
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    width: 70%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .ui-image {
+      border-radius: 10px;
+    }
+    img{
+      border-radius: 10px
+    }
+  }
+}
+
+.demo3{
+  .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+}
+</style>

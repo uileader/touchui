@@ -1,0 +1,62 @@
+<!--dataList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row >
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// dataList.js
+export default {
+  config: {
+    "navigationBarTitleText": "网络与数据"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '数据列表 list-view',
+          items: [
+            { title: '图文列表布局', link: '/pages/componentDemo/listView' },
+            { title: '多样布局+自定义网络提示', link: '/pages/componentDemo/listView3' },
+            { title: '使用data获取数据', link: '/pages/componentDemo/listView4' },
+            { title: '结合scroll-view使用', link: '/pages/componentDemo/listView5' }
+          ]
+        },
+        {
+          title: '瀑布流 waterfall',
+          items: [
+            { title: '使用默认网络提示', link: '/pages/componentDemo/waterfall' },
+            { title: '自定义网络提示', link: '/pages/componentDemo/waterfall2' }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

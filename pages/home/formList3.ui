@@ -1,0 +1,58 @@
+<!--formList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row type="flex">
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+        <ui-row type="flex" ui:for="{{ group.items }}" url="{{ item.link }}" hover-class="touchui-hover">
+          <ui-col>{{ item.title }}</ui-col>
+          <ui-col align="right" width="30">
+              <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+  // formList.js
+export default {
+  config: {
+    "navigationBarTitleText": "表单"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '选择类',
+          items: [
+            { title: '单选框 radio', link: '/pages/componentDemo/radio' },
+            { title: '多选框 checkbox', link: '/pages/componentDemo/checkbox' },
+            { title: '选择列表 check-list', link: '/pages/componentDemo/checklist' },
+            { title: '选择器 picker', link: '/pages/componentDemo/picker' },
+            { title: '显示选择器 picker-view', link: '/pages/componentDemo/pickerView' },
+            { title: '数字选择器 stepper', link: '/pages/componentDemo/stepper' }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+
+</style>

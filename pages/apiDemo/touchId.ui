@@ -1,0 +1,112 @@
+<!--touchId.ui-->
+<template>
+  <ui-page>
+    <ui-view class="page-body">
+      <ui-view class="page-body-wording">
+        <ui-view class="page-body-div">
+          点击按钮进行指纹验证
+        </ui-view>
+        <ui-view data-type="{{type}}" class="type">
+          {{typeText}}
+        </ui-view>
+      </ui-view>
+      <ui-view class="btn-area">
+        <ui-button bindtap="use" type="primary" disabled="{{loading||disable}}" loading="{{loading}}">验证指纹</ui-button>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// touchId.js
+export default {
+  config: {
+    "navigationBarTitleText": "指纹识别"
+  },
+  data () {
+    return {
+      loading: false,
+      type: '',
+      typeText: '未验证',
+      disable: true
+    }
+  },
+  methods: {
+    use () {
+      var self = this
+      self.loading = true
+      self.type = ''
+      self.typeText = '等待验证'
+      ui.useTouchID({
+        success: function (result) {
+          ui.showToast({
+            title: result
+          })
+          self.type = 'success'
+          self.typeText = '验证成功'
+        },
+        fail: function (result) {
+          ui.showToast({
+            title: result
+          })
+          self.type = 'fail'
+          self.typeText = '验证失败'
+        },
+        complete: function () {
+          self.loading = false
+        }
+
+      })
+    },
+    canUse () {
+      var self = this
+      ui.canUseTouchID({
+        success: function (result) {
+          self.disable = false
+        },
+        fail: function (result) {
+          self.disable = true
+          self.type = 'fail'
+          self.typeText = '设备不支持'
+        }
+      })
+    }
+  },
+  mounted () {
+    var self = this
+    setTimeout(function () {
+      self.canUse()
+    }, 2000)
+  }
+}
+
+</script>
+
+<style lang="less">
+  // touchId.less
+.page-body-wording {
+  padding: 10px;
+  font-size: 24px;
+  color: #333;
+}
+
+.page-body-div {
+  text-align: center;
+}
+
+.type{
+  text-align: center;
+  margin: 20px 0;
+  color: #666;
+  &[data-type="success"]{
+    color: green;
+  }
+  &[data-type="fail"]{
+    color: red;
+  }
+}
+
+.btn-area {
+  padding: 0px 15px;
+}
+</style>

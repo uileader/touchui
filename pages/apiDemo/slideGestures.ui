@@ -1,0 +1,41 @@
+<template>
+  <ui-page>
+    <ui-view class="win">
+      <ui-view class="title">
+          这里禁用了通过手势侧滑回到上一页（仅在IOS的APP端有效）
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+    
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "隐藏导航栏",
+    "disableIosGesture": true
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    redirectTo () {
+      ui.redirectTo({
+        url: '/pages/home/configList/configList'
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .win{
+  text-align: center;
+  padding: 10px;
+  .title{
+    font-size: 16px;
+    line-height: 30px;
+  }
+}
+</style>

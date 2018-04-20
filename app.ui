@@ -1,0 +1,1853 @@
+<template>
+  <ui-view id="ui-app">
+    <ui-slide-menu width="280" threshold="30" touch="{{ pageConfig.touchSlideMenu }}" ui:model="showSlideMenu">
+
+      <ui-view slot="menu" class="menu">
+
+        <ui-view class="slide_top" style="{{{ 'padding-top': 20+barHeight+'px' }}}">
+          <ui-image
+          src="{{ require('#/images/logo-white.png') }}"
+          width="100%"
+          ></ui-image>
+        </ui-view>
+
+        <ui-view class="slide_top slide_content" bindtap="closeMenu">
+          <ui-image
+          src="{{ require('#/images/sideBar/shounaxiang.png') }}"
+          width='50'
+          height='50'
+          ></ui-image>
+          <ui-view>收集想法 · 接纳任务</ui-view>
+        </ui-view>
+        <ui-row>
+          <ui-col vertical-align="middle" aling="center" space-right="5" bindtap="closeMenu">
+            <ui-view class="slide_top slide_content">
+              <ui-image
+              src="{{ require('#/images/sideBar/gongsi.png') }}"
+              width='20'
+              height='20'
+              ></ui-image>
+              <ui-view>创建公司</ui-view>
+            </ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" aling="center" space-left="5" bindtap="closeMenu">
+            <ui-view class="slide_top slide_content">
+              <ui-image
+              src="{{ require('#/images/sideBar/tongshi.png') }}"
+              width='20'
+              height='20'
+              ></ui-image>
+              <ui-view>邀请同事</ui-view>
+            </ui-view>
+          </ui-col>
+        </ui-row>
+
+        <ui-row>
+          <ui-col vertical-align="middle" aling="center" space-right="5" bindtap="closeMenu">
+            <ui-view class="slide_top slide_content">
+              <ui-image
+              src="{{ require('#/images/sideBar/guanyu.png') }}"
+              width='20'
+              height='20'
+              ></ui-image>
+              <ui-view>关于我们</ui-view>
+            </ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" aling="center" space-left="5" bindtap="closeMenu">
+            <ui-view class="slide_top slide_content">
+              <ui-image
+              src="{{ require('#/images/sideBar/zixun.png') }}"
+              width='20'
+              height='20'
+              ></ui-image>
+              <ui-view>在线咨询</ui-view>
+            </ui-view>
+          </ui-col>
+        </ui-row>
+
+        <ui-view class="slide_bottom">
+          <ui-row height="55">
+            <ui-col vertical-align="middle" aling="center" bindtap="closeMenu">
+              <ui-view>
+                <ui-image src="{{ require('#/images/sideBar/sousuo.png') }}"></ui-image>
+              </ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" aling="center" bindtap="closeMenu">
+              <ui-view>
+                <ui-image src="{{ require('#/images/sideBar/sz.png') }}"></ui-image>
+              </ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" aling="center" bindtap="closeMenu('close')">
+              <ui-view>
+                <ui-image src="{{ require('#/images/sideBar/guanji.png') }}"></ui-image>
+              </ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+
+      </ui-view>
+
+      <ui-view slot="panel">
+      <!-- 通用导航栏 -->
+      <ui-nav-bar
+        ui:if="pageConfig"
+        ui:show="navigationBarVisible"
+        style="{{ navStyle }}">
+        <ui-row>
+          <ui-col width="80">
+            <span class="back" bindtap="handleBack" ui:show="{{showBack}}">
+              <ui-icon type="arrow-left" font-size="24"></ui-icon>返回
+            </span>
+            <span class="back" ui:show="{{!showBack}}" bindtap="handleNavIconTap">
+              <ui-icon type="list" color="#2B333B" size="16"></ui-icon>
+            </span>
+          </ui-col>
+          <ui-col width="{{WIN_WIDTH-160}}" align="center" content-direction="row" class="nav-bar-center">
+            <ui-view class="nav-bar-center-loading" style="display: none;"></ui-view>
+            <span class="nav-bar-center-text">{{ $t(winConfig.navigationBarTitleText) }}</span>
+          </ui-col>
+          <ui-col width="80">
+
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+
+      <!-- 页面路由 -->
+      <router-view class="router-view">
+      </router-view>
+
+      <!-- 底部标签栏 -->
+      <ui-tab-bar
+        bindbeforechange="handleTabBeforeChange"
+        bindchange="handleTabChange"
+        ui:if="isTabBar"
+        ui:model="tabIndex"
+        style="{{ tabBarStyle }}"
+        id="{{ tabBar.id }}"
+        group-id="{{ tabBar.groupId }}"
+        icon-size="{{ tabBar.iconSize }}"
+        font-size="{{ tabBar.fontSize }}"
+        position="{{ tabBar.position }}"
+        list="{{ tabBarList }}"
+        paths="{{ tabBar.paths }}"
+        background-color="{{ tabBar.backgroundColor }}"
+        border-color="{{ tabBar.borderColor }}"
+        color="{{ tabBar.color }}"
+        selected-color="{{ tabBar.selectedColor }}">
+    </ui-tab-bar>
+
+    <!-- tabbar个性按钮示例用到：弹出图标导航菜单 -->
+    <ui-fixed-view top="0" left="0" right="0" style="{{{ 'z-index': '1000' ,'display':tabbaricon}}}">
+      <ui-pop-icon mask-hide-delay="500" blur="light" hide-on-tap="{{hideOnTap}}"  bindhide="hidepopicon($event)" bindmaskhide="popiconMaskhide"  left="{{offsetX}}" ui:model="toggle" class="pop-icon-demo" animate="bounce" >
+        <ui-pop-icon-item item-color="#f9dc66" top="-85" left="{{0 - offsetX / 2 - 48}}">
+          <ui-view class="icon_view">
+            <ui-image src="{{require('./images/icon1.png')}}" width="30"></ui-image>
+          </ui-view>
+        </ui-pop-icon-item>
+        <ui-pop-icon-item item-color="#f9dc66" top="-85" left="{{0 - 24}}">
+          <ui-view class="icon_view">
+            <ui-image src="{{require('./images/icon2.png')}}" width="30"></ui-image>
+          </ui-view>
+        </ui-pop-icon-item>
+        <ui-pop-icon-item item-color="#f9dc66" top="-85" left="{{0 + offsetX / 2}}">
+          <ui-view class="icon_view">
+            <ui-image src="{{require('./images/icon3.png')}}" width="30"></ui-image>
+          </ui-view>
+        </ui-pop-icon-item>
+      </ui-pop-icon>
+    </ui-fixed-view>
+    <ui-fixed-view bottom="25" left="0" right="0" style="{{fixedzindex}}">
+      <ui-view class="{{togglestyle}}" style="text-align:center;width:35px;height:35px;margin:0 auto" bindtap="hidepopicon($event)">
+        <!-- <ui-icon type="plus" color="#555" size="24"></ui-icon> -->
+      </ui-view>
+    </ui-fixed-view>
+
+
+      </ui-view>
+    </ui-slide-menu>
+
+    <!-- 搜索 -->
+      <ui-mask class="full-screen-box" top="0" ui:model="globalData.searchShow"  bindhide="searchHideHandle" bindshow="searchShowHandle">
+        <ui-view class="bar" style="{{{ height:barHeight+'px' }}}"></ui-view>
+        <ui-row height="46" class="search_bg">
+          <ui-col vertical-align="middle" align="center" space-left="15">
+            <ui-view class="search">
+              <ui-row height="30">
+                <ui-col vertical-align="middle" align="center" width="30">
+                  <ui-icon type="magnifier" size="16" color="#B5B5B5"></ui-icon>
+                </ui-col>
+                <ui-col vertical-align="middle">
+                  <ui-form bindsubmit="searchSubmit" action="/search">
+                    <ui-input type="search" name="search" ui:model="{{ searchValue }}"  placeholder="搜索" focus="{{ globalData.searchShow }}" show-clear="false"></ui-input>
+                  </ui-form>
+                </ui-col>
+              </ui-row>
+            </ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="50" bindtap="hideFullScreenSearch">
+            <ui-view class="cancel">取消</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-view class="search_content" style="{{{ height:height+'px' }}}">
+          <!-- 历史搜索 -->
+          <ui-view class="search_history" ui:if="{{ historyContent.length<1 ? false : true }}">
+            <ui-row height="20" space-bottom="20">
+              <ui-col vertical-align="middle">历史搜索</ui-col>
+              <ui-col vertical-align="middle" align="right" width="30" bindtap="deleteHistory">
+                <ui-icon type="delete2" size="16" color="#C9C9C9"></ui-icon>
+              </ui-col>
+            </ui-row>
+            <ui-view class="history_content">
+              <ui-view ui:for="{{ historyContent }}" bindtap="historyTap(index)">{{ item }}</ui-view>
+            </ui-view>
+          </ui-view>
+          <ui-view class="search_history">
+            <ui-row height="20" space-bottom="20">
+              <ui-col vertical-align="middle">大家都在搜</ui-col>
+            </ui-row>
+            <ui-view class="history_content">
+              <ui-tags
+              data="{{ hotList }}"
+              bindchange="hotTap"
+              selected-class="select-class"
+              ></ui-tags>
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-mask>
+
+    <!-- 分享 -->
+    <ui-mask ui:model="{{globalData.shareMask}}" class="share_mask" hide-delay="400" top="0" blur="light" bindshow="maskShow" bindtap="columnHide">
+      <ui-view class="column_wrap {{ className }}">
+
+        <ui-view class="column_content" ui:for="{{ shareColumn }}" style="{{{ 'animation-duration':animationDuration[index] }}}" bindtap="maskHide(item.share)">
+          <ui-view >
+            <ui-view style="{{{ 'background-color':item.bgColor }}}">
+              <ui-icon type="{{ item.icon }}" size="30" color="#fff"></ui-icon>
+            </ui-view>
+            <ui-text block>{{ item.name }}</ui-text>
+          </ui-view>
+        </ui-view>
+
+        <ui-view class="close" bindtap="maskHide('plus')">
+          <ui-icon type="close" size="20" color="#5E5E5E"></ui-icon>
+        </ui-view>
+
+      </ui-view>
+    </ui-mask>
+
+
+  </ui-view>
+
+</template>
+<script>
+let backgroundAudioManager
+export default {
+  config: {
+    "pages": [
+      "pages/index",
+      "pages/home/changeList",
+      "pages/home/configList",
+      "pages/home/dataList",
+      "pages/home/dataList2",
+      "pages/home/dataList3",
+      "pages/home/dataList4",
+      "pages/home/devList",
+      "pages/home/formList",
+      "pages/home/formList2",
+      "pages/home/formList3",
+      "pages/home/formList4",
+      "pages/home/fullPageList",
+      "pages/home/graphicalList",
+      "pages/home/graphicalList2",
+      "pages/home/graphicalList3",
+      "pages/home/interFaceList",
+      "pages/home/mapList",
+      "pages/home/mapList2",
+      "pages/home/mapList3",
+      "pages/home/mediaCompList",
+      "pages/home/mediaCompList2",
+      "pages/home/modalList",
+      "pages/home/networkList",
+      "pages/home/optimizeList",
+      "pages/home/pageList",
+      "pages/home/positionList",
+      "pages/home/textList",
+      "pages/home/viewList",
+      "pages/home/viewList2",
+      "pages/home/bannerList",
+      "pages/home/navBarList",
+      "pages/home/tabBarList",
+      "pages/common/404",
+
+      "pages/componentDemo/page",
+      "pages/componentDemo/page2",
+      "pages/componentDemo/page3",
+      "pages/componentDemo/page4",
+      "pages/componentDemo/page5",
+      "pages/componentDemo/page6",
+      "pages/componentDemo/page7",
+      "pages/componentDemo/page8",
+      "pages/componentDemo/page9",
+      "pages/componentDemo/page10",
+      "pages/componentDemo/page11",
+      "pages/componentDemo/page12",
+      "pages/componentDemo/navBar",
+      "pages/componentDemo/navBar2",
+      "pages/componentDemo/navBar3",
+      "pages/componentDemo/navBar4",
+      "pages/componentDemo/navBar5",
+      "pages/componentDemo/navBar6",
+      "pages/componentDemo/banner",
+      "pages/componentDemo/banner2",
+      "pages/componentDemo/banner3",
+      "pages/componentDemo/banner4",
+      "pages/componentDemo/banner5",
+
+
+      "pages/componentDemo/view/verticalPx",
+      "pages/componentDemo/view/verticalRpx",
+      "pages/componentDemo/view/view",
+      "pages/componentDemo/row",
+      "pages/componentDemo/rowImg",
+      "pages/componentDemo/rowList",
+      "pages/componentDemo/scrollView",
+      "pages/componentDemo/scrollView2",
+      "pages/componentDemo/scrollView3",
+      "pages/componentDemo/scrollView4",
+      "pages/componentDemo/scrollView5",
+      "pages/componentDemo/swipeOut",
+      "pages/componentDemo/fixedView",
+      "pages/componentDemo/fixedView2",
+      "pages/componentDemo/sticky",
+      "pages/componentDemo/sticky2",
+      "pages/componentDemo/sticky3",
+      "pages/componentDemo/sticky5",
+
+      "pages/componentDemo/ex-swiper",
+      "pages/componentDemo/ex-swiper2",
+      "pages/componentDemo/ex-swiper3",
+      "pages/componentDemo/ex-swiper4",
+      "pages/componentDemo/ex-swiper5",
+      "pages/componentDemo/ex-swiper6",
+      "pages/componentDemo/ex-swiper7",
+      "pages/componentDemo/tabView",
+      "pages/componentDemo/tabView2",
+      "pages/componentDemo/tabView3",
+      "pages/componentDemo/tabs",
+      "pages/componentDemo/tabs2",
+      "pages/componentDemo/tabs3",
+      "pages/componentDemo/vtabs",
+      "pages/componentDemo/vtabs3",
+      "pages/componentDemo/segment",
+      "pages/componentDemo/segment2",
+      "pages/componentDemo/accordion",
+      "pages/componentDemo/swiper",
+      "pages/componentDemo/swiper2",
+      "pages/componentDemo/summary",
+      "pages/componentDemo/mask/iconNav",
+      "pages/componentDemo/mask/mask",
+      "pages/componentDemo/mask/maskGuide",
+      "pages/componentDemo/mask/maskGuide2",
+      "pages/componentDemo/mask/maskTip",
+      "pages/componentDemo/popup",
+      "pages/componentDemo/popover",
+      "pages/componentDemo/popover2",
+      "pages/componentDemo/popover3",
+      "pages/componentDemo/popover4",
+      "pages/componentDemo/popicon",
+      "pages/componentDemo/popicon2",
+      "pages/componentDemo/popicon3",
+      "pages/componentDemo/popicon4",
+      "pages/componentDemo/popicon5",
+
+
+      "pages/componentDemo/button",
+      "pages/componentDemo/switch",
+      "pages/componentDemo/slider",
+      "pages/componentDemo/ruler",
+      "pages/componentDemo/input",
+      "pages/componentDemo/virtualInput",
+      "pages/componentDemo/smsInput",
+      "pages/componentDemo/textarea",
+      "pages/componentDemo/search",
+      "pages/componentDemo/search2",
+      "pages/componentDemo/radio",
+      "pages/componentDemo/checkbox",
+      "pages/componentDemo/checklist",
+      "pages/componentDemo/stepper",
+      "pages/componentDemo/indexList",
+      "pages/componentDemo/form",
+      "pages/componentDemo/picker",
+      "pages/componentDemo/pickerView",
+      "pages/componentDemo/cascader",
+      "pages/componentDemo/calendar",
+      "pages/componentDemo/calendar2",
+      "pages/componentDemo/calendar3",
+      "pages/componentDemo/calendar4",
+      
+
+      "pages/componentDemo/navigator",
+      "pages/componentDemo/navigator2",
+      "pages/componentDemo/navigator3",
+      "pages/componentDemo/navigator4",
+      "pages/componentDemo/requestApi",
+      "pages/componentDemo/requestApi2",
+      "pages/componentDemo/requestApi3",
+      "pages/componentDemo/requestApi4",
+      "pages/componentDemo/table",
+      "pages/componentDemo/table2",
+      "pages/componentDemo/table3",
+      "pages/componentDemo/table4",
+      "pages/componentDemo/table5",
+      "pages/componentDemo/listView",
+      
+      "pages/componentDemo/listView3",
+      "pages/componentDemo/listView4",
+      "pages/componentDemo/listView5",
+      "pages/componentDemo/waterfall",
+      "pages/componentDemo/waterfall2",
+      "pages/componentDemo/networkView",
+      "pages/componentDemo/networkView2",
+      "pages/componentDemo/networkView3",
+      "pages/componentDemo/networkView4",
+
+      "pages/componentDemo/text",
+      "pages/componentDemo/richText",
+      "pages/componentDemo/richText2",
+      "pages/componentDemo/tags",
+      "pages/componentDemo/countUp",
+      "pages/componentDemo/countDown",
+      "pages/componentDemo/roller",
+
+      "pages/componentDemo/icon",
+      "pages/componentDemo/image/autoHeight",
+      "pages/componentDemo/image/lazyLoad",
+      "pages/componentDemo/image/lazyLoad2",
+      "pages/componentDemo/image/lazyLoad3",
+      "pages/componentDemo/image/lazyLoad4",
+      "pages/componentDemo/image/loadEffect",
+       "pages/componentDemo/image/previewer",
+      "pages/componentDemo/image/scale",
+      "pages/componentDemo/blur",
+      "pages/componentDemo/blur2",
+      "pages/componentDemo/blur3",
+      "pages/componentDemo/audio",
+      "pages/componentDemo/playaudio",
+      "pages/componentDemo/video",
+
+      "pages/componentDemo/badge",
+      "pages/componentDemo/canvas",
+      "pages/componentDemo/divider",
+      "pages/componentDemo/star",
+      "pages/componentDemo/miniStar",
+      "pages/componentDemo/wave",
+      "pages/componentDemo/locker",
+      "pages/componentDemo/locker2",
+      "pages/componentDemo/timeline",
+      "pages/componentDemo/timeline2",
+      "pages/componentDemo/timeline3",
+      "pages/componentDemo/circular",
+      "pages/componentDemo/multiCircular",
+      "pages/componentDemo/miniCircular",
+      "pages/componentDemo/progress",
+      "pages/componentDemo/progress2",
+      "pages/componentDemo/chart/bar",
+      "pages/componentDemo/chart/contrast",
+      "pages/componentDemo/chart/dashboard",
+      "pages/componentDemo/chart/donut",
+      "pages/componentDemo/chart/funnel",
+      "pages/componentDemo/chart/groupedBar",
+      "pages/componentDemo/chart/levelDonut",
+      "pages/componentDemo/chart/line",
+      "pages/componentDemo/chart/slideDonut",
+      "pages/componentDemo/chart/sparkline",
+      "pages/componentDemo/chart/stackedArea",
+      "pages/componentDemo/chart/stackedBar",
+      "pages/componentDemo/chart/step",
+
+      "pages/componentDemo/map/getLocation",
+      "pages/componentDemo/map/map",
+      "pages/componentDemo/map/mapDemo",
+      "pages/componentDemo/map/mapDraw",
+      "pages/componentDemo/map/trajectory",
+      "pages/componentDemo/mapsdk/distanceCalculation",
+      "pages/componentDemo/mapsdk/drawStaticMap",
+      "pages/componentDemo/mapsdk/interestPointAroud",
+      "pages/componentDemo/mapsdk/mapComprehensive",
+      "pages/componentDemo/mapsdk/mapComprehensiveDetail",
+      "pages/componentDemo/mapsdk/mapSearchTips",
+      "pages/componentDemo/mapsdk/reverseAddressResolution",
+      "pages/componentDemo/mapsdk/routePlanning",
+
+
+      "pages/componentDemo/fullPage/doubleScroll",
+      "pages/componentDemo/fullPage/doubleScroll2",
+      "pages/componentDemo/fullPage/triggerRefresh",
+      "pages/componentDemo/fullPage/bgBigger",
+      "pages/componentDemo/fullPage/swiperBigger",
+      "pages/componentDemo/fullPage/videoBanner",
+
+
+      
+      "pages/apiDemo/animation",
+      "pages/apiDemo/backgroundColor",
+      "pages/apiDemo/bindData",
+      "pages/apiDemo/call",
+      "pages/apiDemo/changeNavbar",
+      "pages/apiDemo/constant",
+      "pages/apiDemo/customComp",
+      "pages/apiDemo/chooseLocation",
+      "pages/apiDemo/for",
+      "pages/apiDemo/getLocation",
+      "pages/apiDemo/hideNavbar",
+      "pages/apiDemo/if",
+      "pages/apiDemo/loadingStyle",
+      "pages/apiDemo/localStorage",
+      "pages/apiDemo/model",
+      "pages/apiDemo/navigate",
+      "pages/apiDemo/navigateNew",
+      "pages/apiDemo/noScroll",
+      "pages/apiDemo/openLocation",
+      "pages/apiDemo/parameter",
+      "pages/apiDemo/parameterNew",
+      "pages/apiDemo/placeholderImage",
+      "pages/apiDemo/request",
+      "pages/apiDemo/showActionSheet",
+      "pages/apiDemo/showAlert",
+      "pages/apiDemo/showConfirm",
+      "pages/apiDemo/showDialog",
+      "pages/apiDemo/showLoading",
+      "pages/apiDemo/showPrompt",
+      "pages/apiDemo/showToast",
+      "pages/apiDemo/slideGestures",
+      "pages/apiDemo/styleLib",
+      "pages/apiDemo/systemInformation",
+      "pages/apiDemo/touchEvent",
+      "pages/apiDemo/webSocket",
+
+      "pages/templeteDemo/friendCircle",
+      "pages/templeteDemo/register",
+      "pages/templeteDemo/userCenter/about",
+      "pages/templeteDemo/userCenter/addAddress",
+      "pages/templeteDemo/userCenter/address",
+      "pages/templeteDemo/userCenter/collect",
+      "pages/templeteDemo/userCenter/commonUse",
+      "pages/templeteDemo/userCenter/notice",
+      "pages/templeteDemo/userCenter/setting",
+      "pages/templeteDemo/userCenter/updateAddress",
+      "pages/templeteDemo/userCenter/userCenter",
+      "pages/templeteDemo/userCenter/userInfo",
+      "pages/templeteDemo/userCenter/problemFeedback",
+
+      "pages/templeteDemo/store/sort",
+      "pages/templeteDemo/store/list",
+      "pages/templeteDemo/store/detail",
+      "pages/templeteDemo/store/shoppingCart",
+      "pages/templeteDemo/store/payment",
+      "pages/templeteDemo/information/infoList",
+      "pages/templeteDemo/information/details",
+      "pages/templeteDemo/form/payment",
+      "pages/templeteDemo/dataReport/fundOptional",
+      "pages/templeteDemo/dataReport/optional",
+      "pages/templeteDemo/dataReport/chart",
+      "pages/templeteDemo/graphic/graphic",
+      "pages/templeteDemo/O2O/O2O",
+      "pages/templeteDemo/O2O/room",
+      "pages/templeteDemo/O2O/map",
+      "pages/templeteDemo/O2O/mapDetails",
+      "pages/templeteDemo/O2O/hotel",
+      "pages/templeteDemo/O2O/hotelDetails",
+      "pages/templeteDemo/videoTemplete/videoTemplete",
+      "pages/templeteDemo/videoTemplete/videoList"
+      // "pages/componentDemo/mapService/googlemap",
+      // "pages/componentDemo/mapService/mapSearchInput",
+      // "pages/componentDemo/mapService/tencentmap",
+      // "pages/home/mediaList",
+      // "pages/home/accessList",
+      // "pages/home/browserList",
+      // "pages/componentDemo/draggable",
+      // "pages/componentDemo/draggable2",
+      // "pages/componentDemo/draggable3",
+      // "pages/componentDemo/draggable4",
+      // "pages/componentDemo/draggable5",
+      // "pages/apiDemo/accelerometer",
+      // "pages/apiDemo/addressList",
+      // "pages/apiDemo/back",
+      // "pages/apiDemo/bgAudio",
+      // "pages/apiDemo/bluetooth",
+      // "pages/apiDemo/bluetooth3",
+      // "pages/apiDemo/browserAPP",
+      // "pages/apiDemo/browserUrl",
+      // "pages/apiDemo/clipboard",
+      // "pages/apiDemo/compass",
+      // "pages/apiDemo/fileUpDownload",
+      // "pages/apiDemo/getaddressBook",
+      // "pages/apiDemo/networkPictures",
+      // "pages/apiDemo/networkState",
+      // "pages/apiDemo/networkVideo",
+      // "pages/apiDemo/previewImage",
+      // "pages/apiDemo/playRecord",
+      // "pages/apiDemo/playSound",
+      // "pages/apiDemo/popGesture",
+      // "pages/apiDemo/pushinfo",
+      // "pages/apiDemo/scanCode",
+      // "pages/apiDemo/screenBrightness",
+      // "pages/apiDemo/screenShot",
+      // "pages/apiDemo/setting",
+      // "pages/apiDemo/setting2",
+      // "pages/apiDemo/share",
+      // "pages/apiDemo/shock",
+      // "pages/apiDemo/shootVideo",
+      // "pages/apiDemo/statusBar",
+      // "pages/apiDemo/statusBarClick",
+      // "pages/apiDemo/deviceInformation",
+      // "pages/apiDemo/takePictures",
+      // "pages/apiDemo/touchId",
+      // "pages/apiDemo/uploadDownload",
+      // "pages/templeteDemo/audioTemplete/audioTemplete",
+      // "pages/templeteDemo/audioTemplete/details",
+      
+    ],
+    "theme": {
+      "theme-color": "#39f"
+    },
+    "window": {
+    "scrollType": "body",
+      "navigationBarBackgroundColor":"#ffffff",
+      "navigationBarTextStyle":"black",
+      "navigationBarBorderColor":"rgba(231, 231, 231, 0.6)"
+    },
+    "tabBar": {
+      "color": "#7a7e83",
+      "selectedColor": "#39f",
+      "backgroundColor": "#fff",
+      "list": [
+        {
+          "pagePath": "pages/index",
+          "iconName": "component",
+          "text": "组件"
+        },
+        {
+          "pagePath": "pages/home/homeApi",
+          "iconName": "photo",
+          "text": "接口"
+        },
+        {
+          "pagePath": "pages/home/homeTemplete",
+          "iconName": "jd-category",
+          "text": "模版"
+        },
+        {
+          "pagePath": "pages/templeteDemo/userCenter/userCenter",
+          "iconName": "my",
+          "text": "我的"
+        }
+      ]
+    },
+    "pageTabBars": [
+      {
+        "color": "#555",
+        "selectedColor": "#de3029",
+        "borderColor": "rgba(231, 231, 231, 0.6)",
+        "backgroundColor": "#fff",
+        "list": [
+          {
+            "pagePath": "pages/componentDemo/tabBar1-1",
+            "iconName": "api-network",
+            "text": "演示1-1"
+          },
+          {
+            "pagePath": "pages/componentDemo/tabBar1-2",
+            "iconName": "setting",
+            "text": "演示1-2"
+          }
+        ]
+      },
+      {
+        "color": "#555",
+        "selectedColor": "#3399ff",
+        "borderColor": "rgba(231, 231, 231, 0.6)",
+        "backgroundColor": "#fff",
+        "list": [
+          {
+            "pagePath": "pages/componentDemo/tabBar2-1",
+            "iconPath": "images/icon_API.png",
+            "selectedIconPath": "images/icon_API_HL.png",
+            "text": "演示2-1"
+          },
+          {
+            "pagePath": "pages/componentDemo/tabBar2-2",
+            "iconPath": "images/icon_component.png",
+            "selectedIconPath": "images/icon_component_HL.png",
+            "text": "演示2-2"
+          }
+        ]
+      },
+      {
+        "id": "tab-bar-3",
+        "color": "#555",
+        "selectedColor": "#3399ff",
+        "borderColor": "rgba(231, 231, 231, 0.6)",
+        "backgroundColor": "#fff",
+        "list": [
+          {
+            "pagePath": "pages/componentDemo/tabBar3-1",
+            "iconName": "api-network",
+            "text": "演示3-1"
+          },
+          {
+            "pagePath": "pages/componentDemo/tabBar3-2",
+            "iconName": "setting",
+            "text": "演示3-2"
+          }
+        ]
+      },
+      {
+        "id": "tab-bar-4",
+        "color": "#555",
+        "selectedColor": "#3399ff",
+        "borderColor": "rgba(231, 231, 231, 0.6)",
+        "backgroundColor": "#fff",
+        "list": [
+          {
+            "pagePath": "pages/componentDemo/tabBar4-1",
+            "iconName": "api-network",
+            "text": "演示4-1"
+          },
+          {
+            "pagePath": "pages/componentDemo/tabBar4-2",
+            "iconName": "setting",
+            "text": "演示4-2"
+          }
+        ]
+      },
+      {
+        "id": "tab-bar-5",
+        "color": "#555",
+        "selectedColor": "#3399ff",
+        "borderColor": "rgba(231, 231, 231, 0.6)",
+        "backgroundColor": "#fff",
+        "list": [
+          {
+            "pagePath": "pages/componentDemo/tabBar5-1",
+            "iconName": "api-network",
+            "text": "演示5-1"
+          },
+          {
+            "pagePath": "pages/componentDemo/tabBar5-2",
+            "iconName": "mail",
+            "text": "演示5-2"
+          },
+          {
+            "pagePath": "pages/componentDemo/tabBar5-3",
+            "iconName": "plus",
+            "text": "发布"
+          },
+          {
+            "pagePath": "pages/componentDemo/tabBar5-4",
+            "iconName": "api-frame",
+            "text": "演示5-4"
+          },
+          {
+            "pagePath": "pages/componentDemo/tabBar5-5",
+            "iconName": "jd-user",
+            "text": "演示5-5"
+          }
+        ]
+      },
+      {
+        "color": "#555",
+        "selectedColor": "#3399ff",
+        "borderColor": "rgba(231, 231, 231, 0.6)",
+        "backgroundColor": "#fff",
+        "list": [
+          {
+            "pagePath": "pages/componentDemo/tabBar6-1",
+            "iconName": "qn-addressbook",
+            "selectedIconName": "qn-addressbook_fill",
+            "text": "演示6-1"
+          },
+          {
+            "pagePath": "pages/componentDemo/tabBar6-2",
+            "iconName": "qn-activity",
+            "selectedIconName": "qn-activity_fill",
+            "text": "演示6-2"
+          }
+        ]
+      }
+    ],
+    "networkBaseUrl":"http://www.uileader.com"
+  },
+  data () {
+    return {
+      //全局变量
+      globalData: {
+        searchShow: false,
+        shareMask:false,
+        href: 'http://www.uileader.com/touchui_jdfinance/#/pages/share/greenHand/greenHand',
+        audioShow:false
+      },
+      WIN_WIDTH:ui.WIN_WIDTH,
+      tabIndex: 0,
+      drawerVisibility: false,
+      showMode: 'push',
+      showModeValue: 'push',
+      showPlacement: 'left',
+      showPlacementValue: 'left',
+      tabPaths: [],
+      tabBarList: [],
+      isApp: ui.IS_APP,
+      navStyle: {},
+      tabBar: {},
+      tabBarHeight: 56,
+      toggle: false,
+      offsetX: ui.WIN_WIDTH / 2,
+      togglestyle: 'default',
+      fixedzindex: null,
+      tabbaricon: 'none',
+      hideOnTap: true,
+      tabbarhide: true,
+      canClick: true,
+      headerHeight: ui.DEFAULT_HEADER_HEIGHT,
+      paths: [],
+      barHeight: ui.STATUS_BAR_HEIGHT,
+      height: ui.DEFAULT_CONTENT_HEIGHT,
+      searchValue: '',
+      historyContent: [],
+      showSlideMenu: false,
+      slideMenuControl: false,
+      hotList: [
+        { text: '收纳', tagClass: 'tag-before' },
+        {text: '热卖爆款', tagClass: 'tag-before', hot: 'hot'},
+        { text: '卫衣', tagClass: 'tag-before' },
+        { text: '手机壳', tagClass: 'tag-before' },
+        { text: '电子烟', tagClass: 'tag-before' },
+        { text: '手表男', tagClass: 'tag-before' },
+        { text: '手机支架', tagClass: 'tag-before' },
+        { text: '宿舍', tagClass: 'tag-before' },
+        { text: '内裤男', tagClass: 'tag-before' },
+        { text: '特产', tagClass: 'tag-before' },
+        { text: '护肤套装', tagClass: 'tag-before' },
+        { text: '耳机', tagClass: 'tag-before' },
+        { text: '火鸡面', tagClass: 'tag-before' }
+      ],
+
+      // 分享
+      winHeight: ui.WIN_HEIGHT,
+      winWidth: ui.WIN_WIDTH,
+      shareColumn:[
+        {
+          icon: 'wexin',
+          name: '朋友圈',
+          bgColor: '#41C451',
+          share:'weixin_timeline'
+        }, {
+          icon: 'friends-circle',
+          name: '微信好友',
+          bgColor: '#41C451',
+          share: 'weixin_message'
+        }, {
+          icon: 'QQ',
+          name: 'QQ好友',
+          bgColor: '#27A9EE',
+          share: 'qq'
+        }, {
+          icon: 'weibo',
+          name: '微博',
+          bgColor: '#F53B43',
+          share: 'weibo'
+        }
+      ],
+      showTime: ['0.1s', '0.2s', '0.3s', '0.4s', '0.5s', '0.6s'],
+      hideTime: ['0.6s', '0.5s', '0.4s', '0.3s', '0.2s', '0.1s'],
+      className:'',
+      animationDuration: ['0.1s', '0.2s', '0.3s', '0.4s', '0.5s', '0.6s'],
+      target: 'qq',
+      type: 'link',
+      icon: 'http://images.uileader.com/20180116/96d4b45d-4765-41fd-bc29-85919ddb4057.png',
+      title: '高仿京东金融',
+      content: '官方推出的TOUCH UI应用案例'
+    }
+  },
+  computed: {
+    // 控制通用导航栏是否显示
+    navigationBarVisible () {
+      return this.winConfig.navigationStyle !== 'custom'
+    },
+    // 控制通用导航栏是否显示返回按钮（首页不显示，其他页显示）
+    showBack () {
+      let homePath = this.paths[0]
+      if (this.tabBar && this.tabBar.paths) {
+        return this.tabBar.paths.indexOf(homePath) < 0
+      } else {
+        return homePath !== this.$route.path
+      }
+    },
+    // 通用导航栏应用app.json和page.json的设置
+    winConfig () {
+      let window = this.$router.options.window
+      let config = { ...window, ...this.pageConfig }
+      let color = config.navigationBarTextStyle || 'white'
+
+      let scrollType = document.body.getAttribute('scroll-type')
+
+      this.navStyle = {
+        backgroundColor: config.navigationBarBackgroundColor,
+        color: color,
+        borderBottom: `1px solid ${config.navigationBarBorderColor}`,
+        backgroundImage: config.navigationBarBackgroundGradient,
+        position: scrollType === 'body' ? 'fixed' : 'absolute'
+      }
+
+      if (this.navStyle.backgroundColor) {
+        this.navStyle.backgroundImage = 'none'
+      }
+
+      if (config.navigationBarBorderColor) {
+        this.navStyle.borderBottom = `1px solid ${config.navigationBarBorderColor}`
+      } else {
+        this.navStyle.borderBottom = '0'
+      }
+      return config
+    },
+    // 控制底部标签栏是否显示
+    isTabBar () {
+      return this.tabBarList && this.tabBarList.length > 0
+    },
+    // 设置底部标签栏样式
+    tabBarStyle () {
+      let style = {}
+      if (this.navigationBarVisible && this.tabBar.position === 'top') {
+        style.top = this.headerHeight + 'px'
+      }
+      let scrollType = document.body.getAttribute('scroll-type')
+      style.position = scrollType === 'body' ? 'fixed' : 'absolute'
+      return style
+    },
+
+    bottom () {
+      return this.isTabBar ? `${this.tabBarHeight}px` : 0
+    },
+    // 底部标签栏应用app.json和page.json的设置
+    pageConfig () {
+      if (this.isTabBar) {
+        return this.tabBarList[this.tabIndex].pageConfig
+      } else {
+        return this.$route.meta.pageConfig || window.__$uiPageConfig
+      }
+    }
+  },
+  watch: {
+    '$route.path' (path) {
+      this.handleIosGesture()
+      this.initTab()
+      this.initBodyStyle()
+    }
+  },
+  // 初始化
+  created () {
+    this.initTab()
+    this.initPaths()
+    this.initBodyStyle()
+    this.$nextTick(() => {
+      this.handleIosGesture()
+    })
+  },
+  methods: {
+    // 初始化底部标签栏
+    initTab () {
+      this.tabBar = this.getTabBar()
+      this.tabBarList = this.tabBar.list
+      if (this.tabBar.paths) {
+        this.tabIndex = this.tabBar.paths.indexOf(this.$route.path)
+      }
+    },
+    // 初始化路由
+    initPaths () {
+      let routes = this.$router.options.routes
+      this.paths = routes.map((item) => {
+        return item.path
+      })
+    },
+    initBodyStyle () {
+      if (this.winConfig && this.winConfig.backgroundColor) {
+        document.body.style.backgroundColor = this.winConfig.backgroundColor
+      }
+    },
+    // iOS是否禁用侧滑退出
+    handleIosGesture () {
+      if (ui.IS_IOS) {
+        ui.setPagePopGesture && ui.setPagePopGesture({
+          openPagePopGesture: !this.pageConfig.disableIosGesture
+        })
+      }
+    },
+    // tabBar示例用到，底部标签栏切换前事件处理
+    handleTabBeforeChange ({ id, index, next }) {
+      if (id === 'tab-bar-5' && index === 2) { // 弹出popicon图标导航
+        if (this.canClick) {
+          this.toggle = true
+          this.canClick = false
+          this.fixedzindex = 'z-index:701'
+          this.tabbaricon = 'block'
+          this.togglestyle = 'openstyle'
+          this.hideOnTap = false
+          setTimeout(() => {
+            this.canClick = true
+            this.hideOnTap = true
+          }, 700)
+        } else {
+          return false
+        }
+      } else if (id === 'tab-bar-5' && index === 4) { // 弹出登录dialog
+        import(`#/pages/dialogs/loginInterface.ui`).then((content) => {
+          ui.showDialog({
+            content: content,
+            statusBarColor: 'dark'
+          })
+        })
+      } else {
+        next()
+      }
+    },
+    // tabBar示例用到，底部标签栏切换后事件处理
+    handleTabChange ({id, index}) {
+      if (id === 'tab-bar-5' && index === 3) {
+        ui.showToast({ title: 'TabChange事件，每次切换tab都触发' })
+      }
+    },
+    // 回退处理
+    handleBack () {
+      ui.navigateBack()
+    },
+    getTabBar () {
+      let tabBars = [this.$router.options.tabBar, ...this.$router.options.pageTabBars]
+      for (let i = 0; i < tabBars.length; i++) {
+        if (tabBars[i].paths && tabBars[i].paths.indexOf(this.$route.path) > -1) {
+          return tabBars[i]
+        }
+      }
+      return {}
+    },
+    // 关闭popicon图标导航
+    hidepopicon (e) {
+      if (this.canClick) {
+        this.toggle = false
+        this.canClick = false
+        this.togglestyle = 'closestyle'
+      } else {
+        return false
+      }
+    },
+    // 关闭popicon遮罩
+    popiconMaskhide () {
+      this.canClick = true
+      this.togglestyle = 'default'
+      this.tabbaricon = 'none'
+    },
+
+    // 退出搜索
+    hideFullScreenSearch () {
+      this.globalData.searchShow = false
+      ui.setStatusBarStyle({ style: 'light' })
+    },
+    // 清空历史记录
+    deleteHistory () {
+      this.historyContent = []
+    },
+    // 搜索退出还原状态栏颜色
+    searchHideHandle () {
+      ui.setStatusBarStyle({ style: 'light' })
+    },
+    // 进入搜索设置状态栏颜色为黑色
+    searchShowHandle () {
+      ui.setStatusBarStyle({ style: 'dark' })
+    },
+    // 提交搜索
+    searchSubmit (e) {
+      let value = e.search
+      if (value !== '') {
+        this.historyContent.unshift(value)
+        this.hideFullScreenSearch()
+        ui.showToast({ title: value })
+      }
+      this.searchValue = ''
+    },
+    // 点击热门搜索
+    hotTap (opt) {
+      this.hideFullScreenSearch()
+      ui.showToast({
+        title: this.hotList[opt].text
+      })
+    },
+    // 点击搜索历史
+    historyTap (index) {
+      this.hideFullScreenSearch()
+      ui.showToast({
+        title: this.historyContent[index]
+      })
+    },
+    handleNavIconTap () {
+      this.showSlideMenu = !this.showSlideMenu
+    },
+
+    // 关闭侧滑菜单
+    closeMenu (val) {
+      this.showSlideMenu = false
+      if (val !== 'close') {
+        setTimeout(() => {
+          ui.navigateTo({
+            url: '/pages/templeteDemo/userCenter/notice'
+          })
+        }, 200);
+        
+      }
+    },
+
+
+    // 分享
+    maskHide(share) {
+      if(share === 'plus'){
+        this.globalData.shareMask = false
+      }else{
+        // setTimeout(() => {
+          this.globalData.shareMask = false
+        // }, 500);
+        console.log(share)
+        // this.target = val
+        this.target = share
+        ui.share({
+          target: this.target,
+          type: this.type,
+          icon: this.icon,
+          title: this.title,
+          content: this.content,
+          href: this.href
+        }, function () {
+          console.log('分享成功')
+        }, function () {
+          console.log('分享失败')
+        })
+    }
+      
+    },
+    maskShow() {
+      this.className='active'
+      this.animationDuration = this.showTime
+    },
+    columnHide(){
+      this.className = 'hideActive'
+      this.animationDuration=this.hideTime
+      this.globalData.shareMask = false
+    }
+
+
+
+    
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+@import './static/css/animate.css';
+@import './static/font/iconfont.css';
+@import './static/css/loading.less';
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', SimSun, sans-serif;
+  -webkit-touch-callout: none;
+}
+
+html,
+body {
+  font-size: 12px;
+}
+
+#ui-app {
+  width: 100%;
+  height: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.touchui-hover{
+  background-color: #eee !important;
+}
+.iphonex-bottom{
+  height: env(safe-area-inset-bottom);
+  background-color: #fff;
+  width:100%;
+}
+.ui-nav-bar {
+  top: 0;
+  left: 0;
+  width: 100%;
+  .nav-bar-left, .nav-bar-right {
+    position: relative;
+    width: 66px;
+    text-align: center;
+  }
+  .back {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    i {
+      margin-left: 10px;
+    }
+  }
+  .nav-bar-center-text{
+    .mix-text-overflow();
+  }
+}
+
+.ui-tab-bar {
+  &.div-scroll {
+    position: absolute;
+  }
+  &.body-scroll {
+    position: fixed;
+  }
+}
+
+.router-view {
+  width: 100%;
+}
+
+// 示例列表样式
+.sample_list {
+  .ui-row {
+    font-size: 14px;
+    height: 46px;
+    line-height: 46px;
+    color: #333;
+    padding: 0 15px;
+  }
+  .group-title {
+    height: 50px;
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #168AFD;
+    .sign {
+      width: 5px;
+      height: 16px;
+      background-color: #168AFD;
+      border-radius: 5px;
+    }
+    .ui-row {
+      padding: 0 10px;
+      color: #168AFD;
+      .ui-view {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// 示例title和内容
+.sample_title {
+  background-color: #F7F9FB;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 40px;
+  padding-left: 20px;
+}
+
+.sample_content {
+  padding: 10px 20px;
+  line-height: 30px;
+}
+
+.content_list {
+  list-style: none;
+  background-color: #fff;
+  .ui-view {
+    padding: 0 15px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    color: #666;
+    border-bottom: 1px solid #eee;
+  }
+  .grey-bg {
+    background-color: #f5f5f5;
+  }
+}
+
+// tabbar示例动画
+#tab-bar-3 {
+  .ui-tab-bar-item:nth-child(3) {
+    .icon {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 1px solid rgba(231, 231, 231, 0.8);
+      background-color: #fff;
+    }
+  }
+  .ui-tab-bar-item.active {
+    animation-duration: .5s;
+    animation-fill-mode: both;
+    animation-name: zoomIn;
+  }
+}
+
+#tab-bar-5 {
+  .ui-tab-bar-item:nth-child(3) {
+    .icon {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 1px solid rgba(231, 231, 231, 0.8);
+      background-color: #fff;
+      background-color: #fbd954;
+      box-shadow: 0px -2px 1px #eee;
+      border: 4px solid #fff;
+    }
+    .text {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      margin-left: -13px;
+    }
+  }
+}
+
+.pop-icon-demo {
+  .icon_view {
+    height: 100%;
+    z-index: 999;
+    .mix-flex-center();
+  }
+}
+
+.default {
+  display: none;
+}
+
+.openstyle {
+  z-index: 701;
+  animation: open .5s;
+  animation-fill-mode: forwards;
+  animation-delay: .2s;
+}
+
+@keyframes open {
+  0% {
+    display: block;
+    transform: rotate(0);
+  }
+  100% {
+    display: block;
+    transform: rotate(45deg);
+  }
+}
+
+.closestyle {
+  z-index: 701;
+  animation: close .5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes close {
+  0% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+//全屏搜索
+.full-screen-box {
+  z-index: 500;
+  position: absolute!important;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .bar {
+    background-color: #fff;
+  }
+  .search_bg{
+    background-color: #fff;
+  }
+  .search {
+    width: 100%;
+    background: #F4F4F4;
+    border-radius: 3px;
+    .ui-input {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      .ui-input-inner {
+        height: 30px;
+      }
+    }
+    .cancel {
+      color: #909090;
+      font-size: 14px;
+    }
+  }
+
+  .search_content {
+    background-color: #F1F1F1;
+    .search_history {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 5px;
+      .ui-col {
+        font-size: 14px;
+        color: #868686;
+      }
+      .history_content {
+        .ui-view {
+          display: inline-flex;
+          padding: 5px 18px;
+          border-radius: 4px;
+          background-color: #F1F1F1;
+          color: #6B6B6B;
+          font-size: 13px;
+          margin: 10px 5px 0 0;
+          &.hot {
+            color: #E51C2F;
+          }
+        }
+        .tag-before {
+          padding: 5px 18px;
+          border-radius: 4px;
+          background-color: #F1F1F1;
+          color: #6B6B6B;
+          font-size: 13px;
+          margin: 5px 5px 0 0;
+          &.hot {
+            color: #E51C2F;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.rect_wrap {
+  margin: 0px auto;
+  width: 50px;
+  height: 60px;
+  text-align: center;
+  font-size: 10px;
+  .ui-view {
+    background-color: #57C499;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    
+    -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+    animation: stretchdelay 1.2s infinite ease-in-out;
+  }
+  div {
+    background-color: #57C499;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    
+    -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+    animation: stretchdelay 1.2s infinite ease-in-out;
+  }
+  .rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+  }
+  .rect3 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+  }
+  .rect4 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+  }
+  .rect5 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+  }
+}
+@-webkit-keyframes stretchdelay {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) } 
+  20% { -webkit-transform: scaleY(1.0) }
+}
+@keyframes stretchdelay {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }  20% {
+    transform: scaleY(1.0);
+    -webkit-transform: scaleY(1.0);
+  }
+}
+
+
+
+//侧滑菜单内容
+.menu{
+  height:100%;
+  text-align:center;
+  padding:10px;
+  // background-color: #3399ff;
+  background:linear-gradient(45deg, #4364DF, #39A6ED);
+  position:relative;
+  .slide_top{
+    .ui-image-container{
+      display:inline-block;
+      margin-top:10px;
+    }
+    .ui-view,
+    .ui-text{
+      color: #fff;
+      font-size:16px;
+      margin-top:10px;
+    }
+    .ui-text{
+      // width:80px;
+      font-size:12px;
+      background: rgba(0, 0, 0, 0.1);
+      line-height:16px;
+      display:inline-block;
+      border-radius:25px;
+      padding:5px 15px;
+      margin-bottom:50px;
+    }
+  }
+  .slide_content{
+    background: rgba(0, 0, 0, 0.1);
+    border-radius:5px;
+    padding-bottom:10px;
+    margin-top:10px;
+    .ui-view{
+      font-size:14px;
+    }
+  }
+  .slide_bottom{
+  width:100%;
+  position:absolute;
+  left:0;
+  bottom:5px;
+  .ui-view{
+    width: 40px;
+    height:40px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.1);
+    margin:0px auto;
+    .ui-image {
+      width:20px;
+      height:20px; 
+      margin:10px auto;
+    }
+  }
+}
+}
+
+// 分享
+
+.share_mask{
+  .column_wrap{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-bottom: 60px;
+    .column_content{
+      width: 25%;
+      height: 80px;
+      text-align: center;
+      margin-bottom: 20px;
+      .mix-flex-center();
+      &>.ui-view{
+        width: 100%;
+        .ui-view{
+          display: inline-block;
+          width:50px;
+          height: 50px;
+          background-color: #41C451;
+          border-radius: 50%;
+          line-height: 50px;
+          text-align: center;
+          margin-bottom: 5px;
+        }
+        .ui-text{
+          font-size: 14px;
+          color: #2C2C2C;
+        }
+      }
+      
+    }
+    .close{
+      margin-top: 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    &.active{
+      .column_content,
+      .close{
+        animation: showMove ease 1;
+        transform:translate(0px,0px);
+      }
+      .close{
+        animation-duration:0.6
+      }
+    }
+    &.hideActive{
+      .column_content,
+      .close{
+        animation: hideMove ease 1;
+        transform:translate(0px,500px);
+      }
+      .close{
+        animation-duration:0.1;
+      }
+    }
+  }
+}
+
+@keyframes showMove{
+  0% {
+    transform:translate(0px,500px);
+  }
+  50%{
+    transform:translate(0px,-30px);
+  }
+  100% {
+   transform:translate(0px,0px);
+  }
+}
+
+@keyframes hideMove{
+  0% {
+    transform:translate(0px,0px);
+  }
+  50%{
+    transform:translate(0px,-30px);
+  }
+  100% {
+   transform:translate(0px,500px);
+  }
+}
+
+
+// 音频模块
+.ui-fixed-view.audio_bottom{
+  width: 94%;
+  left:3%;
+  right:3%;
+  bottom:10px;
+  border-radius: 5px;
+  background-color: #9a9a9a;
+  overflow: hidden;
+  transition: bottom 0.5s ease-in;
+  .ui-row{
+    .ui-view{
+      font-size:12px;
+      color: #fff;
+      width: 100%;
+      .mix-text-overflow();
+    }
+    .ui-text{
+      font-size:10px;
+      color:#d8d8d8;
+    }
+    .ui-col{
+      position: relative;
+      transition: all 0.35s ease-in;
+      .paly_icon{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+      }
+      &.active{
+        .ui-icon{
+          transition: opacity 0.25s ease-in;
+          opacity: 0;
+        }
+      }
+    }
+  }
+  &.active{
+    bottom: -100px;
+  }
+}
+
+
+// 音频模版内容
+
+
+.audio_content{
+  display:flex;
+  flex-direction:column;
+
+  .text{
+    text-align: center;
+    line-height: 60rpx;
+  }
+  .text1{
+    font-size: 16px;
+  }
+  .left_val{
+    text-align: right;
+    padding-right:20px;
+    line-height: 25px;
+    color: #ADADAD;
+    font-size: 14px;
+  }
+  .right_val{
+    text-align: left;
+    padding-left:20px; 
+    line-height: 25px;
+    color: #ADADAD;
+    font-size: 14px;
+  }
+
+
+  .play_win{
+    .ui-icon{
+      line-height: 60px;
+    }
+  }
+  .songBar_content{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    .bottom_bar {
+      width:100%;
+      border-top: 1px solid #EBEBEB;
+      background-color: #FBF9FE;
+      .ui-text{
+        font-size: 14px;
+        color: #A5A5A5;
+      }
+    }
+  }
+  .audio_head{
+    flex: 0 0 50rpx;
+    text-align: center;
+  }
+  .songImg{
+    flex: 1;
+    padding: 10px;
+    .ui-image {
+      margin: 0 auto;
+      box-shadow: 0px 3px 13px 0px #ccc;
+    }
+  }
+  .songText{
+    flex: 0 0 160rpx;
+  }
+  .songText2{
+    flex: 0 0 100rpx;
+  }
+  .songPlay{
+    flex: 0 0 180rpx;
+  }
+  .songBar{
+    flex: 0 0 140rpx;
+  }
+  // .ui-row{
+  //   flex: 0 0 140rpx;
+  // }
+}
+.audio_play_list{
+  box-shadow: 0 0 25px 0 #ccc;
+}
+.audio_play_list_wrap {
+  position: relative;
+  height: 100%;
+  .icon-close {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) scale(4);
+    font-size: 24rpx;
+  } 
+  .newBar{
+    border-bottom: 1px solid #ececec;
+  }
+  .list_title{
+    .ui-text{
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .ui-icon{
+      font-size: 18px;
+    }
+  }
+  .list_content{
+    padding: 10px;
+    height: 250px;
+    overflow: scroll;
+  }
+  .song_name{
+    line-height: 25px;
+    border-bottom: 1px solid #ececec;
+    padding: 5px 0;
+    .songname{
+      font-size: 16px;
+      color: #333;
+    }
+    .singername{
+      font-size: 12px;
+      color: #888;
+    }
+  }
+  .nowSong{
+    .songname{
+      color: #FF9D1F;
+    }
+    .singername{
+      color: #FF9D1F;
+    }
+  }
+}
+
+// 修改tabBar样式
+.ui-tab-bar{
+  box-shadow: 0 4px 16px 0 #ccc;
+}
+</style>

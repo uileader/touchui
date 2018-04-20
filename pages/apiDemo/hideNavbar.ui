@@ -1,0 +1,45 @@
+<template>
+  <ui-page>
+    <ui-view class="win">
+      <ui-view class="title">
+          这里通过配置文件隐藏默认的导航栏，一般用于在页面里添加自定义的导航栏组件。
+      </ui-view>
+      <ui-button bindtap="navigateBack">返回上一页</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "隐藏导航栏",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":"black"
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    }
+  },
+  
+}
+
+</script>
+
+<style lang="less">
+  .win{
+  text-align: center;
+  padding: 80px 10px 10px 10px;
+  .title{
+    font-size: 16px;
+    line-height: 30px;
+  }
+  .ui-button{
+    width: 100px;
+  }
+}
+</style>
+    

@@ -1,0 +1,52 @@
+<!--swiper7.ui-->
+<template>
+  <ui-page>
+    <ui-view class="demo">
+      <ui-ex-swiper vertical pagination style="{{ { height: height + 'px'} }}">
+        <ui-ex-swiper-item class="bc_green"></ui-ex-swiper-item>
+        <ui-ex-swiper-item class="bc_red"></ui-ex-swiper-item>
+        <ui-ex-swiper-item class="bc_blue"></ui-ex-swiper-item>
+      </ui-ex-swiper>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// swiper7.js
+export default {
+  config: {
+    "navigationBarTitleText": "纵向切换",
+    "disableIosGesture":true
+  },
+  data () {
+    return {
+      height: ui.DEFAULT_CONTENT_HEIGHT
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+.demo{
+.container {
+    padding: 5px 10px;
+  }
+.swiper-slide {
+    height: 100%;
+    line-height: 100px;
+    text-align: center;
+    color: #fff;
+  }
+.bc_green{
+    background-color: #7CC422;
+  }
+  .bc_red{
+    background-color: #FFA060;
+  }
+  .bc_blue{
+    background-color: #46D1E4;
+  }
+}
+</style>

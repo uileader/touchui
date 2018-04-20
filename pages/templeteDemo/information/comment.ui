@@ -1,0 +1,305 @@
+<!--details.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10"  width="40" bindtap="navigateBack">
+           <ui-icon type="arrow-left" size="20" color="#4E4E4E"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">评论详情</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" width="40"></ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <ui-view class="details_content" style="{{{ height:contentHeight-50+'px' }}}">
+      <ui-view class="comment_wrap">
+        <ui-row class="discuss" space="40" ui:for="{{ commentContent }}">
+          <ui-col vertical-align="top" align="left" width="50">
+            <ui-image 
+              src="{{ item.head }}"
+              width="30"
+              height="30"
+            ></ui-image>
+          </ui-col>
+          <ui-col vertical-align="top" align="left">
+            <ui-row height="50">
+              <ui-col vertical-align="millde" align="left">
+                <ui-view>{{ item.name }}</ui-view>
+                <ui-text>{{ item.time }}</ui-text>
+              </ui-col>
+              <ui-col vertical-align="millde" align="right" width="30">
+                <ui-icon type="praise" size="16" color="#5A5B5E"></ui-icon>
+              </ui-col>
+            </ui-row>
+            <ui-view class="discuss_text">{{ item.text }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+
+    </ui-view>
+
+    <ui-fixed-view bottom="0" class="input_box">
+      <ui-row class="input_box" height="46" bindclick="openPopup">
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view>输入评论</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+          <ui-icon type="praise" size="24" color="#A3A3A3"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-fixed-view>
+
+
+
+    <!-- 全片输入框 -->
+
+    <ui-mask ui:model="{{ popupShow }}" height="100%" background="#F2F2F2" bindinit="popupInit">
+      <ui-view class="wrap" style="{{{ 'padding-top':statusBar+'px' }}}">
+        <ui-row height="46" class="head">
+          <ui-col vertical-align="middle" align="left" space-left="10" width="40" bindtap="cancel">
+            <ui-view>取消</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-view class="title">评论</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="right" width="40" space-right="10" bindtap="publish">
+            <ui-view class="publish {{ className }}">发布</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-textarea maxlength="-1" show-counter="{{false}}" focus="{{ popupShow }}" height="120" placeholder="发表评论" placeholder-style="color:#A8A8A8" value="{{ textareaValue }}" bindinput="changeTextarea"></ui-textarea>
+        <ui-view class="choose">
+          <ui-row height="50" bindtap="showActionSheet">
+            <ui-col vertical-align="middle" align="left" space-left="10">
+              <ui-view class="left">选择发布身份</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right">
+              <ui-view class="right">{{ identity }}</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="14" color="#DFDDDF"></ui-icon>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+      </ui-view>
+    </ui-mask>
+    
+  </ui-page>
+</template>
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F7F7F7"
+  },
+  data () {
+    return {
+      contentHeight: ui.DEFAULT_CONTENT_HEIGHT,
+      commentValue:'',
+      commentContent:[
+        {
+          head:require('#/images/indexList/t2.png'),
+          name:'菜仓-a-b-c',
+          time:'昨天',
+          text:'买生鲜还是要去菜场，那里有生活的味道，是任何地方都不可比的。如果要和菜场抢生意，那还是得先起个好名字，电商也好，实体店铺也好，菜仓怎么样，或者菜仓生鲜？更接近菜场，高大上，还很接地气：）'
+        },
+        {
+          head:require('#/images/indexList/t2.png'),
+          name:'老格',
+          time:'昨天',
+          text:'这不就是“touchUI”正在做的事情吗'
+        }
+      ],
+      popupShow:false,
+      identity:'TOUCH UI（自己）',
+      textareaValue:'',
+      className:'',
+      statusBar:ui.STATUS_BAR_HEIGHT
+    }
+  },
+  methods: {
+    navigateBack() {
+      ui.navigateBack()
+    },
+    commentSubmit(e) {
+      console.log(e)
+      let value = e.search
+      let date = new Date();
+      // let h = date.getHours();
+      // let m = date.getMinutes();
+      // let s = date.getSeconds();
+      let mytime = date.toLocaleTimeString()
+      let content={
+        head: require('#/images/head.jpg'),
+        name: 'Touch UI',
+        time: mytime,
+        content: value
+      }
+      if (value !== '') {
+        this.commentContent.unshift(content)
+        ui.showToast({ title: '评论成功' })
+      }
+      this.commentValue = ''
+    },
+    openPopup(){
+      this.popupShow=true
+    },
+    changeTextarea(e){
+      console.log(e)
+      this.textareaValue=e
+      if (this.textareaValue.length > 0) {
+        this.className = 'active'
+      } else {
+        this.className = ''
+      }
+    },
+    cancel() {
+      this.popupShow = false
+    },
+    popupInit(){
+      
+    },
+    publish(){
+      if (this.className!==''){
+        this.popupShow = false
+
+        let date = new Date();
+        let mytime = date.toLocaleTimeString()
+        let content = {
+          head: require('#/images/indexList/t2.png'),
+          name: 'Touch UI',
+          time: mytime,
+          text: this.textareaValue
+        }
+        this.commentContent.unshift(content)
+        ui.showToast({ title: '评论成功' })
+        this.textareaValue = ''
+      }
+    },
+    showActionSheet(){
+      let itemList = [
+        'TOUCH UI（自己）'
+      ]
+      //上面下面两种写法都行
+      // let itemList = [
+      //   '<span style="color: #0E63FF">TOUCH UI（自己）</span>'
+      // ]
+      ui.showActionSheet({
+        header: '<p><span style="color:#828282;font-size:12px;">选择发布身份</span></p>',
+        itemList: itemList,
+        success: (index) => {
+          this.identity = itemList[index]
+        }
+      })
+    }
+    
+  },
+  mounted () {
+    
+  }
+}
+
+
+</script>
+
+<style lang="less">
+  .nav_bar{
+  background-color: #fff;
+  .search{
+    width: 100%;
+    border-radius: 25px;
+    background-color: #F6F6F6;
+    font-size: 14px;
+    .ui-view{
+      color: #CECECE;
+      height: 100%;
+      line-height: 30px;
+    }
+  }
+}
+
+.comment_wrap{
+  padding: 10px;
+  background-color: #fff;
+  
+}
+.input_box{
+  width: 100%;
+  background-color: #fff;
+  .ui-view{
+    width: 100%;
+    border-radius: 25px;
+    background-color: #F2F2F2;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color:#A8A8A8;
+    padding-left: 10px;
+  }
+}
+
+.wrap{
+  background-color: #fff;
+  .head{
+    color: #646464;
+    font-size: 14px;
+    .title{
+      font-size: 16px;
+    }
+    .publish{
+      color: #B4D3F5;
+      &.active{
+        color: #0E63FF;
+      }
+    }
+  }
+  .ui-textarea-wrapper{
+    padding: 10px;
+    border: 0;
+    .ui-textarea{
+      padding: 0;
+    }
+  }
+  .choose{
+    padding-left: 10px;
+    border-top: 1px solid #FAFAFA;
+    background-color: #fff;
+    .ui-row{
+      border-top: 1px solid #FAFAFA;
+      .left{
+        color: #2A2A2A;
+        font-size: 14px;
+      }
+      .right{
+        color: #929292;
+        font-size: 14px;
+      }
+    }
+    
+  }
+}
+
+.discuss{
+  .ui-image{
+    border-radius: 50%;
+  }
+  .ui-row{
+    width:100%;
+    .ui-view{
+      font-size: 14px;
+      color: #7B7C7F;
+    }
+    .ui-text{
+      font-size: 12px;
+      color: #95979C;
+    }
+  }
+  .discuss_text{
+    font-size: 14px;
+    color: #3D3D3D;
+  }
+}
+
+</style>

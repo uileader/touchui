@@ -1,0 +1,160 @@
+<!--touchEvent.ui-->
+<template>
+  <ui-page>
+      <ui-view class="sample_title">触摸事件</ui-view>
+      <ui-view class="sample_content">
+        <div class="demo-text" bindtouchstart="bindtouchstart" bindtouchmove="bindtouchmove" bindtouchend="bindtouchend">
+          触摸
+          <i>{{touchText}}</i>
+        </div>
+      </ui-view>
+      <ui-view class="sample_title">长按事件</ui-view>
+      <ui-view class="sample_content">
+        <div class="demo-text" bindlongtap="bindlongtap">
+          长按
+          <i>{{longtapText}}</i>
+        </div>
+      </ui-view>
+      <ui-view class="sample_title">点击事件</ui-view>
+      <ui-view class="sample_content">
+        <ui-view class="demo-text" bindtap="bindtap">
+          点击
+          <i>{{tapText}}</i>
+        </ui-view>
+      </ui-view>
+      <ui-view class="sample_title">滑动事件</ui-view>
+      <ui-view class="sample_content">
+        <ui-view class="demo-text demo-text-large" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend">
+          滑动
+          <i>{{scrollText}}</i>
+        </ui-view>
+      </ui-view>
+      <ui-view class="sample_title">长按图片</ui-view>
+      <ui-view class="sample_content">
+          <ui-image src="{{imgUrl}}" width="300" height="400" mode="aspectFill" bindlongtap="bindlongtap2" class="img"></ui-image>
+      </ui-view>
+      
+  </ui-page>
+</template>
+
+
+<script>
+// touchEvent.js
+export default {
+  config: {
+    "navigationBarTitleText": "触摸事件"
+  },
+  data () {
+    return {
+      imgUrl: 'http://images.uileader.com/20170930/7fbde6a5-2e25-4f74-873d-a4b44fd82269.jpg',
+      tapText: '',
+      longtapText: '',
+      touchText: '',
+      scrollText: '',
+      startX: '',
+      startY: '',
+      itemList: ['发送给朋友', '收藏', '保存图片', '编辑', '定位到聊天位置']
+    }
+  },
+  methods: {
+    bindlongtap () {
+      var that = this
+      this.longtapText = 'longtap'
+      setTimeout(function () {
+        that.longtapText = ''
+      }, 1000)
+    },
+    bindlongtap2 () {
+      ui.showActionSheet({
+        itemList: this.itemList,
+        success: (index) => {
+          if (index !== -1) {
+            ui.showToast({
+              title: this.itemList[index]
+            })
+          }
+        }
+      })
+    },
+    bindtap () {
+      var that = this
+      this.tapText = 'tap'
+      setTimeout(function () {
+        that.tapText = ''
+      }, 1000)
+    },
+    bindtouchstart (e) {
+      this.touchText = 'touchstart'
+    },
+    bindtouchmove (e) {
+      this.touchText = 'touchmove'
+    },
+    bindtouchend () {
+      var that = this
+      this.touchText = 'touchend'
+      setTimeout(function () {
+        that.touchText = ''
+      }, 1000)
+    },
+    touchstart (e) {
+      this.startX = e.changedTouches[0].clientX
+      this.startY = e.changedTouches[0].clientY
+    },
+    touchmove (e) {
+      var moveX = e.changedTouches[0].clientX
+      var moveY = e.changedTouches[0].clientY
+      var disX = moveX - this.startX
+      var disY = moveY - this.startY
+      if (Math.abs(disX) > Math.abs(disY) && disX > 0) {
+        this.scrollText = 'right'
+      } else if (Math.abs(disX) > Math.abs(disY) && disX < 0) {
+        this.scrollText = 'left'
+      } else if (Math.abs(disX) < Math.abs(disY) && disY < 0) {
+        this.scrollText = 'up'
+      } else if (Math.abs(disX) < Math.abs(disY) && disY > 0) {
+        this.scrollText = 'down'
+      }
+    },
+    touchend (e) {
+      this.startX = ''
+      this.startY = ''
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // touchEvent.less
+
+.demo-text{
+  width: 100%;
+  height: 120rem/48;
+  background: #EAE8E8;
+  text-align: center;
+  color: #999;
+  line-height: 120rem/48;
+  font-size: 18px;
+  position: relative;
+}
+.demo-text i{
+  position: absolute;
+  right: 20rem/75;
+  bottom: -20rem/75;
+  font-size: 28rem/75;
+  color: #333;
+  font-style: normal;
+}
+.demo-text-large{
+  height: 200rem/75;
+  line-height: 200rem/75;
+}
+.demo-text-large i{
+  bottom: -60rem/75;
+}
+.img{
+  // width: 80%;
+  margin: 0 auto;
+  // display: block;
+}
+</style>

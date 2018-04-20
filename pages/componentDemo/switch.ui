@@ -1,0 +1,77 @@
+<template>
+  <ui-page>
+      <ui-view class="sample_title">基本使用</ui-view>
+      <ui-row-list>
+        <ui-row>
+          <ui-col width="70">
+            <ui-switch ui:model="{{ value1 }}"></ui-switch>
+          </ui-col>
+          <ui-col>
+            <ui-switch ui:model="{{ value3 }}"></ui-switch>
+          </ui-col>
+        </ui-row>
+      </ui-row-list>
+      <ui-view class="sample_title">change事件</ui-view>
+        <ui-view>
+          <ui-switch bindchange="handleSwitchChange"></ui-switch>
+        </ui-view>
+      <ui-view class="sample_title">设置color属性</ui-view>
+        <ui-view>
+          <ui-switch color="red" ui:model="{{ value2 }}"></ui-switch>
+        </ui-view>
+      <ui-view class="sample_title">禁用</ui-view>
+      <ui-row-list>
+        <ui-row height="44">
+          <ui-col space-left="10" wdith="100" align="left" vertical-align="middle"> 
+              初始值为false
+          </ui-col>
+          <ui-col  width="75" align="right" vertical-align="middle">
+          <ui-switch disabled></ui-switch>
+          </ui-col>
+        </ui-row>
+        <ui-row height="44">
+            <ui-col space-left="10" wdith="100" align="left" vertical-align="middle">
+                初始值为true
+            </ui-col>
+            <ui-col width="75" align="right" vertical-align="middle">
+              <ui-switch value="{{ true }}" disabled></ui-switch>
+            </ui-col>
+        </ui-row>
+      </ui-row-list>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "开关"
+  },
+  data () {
+    return {
+      value1: true,
+      value2: true,
+      value3: false,
+      value4: true,
+      htmlTitle: '<span style="color:red">标题使用html</span>'
+    }
+  },
+  methods: {
+    handleSwitchChange (val) {
+      ui.showToast({
+        title: `switch的值为${val}`
+      })
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.ui-text{
+  margin-top: 0.77em;
+  margin-bottom: 0.3em;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #999999;
+  font-size: 14px;
+}
+</style>

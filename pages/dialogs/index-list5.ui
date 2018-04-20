@@ -1,0 +1,107 @@
+<!--index-list2.ui-->
+<template>
+    <ui-page>
+      <ui-index-list multiple="{{false}}" data="{{list}}" bindcustomtap="singleselect">
+      </ui-index-list>
+    </ui-page>
+  </template>
+  <!-- 请输入汽车品牌 -->
+  
+  
+  <script>
+  // index-list2.js
+  import currencyData from '#/static/data/currency.js'
+  export default {
+    config: {
+      "navigationBarTitleText": "自定义数据格式"
+    },
+    data () {
+      return {
+        country: '',
+        list:[]
+      }
+    },
+    created () {
+      console.log(currencyData)
+      let obj = JSON.parse(currencyData.result)
+      console.log(obj)
+      let objIndex=[
+        'A', 'B', 'C', 'D', 'E', 'F', 'G',
+        'H', 'I', 'J', 'K', 'L', 'M', 'N',
+        'O', 'P', 'Q', 'R', 'S', 'T', 'U', 
+        'V', 'W', 'X', 'Y', 'Z'
+      ]
+      objIndex.forEach((item, index) => {
+        if (obj[item].length>0){
+          let content = {
+            index: item,
+            items: obj[item]
+          }
+          this.list.push(content)
+        }
+      });
+      
+      this.setData({
+        list: this.list
+      })
+    },
+    mounted () {
+      this.$DialogOpen((data) => {
+        if (data && data.country) {
+          this.country = data.country
+        }
+      })
+    },
+    methods: {
+       singleselect (msg) {
+       
+          ui.hideDialog({country: msg.name, index: 1})
+        },
+    }
+  }
+  
+  </script>
+  
+  <style lang="less">
+    // index-list2.less
+  .now-city {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: #fff;
+      font-size: 28rpx;
+      line-height: 1.0;
+      color: #666;
+      padding: 18rpx 20rpx;
+    }
+    .tag1{
+      font-size: 28rpx;
+      padding: 12rpx 44rpx;
+      border: 2px solid #3399ff;
+      margin-top: 20rpx;
+      border-radius: 8rpx;
+      color: #3399ff;
+    }
+    .tag2{
+      font-size: 28rpx;
+      padding: 12rpx 44rpx;
+      border: 2px solid #ccc;
+      margin-top: 20rpx;
+      border-radius: 8rpx;
+      color: #666;
+      display: inline-block;
+      margin-right: 20rpx;
+    }
+    .now-city .now-city-name {
+      display: flex;
+      background: white;
+      font-size: 30rpx;
+      line-height: 1.0;
+      letter-spacing: 0.4rpx;
+      color: #333333;
+      padding: 13rpx 33rpx;
+      border: solid 1rpx #dbdbdb;
+      margin-top: 18rpx;
+    }
+  </style>
+  

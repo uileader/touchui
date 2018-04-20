@@ -1,0 +1,660 @@
+<!--listView.ui-->
+<template>
+    <ui-page show-loading="{{false}}">
+        <ui-nav-bar title="" slot="nav-bar" class="nav_bg">
+            <ui-row height="46">
+              <ui-col vertical-align="middle" align="center" width="55" bindtap="handleNavLeft">
+                  <ui-icon type="arrow-left" size="12" color="#39f"></ui-icon>
+              </ui-col>
+              <ui-col vertical-align="middle" align="center">
+                  <ui-view class="search">
+                      <ui-view class="search_center" style="{{{ width: searchWidth + 'px' }}}">
+                        <ui-row height="30">
+                          <ui-col align="right" vertical-align="middle" width="20">
+                            <ui-icon type="magnifier" size="18" color="#666"></ui-icon>
+                          </ui-col>
+                          <ui-col align="left" vertical-align="middle" space-left="10" span="8">
+                            换个关键词试试看？
+                          </ui-col>
+                        </ui-row>
+                      </ui-view>
+                    </ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="center"  width="55" bindtap="handleNavRight">
+              </ui-col>
+            </ui-row>
+            
+          </ui-nav-bar>
+        <ui-view class="content">
+            <ui-list-view config="{{ config }}"
+            enable-reach-bottom-load custom-tip bindchange="handleListViewChange">
+                <template scope="props">
+                    <ui-list-view-item tap-effect>
+                      <ui-view>
+                        <ui-row class="list-view"  ui:if="props.item.type=== '0'">
+                          <!-- 左侧文字 -->
+                          <ui-col space-right="15">
+                            <ui-row>
+                              <ui-col>
+                                <ui-text class="titlename">{{props.item.titleName}}</ui-text>
+                              </ui-col>
+                            </ui-row>
+                            <ui-row>
+                              <ui-col width="15" vertical-align="bottom" algin="left">
+                                  <ui-view ui:if="props.item.dataType=== 'hot'">
+                                    <ui-icon type="huo" size="10" color="#e60012"></ui-icon>
+                                  </ui-view>
+                                  <ui-view ui:elif="props.item.dataType=== 'music'">
+                                    <ui-icon type="erji" size="10" color="#e60012"></ui-icon>
+                                  </ui-view>
+                              </ui-col>
+                              <ui-col vertical-align="bottom">
+                                <ui-view>
+                                  <ui-text class="color6 small-font">{{props.item.source}} ·</ui-text>
+                                  <ui-text class="color6 small-font">{{props.item.datetime}}</ui-text>
+                                </ui-view>
+                              </ui-col>
+                              <ui-col vertical-align="bottom" align="right" width="50">
+                                <ui-view>
+                                  <ui-text class="color6 small-font">{{props.item.collect}}收藏</ui-text>
+                                </ui-view>
+                              </ui-col>
+                            </ui-row>
+                          </ui-col>
+                          <!-- 右侧图片 -->
+                          <ui-col class="imgbox-1" vertical-align="middle"> 
+                            <ui-image width="100%" load-effect="fade"  ui:for="{{props.item.imgarr}}"	 ui:for-item="image" src="{{image.imgsrc}}"></ui-image>
+                          </ui-col>
+                        </ui-row>
+                        <!-- 3图，上下结构 -->
+                        <ui-view class="list-view"  ui:if="props.item.type=== '1'">
+                          <ui-row space="20">
+                            <ui-col>
+                              <ui-text class="titlename">{{props.item.titleName}}</ui-text>
+                            </ui-col>
+                          </ui-row>
+                          <ui-row space="20">
+                            <ui-col space="10" ui:for="{{props.item.imgarr}}" ui:for-item="image" class="imgbox-2">
+                              <ui-image width="100%" load-effect="fade"  src="{{image.imgsrc}}"  mode="aspectFill"></ui-image>
+                            </ui-col>
+                          </ui-row>
+                          <ui-row space="20">
+                            <ui-col vertical-align="bottom">
+                              <ui-view>
+                                <ui-text class="color6 small-font">{{props.item.source}} ·</ui-text>
+                                <ui-text class="color6 small-font">{{props.item.datetime}}</ui-text>
+                              </ui-view>
+                            </ui-col>
+                            <ui-col vertical-align="bottom" align="right" space-right="10">
+                              <ui-view>
+                                <ui-text class="color6 small-font">{{props.item.collect}}收藏</ui-text>
+                              </ui-view>
+                            </ui-col>
+                          </ui-row>
+                        </ui-view>
+                        <!-- 上下图结构，大图 -->
+                        <ui-view class="list-view"  ui:if="props.item.type=== '2'">
+                            <ui-row space="10">
+                              <ui-col>
+                                <ui-text class="titlename">{{props.item.titleName}}</ui-text>
+                              </ui-col>
+                            </ui-row>
+                            <ui-row space="10">
+                              <ui-col space="10" ui:for="{{props.item.imgarr}}" ui:for-item="image">
+                                <ui-image load-effect="fade"  width="100%" height="150" mode="center" src="{{image.imgsrc}}"></ui-image>
+                              </ui-col>
+                            </ui-row>
+                            <ui-row space="10">
+                              <ui-col vertical-align="bottom">
+                                <ui-view>
+                                  <ui-text class="color6 small-font">{{props.item.source}} ·</ui-text>
+                                  <ui-text class="color6 small-font">{{props.item.datetime}}</ui-text>
+                                </ui-view>
+                              </ui-col>
+                              <ui-col vertical-align="bottom" align="right" space-right="10">
+                                <ui-view>
+                                  <ui-text class="color6 small-font">{{props.item.collect}}收藏</ui-text>
+                                </ui-view>
+                              </ui-col>
+                            </ui-row>
+                        </ui-view>
+                        <!-- 广告 -->
+                        <ui-view class="list-view"  ui:if="props.item.type=== '3'">
+                          <ui-row space="10">
+                              <ui-col>
+                                <ui-text class="titlename">{{props.item.titleName}}</ui-text>
+                              </ui-col>
+                            </ui-row>
+                            <ui-row space="10">
+                              <ui-col space="10" ui:for="{{props.item.imgarr}}" ui:for-item="image">
+                                <ui-image load-effect="fade"  width="100%" height="150" mode="center" src="{{image.imgsrc}}"></ui-image>
+                              </ui-col>
+                            </ui-row>
+                            <ui-row space="10">
+                              <ui-col vertical-align="bottom" align="right" space-right="10">
+                                <ui-view>
+                                  <ui-text ui:for="{{props.item.articleType}}" ui:for-item="articleType" style="{{{backgroundColor:articleType.backgroundColor,color:articleType.color}}}" class="articletype small-font">{{articleType.content}}</ui-text>
+                                </ui-view>
+                              </ui-col>
+                            </ui-row>
+                        </ui-view>
+                        <!-- 无图 -->
+                        <ui-view class="list-view"  ui:if="props.item.type=== '4'">
+                          <ui-row>
+                            <ui-col>
+                              <ui-text class="titlename">{{props.item.titleName}}</ui-text>
+                            </ui-col>
+                          </ui-row>
+                          <ui-row space="10">
+                            <ui-col vertical-align="bottom">
+                              <ui-view>
+                                <ui-text class="color6 small-font">{{props.item.source}} ·</ui-text>
+                                <ui-text class="color6 small-font">{{props.item.datetime}}</ui-text>
+                              </ui-view>
+                            </ui-col>
+                            <ui-col vertical-align="bottom" align="right" space-right="10">
+                              <ui-view>
+                                  <ui-text ui:for="{{props.item.articleType}}" ui:for-item="articleType" style="{{{backgroundColor:articleType.backgroundColor,color:articleType.color}}}" class="articletype small-font">{{articleType.content}}</ui-text>
+                              </ui-view>
+                            </ui-col>
+                          </ui-row>
+                        </ui-view>
+                      </ui-view>
+                    </ui-list-view-item>
+                </template>
+            </ui-list-view>
+        </ui-view>
+
+        <ui-view class="list-view-msg">
+          <ui-view class="loading-content" v-if="status === 0 && isflag === false">
+            <ui-view class="loading"></ui-view>
+            <span class="loading-text">加载中...</span>
+          </ui-view>
+          <ui-view class="offline" ui:if="status === 2 && isflag === false" bindtap="handleReload">网络异常....</ui-view>
+          <ui-view class="timeout" ui:if="status === 3 && isflag === false" bindtap="handleReload">请求超时...</ui-view>
+          <ui-view class="error" ui:if="status === 4 && isflag === false" bindtap="handleReload">请求失败...</ui-view>
+          <ui-view class="no-more" ui:if="status === 10 && isflag === false">没有更多了...</ui-view>
+        </ui-view>
+        
+        <ui-view class="self-loading main">
+        <ui-view class="loading-content show_tip" v-if="status === 0 && isflag">
+          <ui-view class="loading"></ui-view>
+          <span class="loading-text">加载中...</span>
+        </ui-view>
+      </ui-view>
+
+        <ui-view ui:if="status === 5 && isflag" class="main">
+          <ui-view class="show_tip">
+            <ui-icon type="ico_nodata" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">没有数据</ui-view>
+          </ui-view>
+        </ui-view>
+    
+        <ui-view ui:if="status === 3 && isflag" class="main" >
+          <ui-view class="show_tip">
+            <ui-icon type="qingqiuchaoshi" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">请求超时</ui-view>
+            <ui-button type="primary" class="selfrequestbtn" bindtap="handleReload">点击重试</ui-button>
+          </ui-view>
+        </ui-view>
+    
+        <ui-view ui:if="status === 4 && isflag" class="main">
+          <ui-view class="show_tip">
+            <ui-icon type="networkOffline" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">请求失败啦</ui-view>
+            <ui-button type="primary" class="selfrequestbtn" bindtap="handleReload">点击重试</ui-button>
+          </ui-view>
+        </ui-view>
+    
+        <ui-view ui:if="status === 2 && isflag" class="main">
+          <ui-view class="show_tip">
+            <ui-icon type="networkError" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">网络无法连接，请检查您的网络</ui-view>
+            <ui-button type="primary" class="selfrequestbtn" bindtap="handleReload">点击重试</ui-button>
+          </ui-view>
+        </ui-view>
+    </ui-page>
+  </template>
+  
+
+<script>
+  export default {
+    config: {
+    "navigationBarTitleText": "listView3",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":"black"
+  },
+  data () {
+    return {
+      WINWIDTH: ui.WIN_WIDTH,
+      searchWidth: '',
+      status: null,
+      isflag: true,
+      config: {
+        url: '/touchui-backstage/listNews.do',
+        type: 'get',
+        pageSize: {
+          key: 'pageSize',
+          value: 5
+        },
+        pageNo: {
+          key: 'pageNo',
+          value: 2
+        },
+        param: {
+          suffix: ''
+        },
+        dataKey: 'data',
+        reload: false,
+        refresh: false
+      },
+      pullDown: {
+        distance: 84,
+        onBegin: () => {},
+        onActive: this.handleActive,
+        onAfter: () => {}
+      }
+    }
+  },
+  methods: {
+    handleNavLeft () {
+      ui.navigateBack()
+    },
+    handleNavRight () {
+      ui.showToast({
+        title: 'NavBar右侧点击事件'
+      })
+    },
+    handleListViewChange (status) {
+      this.status = status
+      if (this.status === 1) {
+        this.isflag = false
+      }
+    },
+    handleActive () {
+      this.config.refresh = true
+    },
+    handleReload () {
+      this.config.reload = true
+    }
+  },
+  mounted () {
+    this.searchWidth = window.innerWidth - 110
+  }
+}
+
+</script>
+
+<style lang="less">
+
+
+.ui-nav-bar{
+  .mix-1px(0, 0, 1, 0, #ccc);
+}
+.nav_bg{
+  background-color: #fff;
+}
+
+.nav_left{
+  width: 100%;
+  font-size: 14px;
+  color: #fff;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+}
+.nav_right{
+  width: 100%;
+  height: 46px;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+}
+
+
+.search{
+  width:100%;
+  height: 46px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  .mix-flex-center();
+  .search_center{
+    background-color:#EBECED;
+    margin-left: 10px;
+    height: 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all .25s ease-in;
+    color: #666;
+    font-size: 12px;
+    line-height: 30px;
+    .ui-icon{
+      margin-left: 10px;
+    }
+  }
+  .nav_center{
+    width: 97%!important;
+    margin-left: 0;
+    z-index: 999;
+  }
+}
+
+
+.list-view{
+  padding:10px;
+  .titlename{
+    color:#333;
+    font-size:16px;
+  }
+  .color6{
+    color:#666;
+  }
+  .color3{
+    color:#333;
+  }
+  .articletype{
+    padding:2px 3px;
+    border-radius: 2px;
+  }
+  .imgbox-1{
+    flex:0 0 260rpx;
+    .ui-image{
+      border-radius: 5px;
+    }
+  }
+
+  .imgbox-2{
+    .ui-image{
+      border-radius: 5px;
+    }
+  }
+
+  .imgbox-3{
+    .ui-image{
+      border-radius: 5px;
+    }
+  }
+
+  .small-font{
+    font-size:12px;
+  }
+
+}
+
+.hoverclass{
+  background-color:#f5f5f5;
+}
+
+
+@media screen and (max-width: 320px) {
+  .small-font{
+    font-size:10px;
+  }
+}
+
+
+@loading-color: #3399ff;
+// listView.less
+.nav_bg{
+  background-color: #fff;
+}
+
+.colwidth{
+  // width:176r;
+  flex:0 0 176rpx !important;
+}
+.nav_left{
+  width: 100%;
+  font-size: 14px;
+  color: #fff;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+}
+.nav_right{
+  width: 100%;
+  height: 46px;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+}
+
+.search{
+  width:100%;
+  height: 46px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  .mix-flex-center();
+  .search_center{
+    background-color:#EBECED;
+    margin-left: 10px;
+    height: 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all .25s ease-in;
+    color: #666;
+    font-size: 12px;
+    line-height: 30px;
+    .ui-icon{
+      margin-left: 10px;
+    }
+  }
+  .nav_center{
+    width: 97%!important;
+    margin-left: 0;
+    z-index: 999;
+  }
+}
+
+.tap-effect{
+  background-color:#eee;
+}
+
+.ui-list-view-item{
+  padding:30rpx 0;
+}
+.list-line-box{
+  padding:20rpx;
+}
+.left-img-box{
+  // width:180rpx;
+  .ui-image{
+    width:100%;
+  }
+}
+
+.small-font{
+  font-size:12px;
+  
+}
+@media screen and (max-width: 320px) {
+  .small-font{
+    font-size:10px;
+  }
+}
+.ui-star{
+  width:10px !important;
+  height:10px !important;
+  .ui-image{
+    width:100% !important;
+  }
+}
+
+.ui-image{
+  width:100%;
+}
+
+.title-name{
+  font-size:16px;
+  font-weight:bold;
+  .mix-text-overflow ()
+}
+.title-info{
+  color:#666;
+}
+.prevailing-price{
+  font-size:14px;
+  color:#06c1ae;
+}
+.original-price{
+  color:#666;
+}
+
+.promotion{
+  color:#ff8822;
+  padding: 0 4px;
+  .mix-1px(1, 1, 1, 1, #ff8822);
+  
+  
+}
+.smarg-tags{
+  margin-right:5px;
+  font-size:10px;
+}
+
+.extra-servicebox :last-of-type .vertical{
+  display: none;
+  color:#00d762
+}
+
+.vertical{
+  margin:0 3px;
+}
+
+.inline{
+  .ui-view{
+    display: inline
+  }
+}
+
+.inline-block{
+  .ui-view{
+    display:inline-block
+  }
+}
+.address{
+  color:#666;
+  .mix-text-overflow ()
+}
+
+.deal-info-wrapper{
+  .preferential{
+    text-align: left;
+    padding-left:20px;
+    color:#666;
+    background-position:0 50%;
+    height: 15px;
+    line-height: 15px;
+    margin: 3px 0;
+  }
+
+  .line{
+    height:1px;
+    .mix-1px(1, 0, 0, 0, #ccc);
+    margin-bottom:5px;
+  }
+  .discount-tuan{
+    background: url('../../images/tuan.png') no-repeat; 
+    background-size: 15px 15px;
+
+  }
+  .discount-quan{
+    background: url('../../images/quan.png') no-repeat; 
+    background-size: 15px 15px;
+  }
+
+  .preferential-text{
+    .mix-text-overflow ();
+  }
+}
+
+
+// 自定义网络状态样式
+.main{
+  flex-grow:1;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center; 
+  text-align: center;
+  flex-grow:1;
+}
+.show_tip{
+  width:100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .ui-icon{
+    line-height: 1.1;
+  }
+}
+
+.selfrequestbtn{
+  width:100px;
+  background-color: #41ad72;
+  color:#fff;
+  border-color:#41ad72;
+}
+
+.selfrequestbtn-hover{
+  background-color:#318a59;
+  border-color:#318a59
+}
+.list-view-msg{
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  .ui-view{
+    text-align: center;
+    font-size:12px;
+    color:#666;
+  }
+}
+
+.ui-loading-circle {
+  width: 5px;
+  height: 5px;
+  background: @loading-color;
+  border-radius: 50%;
+  margin-left: 5px;
+  display: inline-block;
+}
+
+.ui-loading-circle-1 {
+  -webkit-animation: circle 1s linear infinite alternate;
+  animation: circle 1s linear infinite alternate;
+}
+
+.ui-loading-circle-2 {
+  -webkit-animation: circle 1s linear infinite alternate;
+  animation: circle 1s linear infinite alternate;
+  animation-delay: 0.5s;
+}
+
+.ui-loading-circle-3 {
+  -webkit-animation: circle 1s linear infinite alternate;
+  animation: circle 1s linear infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes circle {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+</style>  

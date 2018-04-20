@@ -1,0 +1,877 @@
+<template>
+    <ui-page>
+      <ui-nav-bar slot="nav-bar" class="nav_bar">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="left" space-left="10" width="50" bindtap="navigateBack">
+              <ui-icon type="arrow-left" size="18" color="#6E6E6E"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" bindtap="showFullScreenSearch">
+            <ui-view class="search">
+              <ui-row height="30">
+                <ui-col vertical-align="middle" align="center" width="35">
+                  <ui-icon type="search" size="18" color="#6E6E6E"></ui-icon>
+                </ui-col>
+                <ui-col vertical-align="middle" align="left">
+                  <ui-view>请输入要搜索的商品</ui-view>
+                </ui-col>
+              </ui-row>
+            </ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="50">
+            <ui-icon type="mail" size="24" color="#888888"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+
+
+      <ui-view class="container">
+        <ui-view class="tabs-box" style="flex: 0 0 88px;">
+            <ui-v-tabs
+            height="{{ height }}"
+            class="tab-item"
+            index="{{ current }}"
+            bindchange="handleChange($event, 'current')">
+            <ui-v-tab ui:for="{{ tabItems }}">
+              {{ item.name }}
+            </ui-v-tab>
+          </ui-tabs>
+        </ui-view>
+        <ui-ex-swiper
+          class="tab-content"
+          style="height: {{ height }}px"
+          boundary-swipe
+          vertical
+          index="{{ current }}"
+          bindchange="handleContentChange($event, 'current')">
+          <ui-ex-swiper-item ui:for="{{ tabContents }}" ui:for-item="tabContent" boundary-config="{{ boundaryConfig }}">
+          <ui-view class="goods-list" style="overflow: scroll;">
+          <ui-row class="imgbox">
+            <ui-image src="{{tabContent.categoryImage}}"></ui-image>
+          </ui-row>
+          <ui-view ui:for="{{tabContent.subCategoryList}}" ui:for-item="subCategory1">
+            <ui-view>
+              <ui-divider>{{subCategory1.categoryName}}</ui-divider>
+            </ui-view>
+            <ui-view class="tabcontent">
+              <ui-view class="tabcontent-1" ui:for="{{subCategory1.subCategoryList}}" ui:for-item="subCategory2" bindtap="list">
+                <ui-image class="imgbox" src="{{subCategory2.imageUrl}}"></ui-image>
+                <ui-view class="small-title">{{subCategory2.categoryName}}</ui-view>
+              </ui-view>
+            </ui-view>
+          </ui-view>
+        </ui-view>
+          </ui-ex-swiper-item>
+        </ui-ex-swiper>
+      </ui-view>
+
+
+
+      
+    </ui-page>
+  </template>
+
+<script>
+export default {
+  config: {
+    
+    "disableScroll":true,
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black"
+  },
+  data () {
+    return {
+      current: 0,
+      boundaryConfig: {
+        topTip: {
+          beginText: '↓下拉查看上一分类',
+          activeText: '↑释放查看上一分类'
+        },
+        bottomTip: {
+          beginText: '↑上拉查看下一分类',
+          activeText: '↓释放查看下一分类'
+        }
+      },
+      tabItems: [
+        { name: '男装' },
+        { name: '女装' },
+        { name: '眼镜' },
+        { name: '配饰' },
+        { name: '鞋靴' },
+        { name: '运动' },
+        { name: '皮具' },
+        { name: '出行' },
+        { name: '个护' },
+        { name: '美妆' },
+        { name: '居家' },
+        { name: '厨具' },
+        { name: '家电' },
+        { name: '家装' },
+        { name: '数码' },
+        { name: '汽配' },
+        { name: '定制' }
+      ],
+      tabContents: [
+        {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/1E/ED/rBACW1npmqmAKQnYAACy5gj2lEM209.jpg',
+          subCategoryList: [
+            {
+              categoryName: '男士外套',
+              subCategoryList: [
+                {
+                  categoryName: '男士羽绒/棉服',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1B/83/rBACW1mlMEiAWNITAAAiWsyngD0082.jpg'
+                }, {
+                  categoryName: '男士风衣/大衣',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/18/76/rBACVFmSkKqAHYBNAAAfdj1aPOI825.jpg'
+                }, {
+                  categoryName: '男士皮衣/棉夹克',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7B/rBACW1lTWD-APUeLAAAgYMZ9cH4426.jpg'
+                }
+              ]
+            }, {
+              categoryName: '男士上装',
+              subCategoryList: [
+                {
+                  categoryName: '男士羊绒/毛衫',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/11/rBACW1nEdiOAfwQUAAAdaKb5jVI059.jpg'
+                }, {
+                  categoryName: '男士衬衫',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/10/rBACYVnEdjqAXa7NAAAcW-pnhDk339.jpg'
+                }, {
+                  categoryName: '男士针织衫',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/10/rBACYVnEdhqAdI2cAAAdtV7BASE873.jpg'
+                }, {
+                  categoryName: '男士西服',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/10/rBACYVnEdp6ASDIYAAAcoXEchKM497.jpg'
+                }, {
+                  categoryName: '男士卫衣',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1B/83/rBACW1mlMEiAWNITAAAiWsyngD0082.jpg'
+                }, {
+                  categoryName: '男士马甲',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1B/5C/rBACVFnEdn6AeSRuAAAdMuV88TU961.jpg'
+                }, {
+                  categoryName: '男士T桖',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/11/rBACW1nEdrqAFS0pAAAbGxuAh3s074.jpg'
+                }, {
+                  categoryName: '男士POLO衫',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/BF/rBACVFlTUwaAZDEUAAAXdtIxOTE832.jpg'
+                }
+              ]
+            }, {
+              categoryName: '男士下装',
+              subCategoryList: [
+                {
+                  categoryName: '男士牛仔裤',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7B/rBACW1lTVquAKVvlAAAVA-aasdY160.jpg'
+                }, {
+                  categoryName: '男士休闲裤',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/C0/rBACVFlTVtmAS6wLAAAT5xJNCHY388.jpg'
+                }, {
+                  categoryName: '男士西裤',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/10/rBACYVnEdhqAdI2cAAAdtV7BASE873.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/1E/ED/rBACYVnpmsyALUXVAACqMdNNcR4738.jpg',
+          subCategoryList: [
+            {
+              categoryName: '女装上装',
+              subCategoryList: [
+                {
+                  categoryName: '羽绒服/棉衣',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/22/75/rBACYVoJXFWAO5cFAAAb2M98n4o855.jpg'
+                }, {
+                  categoryName: '女士风衣/大衣',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/49/rBACW1n5clWAVX2uAAASnuS2XK0400.jpg'
+                }, {
+                  categoryName: '女士针织/羊毛',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1E/91/rBACVFn5cmSAEScBAAAeobcsVlI982.jpg'
+                }, {
+                  categoryName: '女士风衣/大衣',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1B/5C/rBACVFnEdu6AWR3KAAAWZfdXbn0829.jpg'
+                }, {
+                  categoryName: '女士针织/羊毛',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/22/75/rBACYVoJXFWAO5cFAAAb2M98n4o855.jpg'
+                }
+              ]
+            }, {
+              categoryName: '女裙',
+              subCategoryList: [
+                {
+                  categoryName: '连衣裙',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/49/rBACW1n5cqKAVtWGAAATyCv5qtg488.jpg'
+                }, {
+                  categoryName: '半身裙',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/10/rBACYVnEd2GAVFVFAAAUGbA2jt0796.jpg'
+                }
+              ]
+            }, {
+              categoryName: '女士下装',
+              subCategoryList: [
+                {
+                  categoryName: '女式休闲裤',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/49/rBACW1n5cpCAXEiRAAAS6G7GxPc087.jpg'
+                }, {
+                  categoryName: '女士牛仔裤',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1E/91/rBACVFn5coaAceDXAAAYKP_2i08331.jpg'
+                }, {
+                  categoryName: '女士短裤',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/11/rBACW1nEd0CAUNCgAAAS3TdE36o054.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/16/4A/rBACYVlfBE6AfVihAAELd2fc9FY635.jpg',
+          subCategoryList: [
+            {
+              categoryName: '眼镜',
+              subCategoryList: [
+                {
+                  categoryName: '眼镜',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/AD/rBACVFlSV2qATs-GAAAUe49K9bo978.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/19/72/rBACW1mJdNmAGFl-AACTdg93Ue8227.jpg',
+          subCategoryList: [
+            {
+              categoryName: '内衣',
+              subCategoryList: [
+                {
+                  categoryName: '文胸/套装',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7D/rBACYVlTdF6AEMX9AAAl_0cr7sE250.jpg'
+                }, {
+                  categoryName: '女士内裤',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/8E/rBACYVlUcvyAeE4cAAAeuvesr3I388.jpg'
+                }, {
+                  categoryName: '男士内裤',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/C3/rBACVFlTdZaAdL_sAAAgIGJyF6E950.jpg'
+                }, {
+                  categoryName: '秋衣秋裤',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/77/rBACVFltpV-AF4qXAAAUm8xPQuY795.jpg'
+                }
+              ]
+            }, {
+              categoryName: '袜子',
+              subCategoryList: [
+                {
+                  categoryName: '袜子',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/C3/rBACVFlTdRaAYRN-AAASQHYEvWw312.jpg'
+                }, {
+                  categoryName: '俩裤袜',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1E/92/rBACVFn5cuOAOKKDAAAMoaW_ing799.jpg'
+                }
+              ]
+            }, {
+              categoryName: '配饰',
+              subCategoryList: [
+                {
+                  categoryName: '丝巾围巾',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/47/rBACYVn5cwmAXATuAAAnBvlGDBY439.jpg'
+                }, {
+                  categoryName: '手套帽子',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1B/D9/rBACYVmsznCAFrVUAAAmy3eb5qQ802.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/1D/37/rBACVFnpm0mAUjkvAADAMXhASVE220.jpg',
+          subCategoryList: [
+            {
+              categoryName: '女鞋',
+              subCategoryList: [
+                {
+                  categoryName: '女靴',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1C/7E/rBACW1m4oLSAW6hxAAAeCjJEIXA902.jpg'
+                }, {
+                  categoryName: '女士雪地靴',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/4A/rBACW1n5dr6ASj8MAAATaEMA3ik329.jpg'
+                }, {
+                  categoryName: '女士单鞋',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/AD/rBACVFlSWpiAY4lJAAAeSzACwl8995.jpg'
+                }, {
+                  categoryName: '女士休闲鞋',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/68/rBACW1lSWniACzrrAAAYINnkU5M044.jpg'
+                }, {
+                  categoryName: '女靴',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/4A/rBACW1n5dr6ASj8MAAATaEMA3ik329.jpg'
+                }
+              ]
+            }, {
+              categoryName: '男鞋',
+              subCategoryList: [
+                {
+                  categoryName: '男士商务鞋',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/AD/rBACVFlSWf2AUC97AAAdyGZkgIs695.jpg'
+                }, {
+                  categoryName: '男靴',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/16/A7/rBACW1llhb-Ab0_TAAAkS84Tb_E075.jpg'
+                }, {
+                  categoryName: '男士休闲鞋',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/49/rBACW1n5dBOAQ7YKAAAhEecWzcI007.jpg'
+                }, {
+                  categoryName: '男士板鞋',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/19/AC/rBACYVmMH6-AM_BPAAAdRlT1N_s815.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/1E/ED/rBACYVnpm2KAFfjbAADNudIbVmo787.jpg',
+          subCategoryList: [
+            {
+              categoryName: '户外鞋服',
+              subCategoryList: [
+                {
+                  categoryName: '冲锋衣裤',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/11/rBACW1nEeGqAYGJLAAAc5zQtC3E724.jpg'
+                }, {
+                  categoryName: '冲锋衣裤',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/11/rBACW1nEeFGAUm8yAAAYQwQwy_8422.jpg'
+                }, {
+                  categoryName: '户外鞋',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7C/rBACW1lTYceAKmuIAAAe_e-U_jc742.jpg'
+                }
+              ]
+            }, {
+              categoryName: '运动服饰',
+              subCategoryList: [
+                {
+                  categoryName: '运动衣',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/49/rBACW1n5dSqAPIzBAAAY4ud5KE4996.jpg'
+                }, {
+                  categoryName: '套装外套',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/19/EC/rBACVFmniG2AF1XZAAAkZztvZL8987.jpg'
+                }, {
+                  categoryName: '运动袜',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7A/rBACYVlTYRCAC9nZAAATNY-jc9Y735.jpg'
+                }, {
+                  categoryName: '泳衣',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7F/rBACW1lTe8GACgOLAAAhpbAOl7M461.jpg'
+                }
+              ]
+            }, {
+              categoryName: '运动鞋',
+              subCategoryList: [
+                {
+                  categoryName: '跑鞋',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1E/92/rBACVFn5dOmAfhQkAAAgYqOV_-A300.jpg'
+                }, {
+                  categoryName: '休闲鞋',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1E/92/rBACVFn5dP6AXf39AAAdWEr7z5U848.jpg'
+                }, {
+                  categoryName: '训练鞋',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/48/rBACYVn5dQ2APfJgAAAV5g6Z7os688.jpg'
+                }, {
+                  categoryName: '拖鞋',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7C/rBACW1lTYBeAIJwNAAAmzTDQP-c667.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/1D/37/rBACVFnpm3qAVPRcAACsbh21R2c074.jpg',
+          subCategoryList: [
+            {
+              categoryName: '真皮配件',
+              subCategoryList: [
+                {
+                  categoryName: '皮带',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/19/70/rBACW1mJbOaAcvhlAAAeGpepNL8157.jpg'
+                }, {
+                  categoryName: '数码文具',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/11/rBACW1nEeLCAf8EiAAAUXPmn7Lw014.jpg'
+                }
+              ]
+            }, {
+              categoryName: '男包',
+              subCategoryList: [
+                {
+                  categoryName: '皮带',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1B/5C/rBACVFnEeMiAa58AAAAO2LvxUcA121.jpg'
+                }, {
+                  categoryName: '数码文具',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1E/92/rBACVFn5dgGAdZi3AAAcKMzp5bw561.jpg'
+                }, {
+                  categoryName: '卡包钥匙包',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/10/rBACYVnEeNOAbQJOAAASclg1HPg909.jpg'
+                }
+              ]
+            }, {
+              categoryName: '女包',
+              subCategoryList: [
+                {
+                  categoryName: '挎包',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/49/rBACW1n5deSAFQrDAAAlKRxqKXQ683.jpg'
+                }, {
+                  categoryName: '钱包手包',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/C1/rBACVFlTYxaAXfbfAAAQYcBM_d4234.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/16/4B/rBACW1lfBN6AEqPrAADDXFaEWac386.jpg',
+          subCategoryList: [
+            {
+              categoryName: '功能箱包',
+              subCategoryList: [
+                {
+                  categoryName: '休闲包',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/4A/rBACW1n5dkGAXAQOAAAZsJ-z14M855.jpg'
+                }, {
+                  categoryName: '拉杆箱',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/C6/rBACVFlTi0eAd7iPAAAZAT_BNew602.jpg'
+                }, {
+                  categoryName: '妈咪包',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1E/92/rBACVFn5dk6APcUbAAAfvZTFXW8419.jpg'
+                }
+              ]
+            }, {
+              categoryName: '出行必备',
+              subCategoryList: [
+                {
+                  categoryName: '口罩',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/C6/rBACVFlTjKyAdW-xAAB1nIr6clA181.jpg'
+                }, {
+                  categoryName: '眼罩',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/4A/rBACW1n5dvGASO7oAAAegaxa0JE345.jpg'
+                }, {
+                  categoryName: '化妆包',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/49/rBACW1n5diiAH4nnAAAZfQvSyu8912.jpg'
+                }, {
+                  categoryName: '遮阳伞',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1E/92/rBACVFn5dwSANKJHAAAPy7G34dM680.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/1E/ED/rBACW1npm6GAGZqlAACi2zjIcOw889.jpg',
+          subCategoryList: [
+            {
+              categoryName: '个护',
+              subCategoryList: [
+                {
+                  categoryName: '声波电动牙刷',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/59/rBACVFoFGeiASjpgAAANOodq4HU385.jpg'
+                }, {
+                  categoryName: '剃须刀',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/59/rBACVFoFGlyAIkztAAAeEY5XRCs804.jpg'
+                }, {
+                  categoryName: '清洁工具',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/4A/rBACW1n5dmGAJpTOAAAYW4RVSRc800.jpg'
+                }, {
+                  categoryName: '家庭清洁',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/22/0E/rBACYVoFG-GAAA5pAAAvmr7LQNE337.jpg'
+                }, {
+                  categoryName: '祛味香皂',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1C/0B/rBACVFnPck2AGI3QAAAaPQxsfyc091.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/1E/ED/rBACYVnpm7WAOlNJAAC6ONENz3k588.jpg',
+          subCategoryList: [
+            {
+              categoryName: '基础护肤',
+              subCategoryList: [
+                {
+                  categoryName: '水/精华/霜',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1B/5C/rBACVFnEeRuAORxOAAATl1iWPNY037.jpg'
+                }, {
+                  categoryName: '面膜',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7B/rBACYVlTZQeAIuPIAAAkVEeSY_w874.jpg'
+                }, {
+                  categoryName: '卸妆',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/C1/rBACVFlTZSOAF4vBAAAPBXoAoOM906.jpg'
+                }, {
+                  categoryName: '男士护肤',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/81/rBACW1lTiWyAPiEPAAAs6qov5NM096.jpg'
+                }
+              ]
+            }, {
+              categoryName: '香水彩妆',
+              subCategoryList: [
+                {
+                  categoryName: '底妆',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7B/rBACYVlTZhKAa2xoAAAl7phK3JY573.jpg'
+                }, {
+                  categoryName: '唇妆',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7B/rBACYVlTZQeAIuPIAAAkVEeSY_w874.jpg'
+                }, {
+                  categoryName: '眼妆',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7D/rBACW1lTZriAA_zGAAAmKD1Td5k381.jpg'
+                }, {
+                  categoryName: '香水',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/C2/rBACVFlTZh2Aa8QJAAAePFJ0kf0429.jpg'
+                }, {
+                  categoryName: '美妆工具',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/C2/rBACVFlTazWASZoCAAAkKEeEvFs736.jpg'
+                }, {
+                  categoryName: '美甲',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7C/rBACYVlTalGAR-L5AAAcsykQ3xs773.jpg'
+                }, {
+                  categoryName: '洗发护发',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/81/rBACW1lTiWyAPiEPAAAs6qov5NM096.jpg'
+                }, {
+                  categoryName: '美发工具',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/81/rBACW1lTiWyAPiEPAAAs6qov5NM096.jpg'
+                }
+              ]
+            }, {
+              categoryName: '香水彩妆',
+              subCategoryList: [
+                {
+                  categoryName: '洗发护发',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/C1/rBACVFlTZZiAHIo9AAAmJxajIHI377.jpg'
+                }, {
+                  categoryName: '美发工具',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/C2/rBACVFlTatSAWBNxAAAZBgqEjtw410.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/16/4B/rBACW1lfBTGAEeWcAAEfKL56dZ8483.jpg',
+          subCategoryList: [
+            {
+              categoryName: '家纺',
+              subCategoryList: [
+                {
+                  categoryName: '枕头枕芯',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/11/rBACW1nEeZWAWnoxAAAMG4XEG0c898.jpg'
+                }, {
+                  categoryName: '被子被芯',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/80/rBACW1lTf5mAX6FyAAAm_Y-Ws8w541.jpg'
+                }, {
+                  categoryName: '床品套件',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/11/rBACW1nEeWGANWA5AAAlNeY088Y030.jpg'
+                }, {
+                  categoryName: '床垫',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/80/rBACW1lTf-mAdeFPAAARRCpQBk4434.jpg'
+                }, {
+                  categoryName: '毛巾',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/11/rBACW1nEefCAQL3vAAAWv2fGWus251.jpg'
+                }, {
+                  categoryName: '凉席',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/11/rBACW1nEegWAdKzEAAAhD6vU6NA534.jpg'
+                }, {
+                  categoryName: '拖鞋',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/10/rBACYVnEec2AJZlMAAAn072EASw261.jpg'
+                }, {
+                  categoryName: '抱枕',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/10/rBACYVnEeb6AU93zAAAdXNjYBmM625.jpg'
+                }, {
+                  categoryName: '纱窗',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7F/rBACYVlTgJaAK1ONAAAl_2kERTs237.jpg'
+                }
+              ]
+            }, {
+              categoryName: '家纺',
+              subCategoryList: [
+                {
+                  categoryName: '收纳用品',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1D/10/rBACYVnEei6ADrpUAAAc15VWEQQ586.jpg'
+                }, {
+                  categoryName: '熨烫',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/14/E3/rBACVFlkmPeADVsmAAATb5dDtTU665.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/14/91/rBACVFlfBUyAIS-5AADOzpMZzfg013.jpg',
+          subCategoryList: [
+            {
+              categoryName: '水具／茶具',
+              subCategoryList: [
+                {
+                  categoryName: '水杯水壶',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7C/rBACYVlTbKWAIaGRAAAbdaQK7o8696.jpg'
+                }, {
+                  categoryName: '茶杯',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7D/rBACW1lTbQeABEmaAAAW53-QcEk447.jpg'
+                }
+              ]
+            }, {
+              categoryName: '厨具',
+              subCategoryList: [
+                {
+                  categoryName: '锅具',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7C/rBACYVlTa8KAENL-AAAUXfTzRfA419.jpg'
+                }, {
+                  categoryName: '菜板',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/13/C2/rBACVFlTa_WAB0plAAAaMgSEKnw628.jpg'
+                }, {
+                  categoryName: '餐具',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7D/rBACW1lTbCWAcHUHAAAom7sVhbE981.jpg'
+                }, {
+                  categoryName: '清洁',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/18/34/rBACW1l5qbKACWIpAAApAD795pI301.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/19/72/rBACW1mJdNmAGFl-AACTdg93Ue8227.jpg',
+          subCategoryList: [
+            {
+              categoryName: '家电',
+              subCategoryList: [
+                {
+                  categoryName: '生活电器',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1B/DD/rBACW1ms-G2AFD9OAAAW7YQzCpY441.jpg'
+                }, {
+                  categoryName: '厨房小电',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/48/rBACYVn5doaALcz0AAAjBsNCwzo514.jpg'
+                }, {
+                  categoryName: '个护健康',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7E/rBACW1lTboeAKFjWAAANOodq4HU333.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/1D/37/rBACVFnpm-eAeigHAACWw8g2480190.jpg',
+          subCategoryList: [
+            {
+              categoryName: '厨卫用品',
+              subCategoryList: [
+                {
+                  categoryName: '花洒／马桶',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/81/rBACW1lThFqADH7BAAAO5g3k1kU236.jpg'
+                }, {
+                  categoryName: '龙头',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/14/D2/rBACVFljYuKAafwTAAAP3ZtxgxM712.jpg'
+                }, {
+                  categoryName: '厨卫配件',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/81/rBACW1lThJqAHAIqAAApymVFHqE653.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/14/91/rBACVFlfBcWAAL0LAAEWKSXh2gc607.jpg',
+          subCategoryList: [
+            {
+              categoryName: '数码',
+              subCategoryList: [
+                {
+                  categoryName: '影音娱乐',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/22/A1/rBACYVoL5VOAUS6MAAAR01Pdwv4736.jpg'
+                }, {
+                  categoryName: '数码办公',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/22/F1/rBACYVoOpbiAbbJhAAAkPmzG1Gg658.jpg'
+                }, {
+                  categoryName: '充电设备',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/21/00/rBACVFoM_H2AYumaAAAQbnLU59k791.jpg'
+                }, {
+                  categoryName: '数据线',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/7E/rBACW1lTcbqAe1J5AAAgCZpu_TM833.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/1A/E7/rBACYVmbmJGALnttAADpjcMSIXQ469.jpg',
+          subCategoryList: [
+            {
+              categoryName: '汽配',
+              subCategoryList: [
+                {
+                  categoryName: '汽车配饰',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/17/1D/rBACW1lskUaAdV-vAAAbilYdiZc985.jpg'
+                }, {
+                  categoryName: '美容清洁',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/ED/rBACVFoL5g-ANp7cAAAisMUsE2k641.jpg'
+                }, {
+                  categoryName: '支架',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/15/64/rBACVFlska6AchGhAAAQxRXvjUg626.jpg'
+                }
+              ]
+            }
+          ]
+        }, {
+          categoryImage: 'https://bfs.biyao.com/group1/M00/1A/E9/rBACW1mbmMmAMq5AAAGZPo8JdiI499.jpg',
+          subCategoryList: [
+            {
+              categoryName: '定制',
+              subCategoryList: [
+                {
+                  categoryName: '手机保护壳',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/B2/rBACYVn7JUqAQlQkAAAWTb0saMA714.jpg'
+                }, {
+                  categoryName: '钱包',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/88/rBACYVn6xB-AJf2xAAAWa7gdcPM166.jpg'
+                }, {
+                  categoryName: '水具',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1E/D3/rBACVFn6xJ2ALunMAAAUSa6A3DY661.jpg'
+                }, {
+                  categoryName: '箱包',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/20/8A/rBACW1n6w5-AN2OLAAAU8NhKOOk924.jpg'
+                }, {
+                  categoryName: '鞋靴',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/19/33/rBACVFmblcOAOzzCAAApP0aVvW8338.jpg'
+                }, {
+                  categoryName: '布艺',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1E/D2/rBACVFn6w0KAIlR4AAAl5u8aQa8514.jpg'
+                }, {
+                  categoryName: '装饰画',
+                  imageUrl: 'https://bfs.biyao.com/group1/M00/1A/DA/rBACW1mak1iAAWsWAABCaKirW6Y662.jpg'
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      height: ui.DEFAULT_CONTENT_HEIGHT
+    }
+  },
+  mounted () {
+
+  },
+  methods: {
+    handleChange (index, key) {
+      this[key] = index
+    },
+    handleContentChange (index, key) {
+      this[key] = index
+    },
+    list(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/store/list'
+      })
+    },
+    showFullScreenSearch () {
+      ui.getApp().globalData.searchShow = true
+      ui.setStatusBarStyle({ style: 'dark' })
+    },
+    
+    navigateBack () {
+      ui.navigateBack()
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.nav_bar{
+  .mix-1px(0, 0, 1, 0, #ccc);
+  background-color: #fff;
+  // .search{
+  //   border-radius: 5px;
+  //   overflow: hidden;
+  //   background-color: #EFEFEF;
+  //   .ui-view{
+  //     color: #888888;
+  //     font-size: 14px;
+  //   }
+  // }
+  .search{
+    width: 100%;
+    line-height: 30px;
+    text-align: center;
+    background-color: #EFEFEF;
+    border-radius: 3px;
+    color: #888888;
+    font-size: 14px;
+  }
+}
+  .container {
+  display: flex;
+}
+
+.goods-list .ui-divider{
+  padding:60rpx;
+}
+
+.tabs-box{
+  .mix-1px(0, 1, 0, 0, #ccc);
+}
+.ui-tabs {
+  padding-bottom: 1px;
+  width: 88px;
+  flex: 0 0 88px;
+  &.tab-item {
+    .swiper-slide {
+      width: 88px;
+      padding: 15px;
+      transition: color .1s;
+      .mix-1px(0, 0, 1, 0, #ddd);
+    }
+
+    .active {
+      border-left: 1px solid #f37c26;
+      color: #f37c26;
+      border-bottom:0
+    }
+
+    .ui-icon {
+      margin: 0 5px;
+      font-size: 16px;
+    }
+  }
+}
+
+.tab-content {
+  flex: 1;
+  color: #999;
+  .swiper-slide {
+    padding: 0 1em;
+    -webkit-overflow-scrolling: touch;
+  }
+  // .swiper-slide-top-tip:frist-child{
+  
+}
+
+.imgbox{
+  .ui-image{
+    width:100%
+  }
+}
+
+.small-title{
+  font-size: 24rpx;
+  text-align:center;
+  margin-top:5px;
+}
+.tabcontent{
+  display: flex;
+  flex-wrap:wrap;
+  .tabcontent-1{
+    flex:0 0 33.33%
+  }
+}
+.swiper-slide-tip{
+  padding-top:20px;
+  font-size:10px;
+  color:#ccc;
+}
+.swiper-slide-top-tip{
+  padding:0;
+}
+.swiper-wrapper .swiper-slide:first-child{
+  .swiper-slide-top-tip{
+    display:none;
+  }
+} 
+.swiper-wrapper .swiper-slide:last-child{
+  
+  .swiper-slide-tip{
+    display:none;
+  }
+  .swiper-slide-top-tip{
+    display:block;
+  }
+} 
+
+</style>

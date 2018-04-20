@@ -1,0 +1,53 @@
+<!--textarea.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">控制占位符颜色的textarea(使用class控制)</ui-view>
+    <ui-view class="sample_content">
+      <ui-textarea placeholder="占位符字体是蓝色的" placeholder-class="blue-placeholder"></ui-textarea>
+    </ui-view>
+
+    <ui-view class="sample_title">控制占位符颜色的textarea(使用style控制)</ui-view>
+    <ui-view class="sample_content">
+      <ui-textarea placeholder="占位符字体是红色的" placeholder-style="color:red"></ui-textarea>
+    </ui-view>
+
+    <ui-view class="sample_title">隐藏计数器</ui-view>
+    <ui-view class="sample_content">
+      <ui-textarea maxlength="10" name="detail" placeholder="提示" show-counter="{{false}}"></ui-textarea>
+    </ui-view>
+
+    <ui-view class="sample_title">自动高度</ui-view>
+    <ui-view class="sample_content">
+      <ui-textarea placeholder="随便写点什么" rows="1" auto-height></ui-textarea>
+    </ui-view>
+
+    <ui-view class="sample_title">高度为200</ui-view>
+    <ui-view class="sample_content">
+      <ui-textarea title="标题" maxlength="-1" placeholder="提示" show-counter="{{false}}" height="200" rows="8" cols="30"></ui-textarea>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// textarea.js
+export default {
+  config: {
+    "navigationBarTitleText": "多行输入框"
+  },
+  data () {
+    return {}
+  },
+  methods: {
+  }
+}
+
+</script>
+
+<style lang="less">
+// textarea.less
+.blue-placeholder::-webkit-input-placeholder {
+  color: rgb(58, 47, 207);
+}
+
+</style>

@@ -1,0 +1,54 @@
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row>
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered >
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "基础"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '含banner的页面结构',
+          items: [
+            { title: 'banner为纯色+自定义下拉颜色', link: '/pages/componentDemo/banner' },
+            { title: 'banner为图片+透明导航', link: '/pages/componentDemo/banner2' },
+            { title: 'banner为swiper+状态栏颜色变化', link: '/pages/componentDemo/banner3' },
+            { title: 'banner图片视差滚动', link: '/pages/componentDemo/banner4' },
+            { title: 'banner区域为视频', link: '/pages/componentDemo/banner5' }
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+  
+</style>

@@ -1,0 +1,298 @@
+<!--circleMenu4.ui-->
+<template>
+  <ui-page>
+
+    <ui-nav-bar title="" slot="nav-bar" class="nav_bg">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="35" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="18" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">TOUCH UI</ui-col>
+        <ui-col vertical-align="middle" align="center" width="40" bindtap="handleShowMask" space-right="10">
+          <ui-view class="nav_switch">
+            <ui-view class="{{rotate1}}"></ui-view>
+            <ui-view class="middle {{rotate2}}"></ui-view>
+            <ui-view class="{{rotate3}}"></ui-view>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+  
+
+
+    <ui-view class="sample_content" style="{{{ height : height + 'px' }}}"></ui-view>
+
+    <ui-mask ui:model="showMask" custom-style="{{ customStyle1}}" effect="scale-in" top="{{ 46 + statusHeight }}" blur="light" hide-on-tap="{{false}}" bindhide="maskHide">
+      <ui-view class="nav_content">
+        <ui-row height="100">
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="liwu" size="24" color="#fff" class="nav_1"></ui-icon>
+            <ui-view>首页</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="liwu" size="24" color="#fff" class="nav_2"></ui-icon>
+            <ui-view>装修公司</ui-view>
+          </ui-col> 
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="liwu" size="24" color="#fff" class="nav_3"></ui-icon>
+            <ui-view>设计师</ui-view>
+          </ui-col>
+        </ui-row>
+
+        <ui-row height="100">
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="liwu" size="24" color="#fff" class="nav_4"></ui-icon>
+            <ui-view>装修案例</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="liwu" size="24" color="#fff" class="nav_5"></ui-icon>
+            <ui-view>装修楼盘</ui-view>
+          </ui-col> 
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="liwu" size="24" color="#fff" class="nav_6"></ui-icon>
+            <ui-view>装修图库</ui-view>
+          </ui-col>
+        </ui-row>
+
+        <ui-row height="100">
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="liwu" size="24" color="#fff" class="nav_7"></ui-icon>
+            <ui-view>装修攻略</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="liwu" size="24" color="#fff" class="nav_8"></ui-icon>
+            <ui-view>装修报价</ui-view>
+          </ui-col> 
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="liwu" size="24" color="#fff" class="nav_9"></ui-icon>
+            <ui-view>计算器</ui-view>
+          </ui-col>
+        </ui-row>
+
+        <ui-row height="100">
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="liwu" size="24" color="#fff" class="nav_10"></ui-icon>
+            <ui-view>APP下载</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="liwu" size="24" color="#fff" class="nav_11"></ui-icon>
+            <ui-view>商家入驻</ui-view>
+          </ui-col> 
+          <ui-col vertical-align="middle" align="center">
+            
+          </ui-col>
+        </ui-row>
+
+      </ui-view>
+    </ui-mask>
+  </ui-page>
+</template>
+
+
+<script>
+// circleMenu4.js
+export default {
+  config: {
+    navigationStyle: 'custom',
+    navigationBarTextStyle: 'white',
+    navigationBarBorderColor:"#39f",
+    backgroundColor:"transparent"
+  },
+  data () {
+    return {
+      showMask: false,
+      rotate1: '',
+      rotate2: '',
+      rotate3: '',
+      switch: false,
+      height: ui.DEFAULT_CONTENT_HEIGHT,
+      statusHeight: ui.STATUS_BAR_HEIGHT,
+      customStyle1:{
+        'background-color':'rgba(255, 255, 255, 0.8)'
+      }
+    }
+  },
+  methods: {
+    handleShowMask () {
+      if (this.switch) {
+        this.showMask = false
+        this.rotate1 = ''
+        this.rotate2 = ''
+        this.rotate3 = ''
+        this.switch = false
+      } else {
+        this.showMask = true
+        this.rotate1 = 'rotate1'
+        this.rotate2 = 'rotate2'
+        this.rotate3 = 'rotate3'
+        this.switch = true
+      }
+    },
+    maskHide () {
+      this.showMask = false
+      this.rotate1 = ''
+      this.rotate2 = ''
+      this.rotate3 = ''
+      this.switch = false
+    },
+    navigateBack () {
+      ui.navigateBack()
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // circleMenu4.less
+.sample_content{
+  background: url('http://images.uileader.com/20180315/bdfb4c6a-d4f6-4b9f-8b83-07a6d74fe503.png') no-repeat;
+  background-size: 100%;
+}
+.mask {
+  transition: all .25s ease-in;
+  transform: scale(1.5);
+  &.show {
+    transform: scale(1);
+  }
+}
+.nav_bg{
+  background: linear-gradient(to right, #FD5860, #F64B51); 
+  color: #fff;
+  z-index:800;
+}
+.nav_switch{
+  width: 100%;
+  .ui-view{
+    width: 90%;
+    margin: 0 auto;
+    height: 2px;
+    border-radius: 5px;
+    background: #fff;
+    transition: all ease .3s 0s;
+    -moz-transition: all ease .3s 0s;
+    -webkit-transition: all ease .3s 0s;
+    &.middle{
+      margin: 6px auto;
+    }
+    &.rotate1{
+      transform: translate(0, 0px) rotate(-45deg);
+      -moz-transform: translate(0, 0px) rotate(-45deg);
+      -webkit-transform: translate(0, 0px) rotate(-45deg);
+      -ms-transform: translate(0, 0px) rotate(-45deg);
+    }
+    &.rotate2{
+      transform: scale(0, 1);
+      -moz-transform: scale(0, 1);
+      -webkit-transform: scale(0, 1);
+      -ms-transform: scale(0, 1);
+      margin: 0;
+    }
+    &.rotate3{
+      transform: translate(0, -4px) rotate(45deg);
+      -moz-transform: translate(0, -4px) rotate(45deg);
+      -webkit-transform: translate(0, -4px) rotate(45deg);
+      -ms-transform: translate(0, -4px) rotate(45deg);
+    }
+  }
+}
+.nav_content{
+  padding-top: 20px;
+  .ui-row{
+    width: 90%;
+    margin: 0 auto;
+  }
+  .ui-icon{
+    display: block;
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
+    border-radius: 50%;
+  }
+  .ui-view{
+    padding-top: 10px;
+  }
+  .nav_1{
+    background: #FF8E8E;
+    box-shadow: rgba(255, 142, 142, 0.498039) 0px 6px 15px 0;
+  }
+  .nav_1 + .ui-view{
+    color: #FF8E8E;
+  }
+  .nav_2{
+    background-color: #6ee3c3;
+    box-shadow: rgb(171, 232, 216) 0px 6px 15px 0px;
+  }
+  .nav_2 + .ui-view{
+    color: #6ee3c3;
+  }
+  .nav_3{
+    background-color: #fe9bda;
+    box-shadow: rgb(241, 215, 231) 0px 6px 15px 0px;
+  }
+  .nav_3 + .ui-view{
+    color: #fe9bda;
+  }
+
+  .nav_4{
+    background-color: #cda5fd;
+    box-shadow: rgb(231, 212, 253) 0px 6px 15px 0px;
+  }
+  .nav_4 + .ui-view{
+    color: #cda5fd;
+  }
+  .nav_5{
+    background-color: #f88ca3;
+    box-shadow: rgb(251, 217, 224) 0px 6px 15px 0px;
+  }
+  .nav_5 + .ui-view{
+    color: #f88ca3;
+  }
+  .nav_6{
+    background-color: #fe8c74;
+    box-shadow: rgb(251, 211, 202) 0px 6px 15px 0px;
+  }
+  .nav_6 + .ui-view{
+    color: #fe8c74;
+  }
+
+  .nav_7{
+    background-color: #7ce488;
+    box-shadow: rgb(201, 243, 206) 0px 6px 15px 0px;
+  }
+  .nav_7 + .ui-view{
+    color: #7ce488;
+  }
+  .nav_8{
+    background-color: #89D7E3;
+    box-shadow: rgba(137, 215, 227, 0.498039) 0px 6px 15px 0px;
+  }
+  .nav_8 + .ui-view{
+    color: #89D7E3;
+  }
+  .nav_9{
+    background-color: #FFAF70;
+    box-shadow: rgba(255, 175, 112, 0.498039) 0px 6px 15px;
+  }
+  .nav_9 + .ui-view{
+    color: #FFAF70;
+  }
+
+  .nav_10{
+    background-color: #F8A8F9;
+    box-shadow: rgba(248, 168, 249, 0.498039) 0px 6px 15px 0px;
+  }
+  .nav_10 + .ui-view{
+    color: #F8A8F9;
+  }
+  .nav_11{
+    background-color: #FFD43D;
+    box-shadow: rgba(255, 212, 61, 0.498039) 0px 6px 15px 0px;
+  }
+  .nav_11 + .ui-view{
+    color: #FFD43D;
+  }
+ 
+}
+</style>

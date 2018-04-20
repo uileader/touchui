@@ -1,0 +1,41 @@
+<!--transferNew.ui-->
+<template>
+    <ui-page>
+       <ui-view class="sample_title">接收参数</ui-view>
+       <ui-view class="sample_content">
+         <ui-button bindtap="navigateBack" type="primary" plain="{{true}}">返回上一页</ui-button>
+       </ui-view>
+    </ui-page>
+   </template>
+
+
+<script>
+// transferNew.js
+export default {
+  config: {
+    "navigationBarTitleText": "接收页面"
+  },
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    }
+  },
+  mounted () {
+    let getData = ui.getQuery()
+    ui.showAlert({
+      title: '接收到参数',
+      content: getData
+    })
+  }
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

@@ -1,0 +1,69 @@
+<template>
+  <ui-page>
+    <ui-swiper>
+      <ui-swiper-item ui:for="{{ urls }}">
+        <img src="{{ item }}" bindtap="showPreviewer" />
+      </ui-swiper-item>
+    </ui-swiper>
+  </ui-page>
+</template>
+<script>
+export default {
+  data () {
+    return {
+      urls: [
+        require('#/images/previewer/cbd.jpg'),
+        require('#/images/previewer/muwu.jpg'),
+        require('#/images/previewer/shuijiao.jpg')
+      ]
+    }
+  },
+  methods: {
+    showPreviewer (index) {
+      ui.previewImage({
+        current: this.urls[1],
+        urls: this.urls
+      })
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.ui-previewer {
+  position: fixed;
+  z-index: 501;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background-color: #111;
+  display: flex;
+  flex-direction: column;
+
+  img {
+    width: 100%;
+  }
+}
+
+div[class^="ui-previewer-"] {
+  display: flex;
+  align-items: center;
+}
+
+.ui-previewer-body {
+  flex: 1;
+}
+
+.ui-previewer-header, .ui-previewer-footer {
+  height: 40px;
+}
+
+.ui-previewer-close {
+  padding: 0 1em;
+
+  height: 100%;
+}
+
+</style>

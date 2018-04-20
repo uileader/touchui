@@ -1,0 +1,67 @@
+<!--addressList.ui-->
+<template>
+  <ui-page>
+      <ui-view class="content">
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="2" vertical-align="middle">
+            名字：
+          </ui-col>
+          <ui-col span="10">
+              <ui-input class="input" type="string" name="input" value="{{info.firstName}}"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="2" vertical-align="middle">
+            电话：
+          </ui-col>
+          <ui-col span="10">
+              <ui-input class="input" type="string" name="input" value="{{info.phone}}"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="2" vertical-align="middle">
+            邮箱：
+          </ui-col>
+          <ui-col span="10">
+              <ui-input class="input" type="string" name="input" value="{{info.email}}"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-button type="primary" bindtap="add">添加到联系人</ui-button>
+      </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// addressList.js
+export default {
+  config: {
+    "navigationBarTitleText": "手机联系人"
+  },
+  data () {
+    return {
+      info: {
+        firstName: 'UI Leader',
+        phone: '10086',
+        email: 'uileader@uileader.com'
+      }
+    }
+  },
+  methods: {
+    add () {
+      ui.addPhoneContact({
+        firstName: this.info.firstName,
+        mobilePhoneNumber: this.info.phone,
+        email: this.info.email
+      })
+    }
+  }
+}
+</script>
+
+<style lang="less">
+  // addressList.less
+.content{
+  padding: 10px;
+}
+
+</style>

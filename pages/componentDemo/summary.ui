@@ -1,0 +1,166 @@
+<!--summary.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">基本使用</ui-view>
+    <ui-view class="sample_content">
+      <ui-view class="title">电影简介</ui-view>
+      <ui-summary
+        height="65"
+        >
+        <ui-text>
+          一对好基友孟云（韩庚 饰）和余飞（郑恺 饰）跟女友都因为一点小事宣告分手，并且“拒绝挽回，死不认错”。两人在夜店、派对与交友软件上放飞人生第二春，大肆庆祝“黄金单身期”，从而引发了一系列好笑的故事。孟云与女友同甘共苦却难逃“五年之痒”，余飞与女友则棋逢敌手相爱相杀无绝期。然而现实的“打脸”却来得猝不及防：一对推拉纠结零往来，一对纠缠互怼全交代。两对恋人都将面对最终的选择：是再次相见？还是再也不见？
+        </ui-text>
+      </ui-summary>
+    </ui-view>
+
+    <ui-view class="sample_title">外部控制</ui-view>
+    <ui-view class="store_list" ui:for="{{list}}" ui:for-item="item">
+      <ui-row height="80" class="collect_content">
+        <ui-col vertical-align="middle" align="center" width="80">
+          <ui-image
+          src="{{ item.imgUrl }}"
+          mode='aspectFill'
+          width="60"
+          height="60"
+          ></ui-image>
+        </ui-col>
+        <ui-col>
+          <ui-view class="title">{{ item.title }}</ui-view>
+          <ui-view class="sales">
+            <ui-star value=4.5 read-only half star-width=14 star-height=14></ui-star>
+            <ui-text>4.5</ui-text>
+            <ui-text>月售2595单</ui-text>
+          </ui-view>
+          <ui-row class="bottom" height="20" border-bottom>
+            <ui-col vertical-align="middle" align="left">
+              <ui-view>¥20起送</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right">
+              <ui-view>1.2Km | 43分钟</ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-col>
+      </ui-row>
+      <ui-row class="summary_wrap" space="20">
+        <ui-col width="80"></ui-col>
+        <ui-col>
+          <ui-summary
+            height="35"
+            state="{{item.state}}"
+            show-arrow="{{false}}">
+            <ui-view class="activity" bindtap="tap(index)">
+              6个活动 <ui-icon type="arrow-down" size="12" color="#A7A7A7" class="{{ item.class }}"></ui-icon>
+            </ui-view>
+            <ui-view class="discounts_content">满100减10</ui-view>
+            <ui-view class="discounts_content">168特价新年3人餐</ui-view>
+            <ui-view class="discounts_content">新用户下单立减17元</ui-view>
+            <ui-view class="discounts_content">新年两人特惠套餐</ui-view>
+            <ui-view class="discounts_content">69元人气满满特价拼盘</ui-view>
+          </ui-summary>
+        </ui-col>
+      </ui-row>
+      
+    </ui-view>
+    
+  </ui-page>
+</template>
+
+
+<script>
+// summary.js
+export default {
+  config: {
+    "navigationBarTitleText": "概要"
+  },
+  data () {
+    return {
+      state: 'summary',
+      state1: 'details',
+      list: [
+        { height: 80,
+          title: '旺顺阁鱼头泡饼',
+          imgUrl: 'http://p0.meituan.net/200.0/deal/1e257a1f5b0d974b292ac7bc9a3c21ad71414.jpg',
+          state: 'summary',
+          class: ''
+        },
+        { height: 80,
+          title: '吉野家',
+          imgUrl: 'http://p0.meituan.net/200.0/deal/271ab37c767d8c4ba5f705da8eb00e9032980.jpg',
+          state: 'summary',
+          class: ''
+        }
+      ]
+    }
+  },
+  methods: {
+    tap (index) {
+      if (this.list[index].state === 'summary') {
+        this.list[index].state = 'details'
+        this.list[index].class = 'rotate'
+      } else {
+        this.list[index].state = 'summary'
+        this.list[index].class = ''
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // summary.less
+.title{
+  font-size: 16px;
+  font-weight: 500;
+}
+.collect_content{
+  padding: 10px 10px 10px 0;
+  background: #fff;
+  .title{
+    color: #212121;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .sales{
+    display: flex;
+    .ui-stars{
+      width: 85px;
+    }
+    .ui-text{
+      font-size: 12px;
+      color: #5C5C5C;
+    }
+  }
+  .bottom{
+    .ui-view{
+      font-size: 12px;
+      color: #646464;
+    }
+  }
+}
+.summary_wrap{
+  position: relative;
+  .ui-view{
+    font-size: 12px;
+    color: #A7A7A7;
+    line-height: 18px;
+  }
+  .activity{
+    width: 65px;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    .ui-icon{
+      display: inline-block;
+      transform:rotate(0deg);
+      transition: all .3s ease-in;
+      &.rotate{
+        transform:rotate(180deg);
+      }
+    }
+  }
+}
+
+</style>

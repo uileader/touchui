@@ -1,0 +1,108 @@
+<template>
+    <ui-page 
+    bindscroll="handleScroll">
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+    <ui-view class="wrapper">
+      <div id="suggestion-title">推荐列表</div>
+    </ui-view>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items2 }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+    <ui-fixed-view bindtap="gotoSuggestions" ui:show="{{ show1 }}">查看推荐</ui-fixed-view>
+    <ui-fixed-view class="back-to-top" bindtap="gotoTop" ui:show="{{ show2 }}">返回顶部</ui-fixed-view>
+  </ui-page>
+</template>
+
+<script>
+  // page4.js
+export default {
+  config: {
+     navigationBarTitleText: "外部控制滚动"
+  },
+  data () {
+    return {
+      items: [],
+      items2: [],
+      bottom: 30,
+      show1: true,
+      show2: false
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+    for (let i = this.bottom + 1; i <= 60; i++) {
+      this.items2.push(`列表项目${i}`)
+    }
+  },
+  methods: {
+    gotoSuggestions (scrollTop) {
+      ui.pageScrollTo('#suggestion-title')
+    },
+    gotoTop () {
+      ui.pageScrollTo(0)
+    },
+    handleScroll (scrollTop) {
+      if (scrollTop > 1600) {
+        this.show2 = true
+        this.show1 = false
+      } else {
+        this.show2 = false
+        this.show1 = true
+      }
+    }
+  }
+}
+</script>
+
+<style lang="less">
+#suggestion-title {
+  background: #fff;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: #333;
+  background-color: lightyellow;
+}
+
+.ui-fixed-view {
+  bottom: 100px;
+  right: 20px;
+  width: 46px;
+  padding: 7px;
+  height: 46px;
+  line-height: 16px;
+  border: 1px solid rgb(243,86,86);
+  border-radius: 50%;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: rgb(243,86,86);
+  z-index: 99;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+
+.back-to-top {
+  // bottom: 150px;
+  border: 1px solid #666;
+  background-color: #666;
+}
+
+.wrapper {
+  position: relative;
+}
+</style>
+
+

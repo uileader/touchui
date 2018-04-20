@@ -1,0 +1,162 @@
+<!--scrollView6.ui-->
+<template>
+  <ui-page>
+    <ui-view>
+      <ui-view class="sample_title">左拉</ui-view>
+      <ui-scroll-view scroll-x height="200" pull-left="{{pullLeft}}">
+        <ui-view class="other_shop">
+          <ui-view id="a1" class="item" ui:for="{{ otherShop }}" ui:for-item="item">
+            <ui-image
+            src="{{ item.src }}"
+            width="100%"
+            ></ui-image>
+            <ui-view class="info">
+              <ui-text block>{{ item.name }}</ui-text>
+              <ui-view>{{ item.price }}</ui-view>
+            </ui-view>
+          </ui-view>
+          <ui-view class="view-content">
+            <ui-row height="170">
+              <ui-col ui:show="state === 0" vertical-align="middle" align="center">
+                <ui-icon type="arrow-left" size="18" color="#5F5F5F"></ui-icon>
+                </ui-col>
+                <ui-col style="line-height:15px;" ui:show="state === 0"  vertical-align="middle" align="center">
+                    拉动查看更多
+              </ui-col>
+              <ui-col ui:show="state === 1" vertical-align="middle" align="center">
+                  <ui-icon type="arrow-right" size="18" color="#5F5F5F"></ui-icon>
+                </ui-col>
+              <ui-col style="line-height:15px;" ui:show="state === 1" vertical-align="middle" align="center">
+                  松开查看更多
+              </ui-col>
+            </ui-row>
+          </ui-view>
+          
+        </ui-view>
+      </ui-scroll-view>
+
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// scrollView6.js
+export default {
+  config: {
+    navigationBarTitleText: "横向拉动跳转"
+  },
+  data () {
+    return {
+      state: 0,
+      otherShop: [
+        {
+          src: 'https://bfs.biyao.com/group1/M00/1F/C7/rBACVFoBTzyAX7ZEAACY21C5fXI268.jpg',
+          name: '经典纯色长袖T恤（2件装）',
+          price: '￥219'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/21/7D/rBACYVoBS2eAGLERAACGBt2GJLE867.jpg',
+          name: '经典纯色圆领T恤（2件装）',
+          price: '￥199'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/22/A3/rBACVFomgq-ANmslAACcqsAhIvk817.jpg',
+          name: '针织羊毛时尚连帽大衣',
+          price: '￥699'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/24/16/rBACYVohJFWAag_cAACdB8zSZ4w703.jpg',
+          name: '时尚卷边丝光羊毛针织衫',
+          price: '￥359'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/24/06/rBACYVogAWaAUMDBAACW25z6rd4054.jpg',
+          name: '时尚印花长袖圆领卫衣',
+          price: '￥249'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/24/0E/rBACW1oguKKATWw1AACZ_zOy2rQ695.jpg',
+          name: '羊毛天丝口袋翻领针织衫',
+          price: '￥299'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/22/F1/rBACYVoOpLiAWl5dAACaEPjUntg416.jpg',
+          name: '加厚条纹肌理羊毛针织衫',
+          price: '￥359'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/24/1C/rBACW1oheIeAM6lVAACef7Zvcww291.jpg',
+          name: '带扣小翻领丝光羊毛针织衫',
+          price: '￥369'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/20/E6/rBACVFoLoZ6AR9rCAACeI1pnTTE939.jpg',
+          name: '定位提花丝光羊毛针织衫',
+          price: '￥359'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/22/9C/rBACW1oLny6AOUQrAACeZCJkVEE062.jpg',
+          name: '小提花保暖长袖针织外套',
+          price: '￥499'
+        }
+      ],
+      pullLeft: {
+        distance: 50,
+        onBegin: this.handleBegin,
+        onActive: this.handlePullLeft,
+        onAfter: this.handlePullLeftAfter
+      }
+    }
+  },
+  methods: {
+    handleBegin ({distance, direction}) {
+      this.proportion = Math.abs(distance) / 50
+      if (this.proportion >= 1) {
+        this.state = 1
+      } else {
+        this.state = 0
+      }
+    },
+    handlePullLeft () {
+      ui.navigateTo({
+        url: '/pages/templeteDemo/store/sort'
+      })
+    },
+    handlePullLeftAfter (flag) {
+      if (flag) {
+        return
+      } else {
+        this.state = 0
+      }
+    }
+  }
+}
+</script>
+
+<style lang="less">
+  .view-content {
+  float: left;
+  width: 45px;
+  height: 170px;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.other_shop{
+  background-color: #FFFFFF;
+  width:1145px;
+  padding-top: 20px;
+  .mix-clearfix();
+  .item{
+    width: 110px;
+    padding: 0 5px;
+    float: left;
+    color: #333;
+    text-align: center;
+    .info{
+      padding: 10px 0;
+      text-align: center;
+      .ui-text{
+        .mix-text-overflow();
+        color: #000;
+      }
+      .ui-view{
+        color: #f33;
+        font-size: 12px;
+        margin-top: 10px;
+      }
+    }
+  }
+}
+</style>

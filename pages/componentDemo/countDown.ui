@@ -1,0 +1,84 @@
+<template>
+    <ui-page>
+      <ui-view class="sample_title">基本使用</ui-view>
+      <ui-view class="sample_content">
+          <ui-count-down time="2019/11/10 06:06:06"></ui-count-down>
+      </ui-view>
+  
+      <ui-view class="sample_title">传入时间为秒</ui-view>
+      <ui-view class="sample_content">
+        <ui-count-down time="20" timetype="second" done-text="结束啦～～" format="{%s}秒" bindtimeup="bindtimeup"></ui-count-down>
+      </ui-view>
+
+      <ui-view class="sample_title">自定义参数模版</ui-view>
+      <ui-view class="sample_content">
+          <ui-count-down time="2019/11/10 06:06:06" format="{%d}天-{%h}时-{%m}分-{%s}秒"></ui-count-down>
+      </ui-view>
+
+      <ui-view class="sample_title">自定义样式</ui-view>
+      <ui-view class="sample_content">
+        <ui-view class="custom">
+          <ui-view class="title">大牌臻选</ui-view>
+          <ui-count-down 
+          timetype="second"
+          time="10000"
+          format="{%h}时{%m}分{%s}秒"
+          number-style="{{numberStyle}}"></ui-count-down>
+        </ui-view>
+        
+      </ui-view>
+     
+    </ui-page>
+  </template>
+  
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "倒计时"
+  },
+  data () {
+    return {
+      numberStyle: {
+        backgroundColor: '#4c4c4c',
+        color: '#fff',
+        paddingLeft: '4px',
+        paddingRight: '4px',
+        marginLeft: '8px',
+        marginRight: '8px',
+        borderRadius: '4px',
+        fontSize:'12px',
+        minWidth:'30px',
+        display:'inline-block',
+        textAlign:'center',
+        lineHeight:'20px'
+      }
+    }
+  },
+  methods:{
+    navigateBack () {
+      ui.navigateBack()
+    },
+    bindtimeup(){
+      ui.showToast({title:'倒计时结束'})
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.custom{
+  width:210px;
+  border:1px solid #f5f5f5;
+  padding: 10px;
+  position:relative;
+  .title{
+    font-size: 18px;
+    text-align: center;
+    line-height: 30px;
+    color: #1D1D1D;
+    font-weight: 800;
+  }
+}
+</style>

@@ -1,0 +1,501 @@
+<template>
+  <ui-page top="0" bindscroll="handleScroll">
+    <ui-nav-bar class="nav-bar" slot="nav-bar" style="{{{ 'background-color': `rgba(255, 255, 255, ${alpha})` }}}">
+      <ui-row height="46" class="{{ className }}">
+        <ui-col vertical-align="middle" align="left" width="70" space-left="10" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="18" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col class="title" vertical-align="middle" align="center">酒店详情</ui-col>
+        <ui-col vertical-align="middle" align="center" width="35">
+          <ui-icon type="collect1" size="20" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35">
+          <ui-icon type="share2" size="22" color="#fff"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    
+
+    <ui-view>
+      <ui-swiper 
+        class="demo"
+        style="height: {{ swiperHeight }}px;"
+        indicator-dots
+        circular
+      >
+        <ui-swiper-item ui:for="{{items1}}" ui:for-item="item" ui:for-index="index">
+          <ui-image src="{{ item.src }}"
+          ></ui-image>
+        </ui-swiper-item>
+      </ui-swiper>
+    </ui-view>
+    <ui-view>
+      <ui-view class="">
+        <ui-view class="wrap">
+          <ui-row height="50" border-bottom class="info">
+            <ui-col vertical-align="middle" align="left" width="120" space-left="10">
+              <ui-star length=5 value=5 star-width="20" star-height=20></ui-star>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="100">
+              <ui-text class="comment">2567点评</ui-text>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right">
+              <ui-icon type="arrow-right" size="14" color="#351A1D"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="3">
+              <ui-view class="line"></ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="50" bindtap="call">
+              <ui-view class="mobile">
+                <ui-icon type="mobile" size="20" color="#fff"></ui-icon>
+              </ui-view>
+            </ui-col>
+          </ui-row>
+          <ui-row height="50" class="info" border-bottom>
+            <ui-col vertical-align="middle" align="left" space-left="10">
+              <ui-view class="address">丰台区右安门外大街97号院2号楼</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="50" bindtap="mapDetails">
+              <ui-view class="mobile">
+                <ui-icon type="route" size="20" color="#fff"></ui-icon>
+              </ui-view>
+            </ui-col>
+          </ui-row>
+          <ui-row height="50" class="info" border-bottom>
+            <ui-col vertical-align="middle" align="left" space-left="10">
+              <ui-icon type="favorite" size="20" color="#2A0E11"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left">
+              <ui-icon type="my" size="20" color="#2A0E11"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left">
+              <ui-icon type="mail" size="20" color="#2A0E11"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left">
+              <ui-icon type="api-data" size="20" color="#2A0E11"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left">
+              <ui-icon type="store" size="20" color="#2A0E11"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left">
+              <ui-icon type="building" size="20" color="#2A0E11"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="50" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#2A0E11"></ui-icon>
+            </ui-col>
+          </ui-row>
+
+          <ui-row height="70" class="time" border-bottom  bindtap="rangeCalendarDefaultOpen">
+            <ui-col vertical-align="middle" align="right">
+              <ui-view>入住</ui-view>
+              <ui-text>{{rangestart2}}</ui-text>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="100">
+              <ui-view class="days">{{ differ2 }}晚</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left">
+              <ui-view>离店</ui-view>
+              <ui-text>{{rangeend2}}</ui-text>
+            </ui-col>
+          </ui-row>
+
+
+
+          <ui-accordion class="hotels" ui:for="{{ accordion }}" header-height="100">
+            <ui-view slot="header">
+              <ui-row height="100" border-bottom>
+                <ui-col vertical-align="middle" align="left" width="100" space-left="10">
+                  <ui-image
+                    src="{{ item.img }}"
+                    width="80"
+                    height="80"
+                  ></ui-image>
+                </ui-col>
+                <ui-col vertical-align="middle" align="left" space-left="10">
+                  <ui-view class="title">{{ item.title }}</ui-view>
+                  <ui-text class="size">{{ item.size }}</ui-text>
+                </ui-col>
+                <ui-col vertical-align="middle" align="left" width="70">
+                  <ui-view class="price">{{ item.price }}</ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="center" width="20"></ui-col>
+              </ui-row>
+            </ui-view>
+            <ui-view slot="content">
+              <ui-row height="50" border-bottom>
+                <ui-col vertical-align="middle" align="left" space-left="10" width="100">
+                  <ui-view class="title">会员价</ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="center" width="20">
+                  <ui-icon type="arrow-right" size="16" color="#2A0E11"></ui-icon>
+                </ui-col>
+                <ui-col vertical-align="middle" align="right">
+                  <ui-view class="price">237元起</ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="center" width="80">
+                  <ui-text class="reserve">预定</ui-text>
+                </ui-col>
+              </ui-row>
+              <ui-row height="50" border-bottom>
+                <ui-col vertical-align="middle" align="left" space-left="10" width="100">
+                  <ui-view class="title">春季特惠-预付</ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="right">
+                  <ui-view class="price price2">231元起</ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="center" width="80">
+                  <ui-text class="reserve reserve2">满房</ui-text>
+                </ui-col>
+              </ui-row>
+              <ui-row height="50" border-bottom>
+                <ui-col vertical-align="middle" align="left" space-left="10" width="100">
+                  <ui-view class="title">春季特惠-现付</ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="right">
+                  <ui-view class="price price2">246元起</ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="center" width="80">
+                  <ui-text class="reserve reserve2">满房</ui-text>
+                </ui-col>
+              </ui-row>
+            </ui-view>
+          </ui-accordion>
+
+
+        </ui-view>
+      </ui-view>
+    </ui-view>
+    <!-- <ui-view class="banner">
+      <ui-ex-swiper touch-release-on-edges="true">
+        <ui-ex-swiper-item ui:for="{{items1}}" ui:for-item="item" ui:for-index="index">
+          <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+          <ui-text class="slide-title">{{ item.title }}</ui-text>
+        </ui-ex-swiper-item>
+      </ui-ex-swiper>
+    </ui-view> -->
+
+    <ui-popup ui:model="{{ rangeCalendarDefault }}">
+      <ui-view  class="popup2">
+        <ui-row space-top="{{statusBarHeight}}" height="{{headerHeight}}" > 
+          <ui-col align="center" vertical-align="middle" width="70">
+          </ui-col>
+          <ui-col align="center" vertical-align="middle">
+            <ui-text>请选择入住离店日期</ui-text>
+          </ui-col>
+          <ui-col align="right" space-right="10" vertical-align="middle" width="70" bindtap="handleSelect('rangeCalendarDefault')">
+            <ui-text>完成</ui-text>
+          </ui-col>
+        </ui-row>
+        <ui-v-calendar
+        height="{{height - headerHeight}}"
+        select-range-mode="{{true}}"
+        show-month-range="{{monthrange}}"
+        max-range="{{30}}"
+        value="{{defaultMonthrange}}"
+        bindselectedstart="selectedStartHandler2($event)"
+        bindselectedend="selectedEndHandler2($event)"
+        bindfailed="failedHandler2($event)"
+        start-range-color="#125cbc"
+        end-range-color="#125cbc"
+        range-color="#125cbc"
+      ></ui-v-calendar>
+      </ui-view>
+    </ui-popup>
+    
+
+
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "自定义透明导航",
+    "navigationStyle": "custom"
+  },
+  data () {
+    return {
+      items: [],
+      bottom: 30,
+      swiperHeight: ui.WIN_WIDTH / 750 * 375,
+      alpha: 0,
+      className: '',
+      items1: [{
+        src: 'http://images.uileader.com/20171103/5906a28c-0f12-4b71-8df2-98791d8716f6.jpg',
+        title: '放肆玩乐，轻巧办公'
+      },
+      {
+        src: 'http://images.uileader.com/20171103/34795a1c-1365-4256-b9c1-6fb4af1de3da.jpg',
+        title: '高温保护，一路驰骋'
+      },
+      {
+        src: 'http://images.uileader.com/20171103/926a6fdc-80f6-4244-8354-860627c88115.jpg',
+        title: '七夕好货，独家礼赠'
+      }],
+      //时间
+      height: ui.WIN_HEIGHT,
+      statusBarHeight: ui.STATUS_BAR_HEIGHT,
+      headerHeight: ui.DEFAULT_HEADER_HEIGHT,
+      // 时间可选范围
+      monthrange: [],
+      // 默认选中的时间范围
+      defaultMonthrange: [],
+      rangeCalendarDefault: false,
+      // 时间差
+      differ2: '',
+      rangestart2: '',
+      rangeend2: '',
+      rangeDate2: '',
+      // 时间对象，存储临时变化的时间
+      dateobj: {},
+      accordion:[
+        {
+          img:require('#/images/hotel/room_01.png'),
+          title:'大床房B',
+          size:'16-18平方米 1张1.65米双人床',
+          price:263
+        },
+        {
+          img:require('#/images/hotel/room_02.png'),
+          title:'大床房',
+          size:'14-16平方米 1张1.65米双人床',
+          price:263
+        },
+        {
+          img:require('#/images/hotel/room_03.png'),
+          title:'商务大床房',
+          size:'16-18平方米 1张1.65米双人床',
+          price:287
+        },
+        {
+          img:require('#/images/hotel/room_04.png'),
+          title:'家庭房',
+          size:'18-22平方米 1张1.65米双人床，1张单人床',
+          price:311
+        }
+      ]
+    }
+  },
+  methods: {
+    handleScroll (scrollTop) {
+      if (scrollTop > 100) {
+        this.alpha = 1
+      } else {
+        var val = scrollTop / 100
+        this.alpha = val
+      }
+      if (scrollTop > 40) {
+        this.className = 'nav_color'
+        // ui.setStatusBarStyle({style: 'dark'})
+      } else {
+        this.className = ''
+        // ui.setStatusBarStyle({style: 'light'})
+      }
+    },
+    mapDetails(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/O2O/mapDetails'
+      })
+    },
+    navigateBack () {
+      ui.navigateBack()
+    },
+    rangeCalendarDefaultOpen () {
+      this.rangeCalendarDefault = true
+      // ui.setStatusBarStyle({ style: 'dark' })
+    },
+    handleSelect (key) {
+      this[key] = false
+      // ui.setStatusBarStyle({style: 'light'})
+    },
+    
+    selectedStartHandler2 (e) {
+      this.rangeDate2 = e
+    },
+    selectedEndHandler2 (e) {
+      this.dateobj.rangedate2 = e
+      setTimeout(() => {
+        this.rangeCalendarDefault = false
+        // ui.setStatusBarStyle({style: 'light'})
+      }, 500)
+      this.calculationDays2()
+      this.rangeinit2(this.dateobj)
+    },
+    rangeinit2 (thisdate) {
+      let start, end
+      this.dateobj.rangestart2 = thisdate.rangedate2[0]
+      this.dateobj.rangeend2 = thisdate.rangedate2[1]
+      start = this.dateobj.rangestart2.split('/')
+      end = this.dateobj.rangeend2.split('/')
+      this.rangestart2 = `${start[1]}月${start[2]}日`
+      this.rangeend2 = `${end[1]}月${end[2]}日`
+    },
+    failedHandler2 (err) {
+      if (err === 1) {
+        ui.showToast({ title: '您选择的时间超过30天,请重新选择' })
+      }
+    },
+    format (obj) {
+      var date = new Date(obj)
+      var y = 1900 + date.getYear()
+      var m = '0' + (date.getMonth() + 1)
+      var d = '0' + date.getDate()
+      return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+    },
+    // 默认选中的。范围选择，根据选择日期，计算几晚
+    calculationDays2 () {
+      let start, end
+      start = Date.parse(this.dateobj.rangedate2[0])
+      end = Date.parse(this.dateobj.rangedate2[1])
+      this.differ2 = Math.floor((end - start) / (24 * 3600 * 1000))
+    },
+    call(){
+      ui.makePhoneCall({
+        phoneNumber: '10086'
+      })
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  },
+  created () {
+    // 计算时间范围
+    let radiodate = new Date()
+    let rangedate = new Date()
+    let rangedate2 = new Date()
+    this.radioDate = this.format(Date.parse(radiodate))
+    let start, end, defaultStart, defaultEnd
+    start = this.format(rangedate.setMonth(new Date().getMonth()))
+    end = this.format(rangedate.setMonth(new Date().getMonth() + 6))
+    start = start.substring(0, 7)
+    end = end.substring(0, 7)
+    this.monthrange.push(start, end)
+    defaultStart = this.format(rangedate2.setDate(new Date().getDate()))
+    defaultEnd = this.format(rangedate2.setDate(new Date().getDate() + 2))
+    this.defaultMonthrange.push(defaultStart, defaultEnd)
+  }
+}
+
+</script>
+
+<style lang="less">
+.nav_color{
+  transition: all .25s ease-in;
+  border-bottom: 1px solid rgba(231, 231, 231, 0.6);
+  box-sizing: border-box;
+  .ui-icon{
+    color: #6B6B6B!important;
+  }
+  .title{
+    color:#6B6B6B!important;
+  }
+}
+.nav-bar{
+  color:#fff;
+}
+.swiper-slide {
+  color: #fff;
+  text-align: center;
+  .ui-image {
+      width: 100%;
+      display: block;
+  }
+}
+.swiper-pagination {
+  text-align: right;
+  padding-right:5px;
+}
+.info{
+  .comment{
+    font-size: 12px;
+    color:#D2CACB;
+  }
+  .mobile{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #B10018;
+    line-height: 30px;
+    text-align: center;
+  }
+  .line{
+    width:1px;
+    height:40px;
+    background-color: #EDEDED;
+  }
+  .address{
+    font-size:14px;
+  }
+}
+.time{
+  .ui-view{
+    font-size: 12px;
+    color: #B10018;
+    &.days{
+      display: inline-block;
+      padding: 0 10px;
+      background-color: #E5BABC;
+      border-radius: 25px;
+    }
+  }
+  .ui-text{
+    font-size: 14px;
+    color: #B10018;
+  }
+}
+
+.ui-accordion {
+  .header{
+    .arrow{
+      right: 8px;
+      top: 40px;
+    }
+    .ui-row{
+      .title{
+        font-size: 14px;
+        color: #5B4A4B;
+      }
+      .size{
+        font-size: 12px;
+        width: 100%;
+        .mix-text-overflow();
+        text-align: left;
+      }
+      .price{
+        font-size:16px;
+        color: #B10018;
+      }
+    }
+  } 
+  .content{
+    .ui-row{
+      background-color: #F2F2F2;
+      .title{
+        font-size: 14px;
+        color: #5B4A4B;
+      }
+      .price{
+        font-size:14px;
+        color: #B10018;
+        &.price2{
+          color: #B4A8A9;
+        }
+      }
+      .reserve{
+        display: inline-block;
+        padding: 5px;
+        color: #fff;
+        font-size: 14px;
+        border-radius: 3px;
+        background-color: #B10018;
+        &.reserve2{
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+</style>

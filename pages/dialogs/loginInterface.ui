@@ -1,0 +1,536 @@
+<template>
+    <ui-page>
+      <!-- 登陆 && 注册 -->
+      <ui-nav-bar slot="nav-bar">
+        <ui-row height="46">
+            <ui-col vertical-align="middle" align="left" space-left="10" width="50" bindtap="hideWindow">
+                <ui-icon type="close" size="16" color="#A5A5A5"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-view class="nav_title">{{state=== 0 ?'手机快速登录／注册':'绑定账号'}}</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="50"></ui-col>
+          </ui-row>
+      </ui-nav-bar> 
+      <ui-view ui:if="state === 0">
+          <ui-ex-swiper speed="200" allow-touch-move="{{false}}" index="{{ currentNum }}" class="swiper_wrap" style="{{{ height : swiperHeight + 'px' }}}">
+              <ui-ex-swiper-item>
+                <ui-view class="login_wrap">
+                  <!-- 1 -->
+                  <ui-view class="portrait">
+                      <ui-icon type="user_img" color="#eee" size="80"></ui-icon>
+                  </ui-view>
+                  <!-- 2 -->
+                  <ui-view class="login_content">
+                    <ui-form bindsubmit="formSubmit">
+                      <ui-view>
+                        <ui-input type="number" ui:model="{{ loginTel }}" name="name" placeholder="手机号" placeholder-style="color:#9C9C9C"></ui-input>
+                      </ui-view>
+                      <ui-view>
+                        <ui-input ui:model="{{ loginPassword }}" type="password" name="password" placeholder="登录密码" placeholder-style="color:#9C9C9C" ></ui-input>
+                      </ui-view>
+                      <ui-button formType="submit" type="primary" class="submit" bindtap="login">登录</ui-button>
+                    </ui-form>
+                  </ui-view>
+                  <!-- 3 -->
+                  <ui-view class="third_party_wrap">
+                    <ui-divider>第三方账号登录</ui-divider>
+                    <ui-row height="60" class="third_party">
+                      <ui-col align="right" vertical-align="middle" space-right="20" bindtap="login_weixin">
+                        <ui-view class="weixin">
+                          <ui-icon type="wexin" color="#7EDE40" size="25"></ui-icon>
+                        </ui-view>
+                      </ui-col>
+                      <ui-col align="left" vertical-align="middle" space-left="20" bindtap="login_qq">
+                        <ui-view class="qq">
+                          <ui-icon type="qq_img" color="#25A6F1" size="25"></ui-icon>
+                        </ui-view>
+                      </ui-col>
+                    </ui-row>
+                  </ui-view>
+                  <!-- 4 -->
+                  <ui-view class="login_bottom">
+                    <ui-row height="40">
+                      <ui-col align="right" vertical-align="top" space-right="10">
+                        <ui-view class="forget_password">忘记密码</ui-view>
+                      </ui-col>
+                      <ui-col align="left" vertical-align="top" space-left="10" bindtap="loginPage1">
+                          <ui-view>快速注册</ui-view>
+                      </ui-col>
+                    </ui-row>
+                  </ui-view>
+      
+                </ui-view>
+      
+              </ui-ex-swiper-item>
+              <ui-ex-swiper-item>
+                <ui-view class="login_content2">
+                  <ui-form bindsubmit="formSubmit">
+                    <ui-row height="50" border-bottom>
+                      <ui-col vertical-align="bottom">
+                        <ui-input type="number" ui:model="{{ registerTel }}" name="tel" placeholder="请输入您的手机号码" maxlength="11" placeholder-style="color:#9C9C9C"></ui-input>
+                      </ui-col>
+                    </ui-row>
+                    <ui-row height="50" border-bottom>
+                      <ui-col vertical-align="bottom">
+                        <!-- <ui-input name="code" placeholder="请输入验证码" maxlength="8" placeholder-style="color:#9C9C9C" ></ui-input> -->
+                        <ui-sms-input ui:model="{{ code }}" second="30" initText="获取验证码" bindsend="smsCode"></ui-sms-input>
+                      </ui-col>
+                      <!-- <ui-col width="80" align="center" vertical-align="middle">
+                        <ui-view>获取验证码<ui-view>
+                      </ui-col> -->
+                    </ui-row>
+                    <ui-row height="50" border-bottom>
+                      <ui-col vertical-align="bottom">
+                        <ui-input ui:model="{{ registerPassword }}" type="password" name="pwd" placeholder="请输入密码" placeholder-style="color:#9C9C9C" ></ui-input>
+                      </ui-col>
+                    </ui-row>
+                    <!-- <ui-view class="submit">下一步</ui-view> -->
+                    <ui-button formType="submit" type="primary" class="submit" bindtap="register">注册</ui-button>
+                    <ui-view class="have_account" bindtap="loginPage2">已有账户，点击登录</ui-view>
+                  </ui-form>
+                </ui-view>
+              </ui-ex-swiper-item>
+            </ui-ex-swiper>
+      </ui-view>
+      <!-- 微信&&QQ账号绑定页面 -->
+      <ui-view ui:if="state === 1">
+      <!-- <ui-nav-bar >
+          <ui-row height="46">
+              <ui-col vertical-align="middle" align="left" space-left="10" width="50" bindtap="hideWindow">
+                  <ui-icon type="close" size="16" color="#A5A5A5"></ui-icon>
+              </ui-col>
+              <ui-col vertical-align="middle" align="center">
+                <ui-view class="nav_title">绑定账号</ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="center" width="50"></ui-col>
+            </ui-row>
+        </ui-nav-bar> -->
+        <ui-view class="login_wrap">
+          <ui-view class="login_content">
+            <ui-form style="margin-top:30px;">
+              <ui-view>
+                <ui-input type="number" ui:model="{{ tel }}" name="tel" placeholder="手机号" placeholder-style="color:#9C9C9C"></ui-input>
+              </ui-view>
+              <ui-view>
+                <ui-input ui:model="{{ pwd }}" type="password" name="pwd" placeholder="登录密码" placeholder-style="color:#9C9C9C" ></ui-input>
+              </ui-view>
+              <ui-view style="line-height:45px;padding-left:10px;margin-top:20px;border:0;color:#999;">如果该手机号账号未注册，会自动注册并绑定</ui-view>
+              <ui-button formType="submit" type="primary" class="" bindtap="bindAccount">绑定该账号</ui-button>
+            </ui-form>
+          </ui-view>
+        </ui-view>
+      </ui-view>
+    </ui-page>
+</template>
+
+
+<script>
+  // loginInterface.js
+const registerUrl = '/touchui-backstage/register.do'
+const loginUrl = '/touchui-backstage/login.do'
+import encryptRSA from '#/static/utils/security'
+export default {
+  config: {
+    'navigationBarVisible': false,
+    "scrollType": "div",
+    "disableScroll":true
+  },
+  data () {
+    return {
+      barHeight: ui.STATUS_BAR_HEIGHT,
+      swiperHeight: ui.DEFAULT_CONTENT_HEIGHT,
+      currentNum: 0,
+      registerTel: '',
+      registerPassword: '',
+      loginTel: '',
+      loginPassword: '',
+      code: '',
+      flag: false,
+      state:0,
+      tel: '',
+      pwd: '',
+      openid:'',
+      unionid:'',
+      type:''
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    formSubmit (e) {
+    },
+    hideWindow (e) {
+      this.state = 0 
+      ui.hideDialog()
+    },
+    loginPage1 () {
+      // ui.navigateTo({
+      //   url: 'pages/templeteDemo/register/register'
+      // })
+      this.currentNum = 1
+    },
+    loginPage2 () {
+      this.currentNum = 0
+    },
+    smsCode () {
+      ui.showToast({ title: '没有真正发送，随便输什么都行～' })
+    },
+    login () {
+      let pwd = this.loginPassword.toString().length
+      if (this.loginTel === '') {
+        ui.showToast({ title: '请输入手机号' })
+      } else if (pwd < 6) {
+        ui.showToast({ title: '请输入6位以上密码' })
+      } else {
+        ui.request({
+          url: loginUrl,
+          data: {
+            tel: this.loginTel,
+            pwd: encryptRSA(this.loginPassword)
+          },
+          success: function (result) {
+            if (result.data.error_code === -1) {
+              ui.showToast({ title: '接口失败' })
+            } else if (result.data.error_code === 2001) {
+              ui.showToast({ title: '密码错误' })
+            } else if (result.data.error_code === 2002) {
+              ui.showToast({ title: '手机号未注册' })
+            } else {
+              let userinfo = {
+                isLogin: true,
+                data: result.data.result
+              }
+              ui.showToast({ title: '登录成功', icon: 'success' })
+
+              ui.hideDialog({ userinfo: userinfo })
+              // ui.hideDialog()
+              ui.setStorageSync('userinfo', result.data.result)
+            }
+          },
+          fail: function ({ errMsg }) {
+          }
+        })
+      }
+    },
+    register () {
+      let that = this
+      let pwd = this.registerPassword.toString().length
+      if (this.registerTel === '') {
+        ui.showToast({ title: '请输入手机号' })
+      } else if (pwd < 6) {
+        ui.showToast({ title: '请输入6位以上密码' })
+      } else if (this.code === '') {
+        ui.showToast({ title: '请输入验证码' })
+      } else {
+        // this.flag = true
+
+        ui.request({
+          url: registerUrl,
+          data: {
+            tel: this.registerTel,
+            pwd: encryptRSA(this.registerPassword)
+          },
+          success: function (result) {
+            if (result.data.error_code === -1) {
+              ui.showToast({ title: '接口失败' })
+            } else if (result.data.error_code === 1001) {
+              ui.showToast({ title: '注册失败' })
+            } else if (result.data.error_code === 1002) {
+              ui.showToast({ title: '手机号已被注册' })
+            } else {
+              ui.showToast({ title: '注册成功', icon: 'success' })
+              that.currentNum = 0
+            }
+          },
+          fail: function ({ errMsg }) {
+            ui.showToast({ title: '请求失败' })
+          }
+        })
+      }
+    },
+
+    login_qq(){
+      console.log('调用qq接口')
+      ui.login({
+        target: 'qq',
+        success: data => {
+          console.log('success', data.errMsg)
+          if(data.errMsg === "ok"){
+            this.checkOpenid(data.openid)
+          }else{
+            console.log('失败s')
+          }
+              
+        },
+        fail:data=>{
+          console.log('fail', data)
+        }
+      })
+    },
+    //验证openid是否绑定
+    checkOpenid(openid){
+      let that = this
+      ui.request({
+        url: '/touchui-backstage/checkOpenid.do',
+        data: {
+          openid: openid,
+        },
+        success: function (data) {
+          //没有绑定
+          if(data.data.error_code === 0){
+            that.state = 1
+            that.type = 'qq'
+            that.openid = openid
+          }else if(data.data.error_code === 1){
+            ui.showToast({ title: '登录成功', icon: 'success' })
+            let userinfo = {
+              isLogin: true,
+              data: data.data.result
+            }
+            console.log(data.data.result)
+            ui.setStorageSync('userinfo', data.data.result)
+            ui.hideDialog({ userinfo: userinfo })
+          }
+        },
+        fail: function (data) {
+          console.log(data,'checkOpenid,fail')
+        }
+      })
+    },
+    login_weixin(){
+      ui.login({
+        target: 'weixin',
+        success: data => {
+          console.log('success', data)
+          this.checkUnionid(data.unionid)
+          
+        },
+        fail:data=>{
+          console.log('fail', data)
+        }
+      })
+      
+    },
+    //验证微信Unionid
+    checkUnionid(unionid){
+      let that = this
+      ui.request({
+        url: '/touchui-backstage/checkUnionid.do',
+        data: {
+          unionid: unionid,
+        },
+        success: function (data) {
+          console.log(data)
+          console.log(data.data.error_code,'checkUnionid,success')
+          //没有绑定
+          if(data.data.error_code === 0){
+            that.state = 1
+            that.type = 'wx'
+            that.unionid = unionid
+          }else if(data.data.error_code === 1){
+            ui.showToast({ title: '登录成功', icon: 'success' })
+            let userinfo = {
+              isLogin: true,
+              data: data.data.result
+            }
+            ui.setStorageSync('userinfo', data.data.result)
+            ui.hideDialog({ userinfo: userinfo })
+          }
+        },
+        fail: function (data) {
+          console.log(data,'checkOpenid,fail')
+        }
+      })
+    },
+    bindAccount(){
+      let that = this
+      if(this.type === 'wx'){
+        ui.request({
+          url: '/touchui-backstage/wxLogin.do',
+          data: {
+            unionid: this.unionid,
+            tel:this.tel,
+            pwd:encryptRSA(this.pwd)
+          },
+          success: function (data) {
+            if (data.data.error_code === -1) {
+              ui.showToast({ title: '接口失败' })
+            } else if (data.data.error_code === 2001) {
+              ui.showToast({ title: '密码错误' })
+            } else if (data.data.error_code === 2002) {
+              ui.showToast({ title: '手机号未注册' })
+            } else {
+                ui.showToast({ title: '登录成功', icon: 'success' })
+                let userinfo = {
+                  isLogin: true,
+                  data: data.data.result
+                }
+                ui.hideDialog({ userinfo: userinfo })
+                ui.setStorageSync('userinfo', data.data.result)
+                that.state = 0
+            }
+          },
+          fail: function (data) {
+            console.log(data,'fail')
+          }
+        })
+      }else if(this.type === 'qq'){
+        let that = this
+        ui.request({
+          url: '/touchui-backstage/qqLogin.do',
+          data: {
+            openid: this.openid,
+            tel:this.tel,
+            pwd:encryptRSA(this.pwd)
+          },
+          success: function (data) {
+            if (data.data.error_code === -1) {
+              ui.showToast({ title: '接口失败' })
+            } else if (data.data.error_code === 2001) {
+              ui.showToast({ title: '密码错误' })
+            } else if (data.data.error_code === 2002) {
+              ui.showToast({ title: '手机号未注册' })
+            } else {
+                ui.showToast({ title: '登录成功', icon: 'success' })
+                let userinfo = {
+                  isLogin: true,
+                  data: data.data.result
+                }
+                ui.hideDialog({ userinfo: userinfo })
+                ui.setStorageSync('userinfo', data.data.result)
+                that.state = 0
+            }
+          },
+          fail: function (data) {
+            console.log(data,'fail')
+          }
+        })
+      }
+    }
+  },
+  mounted () {
+    this.$DialogOpen((data) => {
+
+    })
+    this.$DialogClose((data) => {
+      this.currentNum = 0
+    })
+  }
+}
+
+</script>
+
+<style lang="less">
+// loginInterface.less
+.ui-nav-bar{
+  width: 100%;
+  background-color: #fff;
+}
+.nav_title {
+  color: #A5A5A5;
+  font-size: 16px;
+}
+.ui-dialog-header{
+  box-shadow: none;
+}
+.swiper_wrap{
+  height: 100%;
+  .ui-ex-swiper-item{
+    position: relative
+  }
+}
+
+
+.login_content2{
+  padding: 50px 20px 0 20px;
+  .ui-input{
+    border: 0;
+  }
+  .submit{
+    margin-top: 50px;
+  }
+  .ui-row{
+    .ui-view{
+      color: #A5A5A5;
+    }
+  }
+  .have_account{
+    line-height: 30px;
+    // width: 100px;
+    display: inline-block;
+    color: #9C9C9C;
+  }
+}
+.ui-sms-input{
+  .cell-left{
+    display: none;
+  }
+}
+
+.login_wrap{
+  height: 100%;
+  display:flex;
+  flex-direction:column;
+}
+.portrait{
+  .mix-flex-center();
+  height: 350rpx;
+  flex: 1;
+}
+
+.login_content{
+  flex: 0 0 500rpx;
+  background: #fff;
+  padding: 0 20px;
+  .ui-form{
+    .ui-input{
+      border: 0;
+      margin: 10px 0 5px 0;
+    }
+    .ui-view{
+      border-bottom: 1px solid #EBEBEB;
+    }
+  }
+  .submit{
+    margin-top: 100rpx;
+  }
+}
+.third_party_wrap{
+  flex: 0 0 300rpx;
+  // background: yellow;
+  // margin-top: 100rpx;
+  .third_party{
+    .ui-view{
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      // background-color: #6D6D6D;
+      border-radius: 50%;
+      &.weixin{
+        border: 1px solid #7ede40;
+      }
+      &.qq{
+        border: 1px solid #25A6F1;
+      }
+    }
+  }
+}
+
+.login_bottom{
+  flex: 0 0 80rpx;
+  // background: black;
+  width: 100%;
+  // position: absolute;
+  // bottom: 0;
+  .ui-view{
+    font-size: 14px;
+    color: #9C9C9C;
+  }
+  .forget_password{
+    color: #D4D4D4;
+  }
+}
+</style>

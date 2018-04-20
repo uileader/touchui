@@ -1,0 +1,408 @@
+<template>
+  <ui-page show-loading="true" top="0">
+      <ui-nav-bar slot="nav-bar">
+          <ui-row height="46" class="nav">
+            <ui-col vertical-align="middle" align="left" space-left="10"  width="70" bindtap="navigateBack">
+                <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+            </ui-col>
+            <ui-col>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="70">
+                <ui-icon type="more" size="24" color="#fff"></ui-icon>
+            </ui-col>
+          </ui-row>
+        </ui-nav-bar>
+        <ui-view class="blur-box">
+          <ui-blur url="http://images.uileader.com/20180319/7857635a-0077-4393-a477-12cf59640faa.png" height="{{DEFAULT_HEADER_HEIGHT+89}}"></ui-blur> 
+        </ui-view>
+        <ui-view class="top_box" style="{{ {marginTop:DEFAULT_HEADER_HEIGHT+'px'}}}">
+          <ui-row class="nav2">
+            <ui-col space="20" class="col-w">
+              <ui-image class="imgbox" src="http://images.uileader.com/20180319/7857635a-0077-4393-a477-12cf59640faa.png"></ui-image>
+            </ui-col>
+            <ui-col>
+              <ui-view class="nav_right">
+                <ui-text class="t1" block>北京麦当劳芳菲路餐厅</ui-text>
+                <ui-text block>商家配送 | 28分钟送达 | 配送费￥9</ui-text>
+                <ui-text block>公告:欢迎光临，用餐高峰期请提前下单，谢谢</ui-text>
+              </ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+    
+        <ui-row height="46" class="tabs">
+          <ui-col vertical-align="middle" align="center">商品</ui-col>
+          <ui-col vertical-align="middle" align="center">评价</ui-col>
+          <ui-col vertical-align="middle" align="center">店铺</ui-col>
+        </ui-row>
+    
+
+          
+    
+
+
+  <ui-network-view style="{{{height:height - 181 +'px'}}}"  request="{{ requestval }}" ui:model="{{ empty }}" need-login="{{ needLogin }}">
+    <!--loading-->
+      <ui-loading slot="loading" show full-screen="{{ false }}" :mask-style="{ backgroundColor: 'rgb(255,255,255)' }">
+        <ui-view class="main">
+          <ui-view class="ui-loading-box">
+            <ui-view class="ui-loading-circle ui-loading-circle-1"></ui-view>
+            <ui-view class="ui-loading-circle ui-loading-circle-2"></ui-view>
+            <ui-view class="ui-loading-circle ui-loading-circle-3"></ui-view>
+        </ui-view>
+        </ui-view>
+
+      </ui-loading>
+      <!--错误失败-->
+      <ui-view slot="error" class="error">
+        <ui-view class="main">
+        <ui-view class="show_tip">
+            <ui-icon type="networkOffline" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="msgtitle">数据请求失败</ui-view>
+            <ui-button type="danger" prevent-default="{{false}}">点击重试</ui-button>
+          </ui-view>
+        </ui-view>
+      </ui-view>
+
+      <!--超时-->
+      <ui-view slot="timeout" class="timeout">
+        <ui-view class="main">
+        <ui-view class="show_tip">
+            <ui-icon type="qingqiuchaoshi" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="msgtitle">数据请求超时</ui-view>
+            <ui-button type="danger" prevent-default="{{false}}">点击重试</ui-button>
+          </ui-view>
+        </ui-view>
+      </ui-view>
+
+      <!--网络异常-->
+      <ui-view slot="offline" class="timeout">
+        <ui-view class="main">
+        <ui-view class="show_tip">
+            <ui-icon type="networkError" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="msgtitle">网络异常</ui-view>
+            <ui-button type="danger" prevent-default="{{false}}">点击重试</ui-button>
+          </ui-view>
+        </ui-view>
+      </ui-view>
+
+      <!--空-->
+      <ui-view slot="empty" class="empty ui-network-view-tip">
+        <ui-view class="main">
+          <ui-view class="show_tip">
+            <ui-icon type="ico_nodata" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="msgtitle">商品未上架</ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-view>
+
+      <!--登录-->
+      <ui-view slot="login" class="login ui-network-view-tip">
+        <ui-view class="main">
+          <ui-view class="show_tip">
+              <ui-icon type="login" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="msgtitle">没有登录哦~~</ui-view>
+            <ui-button type="primary" class="selfrequestbtn" bindtap="loginfn">立即登录</ui-button>
+          </ui-view>
+        </ui-view>
+      </ui-view>
+
+      <!--正常-->
+      <ui-view>
+          <ui-row>
+            <!-- tab -->
+            <ui-col border-right width="100">
+              <ui-v-tabs
+                height="{{ WIN_HEIGHT-201}}"
+                index="{{ current }}"
+                probe=1
+                bindchange="handleChange($event, 'current')">
+                <ui-v-tab ui:for="{{ tabItems }}">
+                  {{ item.name }}
+                </ui-v-tab>
+              </ui-v-tabs>
+            </ui-col>
+            <!-- 商品列表 -->
+            <ui-col class="goods-list">
+              <ui-scroll-view height="{{ WIN_HEIGHT-201}}" bindscroll="scroll($event, 'current')" probe="2" background-color="#fff" scroll-y scroll-into-view="{{toView}}">
+                <ui-view ui:for="{{datalist}}" ui:for-index="index" ui:for-item="goodsItem" id="{{goodsItem.id}}">
+                  <ui-divider>{{goodsItem.name}}</ui-divider>
+                  <ui-row height="70" border-bottom ui:for="{{goodsItem.items}}" ui:for-item="item" ui:for-index="index">
+                    <ui-col vertical-align="middle" width="70" space-left="10">
+                      <ui-image class="imgbox" src="{{ item.imgSrc }}" width="70" height="70"></ui-image>
+                    </ui-col>
+                    <ui-col vertical-align="middle" space-left="16">
+                      <ui-view class="goods-list-right">
+                        <ui-text block class="t1">{{ item.title }}</ui-text>
+                        <ui-text class="t2">{{ item.tips }}</ui-text>
+                        <ui-text class="t3">{{ item.price }}</ui-text>
+                      </ui-view>
+                    </ui-col>
+                  </ui-row>
+                </ui-view>
+              </ui-scroll-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+  </ui-network-view>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "disableScroll":true,
+    "navigationBarTextStyle": 'white'
+  },
+  data () {
+    return {
+      WIN_HEIGHT:ui.WIN_HEIGHT,
+      DEFAULT_HEADER_HEIGHT:ui.DEFAULT_HEADER_HEIGHT,
+      items: [],
+      height: ui.WIN_HEIGHT,
+      toView: '',
+      current: 0,
+      // 数据
+      datalist: [],
+      // 数据为空
+      empty: false,
+      // networkview组件的request属性的默认值
+      requestval: null,
+      // 默认请求地址
+      requesturl: '/touchui-backstage//listMenu.do?state=',
+      // 请求状态参数
+      state: '',
+      // 需要登录
+      needLogin: false,
+      tabItems: [
+        { name: '热销榜' },
+        { name: '主食' },
+        { name: '超值套餐' },
+        { name: '小食' },
+        { name: '饮品' },
+        { name: '甜品' },
+        { name: '促销产品和热卖产品' },
+        { name: '开心乐园餐' }
+      ]
+    }
+  },
+  methods: {
+    // 请求处理函数
+    getPostList () {
+      this.init()
+      return ui.request({
+        // promise设置为true，让请求返回promise，这样就可以接管请求
+        promise: true,
+        url: this.requesturl + this.state,
+        success: (response) => {
+          if (response.data === '') {   // 返回数据为空
+            this.empty = true
+          } else {     // 返回数据不为空
+            this.datalist = response.data
+            this.computeInit()
+          }
+        },
+        error: (response) => {
+        }
+      })
+    },
+    // 初始时，重置所有状态变量
+    init () {
+      this.empty = false
+      this.needLogin = false
+      this.datalist = []
+      if (this.state === '5') { // 设定一个请求失败地址（这里用来设置请求失败的效果，实际使用时一般用不到）
+        this.requesturl = '/touchui-backstage/listMenu2.do'
+      } else {
+        this.requesturl = '/touchui-backstage/listMenu.do?state='
+      }
+    },
+    loginfn () {
+      ui.showToast({ title: '登录登录~~' })
+    },
+    computeInit () {
+      let arr = []
+      let sum = 0
+      let length = this.datalist.length
+      for (var i = 0; i < length; i++) {
+        arr.push(this.datalist[i].items.length)
+        if (i === 0) {
+          this.datalist[i].top = 0
+        } else {
+          sum += arr[i - 1]
+          this.datalist[i].top = 70 * sum + 32 * i
+        }
+      }
+    },
+    scroll (y, key) {
+      if (y > 0) {
+        // //滚动容器没有滚动到最上方
+        this.scrollTop = '1'
+      } else {
+        // 滚动容器滚动到最上方
+        this.scrollTop = '0'
+      }
+      let top = Math.abs(y)
+      var length = this.datalist.length
+      for (var i = 0; i <= length - 1; i++) {
+        if (top >= this.datalist[i].top - 10) {
+          this.current = i
+        }
+      }
+    },
+    handleChange (index, key) {
+      this.toView = 'id' + index
+      this[key] = index
+    },
+    navigateBack () {
+      ui.navigateBack()
+    }
+  },
+  mounted () {
+    // 每次进入页面时都会执行数据请求，并重置所有变量状态
+    // 获取参数
+    let getData = ui.getQuery()
+    this.state = getData.state
+    // 初始化，重置所有状态变量
+    this.init()
+    // 请求失败
+    if (this.state === '7') {   // 已知结果为空，不发请求
+      this.empty = true
+    } else if (this.state === '6') {    // 需要登录，不发请求
+      this.needLogin = true
+    } else if (this.state === '5') {
+      // 将请求处理函数赋给requestval变量（networkview组件的request属性绑定了该变量），重新发起请求
+      // 这里用来设置请求失败的效果，实际使用时一般用不到
+      this.requestval = this.getPostList()
+    } else {    // 正常发起请求
+      // 将请求处理函数赋给requestval变量（networkview组件的request属性绑定了该变量），发起请求
+      this.requestval = this.getPostList()
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+@loading-color: #3399ff;
+.win{display:flex;
+  flex-direction:column;
+  justify-content:space-between;}
+.main{
+  position:relative;
+  margin-top: -70px;
+}
+.selfrequestbtn{
+  background-color: #41ad72;
+  color:#fff;
+  border-color:#41ad72
+}
+.ui-loading-box{
+  width:100px;
+}
+.show_tip{
+    .ui-icon{
+      line-height: 1.1;
+    }
+    .ui-button{
+      width:100px;
+    }
+  }
+.ui-loading-circle {
+  width: 5px;
+  height: 5px;
+  background: @loading-color;
+  border-radius: 50%;
+  margin-left: 5px;
+  display: inline-block;
+}
+
+.ui-loading-circle-1 {
+  -webkit-animation: circle 1s linear infinite alternate;
+  animation: circle 1s linear infinite alternate;
+}
+
+.ui-loading-circle-2 {
+  -webkit-animation: circle 1s linear infinite alternate;
+  animation: circle 1s linear infinite alternate;
+  animation-delay: 0.5s;
+}
+
+.ui-loading-circle-3 {
+  -webkit-animation: circle 1s linear infinite alternate;
+  animation: circle 1s linear infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes circle {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+.blur-box{
+  position:absolute;
+  top:0;
+  height:135px;
+  width:100%;
+}
+.top_box{
+  height:89px;
+}
+.nav{
+  z-index:9;
+}
+.nav2{
+  z-index:9;
+  .nav_right{
+    color:#fff;
+    font-size:12px;
+    line-height:24px;
+    margin-top:3px;
+    .t1{
+      font-size:16px;
+    }
+  }
+  .col-w{
+    flex:0 0 100px;
+    top:22px;
+    .imgbox{
+      box-shadow: 0px 5px 10px -2px #9a9a9a;
+      width:100%;
+      border-radius: 5px;
+      overflow: hidden;
+      .ui-image{
+        width:100%;
+      }
+    }
+  }
+}
+
+.tabs{
+  margin-top:20px;
+  .mix-1px(0, 0, 1, 0, #ccc);
+}
+
+.goods-list{
+  .imgbox{
+    .ui-image{
+      width:100%;
+    }
+  }
+  .goods-list-right{
+    font-size:12px;
+    .t1{
+      font-size:14px;
+    }
+    .t3{
+      color:#e60012
+    }
+  }
+}
+</style>

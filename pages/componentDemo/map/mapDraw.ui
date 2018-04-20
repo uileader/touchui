@@ -1,0 +1,213 @@
+<template>
+  <ui-page class="map-wrap">
+    <ui-map 
+      id="map" 
+      map-service="tencent"
+      longitude="{{longitude}}" 
+      latitude="{{latitude}}"
+      scale="{{scale}}"
+      polyline="{{polyline}}" 
+      show-location="{{showLocation}}"
+      controls="{{controls}}"
+      circles="{{circles}}"
+      bindcontroltap="controltap"
+      bindregionchange="regionchange"
+      bindcallouttap="callouttap"
+      style="width:100%;height:93vh;">
+    </ui-map>
+  </ui-page>
+</template>
+
+<script>
+// mapDemo.js
+// mapDemo02.js
+var pathIcon = require('#/images/map/path.png')
+export default {
+  config: {
+    "navigationBarTitleText": "地图绘制"
+  },
+  data () {
+    return {
+      latitude: 39.855060,
+      longitude: 116.368650,
+      scale: 16,
+      showLocation: true,
+      mapCtx: null,
+      polyline: [
+        {
+          points: [
+            {
+              latitude: 39.853332,
+              longitude: 116.371028
+            },
+            {
+              latitude: 39.854864,
+              longitude: 116.371179
+            },
+            {
+              latitude: 39.856289,
+              longitude: 116.370293
+            },
+            {
+              latitude: 39.855897,
+              longitude: 116.368909
+            }
+          ],
+          color: '#ff0000',
+          width: 2,
+          dottedLine: true
+        }
+      ],
+      controls: [{
+        id: 1,
+        iconPath: require('#/images/map/location.png'),
+        clickable: true,
+        position: {
+          left: 15,
+          top: 570,
+          width: 64,
+          height: 64
+        }
+      }],
+      controls: [{
+        id: 1,
+        iconPath: require('#/images/map/location.png'),
+        clickable: true,
+        position: {
+          left: 15,
+          top: ui.DEFAULT_CONTENT_HEIGHT - 100,
+          width: 64,
+          height: 64
+        }
+      }],
+      circles: [{
+        latitude: 39.855060,
+        longitude: 116.368650,
+        color: '#0000FF33',
+        fillColor: '#0000FF33',
+        radius: 100,
+        strokeWidth: 1
+
+      }]
+    }
+  },
+  created () {
+    // this.setData({
+    //   mapCtx: ui.createMapContext('map')
+
+    // })
+  },
+  mounted () {
+    this.mapCtx = ui.createMapContext('map')
+  },
+  methods: {
+    controltap (e) {
+      if (e.controlId === 1) {
+        this.mapCtx.moveToLocation()
+      }
+    },
+    regionchange () {
+
+    },
+    callouttap (e) {
+      if (e.markerId === 2) return
+      if (e.markerId === 1) {
+        this.toSysMap(39.855060, 116.368650, '北京引领视觉科技有限公司')
+      }
+      if (e.markerId === 3) {
+        this.toSysMap(39.858620, 116.369580, '右安门翠林小区二里')
+      }
+    },
+    toSysMap (lat, lng, names) {
+      ui.openSysMap({
+        latitude: lat,
+        longitude: lng,
+        name: names,
+        success: function (res) {
+        },
+        fail: function (res) {
+        },
+        complete: function (res) {
+        }
+      })
+    },
+    go () {
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // mapDemo.less
+.c-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-right: 25px;
+  p {
+      padding: 0 5px;
+  }
+}
+.a-name {
+  font-size: 14px;
+  color: #000;
+  line-height: 20px;
+}
+.a-info {
+  font-size: 12px;
+  color: #000;
+  line-height: 16px;
+}
+.click {
+  position: absolute;
+  left: calc(100% - 6px);
+  top: 0;
+  width: 50px;
+  height: 100%;
+  background-color: #FF6600;
+  line-height: 48px;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 0 10px 10px 0; 
+}
+
+.s-map {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.s-name {
+  margin-right: 10px;
+  font-size: 16px;
+}
+.btn{
+  height: 25px;
+  padding: 0 5px;
+  background-color: #3783fe;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+      width: 16px;
+      height: 16px;
+      margin-right: 3px;
+  }
+  span {
+      font-size: 13px;
+      color: #fff;
+      
+  }
+}
+</style>
+  

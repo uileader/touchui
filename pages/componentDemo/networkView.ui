@@ -1,0 +1,55 @@
+<template>
+  <ui-page class="win">
+      <ui-button class="selfbtn" bindtap="navigateurl('normal')">正常请求</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('backnull')">请求结果为空</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('overtime')">请求超时</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('normal')">网络错误（可以将手机打开飞行模式）</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('failed')">请求失败（这里设置了一个错误的url）</ui-button>
+      <ui-button class="selfbtn" bindtap="navigateurl('isnull')">已知为空（请求前已知结果为空，不发请求）</ui-button>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "默认网络提示"
+  },
+  data () {
+    return {
+    }
+  },
+  methods: {
+    navigateurl (staterefer) {
+      let state
+      switch (staterefer) {
+        case 'normal':
+          state = '1'
+          break
+        case 'backnull':
+          state = '3'
+          break
+        case 'overtime':
+          state = '4'
+          break
+        case 'failed':
+          state = '5'
+          break
+        case 'isnull':
+          state = '7'
+          break
+      }
+
+      ui.navigateTo({
+        url: 'networkView2?state=' + state
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .win{
+  padding:10px
+}
+</style>

@@ -1,0 +1,56 @@
+<!--formList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row type="flex">
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+        <ui-row type="flex" ui:for="{{ group.items }}" url="{{ item.link }}" hover-class="touchui-hover">
+          <ui-col>{{ item.title }}</ui-col>
+          <ui-col align="right" width="30">
+              <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+  // formList.js
+export default {
+  config: {
+    "navigationBarTitleText": "表单"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '手势类',
+          items: [
+            { title: '按钮 button', link: '/pages/componentDemo/button' },
+            { title: '开关 switch', link: '/pages/componentDemo/switch' },
+            { title: '滑动条 slider', link: '/pages/componentDemo/slider' },
+            { title: '标尺 ruler', link: '/pages/componentDemo/ruler' }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+
+</style>

@@ -1,0 +1,227 @@
+<!--picker.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">单列选择器</ui-view>
+    <ui-view class="sample_content">
+      <ui-picker title="单列选择器" range="{{ list00 }}" value="{{ value }}" bindchange="handleChange"></ui-picker>
+      <ui-button bindtap="resetPicker00">将选项重置为第一项</ui-button>
+    </ui-view>
+
+    <ui-view class="sample_title">单列选择器(range-key)</ui-view>
+    <ui-view class="sample_content">
+      <ui-picker title="单列选择器" range="{{ list01 }}" range-key="name" value="{{ value01 }}" bindchange="handleChange"></ui-picker>
+      <ui-button bindtap="resetPicker01">将选项重置为第一项</ui-button>
+    </ui-view>
+
+    <ui-view class="sample_title">多列选择器</ui-view>
+    <ui-view class="sample_content">
+      <ui-divider>不联动</ui-divider>
+      <ui-picker mode="multiSelector" value="{{ value1 }}" range="{{ phones }}"></ui-picker>
+
+      <ui-divider>二级联动</ui-divider>
+      <ui-picker mode="multiSelector" is-chain value="{{ value2 }}" range="{{ departments }}" range-key="text" bindchange="handleChange2"></ui-picker>
+
+      <ui-divider>三级联动</ui-divider>
+      <ui-picker mode="multiSelector" is-chain value="{{ value3 }}" range="{{ relaxes }}" range-key="text" bindchange="handleChange3"></ui-picker>
+    </ui-view>
+
+    <ui-view class="sample_title">时间选择器</ui-view>
+    <ui-view class="sample_content">
+      <ui-picker title="选择出发时间" mode="time" start="11:10" end="15:24" value="{{ timeValue }}" bindchange="handleChange4"></ui-picker>
+      <ui-button  bindtap="resetPicker2">将时间重置为00:00</ui-button>
+    </ui-view>
+
+    <ui-view class="sample_title">日期选择器</ui-view>
+    <ui-view class="sample_content">
+      <ui-divider>format：YYYY-MM-DD</ui-divider>
+      <ui-picker fields="year" mode="date" start="2017-09-01" disabled end="2018-09-30" value="{{ dataValue }}" bindchange="handleChange5"></ui-picker>
+
+      <ui-divider>format：YYYY/MM/DD</ui-divider>
+      <ui-picker mode="date" start="2017-09-01" end="2018-09-30" value="{{ dataValue }}" date-format="YYYY/MM/DD" bindchange="handleChange5"></ui-picker>
+
+      <ui-divider>format：YYYY年MM月DD日</ui-divider>
+      <ui-picker mode="date" start="2017-09-01" end="2018-09-30" value="{{ dataValue }}" date-format="YYYY年MM月DD日" bindchange="handleChange5"></ui-picker>
+
+      <ui-divider>format：YYYY年M月D日</ui-divider>
+      <ui-picker mode="date" start="2017-09-01" end="2018-09-30" value="{{ dataValue }}" date-format="YYYY年M月D日" bindchange="handleChange5"></ui-picker>
+
+      <ui-divider>format：MMMM Do, YYYY</ui-divider>
+      <ui-picker mode="date" start="2017-09-01" end="2018-09-30" value="{{ dataValue }}" date-format="MMMM Do, YYYY" bindchange="handleChange5"></ui-picker>
+
+      <ui-divider>format：dddd MMMM Do, YYYY</ui-divider>
+      <ui-picker mode="date" start="2017-09-01" end="2018-09-30" value="{{ dataValue }}" date-format="dddd MMMM Do, YYYY" bindchange="handleChange5"></ui-picker>
+      <ui-button  bindtap="resetPicker3">将日期设置为今天</ui-button>
+    </ui-view>
+
+    <ui-view class="sample_title">地址选择器</ui-view>
+    <ui-view class="sample_content">
+        <ui-divider>省市区选择</ui-divider>
+        <ui-picker mode="region" value="{{ cityValue1 }}" range="{{ cityValue }}" bindchange="handleChange6"></ui-picker>
+        <ui-button  bindtap="resetPicker4">将地区设置为北京市丰台区</ui-button>
+
+        <ui-divider>省市选择</ui-divider>
+        <ui-picker mode="region" value="{{ cityValue2 }}" range="{{ cityValue }}" hide-district bindchange="handleChange7"></ui-picker>
+        <ui-button  bindtap="resetPicker5">将地区设置为广东省深圳市</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// picker.js
+let getDoubleNumber = function (num) {
+  return num < 10 ? '0' + num : '' + num
+}
+import cityList from '#/static/data/address'
+// var cityList = require('#/static/data/address')
+export default {
+  config: {
+    "navigationBarTitleText": "选择器"
+  },
+  data () {
+    return {
+      list00: ['中国', '美国', '日本', '巴西'],
+      value: 1,
+      list01: [{
+        name: '中国',
+        value: 'CN'
+      }, {
+        name: '美国',
+        value: 'US'
+      }, {
+        name: '日本',
+        value: 'JP'
+      }, {
+        name: '巴西',
+        value: 'BR'
+      }],
+      value01: 1,
+      timeValue: '12:12',
+      dataValue: '2017-09-05',
+      phones: [['小米', 'iPhone', '华为', '三星'], ['小米1', 'iPhone2', '华为3', '三星4']],
+      cityValue1: ['110000', '110107'],
+      cityValue2: ['330000', '330100'],
+      cityValue: cityList,
+      value1: null,
+      value2: null,
+      value3: ['food', 'chafing dish', 'Beijing chafing dish'],
+      departments: [{
+        text: '采购部',
+        value: 'DP_01',
+        children: [
+          { text: '采购一科', value: 'DP_0101' },
+          { text: '采购二科', value: 'DP_0102' },
+          { text: '采购三科', value: 'DP_0103' }
+        ]
+      }, {
+        text: '制造部',
+        value: 'DP_02',
+        children: [
+          { text: '制造一科', value: 'DP_0201' },
+          { text: '制造二科', value: 'DP_0202' },
+          { text: '制造三科', value: 'DP_0203' }
+        ]
+      }],
+      relaxes: [{
+        text: '美食',
+        value: 'food',
+        children: [
+          {
+            text: '火锅',
+            value: 'chafing dish',
+            children: [
+              { text: '川味火锅', value: 'SiChuan chafing dish' },
+              { text: '老北京火锅', value: 'Beijing chafing dish' },
+              { text: '牛肉火锅', value: 'Beef chafing dish' }
+            ]
+          }, {
+            text: '西餐',
+            value: 'western food',
+            children: [
+              { text: '意大利菜', value: 'Italy food' },
+              { text: '法国菜', value: 'France food' },
+              { text: '汉堡', value: 'Hamburg' }
+            ]
+          }
+        ]
+      }, {
+        text: '旅游',
+        value: 'tour',
+        children: [
+          {
+            text: '周边游',
+            value: 'tour around',
+            children: [
+              { text: '景点', value: 'Scenic spot' },
+              { text: '公园', value: 'Park' },
+              { text: '名胜古迹', value: 'Historical sites' }
+            ]
+          }, {
+            text: '海外游',
+            value: 'tour aboard',
+            children: [
+              { text: '美国游', value: 'American tour' },
+              { text: '欧洲游', value: 'Europe tour' },
+              { text: '东南亚游', value: 'Southease Asia tour' }
+            ]
+          }
+        ]
+      }]
+    }
+  },
+  methods: {
+    resetPicker00 () {
+      this.value = 0
+    },
+    resetPicker01 () {
+      this.value01 = 0
+    },
+    resetPicker2 () {
+      this.timeValue = '00:00'
+    },
+    resetPicker3 () {
+      let today = new Date()
+      let year = today.getFullYear() + ''
+      let month = getDoubleNumber(today.getMonth() + 1)
+      let day = getDoubleNumber(today.getDate())
+
+      this.dataValue = year + '-' + month + '-' + day
+    },
+    resetPicker4 () {
+      this.cityValue1 = ['110000', '110100', '110106']
+    },
+    resetPicker5 () {
+      this.cityValue2 = ['440000', '440300']
+    },
+    handleChange (val) {
+      this.value = val
+    },
+    handleChange1 (val) {
+    },
+    handleChange2 (val) {
+    },
+    handleChange3 (val) {
+    },
+    handleChange4 (val) {
+      this.timeValue = val
+    },
+    handleChange5 (val) {
+      this.dataValue = val
+    },
+    handleChange6 (val) {
+      this.cityValue1 = val
+    },
+    handleChange7 (val) {
+      this.cityValue2 = val
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.title{
+  background-color: #F7F9FB;
+  padding: 0 10px;
+}
+</style>

@@ -1,0 +1,101 @@
+<!--form.ui-->
+<template>
+  <ui-page>
+    <ui-form bindsubmit="formSubmit" bindreset="formReset">
+      <ui-view class="sample_title">Input</ui-view>
+      <ui-view class="sample_content">
+        <ui-input name="input"></ui-input>
+      </ui-view>
+      
+      <ui-view class="sample_title">Switch</ui-view>
+      <ui-view class="sample_content">
+        <ui-switch name="switch" title="开关"></ui-switch>
+      </ui-view>
+ 
+      <ui-view class="sample_title">Radio</ui-view>
+      <ui-view class="sample_content">
+        <ui-radio-group name="radio">
+          <ui-row type="flex">
+            <ui-col>
+              <ui-label>
+                <ui-radio value="radio1"></ui-radio>选项一
+              </ui-label>
+            </ui-col>
+            <ui-col>
+              <ui-label>
+                <ui-radio value="radio2"></ui-radio>选项二
+              </ui-label>
+            </ui-col>
+          </ui-row>
+        </ui-radio-group>
+      </ui-view>
+    
+      <ui-view class="sample_title">checkbox</ui-view>
+      <ui-view class="sample_content">
+        <ui-checkbox-group name="checkbox">
+          <ui-row type="flex">
+            <ui-col>
+              <ui-label>
+                <ui-checkbox value="checkbox1"></ui-checkbox>选项一
+              </ui-label>
+            </ui-col>
+            <ui-col>
+              <ui-label>
+                <ui-checkbox value="checkbox2"></ui-checkbox>选项二
+              </ui-label>
+            </ui-col>
+          </ui-row>
+        </ui-checkbox-group>
+      </ui-view>
+ 
+      <ui-view class="sample_title">Slider</ui-view>
+      <ui-view class="sample_content">
+        <ui-slider name="slider" show-max-value="true" show-value="true" width="{{width-60}}" ></ui-slider>
+      </ui-view>
+      <ui-view class="sample_content">
+        <ui-button form-type="submit" type="primary">Submit</ui-button>
+        <ui-button form-type="reset">Reset</ui-button>
+      </ui-view>
+    
+    </ui-form>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "表单"
+  },
+  data () {
+    return { 
+      width:ui.WIN_WIDTH,
+      left: 0,
+      sliderValue: 20
+    }
+  },
+  methods: {
+    formSubmit (e) {
+      ui.request({
+        url: 'test.php', // 并非真实的接口地址
+        data: e,
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function (res) {
+        },
+        error: function (res) {
+        }
+      })
+    },
+    formReset (e) {
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .sample_content{
+    line-height: inherit;
+  }
+</style>

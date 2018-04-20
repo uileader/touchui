@@ -1,0 +1,33 @@
+<template>
+  <ui-page>
+    <ui-view class="content">
+      <ui-text class="title">使用icon性能更好</ui-text>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// tabBar4.js
+export default {
+  config: {
+    "navigationBarTitleText": "icon为图片"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+// tabBar4.less
+.content{
+  padding:10px;
+  height:60px;
+  .title{
+  font-size:20px;
+  text-align: center
+}
+}
+</style>

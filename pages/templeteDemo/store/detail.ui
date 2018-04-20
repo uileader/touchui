@@ -1,0 +1,1238 @@
+<template>
+  <ui-page>
+    <ui-nav-bar class="ui-nav-bar" slot="nav-bar" ui:show="{{swiper1}}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" width="80" bindtap="handleBack">
+          <ui-icon type="arrow-left" font-size="24"></ui-icon>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+          <ui-text>商品简介</ui-text>
+        </ui-col>
+        <ui-col width="80"></ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <ui-nav-bar class="ui-nav-bar" slot="nav-bar" ui:show="{{swiper2}}">
+      <ui-row height="46" style="line-height:1">
+        <ui-col width="40" vertical-align="middle" bindtap="backTop">
+          <ui-icon type="arrow-left" font-size="24"></ui-icon>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+            <ui-tabs index="{{ current2 }}" width="{{width-80}}" tab-style="{{tabStyle}}" auto-width="{{false}}"  bindchange="handleChange($event, 'current2')">
+              <ui-tab>商品</ui-tab>
+              <ui-tab>详情</ui-tab>
+              <ui-tab>评价</ui-tab>
+            </ui-tabs>
+        </ui-col>
+        <ui-col width="40"></ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <ui-ex-swiper
+    class="tab-content"
+    style="height: {{ height }}px"
+    boundary-swipe
+    vertical
+    bindchange="handleContentChange($event, 'current')"
+    index="{{ current }}"
+    >
+      <ui-ex-swiper-item boundary-config="{{ boundaryConfig }}">
+        <ui-view class="" style="overflow: scroll;">
+          <ui-ex-swiper pagination="{{ paginationFraction }}"  class="products_img">
+            <ui-ex-swiper-item ui:for="{{ products }}" ui:for-item="item">
+              <ui-image
+              src="{{ item.src }}"
+              swiper-mode
+              ></ui-image>
+            </ui-ex-swiper-item>
+          </ui-ex-swiper>
+          <ui-view class="products_text">
+            <ui-view class="title">{{ shopName }}</ui-view>
+            <ui-view class="small_title">精选澳大利亚美利奴丝光羊毛，手感更柔滑细腻，蓬松保暖，减少起毛起球</ui-view>
+            <ui-row>
+              <ui-col vertical-align="middle" align="left">
+                <ui-view class="money">¥ 399</ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="right">
+                <ui-view class="time">生产周期：15天
+                  <ui-icon type="prompt" size="15" color="#f33"></ui-icon>
+                </ui-view>
+              </ui-col>
+            </ui-row>
+          </ui-view>
+          <ui-row class="service" height="45">
+            <ui-col vertical-align="middle" align="center" space-left="5">
+              <ui-view>
+                <ui-icon type="success" size="15" color="#8243a3"></ui-icon>七天无忧退换
+              </ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-view>
+                <ui-icon type="success" size="15" color="#8243a3"></ui-icon>先行赔付
+              </ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-view>
+                <ui-icon type="success" size="15" color="#8243a3"></ui-icon>超时赔偿
+              </ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-view>
+                <ui-icon type="success" size="15" color="#8243a3"></ui-icon>顺丰包邮
+              </ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="20">
+              <ui-view>
+                <ui-icon type="arrow-right" color="#6D6D6D" size="15"></ui-icon>
+              </ui-view>
+            </ui-col>
+          </ui-row>
+
+          <ui-row-list border-left-indent bordered class="choice">
+            <ui-row height="40">
+              <ui-col vertical-align="middle" align="middle" width="60">
+                <ui-view>
+                  已选择：
+                </ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="left">
+                <ui-view>
+                  4205/灰色, L, 1件
+                </ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="right" width="20">
+                <ui-icon type="arrow-right" color="#6D6D6D" size="15"></ui-icon>
+              </ui-col>
+            </ui-row>
+            <ui-row height="40">
+              <ui-col vertical-align="middle" align="middle" width="60">
+                <ui-view>
+                  送至：
+                </ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="left">
+                <ui-view>
+                  <ui-icon type="map" size="14" color="#333"></ui-icon>北京市 丰台区
+                </ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="right" width="20">
+                <ui-icon type="arrow-right" color="#6D6D6D" size="15"></ui-icon>
+              </ui-col>
+            </ui-row>
+            <ui-row height="40">
+              <ui-col vertical-align="middle" align="middle">
+                <ui-view>
+                  尺码对照表
+                </ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="right" width="20">
+                <ui-icon type="arrow-right" color="#6D6D6D" size="15"></ui-icon>
+              </ui-col>
+            </ui-row>
+          </ui-row-list>
+          <ui-view class="cut_line">
+            <ui-divider>评论</ui-divider>
+          </ui-view>
+          <ui-view class="small_evaluate">
+            <ui-view class="title">商品评价（39）</ui-view>
+            <ui-row height="30">
+              <ui-col vertical-align="middle" align="center" width="30">
+                <ui-image
+                src="https://static.biyao.com/m/img/base/defult_userimg.png"
+                width="20"
+                height="20"
+                ></ui-image>
+              </ui-col>
+              <ui-col vertical-align="middle" align="left">
+                <ui-view>b***h</ui-view>
+              </ui-col>
+            </ui-row>
+            <ui-text block>产品不错，很合身</ui-text>
+            <ui-view class="all_evaluate">查看全部评论</ui-view>
+          </ui-view>
+          <ui-view class="shop_name">
+            <ui-row height="50">
+              <ui-col vertical-align="middle" align="center" width="60">
+                <ui-image
+                src="https://bfs.biyao.com/group1/M00/03/AE/rBACYVkUkI2APfwPAAC7nzwI-NA595.jpg"
+                width="40"
+                height="40"
+                ></ui-image>
+              </ui-col>
+              <ui-col vertical-align="middle" align="left" border-right>
+                <ui-view>亓口男装</ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="center" width="80">
+                <ui-text block>69</ui-text>
+                <ui-text block>在售商品</ui-text>
+              </ui-col>
+            </ui-row>
+            <ui-scroll-view scroll-x height="200">
+              <ui-view class="other_shop">
+                <ui-view id="a1" class="item" ui:for="{{ otherShop }}" ui:for-item="item">
+                  <ui-image
+                  src="{{ item.src }}"
+                  width="100%"
+                  ></ui-image>
+                  <ui-view class="info">
+                    <ui-text block>{{ item.name }}</ui-text>
+                    <ui-view>{{ item.price }}</ui-view>
+                  </ui-view>
+                </ui-view>
+
+              </ui-view>
+            </ui-scroll-view>
+          </ui-view>
+          <!-- <ui-view class="bottom_tip">↑上拉显示详情页</ui-view> -->
+        </ui-view>
+      </ui-ex-swiper-item>
+      <ui-ex-swiper-item boundary-config="{{ boundaryConfig }}">
+        <ui-view class="">
+          <ui-swiper height="{{ contentHeight }}" class="content"  current="{{ current2 }}" bindchange="handleContentChange1($event, 'current2')">
+            <ui-swiper-item>
+                <ui-view class="details_img">
+                  <ui-view ui:for="{{ detailsImg }}" ui:for-item="item">
+                    <ui-view class="title">{{ item.title }}</ui-view>
+                    <ui-image
+                    src="{{ item.src }}"
+                    width="100%"
+                    ></ui-image>
+                  </ui-view>
+                </ui-view>
+                <ui-view class="details_problem">
+                  <ui-view class="problem_content" ui:for="{{ detailsProblem }}" ui:for-item="item">
+                    <ui-view class="title">{{ item.title }}</ui-view>
+                    <ui-text block ui:for="{{ item.problem }}" ui:for-item="item2">{{ item2 }}</ui-text>
+                  </ui-view>
+                </ui-view>
+                <ui-view class="iphonex-bottom"></ui-view>
+            </ui-swiper-item>
+
+            <ui-swiper-item>
+              <!-- 详情 -->
+                <ui-row-list border-indent bordered class="shop_details">
+                  <ui-row ui:for="{{ details }}" ui:for-item="item">
+                    <ui-col vertical-align="middle" align="left" width="100">
+                      {{ item.name }}
+                    </ui-col>
+                    <ui-col vertical-align="middle" align="left">
+                      {{ item.content }}
+                    </ui-col>
+                  </ui-row>
+                </ui-row-list>
+                <ui-view class="iphonex-bottom"></ui-view>
+            </ui-swiper-item>
+
+            <ui-swiper-item>
+              <!-- 评价 -->
+                <ui-view class="evaluate_wrap">
+                  <ui-view class="title">
+                    <ui-row height="40">
+                      <ui-col vertical-align="middle" align="left" space-left="5">商品满意度</ui-col>
+                      <ui-col vertical-align="middle" align="right" space-right="5">4.9</ui-col>
+                    </ui-row>
+                    <ui-view class="all_shop">
+                      <ui-view>全部商品</ui-view>
+                    </ui-view>
+                  </ui-view>
+                  <ui-view class="evaluate_list" ui:for="{{ evaluate }}" ui:for-item="item">
+                    <ui-row height="40">
+                      <ui-col vertical-align="middle" align="center" width="40">
+                        <ui-image
+                        src="https://static.biyao.com/m/img/base/defult_userimg.png"
+                        width="30"
+                        height="30"
+                        ></ui-image>
+                      </ui-col>
+                      <ui-col vertical-align="middle" align="left">
+                        <ui-view>b***h</ui-view>
+                      </ui-col>
+                      <ui-col width="100" vertical-align="middle" align="right">
+                        <ui-view class="good_evaluate">
+                          <ui-icon type="phiz" size="24" color="#8243a3"></ui-icon>好评
+                        </ui-view>
+                      </ui-col>
+                    </ui-row>
+                    <ui-view class="center">{{ item.text }}</ui-view>
+                    <ui-row height="30" class="bottom">
+                      <ui-col vertical-align="middle" align="left">
+                        {{ item.size }}
+                      </ui-col>
+                      <ui-col vertical-align="middle" align="right">
+                        {{ item.time }}
+                      </ui-col>
+                    </ui-row>
+                  </ui-view>
+
+                </ui-view>
+                <ui-view class="iphonex-bottom"></ui-view>
+            </ui-swiper-item>
+            
+          </ui-swiper>
+
+
+        </ui-view>
+      </ui-ex-swiper-item>
+    </ui-ex-swiper>
+
+
+    <ui-fixed-view bottom="0" class="add_cart">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" border-right width="80" bindtap="Meiqia">
+          <ui-icon type="comment" size="20" color="#8A8A8A"></ui-icon>
+          客服
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" border-right width="80" class="badge_wrap" bindtap="shoppingCart">
+          <ui-icon type="jd-cart" size="20" color="#8A8A8A"></ui-icon>
+          购物车
+          <ui-badge text="{{ badgeNum }}" ui:if="{{ badgeNum>0 }}"></ui-badge>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" bindtap="poptuShow">
+          <ui-view class="add">加入购物车</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" bindtap="poptuShow">
+          <ui-view class="buy">立即购买</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-view class="iphonex-bottom"></ui-view>
+    </ui-fixed-view>
+
+    <ui-popup ui:model="{{ isCart }}" position="bottom" background="transparent" height="450" mask-style="{{{ backgroundColor: 'rgba(0,0,0,0.3)' }}}"  hide-on-blur="true" class="popup_cart">
+       <ui-view class="top_null"></ui-view>
+      <ui-view class="popup_content">
+        <ui-row class="top" height="100" border-bottom>
+          <ui-col vertical-align="middle" align="center" width="90">
+            <ui-view class="head">
+              <ui-image
+                src="{{ minImg }}"
+                width="90"
+              ></ui-image>
+            </ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" space-left="10">
+            <ui-view>
+              <ui-row height="30">
+                <ui-col vertical-align="middle" align="left">
+                  <ui-view class="price">¥599</ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="right" bindtap="popupHide">
+                  <ui-icon type="error" color="#717171" size="24"></ui-icon>
+                </ui-col>
+              </ui-row>
+            </ui-view>
+            <ui-text>生产日期：18天</ui-text>
+            <ui-view class="select">已选择：{{ colorText }}，{{ size }}，{{ number }}件</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-view class="color">
+          <ui-text block>颜色</ui-text>
+          <ui-tags
+          data="{{colors}}"
+          bindchange="singleTap"></ui-tags>
+        </ui-view>
+        <ui-view class="size">
+          <ui-text block>尺寸</ui-text>
+          <ui-tags
+          data="{{sizes}}"
+          bindchange="singleTap2"></ui-tags>
+        </ui-view>
+        <ui-view class="buy_num">
+          <ui-row height="60">
+            <ui-col vertical-align="middle" align="left">
+              <ui-view>购买数量</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right">
+              <ui-stepper min-num=1 value="1" bindsubtraction="subtraction" bindaddition="addition"></ui-stepper>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+
+        <ui-view class="bottom">
+          <ui-row height="46" border-top>
+            <ui-col vertical-align="middle" align="center">
+              <ui-view class="add" bindtap="joinCart">加入购物车</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" bindtap="joinCart2">
+              <ui-view class="buy">立即购买</ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+      </ui-view>
+    </ui-popup>
+  </ui-page>
+</template>
+
+<script>
+// import { setTimeout } from 'timers'
+
+export default {
+  config: {
+    "navigationBarTitleText": '商品简介',
+    "disableScroll":true,
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":"black"
+  },
+  data () {
+    return {
+      current: 0,
+      current2: 0,
+      number: 1,
+      tabStyle:{
+        'flex':'0 0 40px'
+      },
+      swiper1: true,
+      swiper2: false,
+      contentHeight: ui.DEFAULT_CONTENT_HEIGHT,
+      width:ui.WIN_WIDTH,
+      height: ui.DEFAULT_CONTENT_HEIGHT - 46,
+      shopName: '加厚提花丝光羊毛针织衫 4205',
+      minImg: 'https://bfs.biyao.com/group1/M00/21/CD/rBACYVoDsu2AJ0x4AAFzfz0X8Zc330_400x400.jpg',
+      paginationFraction: {
+        type: 'fraction'
+      },
+      products: [
+        { src: 'https://bfs.biyao.com/group1/M00/21/CF/rBACYVoDtoGAS2G4AAF64K74WkI826.jpg' },
+        { src: 'https://bfs.biyao.com/group1/M00/20/1A/rBACVFoDtoWAX3PhAAFzfz0X8Zc868.jpg' },
+        { src: 'https://bfs.biyao.com/group1/M00/21/D0/rBACW1oDtoiAM7rnAAF83QBoI8Q558.jpg' },
+        { src: 'https://bfs.biyao.com/group1/M00/21/CF/rBACYVoDtouAYQy4AAGOH-YII6A902.jpg' },
+        { src: 'https://bfs.biyao.com/group1/M00/21/D0/rBACW1oDtpKAdmyoAAGKvdqcEK8306.jpg' }
+      ],
+      otherShop: [
+        {
+          src: 'https://bfs.biyao.com/group1/M00/1F/C7/rBACVFoBTzyAX7ZEAACY21C5fXI268.jpg',
+          name: '经典纯色长袖T恤（2件装）',
+          price: '￥219'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/21/7D/rBACYVoBS2eAGLERAACGBt2GJLE867.jpg',
+          name: '经典纯色圆领T恤（2件装）',
+          price: '￥199'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/22/A3/rBACVFomgq-ANmslAACcqsAhIvk817.jpg',
+          name: '针织羊毛时尚连帽大衣',
+          price: '￥699'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/24/16/rBACYVohJFWAag_cAACdB8zSZ4w703.jpg',
+          name: '时尚卷边丝光羊毛针织衫',
+          price: '￥359'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/24/06/rBACYVogAWaAUMDBAACW25z6rd4054.jpg',
+          name: '时尚印花长袖圆领卫衣',
+          price: '￥249'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/24/0E/rBACW1oguKKATWw1AACZ_zOy2rQ695.jpg',
+          name: '羊毛天丝口袋翻领针织衫',
+          price: '￥299'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/22/F1/rBACYVoOpLiAWl5dAACaEPjUntg416.jpg',
+          name: '加厚条纹肌理羊毛针织衫',
+          price: '￥359'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/24/1C/rBACW1oheIeAM6lVAACef7Zvcww291.jpg',
+          name: '带扣小翻领丝光羊毛针织衫',
+          price: '￥369'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/20/E6/rBACVFoLoZ6AR9rCAACeI1pnTTE939.jpg',
+          name: '定位提花丝光羊毛针织衫',
+          price: '￥359'
+        }, {
+          src: 'https://bfs.biyao.com/group1/M00/22/9C/rBACW1oLny6AOUQrAACeZCJkVEE062.jpg',
+          name: '小提花保暖长袖针织外套',
+          price: '￥499'
+        }
+      ],
+      details: [
+        {
+          name: '商品名称',
+          content: '加厚提花丝光羊毛针织衫 4205'
+        }, {
+          name: '品牌名称',
+          content: '亓口'
+        }, {
+          name: '面料成分',
+          content: '48.1%羊毛30.9%锦纶21%腈纶'
+        }, {
+          name: '主要卖点1',
+          content: '选用光泽度极佳的丝光羊毛混纺纱线，细腻柔软，毛绒饱满，前片以特殊肌理提花，营造出定位条纹效果'
+        }, {
+          name: '主要卖点2',
+          content: '领口与袖口打破常规织法，加以提花点缀，更精致时尚，整体款式简约大方，内搭外穿皆宜，尽显大牌档次感'
+        }, {
+          name: '主要卖点3',
+          content: '精选澳大利亚美利奴丝光羊毛，既保留了羊毛的手感温暖、丰厚的特性，又减少了羊毛对皮肤的刺激感'
+        }, {
+          name: '主要卖点4',
+          content: '手感更柔滑细腻，蓬松保暖，与锦纶、腈纶混纺，既改善了面料的耐磨性，减少起毛起球，又提高了保暖性'
+        }, {
+          name: '洗涤说明',
+          content: '1、羊毛/羊绒织物，建议送至专业干洗护理店清洗。'
+        }, {
+          name: '————',
+          content: '2、如需手洗，请用羊毛专用洗涤剂洗涤，需轻揉，不可用力搓，浸泡时间不要超过5分钟，请用清水漂清。'
+        }, {
+          name: '————',
+          content: '3、需轻轻挤干，不可用力。按针织本来形状整理平铺阴干，不可阳光下暴晒，必要时可以用蒸汽熨斗整烫。'
+        }, {
+          name: '————',
+          content: '4、严禁高温水洗（水温不能超过30℃），请勿洗衣机搅洗、甩干，否则容易缩水变形，切记'
+        }, {
+          name: '特别提示',
+          content: '含羊毛/羊绒的衣服，轻微起球属于正常现象，请避开与硬物的摩擦'
+        }, {
+          name: '温馨提示',
+          content: '由于灯光和显示器偏差等现象，可能导致实物与照片产生色差，请以最终收到实物商品颜色为准'
+        }, {
+          name: '产地',
+          content: '厦门'
+        }, {
+          name: '发票须知',
+          content: '国家税务总局规定，自2017年7月1日起，开票抬头为公司者需提供“购买方纳税人识别号”否则无法做报销凭证。'
+        }, {
+          name: '---------',
+          content: '本公司开具电子发票，请您在购买后选择开具电子发票并按要求填写（注：如没填写完整将无法开具发票）'
+        }
+      ],
+      detailsImg: [
+        {
+          title: '整体款式简约大方，内搭外穿皆宜',
+          src: 'https://bfs.biyao.com/group1/M00/20/1A/rBACVFoDtv2AZE8fAAMTN7A-DCs819.jpg'
+        }, {
+          title: '前片以特殊肌理提花，定位条纹效果',
+          src: 'https://bfs.biyao.com/group1/M00/21/CF/rBACYVoDtwGAUJpiAAL1XIUAU_c732.jpg'
+        }, {
+          title: '立体有型、别致耐看',
+          src: 'https://bfs.biyao.com/group1/M00/20/1A/rBACVFoDtwiAV6LYAAMCf4Jf0xA293.jpg'
+        }, {
+          title: '选用光泽度极佳的丝光羊毛混纺纱线',
+          src: 'https://bfs.biyao.com/group1/M00/21/CF/rBACYVoDtwuASfsGAAMMG4_2cRM913.jpg'
+        }, {
+          title: '细腻柔软，毛绒饱满',
+          src: 'https://bfs.biyao.com/group1/M00/20/1A/rBACVFoDtvCAW8iiAALfbZ0rDQ4714.jpg'
+        }, {
+          title: '抗起毛起球，又提高了保暖性',
+          src: 'https://bfs.biyao.com/group1/M00/21/D0/rBACW1oDtuqADT8oAAMGdSGxq_o719.jpg'
+        }, {
+          title: '手感更柔滑细腻，蓬松保暖',
+          src: 'https://bfs.biyao.com/group1/M00/21/D0/rBACW1oDtuiAWoanAAMWjt7gBQA646.jpg'
+        }, {
+          title: '精选澳大利亚美利奴丝光羊毛',
+          src: 'https://bfs.biyao.com/group1/M00/21/D0/rBACYVoDt-mAZ35VAAMDs9i84tQ686.jpg'
+        }, {
+          title: '做工考究，线迹细腻',
+          src: 'https://bfs.biyao.com/group1/M00/20/34/rBACVFoEBf2AWC3bAALbOsZ2LGw075.jpg'
+        }, {
+          title: '合体剪裁，美观大方',
+          src: 'https://bfs.biyao.com/group1/M00/20/33/rBACVFoEBHuAPvFMAAL9wf0kgjY039.jpg'
+        }, {
+          title: '测量方法',
+          src: 'https://bfs.biyao.com/group1/M00/20/1A/rBACVFoDtyWAW_-hAAJ60ragI00520.jpg'
+        }, {
+          title: '尺码建议表',
+          src: 'https://bfs.biyao.com/group1/M00/22/19/rBACW1oFSlWAbl6nAAMAew8Y4vo679.jpg'
+        }
+      ],
+      detailsProblem: [
+        {
+          title: '常见问题',
+          problem: [
+            '关于色差：亓口男装所有产品均为专业摄影团队实物拍摄，并精心调整色差的结果，尽量与实物商品一致，但由于灯光和显示器偏差等现象，可能导致实物与照片产生色差，请以最终收到实物商品颜色为准。',
+            '关于免烫：成衣经过特殊的免烫处理，与普通衣衫对比，较不易褶皱，但非完全不褶皱。“免烫”是指在洗涤过后只需轻微熨烫或无需熨烫即可恢复到平整的状态。',
+            '关于抗皱：面料经过液氨后整理，与普通整理面料相比，正确洗涤后无明显大的褶皱，晾晒时可将起皱部位稍加抻拽即可。',
+            '亓口男装衬衫均为合体版，由于每个人穿着风格不同，喜欢宽松的建议购买时选择偏大一个码。'
+          ]
+        }, {
+          title: '购买须知',
+          problem: [
+            '1.商品选择搭配时，3D模拟系统会将商品效果进行展示，不同显示设备会存在一定色差，最终请以实物为准。',
+            '2.商品均为标准尺码并配有相对应的尺码对照表供您参考；产品均为手工测量，存在细微的误差，请以收到实物为准。',
+            '3.商品均非现货，需要一定生产周期，具体请您查阅购买页面的“生产周期”提示。',
+            '4.商家开始确认生产，将根据您订单需求进行制作生产；故无法做任何修改及取消订单。'
+          ]
+        }, {
+          title: '发货快递',
+          problem: [
+            '寄出商品可享受顺丰快递包邮服务'
+          ]
+        }, {
+          title: '发票说明',
+          problem: [
+            '1：如需要发票，下单时请勾选电子发票，并填写准确的发票抬头（公司名称）、纳税人识别号或统一社会信用代码，以及电子邮箱。',
+            '2：根据“国家税务总局2017年第16号的公告”从2017年7月1日起开具“公司名称”为抬头的发票，必须提供“纳税人识别号或统一社会信用代码”，如未提供或提供信息不完整，则无法为其开具发票。',
+            '3：发票抬头为“个人”的仅需要提供电子邮箱即可。',
+            '4：订单交易成功后15个工作日内，我们将为您开具电子发票，并以PDF文件的形式发送至您的邮箱。',
+            '5：电子发票与传统纸质发票具备同等效力，下载打印即可报销。',
+            '6：已开具电子发票的客户无法再为其开具发票。',
+            '注：如需要发票下单时请务必备注电子邮箱，我们将在收到申请后15天内开具电子发票发送至您的电子邮箱。如不备注电子邮箱，我们将无法开具发票，谢谢！'
+          ]
+        }, {
+          title: '售后说明',
+          problem: [
+            '1.自签收之日起7日内，您可在“我的订单”中申请退货退款；款项将原支付路径退还。',
+            '2.个性化定制商品（如签名、特殊材质、个性颜色搭配等）：非质量问题无法办理退换货。',
+            '3.办理退货时，请您务必确保商品原质原貌，包装吊牌完整、未经使用。',
+            '4.由于本公司开具电子发票，如需发票请您在购买后备注留言您的电子邮箱、开票抬头、纳税人识别号。',
+            '5.如已开具发票，需将发票与商品一同寄回；如发票丢失或未寄回则无法为您办理退货退款。',
+            '6.商家原因（如发错货，商品质量问题等），您可以直接申请退货退款，选择顺丰上门取件，进行免费退货；不支持顺丰取件区域，可由顾客先行垫付，退货完毕后，必要平台将根据退货运单及费用凭证为您报销。',
+            '7.亓口品牌商品，严格执行“国家服装类三包规定”。'
+          ]
+        }
+      ],
+      evaluate: [
+        {
+          text: '产品不错，很合身',
+          size: '颜色：黑色；尺寸：M',
+          time: '2017-12-5'
+        },
+        {
+          text: '很好',
+          size: '颜色：藏青；尺寸：XL',
+          time: '2017-12-5'
+        }, {
+          text: '产品不错，很合身',
+          size: '颜色：黑色；尺寸：M',
+          time: '2017-12-5'
+        },
+        {
+          text: '很好',
+          size: '颜色：藏青；尺寸：XL',
+          time: '2017-12-5'
+        }, {
+          text: '产品不错，很合身',
+          size: '颜色：黑色；尺寸：M',
+          time: '2017-12-5'
+        },
+        {
+          text: '很好',
+          size: '颜色：藏青；尺寸：XL',
+          time: '2017-12-5'
+        }, {
+          text: '产品不错，很合身',
+          size: '颜色：黑色；尺寸：M',
+          time: '2017-12-5'
+        },
+        {
+          text: '很好',
+          size: '颜色：藏青；尺寸：XL',
+          time: '2017-12-5'
+        }, {
+          text: '产品不错，很合身',
+          size: '颜色：黑色；尺寸：M',
+          time: '2017-12-5'
+        },
+        {
+          text: '很好',
+          size: '颜色：藏青；尺寸：XL',
+          time: '2017-12-5'
+        }, {
+          text: '产品不错，很合身',
+          size: '颜色：黑色；尺寸：M',
+          time: '2017-12-5'
+        },
+        {
+          text: '很好',
+          size: '颜色：藏青；尺寸：XL',
+          time: '2017-12-5'
+        }
+      ],
+      boundaryConfig: {
+        topTip: {
+          beginText: '↓下拉查看商品简介',
+          activeText: '↑释放查看商品简介'
+        },
+        bottomTip: {
+          beginText: '↑上拉查商品详情',
+          activeText: '↓释放查看商品详情'
+        }
+      },
+
+      size: 'S',
+      colors: [
+        {
+          text: '黑色',
+          tagClass: 'color1',
+          tagSelectedClass: 'select-class',
+          checked: true
+        },
+        {
+          text: '红色',
+          tagClass: 'color1',
+          tagSelectedClass: 'select-class',
+          checked: false
+        },
+        {
+          text: '蓝色',
+          tagClass: 'color1',
+          tagSelectedClass: 'select-class',
+          checked: false
+        }
+      ],
+      sizes: [
+        {
+          text: 'S',
+          tagClass: 'color1',
+          tagSelectedClass: 'select-class',
+          checked: true
+        }, {
+          text: 'M',
+          tagClass: 'color1',
+          tagSelectedClass: 'select-class',
+          checked: false
+        }, {
+          text: 'L',
+          tagClass: 'color1',
+          tagSelectedClass: 'select-class',
+          checked: false
+        }, {
+          text: 'XL',
+          tagClass: 'color1',
+          tagSelectedClass: 'select-class',
+          checked: false
+        }, {
+          text: 'XXL',
+          tagClass: 'color1',
+          tagSelectedClass: 'select-class',
+          checked: false
+        }
+      ],
+      isCart: false,
+      colorText:'黑色',
+      badgeNum:0
+    }
+  },
+  methods: {
+    handleContentChange (index, key) {
+      console.log(index, key)
+      if (index === 1) {
+        this.swiper2 = true
+        this.swiper1 = false
+      } else if (index === 0) {
+        this.swiper1 = true
+        this.swiper2 = false
+      }
+      this[key] = index
+    },
+    handleContentChange1 (index, key) {
+        this[key] = index
+    },
+    // 回退处理
+    handleBack () {
+      ui.navigateBack()
+    },
+    handleChange (index, key) {
+      console.log('11',index,key)
+      this[key] = index
+    },
+
+    backTop () {
+      this.current = 0
+    },
+    //购物车
+    shoppingCart(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/store/shoppingCart'
+      })
+    },
+    singleTap (opt) {
+      // ui.showToast({
+      //   title: this.colors[opt].text
+      // })
+      this.colorText = this.colors[opt].text
+      this.colors.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+    },
+    singleTap2 (opt) {
+      this.size = this.sizes[opt].text
+      this.sizes.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+    },
+    subtraction (val) {
+      this.number = val
+    },
+    addition (val) {
+      this.number = val
+    },
+    poptuShow () {
+      this.isCart = true
+      ui.removeStorageSync('v3_ui_shopList')
+    },
+    popupHide () {
+      this.isCart = false
+    },
+    joinCart(){
+      this.isCart = false
+      
+      let v3_ui_shopList = ui.getStorageSync('v3_ui_shopList')
+      if (v3_ui_shopList === null) {
+        v3_ui_shopList = []
+      }
+      if (this.number > 0) {
+        let content = {
+          height: 80,
+          img:this.minImg,
+          title:'TIMEABLE Jeans 服饰',
+          serialNumber:this.number,
+          price:100,
+          checked:false
+        }
+        v3_ui_shopList.push(content)
+        this.badgeNum = content.serialNumber
+        ui.setStorageSync('v3_ui_shopList', v3_ui_shopList)
+      }
+    },
+    joinCart2(){
+      this.isCart = false
+      setTimeout(() => {
+        ui.navigateTo({
+          url: '/pages/templeteDemo/store/payment'
+        })
+      }, 500);
+    },
+     // 客服
+    Meiqia () {
+      ui.startMeiqia({
+        info: {
+          name: '张三',
+          tel: '123456',
+          weixin: '5201314',
+          '爱好': '吃苹果'
+        },
+        message: '你好',
+        success: function (data) {
+        },
+        fail: function (data) {
+        }
+      })
+    }
+  },
+  mounted () {
+    let v3_ui_shopList = ui.getStorageSync('v3_ui_shopList')
+    if(v3_ui_shopList !== null){
+      this.badgeNum=v3_ui_shopList[0].serialNumber
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.ui-nav-bar{
+  .mix-1px(0, 0, 1, 0, #ccc);
+}
+// .swiper-slide {
+//   overflow: scroll;
+// }
+.tab-content {
+  flex: 1;
+  color: #999;
+  .swiper-slide {
+    // padding:1em;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+// 1
+.products_img{
+  img{
+    width: 100%;
+  }
+}
+.swiper-pagination-fraction {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  left: auto;
+  right: 1em;
+  bottom:1em;
+  .swiper-pagination-total {
+    font-size: 12px;
+  }
+}
+.products_text{
+  padding: 10px;
+  background-color: #fff;
+  .title{
+    font-size: 18px;
+    color: #333;
+    line-height: 40px;
+  }
+  .small_title{
+    font-size: 12px;
+    color: gray;
+    padding-bottom: 20px;
+  }
+  .ui-row{
+    .money{
+      font-size: 18px;
+      color: #f33;
+    }
+    .time{
+      font-size: 12px;
+      color: gray;
+    }
+  }
+}
+.service{
+  background-color: #f8f8f8;
+  font-size: 12px;
+  color: gray;
+}
+.choice{
+  background-color: #fff;
+  margin-top: 10px;
+  .ui-view{
+    color: #333;
+  }
+}
+.cut_line{
+  width: 150px;
+  margin: 0 auto;
+  font-size: 12px;
+  padding: 5px 0;
+}
+.small_evaluate{
+  background-color: #fff;
+  padding: 10px;
+  .ui-view{
+    font-size: 12px;
+    color: #333;
+    line-height: 25px;
+  }
+  .title{
+    font-size: 14px;
+    line-height: 40px;
+  }
+  .all_evaluate{
+    color: #39f;
+    font-size: 12px;
+    border-radius: 25px;
+    border: 1px solid #39f;
+    width: 100px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 25px;
+    margin-top: 20px;
+  }
+}
+.shop_name{
+  padding: 10px 0;
+  margin-top: 10px;
+  background-color: #fff;
+  .ui-row{
+    .ui-view{
+      color: #000;
+    }
+    .ui-text{
+      color: #333;
+    }
+  }
+  .other_shop{
+    background-color: #FFFFFF;
+    width:1100px;
+    padding-top: 20px;
+    .mix-clearfix();
+    .item{
+      width: 110px;
+      // height: 200px;
+      padding: 0 5px;
+      float: left;
+      color: #333;
+      text-align: center;
+      .info{
+        padding: 10px 0;
+        text-align: center;
+        .ui-text{
+          .mix-text-overflow();
+          color: #000;
+        }
+        .ui-view{
+          color: #f33;
+          font-size: 12px;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+.add_cart{
+  width: 100%;
+  z-index: 300;
+  background-color: #fff;
+  border-top: 1px solid #eee;
+  .ui-row{
+    .ui-col{
+      color: #727272;
+      font-size: 12px;
+      .ui-icon{
+        line-height: 25px;
+      }
+      .ui-view{
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        line-height: 46px;
+        &.add{
+          color: #39f;
+        }
+        &.buy{
+          color: #fff;
+          background-color: #39f;
+        }
+      }
+    }
+  }
+  .badge_wrap{
+    position: relative;
+    .ui-badge{
+      position: absolute;
+      top: 5px;
+      right: 8px;
+    }
+  }
+}
+
+// 2
+.tabs_wrap{
+  display: inline-block;
+}
+/* .ui-tabs {
+  height:44px;
+
+  &.type-common {
+
+
+    .ui-icon {
+      margin: 0 5px;
+      font-size: 16px;
+    }
+
+    .item-list{
+      line-height: 46px;
+      margin:0 10px;
+      font-size:14px;
+      position:relative;
+    }
+
+    // .tab-line{
+    //   width:100%;
+    //   height:2px;
+    //   background-color:#39f;
+    //   position:absolute;
+    //   bottom:5px;
+    //   display:none;
+    //   width:-webkit-fill-available;
+    // }
+    // .active .tab-line{
+    //   display: block
+    // }
+  }
+} */
+
+.ui-tabs-ink-bar-inner{
+  width:50px;
+}
+.bottom_tip{
+  text-align: center;
+  line-height: 40px;
+  font-size: 12px;
+  color: #999;
+}
+
+//详情
+.shop_details{
+  line-height: 30px;
+  color: #333;
+}
+.details_img{
+  background-color: #fff;
+  padding: 10px;
+  color: #333;
+  .title{
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+  }
+}
+.details_problem{
+  padding: 10px;
+  margin-bottom: 20px;
+  .problem_content{
+    padding: 10px;
+    background-color: #fff;
+    .title{
+      border: 1px solid #eee;
+      line-height: 30px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .ui-text{
+      color: #666;
+      font-size: 12px;
+      line-height: 20px;
+      margin: 10px 0;
+    }
+  }
+}
+.evaluate_wrap{
+  .title{
+    background-color: #fff;
+    .ui-row{
+      border: 1px solid #eee;
+    }
+    .all_shop{
+      padding: 5px 10px;
+      .ui-view{
+        width: 70px;
+        border: 1px solid #39f;
+        color: #39f;
+        font-size: 12px;
+        border-radius: 25px;
+        line-height: 25px;
+        text-align: center
+      }
+    }
+  }
+  .evaluate_list{
+    margin-top: 10px;
+    background-color: #fff;
+    padding: 10px;
+    .good_evaluate{
+      color: #39f;
+      font-size: 12px;
+      .mix-flex-y-center();
+      .ui-icon{
+        margin-right: 5px;
+      }
+    }
+    .center{
+      font-size: 14px;
+      color: #333;
+      line-height: 30px;
+    }
+    .bottom{
+      color: #979797;
+      font-size: 12px;
+    }
+  }
+
+}
+
+
+
+
+.swiper-slide-tip{
+  padding-top:20px;
+  font-size:10px;
+  color:#ccc;
+}
+.swiper-slide-top-tip{
+  padding:0;
+}
+.swiper-wrapper .swiper-slide:first-child{
+  .swiper-slide-top-tip{
+    display:none;
+  }
+}
+.swiper-wrapper .swiper-slide:last-child{
+
+  .swiper-slide-tip{
+    display:none;
+  }
+  .swiper-slide-top-tip{
+    display:block;
+  }
+} 
+
+
+
+.popup_cart{
+  .popup_content{
+    background: #fff;
+    height:430px;
+    padding:0 10px;
+    position: relative;
+  }
+  .top_null{
+    height: 20px;
+  }
+  .top{
+    .head{
+      margin-top: -25px;
+    }
+    .price{
+      color: #f33;
+      font-size: 14px;
+    }
+    .ui-text{
+      color: gray;
+      font-size: 12px;
+      // line-height: 30px;
+    }
+    .select{
+      font-size: 12px;
+      color: #333;
+    }
+  }
+  .color{
+    .ui-text{
+      line-height:30px;
+    }
+  }
+  .size{
+    margin-top:5px;
+    border-bottom:1px solid #c7c7c7;
+    padding-bottom: 10px;
+    .ui-text{
+      line-height:30px;
+    }
+  }
+  .bottom{
+    position: absolute;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    .ui-view{
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      line-height: 46px;
+      &.add{
+        color: #39f;
+      }
+      &.buy{
+        color: #fff;
+        background-color: #39f;
+      }
+    }
+  }
+  .ui-tags{
+    .ui-tag-item{
+      margin-right: 10px;
+    }
+    .color1{
+      // .mix-1px(1, 1, 1, 1, gray);
+      border:1px solid gray;
+      border-radius: 5px;
+      color: gray;
+      padding: 0px 10px;
+    }
+    .select-class{
+      // .mix-1px(1, 1, 1, 1, #ccc);
+      border:1px solid #39f;
+      background-color: #39f;
+      border-radius: 5px;
+      color: #fff;
+      padding: 0px 10px;
+    }
+  }
+}
+
+
+</style>

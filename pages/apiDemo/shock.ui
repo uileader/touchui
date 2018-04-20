@@ -1,0 +1,44 @@
+<!--shock.ui-->
+<template>
+  <ui-page>
+    <ui-view class="btn-area">
+      <ui-button type="primary" bindtap="long">长时间震动</ui-button>
+      <ui-button type="primary" bindtap="shot">短时间震动</ui-button>
+      <ui-text>短时间震动仅在 iPhone7/iPhone7Plus以上及部分 Android 机型生效</ui-text>
+    </ui-view>
+  </ui-page>
+</template>
+  
+
+<script>
+// shock.js
+export default {
+  config: {
+    "navigationBarTitleText": "震动"
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    shot () {
+      ui.vibrateShort()
+    },
+    long () {
+      ui.vibrateLong()
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // shock.less
+.btn-area {
+  padding: 0px 15px;
+  .ui-text{
+    line-height: 30px;
+    color: #7d7d7d;
+    text-align: center;
+  }
+}
+</style>

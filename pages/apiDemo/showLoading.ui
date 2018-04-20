@@ -1,0 +1,210 @@
+<!--loading.ui-->
+<template>
+  <ui-page>
+    <ui-row-list>
+        <ui-row>
+          <ui-switch title="默认样式" ui:model="show1" bindchange="handleChange1"></ui-switch>
+        </ui-row>
+        <ui-row>
+          <ui-switch title="指定Loading文字" ui:model="show2" bindchange="handleChange2"></ui-switch>
+        </ui-row>
+        <ui-row>
+          <ui-switch title="自定义背景" ui:model="show3" bindchange="handleChange3"></ui-switch>
+        </ui-row>
+        <ui-row>
+          <ui-switch title="自定义内容-仿美团" ui:model="show4" bindchange="handleChange4"></ui-switch>
+        </ui-row>
+        <ui-row>
+          <ui-switch title="自定义内容-仿支付宝" ui:model="show5" bindchange="handleChange5"></ui-switch>
+        </ui-row>
+        <ui-row>
+          <ui-switch title="自定义内容-图片旋转" ui:model="show6" bindchange="handleChange6"></ui-switch>
+        </ui-row>
+      </ui-row-list>
+  </ui-page>
+</template>
+
+
+<script>
+// loading.js
+export default {
+  config: {
+    "navigationBarTitleText": "showLoading"
+  },
+  data () {
+    return {
+      show1: false,
+      show2: false,
+      show3: false,
+      show4: false,
+      show5: false,
+      show6: false
+    }
+  },
+  methods: {
+    handleChange1 (val) {
+      if (val) {
+        ui.showLoading()
+        window.setTimeout(() => {
+          this.show1 = false
+          ui.hideLoading()
+        }, 2000)
+      }
+    },
+    handleChange2 (val) {
+      if (val) {
+        ui.showLoading({
+          text: '正在查询机构'
+        })
+        window.setTimeout(() => {
+          this.show2 = false
+          ui.hideLoading()
+        }, 2000)
+      }
+    },
+    handleChange3 (val) {
+      if (val) {
+        ui.showLoading({
+          text: '正在加载...',
+          maskStyle: {
+            'background-color': 'rgba(231,231,231,0)'
+          }
+        })
+        window.setTimeout(() => {
+          this.show3 = false
+          ui.hideLoading()
+        }, 2000)
+      }
+    },
+    handleChange4 (val) {
+      if (val) {
+        ui.showLoading({
+          content: '<div class="mt-mascot"></div>',
+          maskStyle: {
+            backgroundColor: '#fff'
+          }
+        })
+        window.setTimeout(() => {
+          this.show4 = false
+          ui.hideLoading()
+        }, 2000)
+      }
+    },
+    handleChange5 (val) {
+      if (val) {
+        ui.showLoading({
+          content: `<div class="alipay-loading">
+          <div class="img-loading-circle"></div>
+          <div class="text">
+            加载中...
+          </div>
+        </div>`,
+          maskStyle: {
+            'background-color': 'rgba(231,231,231,0)'
+          }
+        })
+        window.setTimeout(() => {
+          this.show5 = false
+          ui.hideLoading()
+        }, 2000)
+      }
+    },
+    handleChange6 (val) {
+      if (val) {
+        ui.showLoading({
+          content: `<div class="img-loading">
+                      <div class="img-loading-circle"></div>
+                      <div class="text">
+                        加载中...
+                      </div>
+                    </div>`,
+          maskStyle: {
+            'background-color': 'rgba(231,231,231,0)'
+          }
+        })
+        window.setTimeout(() => {
+          this.show6 = false
+          ui.hideLoading()
+        }, 2000)
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // loading.less
+// 美团loading
+.mt-mascot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 82px;
+  height: 107px;
+  background: url('~images/mt_run.png') no-repeat;
+  animation: mt-loading steps(8, end) .3s infinite;
+  zoom: 0.5;
+}
+
+@keyframes mt-loading {
+  100% {
+    background-position: -656px 0;
+  }
+}
+// 支付宝loading
+
+.alipay-loading {
+  width: 100px;
+  height: 100px;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  padding-top: 20px;
+  .img-loading-circle{
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    background: url('~static/img/alipay_loading.png') no-repeat center center;
+    background-size: 100%;
+    animation: loading .9s linear infinite;
+  }
+  .text {
+    margin-top: 10px;
+    text-align: center;
+    color: #bcbcbc;
+    font-size: 14px;
+  }
+}
+
+// 图片旋转loading
+.img-loading {
+  width: 100px;
+  height: 100px;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  padding-top: 15px;
+  .img-loading-circle{
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    background: url('~static/img/rotate_img.png') no-repeat center center;
+    background-size: 100%;
+    animation: loading .9s linear infinite;
+  }
+  .text {
+    margin-top: 10px;
+    text-align: center;
+    color: #bcbcbc;
+    font-size: 14px;
+  }
+}
+// 旋转动画
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>

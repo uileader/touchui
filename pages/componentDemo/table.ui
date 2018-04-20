@@ -1,0 +1,159 @@
+<!--table.ui-->
+<template>
+  <ui-page>
+    <ui-divider>基本使用</ui-divider>
+    <ui-table 
+    header="{{thisHeader1}}" 
+    ui:model="thisData1"
+    ></ui-table>
+
+    <ui-divider>点击行反馈</ui-divider>
+    <ui-table 
+    header="{{thisHeader1}}" 
+    ui:model="thisData1"
+    bindrowtap="showname"
+    tap-effect
+    ></ui-table>
+
+    <ui-divider>排序</ui-divider>
+    <ui-table header="{{thisHeader2}}" ui:model="thisData2"></ui-table>
+
+    <ui-divider>文字折行</ui-divider>
+    <ui-table header="{{thisHeader3}}" ui:model="thisData3" fixed-cell-height="{{false}}"></ui-table>
+
+    <ui-divider>隔行变色</ui-divider>
+    <ui-view class="selfcss">
+      <ui-table header="{{thisHeader3}}" alternating-row="true" header-height="40" ui:model="thisData3"></ui-table>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "table基本使用"
+  },
+  data () {
+    return {
+      thisHeader1: [{
+        name: 'moviename',
+        display: '片名'
+      }, {
+        name: 'percent',
+        display: '场次占比'
+      }, {
+        name: 'bout',
+        display: '场次'
+      }],
+      thisData1: {
+        rows: [{
+          moviename: '猩球崛起',
+          percent: '29.1%',
+          bout: '10'
+        }, {
+          moviename: '王牌保镖',
+          percent: '27.1%',
+          bout: '5'
+        }, {
+          moviename: '看不见的客人',
+          percent: '13.1%',
+          bout: '12'
+        }, {
+          moviename: '蜘蛛侠：英雄归来',
+          percent: '11.1%',
+          bout: '8'
+        }]
+      },
+      thisHeader2: [{
+        name: 'moviename',
+        display: '片名',
+        sort: true
+      }, {
+        name: 'percent',
+        display: '场次占比',
+        sort: true
+      }, {
+        name: 'bout',
+        display: '场次',
+        sort: true
+      }],
+      thisData2: {
+        rows: [{
+          moviename: '猩球崛起',
+          percent: '29.1%',
+          bout: '10'
+        }, {
+          moviename: '王牌保镖',
+          percent: '27.1%',
+          bout: '5'
+        }, {
+          moviename: '看不见的客人',
+          percent: '13.1%',
+          bout: '12'
+        }, {
+          moviename: '蜘蛛侠：英雄归来',
+          percent: '11.1%',
+          bout: '8'
+        }]
+      },
+      thisHeader3: [{
+        name: 'moviename',
+        display: '片名',
+        width: '130'
+      }, {
+        name: 'percent',
+        display: '场次占比'
+      }, {
+        name: 'bout',
+        display: '场次'
+      }],
+      thisData3: {
+        rows: [{
+          moviename: '在西库利亚那城，两个男人为一个寡妇发生的流备事件引起了整治风波',
+          percent: '29.1%',
+          bout: '10'
+        }, {
+          moviename: '王牌保镖',
+          percent: '27.1%',
+          bout: '5'
+        }, {
+          moviename: '看不见的客人',
+          percent: '13.1%',
+          bout: '12'
+        }, {
+          moviename: '蜘蛛侠：英雄归来',
+          percent: '11.1%',
+          bout: '8'
+        }]
+      }
+    }
+  },
+  methods: {
+    showname (obj) {
+      ui.showToast({ title: obj.rowData.moviename })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .ui-divider{margin:10px 0}
+.selfcss{
+  .table-header{
+    border-bottom:1px solid rgba(231, 231, 231, 0.6);
+  }
+  .table-header-column{
+    background-color:#fff;
+    border-top:1px solid rgba(231, 231, 231, 0.6);
+    border-bottom:1px solid rgba(231, 231, 231, 0.6);
+    color:#666
+  }
+  .table-data-row,.table-data-cell{
+    border:0
+  }
+
+}
+
+</style>

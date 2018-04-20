@@ -1,0 +1,947 @@
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center"  width="50" bindtap="navigateBack">
+          <ui-view>
+            <ui-icon type="arrow-left" size="16" color="#2F1417"></ui-icon>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_top">
+            <ui-row height="35">
+              <ui-col vertical-align="middle" align="left" space-left="10" width="65" bindtap="rangeCalendarDefaultOpen">
+                <ui-view class="time">
+                  住<ui-text>{{ rangestart2 }}</ui-text>
+                </ui-view>
+                <ui-view class="time">
+                  离<ui-text>{{ rangeend2 }}</ui-text>
+                </ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="center" width="20">
+                <ui-icon type="arrow-down" size="12" color="#B5ADAD"></ui-icon>
+              </ui-col>
+              <ui-col vertical-align="middle" align="center" width="3">
+                <ui-view class="line"></ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="center">
+                <ui-row class="address">
+                  <ui-col vertical-align="middle" align="center" width="30">
+                    <ui-icon type="magnifier" size="16" color="#888787"></ui-icon>
+                  </ui-col>
+                  <ui-col vertical-align="middle" align="left">
+                    <ui-view class="address_title">北京市，丰台区，南三环</ui-view>
+                  </ui-col>
+                </ui-row>
+              </ui-col>
+            </ui-row>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50" bindtap="map">
+          <ui-view class="map">地图</ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-popup ui:model="{{ rangeCalendarDefault }}">
+      <ui-view  class="popup2">
+        <ui-row space-top="{{statusBarHeight}}" height="{{headerHeight}}" > 
+          <ui-col align="center" vertical-align="middle" width="70">
+          </ui-col>
+          <ui-col align="center" vertical-align="middle">
+            <ui-text>请选择入住离店日期</ui-text>
+          </ui-col>
+          <ui-col align="right" space-right="10" vertical-align="middle" width="70" bindtap="handleSelect('rangeCalendarDefault')">
+            <ui-text>完成</ui-text>
+          </ui-col>
+        </ui-row>
+        <ui-v-calendar
+        ui:if="{{rangeCalendarDefault}}"
+        height="{{height - headerHeight}}"
+        select-range-mode="{{true}}"
+        date-rang="{{monthrange}}"
+        max-range="{{30}}"
+        value="{{defaultMonthrange}}"
+        bindselectedstart="selectedStartHandler2($event)"
+        bindselectedend="selectedEndHandler2($event)"
+        bindfailed="failedHandler2($event)"
+      ></ui-v-calendar>
+      </ui-view>
+    </ui-popup>
+
+
+    <ui-view class="sticky_-in-relative-container" id="suggestion-title">
+        <ui-view>
+          <ui-row height="46" class="sticky_nav_top">
+            <ui-col vertical-align="middle" align="center" bindtap="openPopup(index)" ui:for="{{ navList }}" class="{{ item.active }}">
+              <ui-row height="46" style="width:100%;">
+                <ui-col vertical-align="middle" align="right" space-right="5">
+                  <ui-view>
+                    {{ item.name}}
+                  </ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="left" span="4" space-left="5">
+                  <ui-icon type="{{item.arrow}}" size="8" color="#878787;" class="{{ item.active }}"></ui-icon>
+                </ui-col>
+                <ui-col vertical-align="middle" align="center" width="3" ui:if="{{ index<navList.length-1 }}">
+                  <ui-view class="line"></ui-view>
+                </ui-col>
+              </ui-row>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+    </ui-view>
+
+    <ui-scroll-view scroll-y height="{{DEFAULT_CONTENT_HEIGHT-46}}">
+
+    
+    <ui-list-view data="{{ hotelList }}" bindchange="handleListViewChange">
+      <template scope="props">
+        <ui-list-view-item tap-effect>
+          <ui-row class="list_content" bindtap="details">
+            <ui-col vertical-align="middle" align="center" width="100" space-left="10">
+              <ui-image
+                src="{{ props.item.img }}"
+                width="90"
+                height="90"
+              ></ui-image>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" space-left="10">
+              <ui-view class="title">{{ props.item.title }}</ui-view>
+              <ui-row height="30" style="width:100%;">
+                <ui-col vertical-align="middle" align="left">
+                  <ui-view class="address">{{ props.item.address }}</ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="right" width="80" space-right="10">
+                  <ui-view class="km">{{ props.item.km }}</ui-view>
+                </ui-col>
+              </ui-row>
+              <ui-view class="trait">
+                <ui-text ui:for="{{ props.item.trait }}">{{ item }}</ui-text>
+              </ui-view>
+              <ui-row height="40" style="width:100%;" space-bottom="10">
+                <ui-col vertical-align="middle" align="left" width="50">
+                  <ui-view class="score">{{ props.item.score }}</ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="left" width="50">
+                  <ui-view class="grade">{{ props.item.grade }}</ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="right" space-right="10">
+                  <ui-view class="price">{{ props.item.price }}元起</ui-view>
+                </ui-col>
+              </ui-row>
+            </ui-col>
+          </ui-row>
+
+
+        </ui-list-view-item>
+      </template>
+    </ui-list-view>
+  </ui-scroll-view>
+
+
+
+
+
+
+
+
+
+
+    <ui-popup ui:model="{{ show1 }}" position="top" top="{{ popupTop }}" height="180" mask-style="{{{ top: popupTop+'px' }}}" bindhide="popHide1" bindshow="popShow1">
+      <ui-view class="top_pop">
+        <ui-check-list max="1" label-position="left" options="{{ sortList }}" type="plain" ui:model="{{ checklist1 }}" bindchange="change1" color="#B70000"></ui-check-list>
+      </ui-view>
+    </ui-popup>
+
+    <ui-popup ui:model="{{show2 }}" position="top" top="{{ popupTop }}" mask-style="{{{ top: popupTop+'px' }}}" bindhide="popHide2" bindshow="popShow2">
+      <ui-view class="top_pop">
+        <ui-cascader class="sample_title_6" bindselected="cascaderSelect" show-title="{{false}}" data="{{hotels}}" theme-color="#B70000"  height="{{ scroHeight-250 }}"></ui-cascader>
+      </ui-view>
+    </ui-popup>
+
+    <ui-popup ui:model="{{ show3 }}" position="top" top="{{ popupTop }}" mask-style="{{{ top: popupTop+'px' }}}" bindhide="popHide3" bindshow="popShow3">
+      <ui-view class="top_pop">
+        <ui-scroll-view scroll-y="scroll-y" height="{{ scroHeight-50 }}">
+          <ui-form >
+            <ui-row height="50">
+              <ui-col>
+                <ui-switch title="只看免预约" ui:model="{{ switch1 }}" color="#B70000"></ui-switch>
+              </ui-col>
+            </ui-row>
+            <ui-row height="50" border-bottom="border-bottom">
+              <ui-col>
+                <ui-switch title="节假日可用" ui:model="{{ switch2 }}" color="#B70000"></ui-switch>
+              </ui-col>
+            </ui-row>
+            <ui-view class="time_content">
+              <ui-text>用餐时段</ui-text>
+              <ui-tags data="{{eatTime}}" bindchange="singleTap1" fixed-width></ui-tags>
+            </ui-view>
+            <ui-view class="time_content">
+              <ui-text>餐厅服务</ui-text>
+              <ui-tags data="{{service}}" bindchange="singleTap2" fixed-width></ui-tags>
+            </ui-view>
+            <ui-view class="time_content">
+              <ui-text>用餐人数</ui-text>
+              <ui-tags data="{{eatNumber}}" bindchange="singleTap3" fixed-width></ui-tags>
+            </ui-view>
+          </ui-form>
+        </ui-scroll-view>
+        <ui-row border-top="border-top" height="50" class="sub">
+          <ui-col vertical-align="middle" align="center" border-right="border-right" bindtap="formReset">
+            重置
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" bindtap="change3" class="complete">
+            完成
+          </ui-col>
+        </ui-row>
+      </ui-view>
+    </ui-popup>
+    
+
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":"black",
+    "backgroundColor":"#FFFFFF",
+    "disableScroll":true
+  },
+  data () {
+    return {
+      //时间
+      height: ui.WIN_HEIGHT,
+      statusBarHeight: ui.STATUS_BAR_HEIGHT,
+      headerHeight: ui.DEFAULT_HEADER_HEIGHT,
+      DEFAULT_CONTENT_HEIGHT:ui.DEFAULT_CONTENT_HEIGHT,
+      // 时间可选范围
+      monthrange: [],
+      // 默认选中的时间范围
+      defaultMonthrange: [],
+      rangeCalendarDefault: false,
+      // 时间差
+      differ2: '',
+      rangestart2: '',
+      rangeend2: '',
+      rangeDate2: '',
+      // 时间对象，存储临时变化的时间
+      dateobj: {},
+
+      // 吸顶容器
+      navList: [
+        {
+          name: '距离优先',
+          active: '',
+          arrow: 'slide_down',
+          bindtap: 'openPopup1'
+        }, {
+          name: '酒店品牌',
+          active: '',
+          arrow: 'slide_down',
+          bindtap: 'openPopup2'
+        }, {
+          name: '筛选',
+          active: '',
+          arrow: 'slide_down',
+          bindtap: 'openPopup3'
+        }
+      ],
+      show1: false,
+      show2: false,
+      show3: false,
+      switch1: false,
+      switch2: false,
+      popupTop: ui.DEFAULT_HEADER_HEIGHT + 46,
+      sortList: [
+        '智能排序', '离我最近', '好评优先', '人气最高'
+      ],
+      checklist1: [],
+      scroHeight: parseInt(ui.DEFAULT_CONTENT_HEIGHT * 0.8),
+      hotels: [
+        {
+          name: '高端',
+          children: [{
+            name: '全部品牌',
+            
+          }, {
+            name: '建国饭店',
+            
+          }, {
+            name: '建国璞隐',
+            
+          }, {
+            name: '首旅南苑',
+            
+          }, {
+            name: '京伦饭店',
+            
+          }, {
+            name: '京纶扉缦',
+            
+          }, {
+            name: '南山休闲会馆',
+            
+          }, {
+            name: '建国饭店',
+            
+          }]
+        },
+        {
+          name: '中高端',
+          children: [{
+            name: '和颐至尊',
+            
+          },{
+            name: '和颐（和颐至尚）',
+            
+          },{
+            name: '和颐至格',
+            
+          },{
+            name: '如家精选',
+            
+          },{
+            name: '和颐商旅（金标）',
+            
+          },{
+            name: '如家商旅',
+            
+          },{
+            name: '驿居（金牌）',
+            
+          },{
+            name: '素柏·云',
+            
+          },{
+            name: '睿柏·云',
+            
+          }]
+        },
+        {
+          name: '商旅型',
+          children: [{
+            name: '全部品牌',
+            
+          },{
+            name: '如家',
+            
+          },{
+            name: '莫泰',
+            
+          },{
+            name: '云上四季',
+            
+          },{
+            name: '驿居（蓝牌）',
+            
+          },{
+            name: '欣燕都',
+            
+          },{
+            name: '派柏·云',
+            
+          },{
+            name: '泊玺·银座佳驿',
+            
+          }]
+        },
+        {
+          name: '休闲度假',
+          children: [{
+            name: '全部品牌',
+            
+          },{
+            name: '首旅寒舍',
+            
+          },{
+            name: '诗柏·云',
+            
+          },{
+            name: '漫趣乐园',
+            
+          },{
+            name: '嘉乐比',
+            
+          },{
+            name: '云上四季民宿',
+            
+          }]
+        },
+        {
+          name: '联盟酒店',
+          children: [{
+            name: '全部品牌',
+            
+          },{
+            name: '华驿',
+            
+          },{
+            name: '如家联盟',
+            
+          }]
+        }
+      ],
+      eatTime: [
+        {
+        text: '早餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '午餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '下午茶',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '晚餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '夜宵',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }],
+      service: [{
+        text: '买单',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '在线点菜',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '外卖送餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '在线排队',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '预订',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }],
+      eatNumber: [{
+        text: '单人餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '双人餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '3～4人餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '5-10人餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '10人以上',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }],
+      status: null,
+      isflag: true,
+      pullDown: {
+        distance: 84,
+        onBegin: () => {},
+        onActive: this.handleActive,
+        onAfter: () => {}
+      },
+      hotelList:[
+        {
+          img:require('#/images/hotel/hotel_01.png'),
+          title:'如家精选-北京木樨园店',
+          address:'北京市丰台区永外果园43号珠江峻景北区',
+          km:'2.46公里',
+          score:'5.0分',
+          grade:'中高端',
+          price:'417',
+          trait:['买贵赔3倍','地铁周边','专票立取']
+        },
+        {
+          img:require('#/images/hotel/hotel_02.png'),
+          title:'如家精选-北京大观园店',
+          address:'北京市西城区南菜街9号院6号楼国泰大楼',
+          km:'2.50公里',
+          score:'4.9分',
+          grade:'商旅型',
+          price:'270',
+          trait:['买贵赔3倍']
+        },
+        {
+          img:require('#/images/hotel/hotel_03.png'),
+          title:'如家-北京陶然亭店',
+          address:'北京市西城区菜市口大街66号',
+          km:'2.70公里',
+          score:'4.6分',
+          grade:'商旅型',
+          price:'360',
+          trait:['买贵赔3倍','地铁周边','无餐饮','专票立取']
+        },
+        {
+          img:require('#/images/hotel/hotel_04.png'),
+          title:'欣燕都菜市口店（内宾）',
+          address:'北京市西城区菜市口大街58号',
+          km:'2.92公里',
+          score:'4.6分',
+          grade:'商旅型',
+          price:'270',
+          trait:['地铁周边','无餐饮','专票立取']
+        },
+        {
+          img:require('#/images/hotel/hotel_03.png'),
+          title:'如家-北京陶然亭店',
+          address:'北京市西城区菜市口大街66号',
+          km:'2.70公里',
+          score:'4.6分',
+          grade:'商旅型',
+          price:'360',
+          trait:['买贵赔3倍','地铁周边','无餐饮','专票立取']
+        },
+        {
+          img:require('#/images/hotel/hotel_02.png'),
+          title:'如家精选-北京大观园店',
+          address:'北京市西城区南菜街9号院6号楼国泰大楼',
+          km:'2.50公里',
+          score:'4.9分',
+          grade:'商旅型',
+          price:'270',
+          trait:['买贵赔3倍']
+        },
+        {
+          img:require('#/images/hotel/hotel_01.png'),
+          title:'如家精选-北京木樨园店',
+          address:'北京市丰台区永外果园43号珠江峻景北区',
+          km:'2.46公里',
+          score:'5.0分',
+          grade:'中高端',
+          price:'417',
+          trait:['买贵赔3倍','地铁周边','专票立取']
+        },
+        {
+          img:require('#/images/hotel/hotel_01.png'),
+          title:'如家精选-北京木樨园店',
+          address:'北京市丰台区永外果园43号珠江峻景北区',
+          km:'2.46公里',
+          score:'5.0分',
+          grade:'中高端',
+          price:'417',
+          trait:['买贵赔3倍','地铁周边','专票立取']
+        },
+        {
+          img:require('#/images/hotel/hotel_02.png'),
+          title:'如家精选-北京大观园店',
+          address:'北京市西城区南菜街9号院6号楼国泰大楼',
+          km:'2.50公里',
+          score:'4.9分',
+          grade:'商旅型',
+          price:'270',
+          trait:['买贵赔3倍']
+        },
+        {
+          img:require('#/images/hotel/hotel_03.png'),
+          title:'如家-北京陶然亭店',
+          address:'北京市西城区菜市口大街66号',
+          km:'2.70公里',
+          score:'4.6分',
+          grade:'商旅型',
+          price:'360',
+          trait:['买贵赔3倍','地铁周边','无餐饮','专票立取']
+        },
+        {
+          img:require('#/images/hotel/hotel_04.png'),
+          title:'欣燕都菜市口店（内宾）',
+          address:'北京市西城区菜市口大街58号',
+          km:'2.92公里',
+          score:'4.6分',
+          grade:'商旅型',
+          price:'270',
+          trait:['地铁周边','无餐饮','专票立取']
+        },
+        {
+          img:require('#/images/hotel/hotel_03.png'),
+          title:'如家-北京陶然亭店',
+          address:'北京市西城区菜市口大街66号',
+          km:'2.70公里',
+          score:'4.6分',
+          grade:'商旅型',
+          price:'360',
+          trait:['买贵赔3倍','地铁周边','无餐饮','专票立取']
+        },
+        {
+          img:require('#/images/hotel/hotel_02.png'),
+          title:'如家精选-北京大观园店',
+          address:'北京市西城区南菜街9号院6号楼国泰大楼',
+          km:'2.50公里',
+          score:'4.9分',
+          grade:'商旅型',
+          price:'270',
+          trait:['买贵赔3倍']
+        },
+        {
+          img:require('#/images/hotel/hotel_01.png'),
+          title:'如家精选-北京木樨园店',
+          address:'北京市丰台区永外果园43号珠江峻景北区',
+          km:'2.46公里',
+          score:'5.0分',
+          grade:'中高端',
+          price:'417',
+          trait:['买贵赔3倍','地铁周边','专票立取']
+        }
+      ]
+    }
+  },
+  methods: {
+    map(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/O2O/map'
+      })
+    },
+    navigateBack () {
+      ui.navigateBack()
+    },
+    handleSelect (key) {
+      this[key] = false
+    },
+    rangeCalendarDefaultOpen () {
+      this.rangeCalendarDefault = true
+    },
+    selectedStartHandler2 (e) {
+      this.rangeDate2 = e
+    },
+    selectedEndHandler2 (e) {
+      this.dateobj.rangedate2 = e
+      this.defaultMonthrange = e
+      setTimeout(() => {
+        this.rangeCalendarDefault = false
+      }, 500)
+      this.calculationDays2()
+      this.rangeinit2(this.dateobj)
+    },
+    rangeinit2 (thisdate) {
+      let start, end
+      this.dateobj.rangestart2 = thisdate.rangedate2[0]
+      this.dateobj.rangeend2 = thisdate.rangedate2[1]
+      start = this.dateobj.rangestart2.split('/')
+      end = this.dateobj.rangeend2.split('/')
+      this.rangestart2 = `${start[1]}-${start[2]}`
+      this.rangeend2 = `${end[1]}-${end[2]}`
+    },
+    failedHandler2 (err) {
+      if (err === 1) {
+        ui.showToast({ title: '您选择的时间超过30天,请重新选择' })
+      }
+    },
+    format (obj) {
+      var date = new Date(obj)
+      var y = 1900 + date.getYear()
+      var m = '0' + (date.getMonth() + 1)
+      var d = '0' + date.getDate()
+      return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+    },
+    // 默认选中的。范围选择，根据选择日期，计算几晚
+    calculationDays2 () {
+      let start, end
+      start = Date.parse(this.dateobj.rangedate2[0])
+      end = Date.parse(this.dateobj.rangedate2[1])
+      this.differ2 = Math.floor((end - start) / (24 * 3600 * 1000))
+    },
+    //吸顶点击事件
+    openPopup (index) {
+      if (index === 0) {
+        this.show2 = false
+        this.show3 = false
+        this.show1 = !this.show1
+      } else if (index === 1) {
+        this.show1 = false
+        this.show3 = false
+        this.show2 = !this.show2
+      } else if (index === 2) {
+        this.show1 = false
+        this.show2 = false
+        this.show3 = !this.show3
+      }
+    },
+    popHide1 () {
+      this.navList[0].active = ''
+    },
+    popShow1 () {
+      this.navList[0].active = 'active'
+    },
+    change1 (val) {
+      this.navList[0].name = val.join('-')
+      this.show1 = false
+    },
+    popHide2 () {
+      this.navList[1].active = ''
+    },
+    popShow2 () {
+      this.navList[1].active = 'active'
+    },
+    select (result) {
+      this.navList[1].name = result.city
+      this.show2 = false
+    },
+    popHide3 () {
+      this.navList[2].active = ''
+    },
+    popShow3 () {
+      this.navList[2].active = 'active'
+    },
+    singleTap1 (opt) {
+      this.eatTime[opt].checked = !this.eatTime[opt].checked
+    },
+    singleTap2 (opt) {
+      this.service[opt].checked = !this.service[opt].checked
+    },
+    singleTap3 (opt) {
+      this.eatNumber.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+    },
+    change3 (val) {
+      this.show3 = false
+    },
+    formReset () {
+      this.switch1 = false
+      this.switch2 = false
+      this.eatTime.forEach((item, index) => {
+        item.checked = false
+      })
+      this.service.forEach((item, index) => {
+        item.checked = false
+      })
+      this.eatNumber.forEach((item, index) => {
+        item.checked = false
+      })
+    },
+    details(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/O2O/hotelDetails'
+      })
+    },
+
+
+    //listView
+    handleListViewChange (status) {
+      this.status = status
+      if (this.status === 1) {
+        this.isflag = false
+      }
+    },
+    handleActive () {
+      ui.showToast({ title: '刷新。。。' })
+    },
+    cascaderSelect(e){
+      console.log(e)
+      this.show2 = false
+      let choose =''
+      for(var i = 0;i<e.length;i++){
+        choose = e[i].name
+      }
+      this.navList[1].name=choose
+    }
+  },
+  mounted(){
+    let rangedate2 = new Date()
+    let defaultStart, defaultEnd
+    defaultStart = this.format(rangedate2.setDate(new Date().getDate()))
+    defaultEnd = this.format(rangedate2.setDate(new Date().getDate() + 2))
+    this.defaultMonthrange.push(defaultStart, defaultEnd)
+    let start, end
+    this.dateobj.rangestart2 = this.defaultMonthrange[0]
+    this.dateobj.rangeend2 = this.defaultMonthrange[1]
+    start = this.dateobj.rangestart2.split('/')
+    end = this.dateobj.rangeend2.split('/')
+    this.rangestart2 = `${start[1]}-${start[2]}`
+    this.rangeend2 = `${end[1]}-${end[2]}`
+  }
+
+}
+</script>
+
+<style lang="less">
+
+.nav_bar {
+  .mix-1px(0, 0, 1, 0, #ccc);
+  background-color: #fff;
+  .map{
+    color: #020202;
+    font-size: 14px;
+  }
+
+  .nav_top{
+    border-radius: 25px;
+    background-color: #EBEBEB;
+    width:100%;
+    .time{
+      font-size:10px;
+      color: #2F1417;
+      line-height:15px;
+      .ui-text{
+        color: #C72D3A;
+        margin-left: 5px;
+      }
+    }
+    .line{
+      width:1px;
+      height:20px;
+      background-color: #d4d4d4;
+    }
+  }
+  .address{
+    width: 100%;
+    .address_title{
+      width: 100%;
+      .mix-text-overflow();
+      font-size:12px;
+      color:#402527;
+      line-height:35px;
+    }
+  }
+}
+
+.sticky-in-relative-container {
+  position: relative;
+  height: 46px;
+  background-color: #fff;
+}
+.sticky_nav_top{
+  background: #fff;
+  font-size:14px;
+  color:#878787;
+  box-shadow: 0px -2px 14px 0px #ccc;
+  .ui-col.active{
+    color: #B70000;
+  }
+  .ui-row{
+    width: 100%;
+    height: 100%;
+    .ui-view{
+      width: 100%;
+      .mix-text-overflow();
+    }
+  }
+  .line{
+    width: 1px!important;
+    height: 20px;
+    background-color: #ECECEC;
+  }
+}
+.top_pop{
+  background: #fff;
+}
+
+
+.sample_title_6 > .ui-cascader-content > .ui-cascader-item {
+  background-color: white;
+  border: 0;
+  width:35%;
+  flex: 0 0 40%;
+}
+.sample_title_6 > .ui-cascader-content > .ui-cascader-item > .ui-cascader-item-box > a:before{
+  height: 0;
+  border: 0;
+}
+.ui-cascader-content > .ui-cascader-item:nth-child(2n){
+  width: 65%;
+  flex: 0 0 60%;
+}
+
+
+.time_content{
+  padding:0 10px 10px 10px; 
+  .ui-text{
+    color: #AFAFAF;
+    font-size: 12px;
+    line-height: 40px;
+  }
+  .tag-before-00{
+    width: 90px;
+    color: #555;
+    border: 1px solid #E3E3E3;
+    border-radius: 3px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+  }
+  .select-class{
+    width: 90px;
+    border-radius: 3px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    background: #B70000;
+    border: 0;
+    color: #fff;
+  }
+}
+.list_content{
+  .title{
+    color: #554444;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  .address{
+    width: 100%;
+    .mix-text-overflow();
+    color: #A0A0A0;
+    font-size: 12px;
+  }
+  .km{
+    color: #A0A0A0;
+    font-size: 12px;
+  }
+  .score{
+    color: #554444;
+    font-size: 14px;
+  }
+  .grade{
+    color: #A0A0A0;
+    font-size: 12px;
+  }
+  .price{
+    font-size:18px;
+    color:#B70000;
+  }
+  .trait{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    .ui-text{
+      display: inline-flex;
+      border: 1px solid #C69459;
+      border-radius: 3px;
+      color: #C69459;
+      font-size: 12px;
+      padding: 0 5px;
+      margin-right:5px;
+    }
+  }
+}
+</style>

@@ -1,0 +1,357 @@
+<!--bar.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">柱状图：基本使用</ui-view>
+    <ui-view style="text-align: center">
+      <ui-bar
+      value="{{bar1.data}}"
+      height="200"
+      width="{{width}}"
+      is-animated="true"
+      between-bars-padding = 0.3
+      color-schema="{{bar1.colorSchema}}"
+      y-unit="/人"
+      margin="{{bar1.margin}}"
+      ></ui-bar>
+    </ui-view>
+
+    <ui-view class="sample_title">柱状图：点击事件</ui-view>
+    <ui-view style="text-align: center">
+      <ui-bar
+      value="{{bar1.data}}"
+      height="200"
+      width="{{width}}"
+      is-animated="true"
+      between-bars-padding = 0.3
+      is-darker="true"
+      color-schema="{{bar1.colorSchema}}"
+      bindcustomclick="customclick"
+      ></ui-bar>
+      <ui-text block>{{clickText}}</ui-text>
+    </ui-view>
+
+    <ui-view class="sample_title">柱状图：使用tooltip</ui-view>
+    <ui-view>
+      <ui-bar
+      value="{{bar1.data}}"
+      height="200"
+      width="{{width}}"
+      is-animated="true"
+      is-darker="true"
+      between-bars-padding = 0.3
+      color-schema="{{bar1.colorSchema}}"
+      tooltip="true"
+      body-fill-color="rgba(0,0,0,.7)"
+      value-text-fill-color="#fff"
+      name-text-fill-color="#fff"
+      ></ui-bar>
+    </ui-view>
+
+
+    <ui-view class="sample_title">柱状图：使用不同颜色</ui-view>
+    <ui-view style="height:210px;">
+    <ui-bar
+    value="{{bar2.data}}"
+    height="200"
+    width="{{width}}"
+    is-animated="true"
+    between-bars-padding = 0.3
+    percentage-label-margin="{{1}}"
+    color-schema="{{bar2.colorSchema}}"
+    y-axis-padding-between-chart="{{12}}"
+    ></ui-bar>
+  </ui-view>
+
+    <ui-view class="sample_title">柱状图：使用图例</ui-view>
+    <ui-view style="">
+      <ui-bar
+      value="{{bar2.data}}"
+      height="200"
+      width="{{width}}"
+      is-animated="true"
+      between-bars-padding = 0.3
+      color-schema="{{bar2.colorSchema}}"
+      
+      ></ui-bar>
+      <ui-legend
+      value="{{legendData.legend}}"
+      width="{{width-100}}"
+      height="300"
+      is-animated="true"
+      number-format=".1f"
+    ></ui-legend>
+    </ui-view>
+
+    <ui-view class="sample_title">条形图：基本使用</ui-view>
+    <ui-view style="text-align: center;margin-top:20px;height:210px;">
+      <ui-bar
+      value="{{bar3.data}}"
+      height="200"
+      width="{{width}}"
+      is-animated="true"
+      is-horizontal = "true"
+      percentage-axis-to-max-ratio=2
+      between-bars-padding = 0.3
+      margin="{{bar3.margin}}"
+      has-percentage="true"
+      enable-percentage-labels="true"
+      ></ui-bar>
+    </ui-view>
+    <ui-view class="sample_title">条形图：使用tooltip</ui-view>
+    <ui-view style="text-align: center;margin-top:20px;height:210px;">
+      <ui-bar
+      value="{{bar3.data}}"
+      height="200"
+      width="{{width}}"
+      is-animated="true"
+      is-horizontal = "true"
+      percentage-axis-to-max-ratio=2
+      margin="{{bar3.margin}}"
+      is-darker="true"
+      between-bars-padding = 0.3
+      has-percentage="true"
+      enable-percentage-labels="true"
+      tooltip="true"
+      body-fill-color="rgba(0,0,0,.7)"
+      value-text-fill-color="#fff"
+      name-text-fill-color="#fff"
+      ></ui-bar>
+    </ui-view>
+
+    <ui-view class="sample_title">条形图：点击事件</ui-view>
+    <ui-view style="text-align: center;">
+      <ui-bar
+      value="{{bar3.data}}"
+      height="200"
+      width="{{width}}"
+      is-animated="true"
+      is-horizontal = "true"
+      percentage-axis-to-max-ratio=2
+      between-bars-padding = 0.3
+      margin="{{bar3.margin}}"
+      is-darker="true"
+      has-percentage="true"
+      enable-percentage-labels="true"
+      bindcustomclick="customclick1"
+      ></ui-bar>
+      <ui-text block>{{clickText1}}</ui-text>
+    </ui-view>
+
+    <ui-view class="sample_title">条形图：使用不同颜色</ui-view>
+    <ui-view style="text-align: center;margin-top:20px;height:210px;">
+      <ui-bar
+      value="{{bar3.data}}"
+      height="200"
+      width="{{width}}"
+      is-animated="true"
+      is-horizontal = "true"
+      percentage-axis-to-max-ratio=2
+      between-bars-padding = 0.3
+      margin="{{bar3.margin}}"
+      color-schema="{{bar2.colorSchema}}"
+      between-bars-padding = 0.6
+      has-percentage="true"
+      enable-percentage-labels="true"
+      ></ui-bar>
+    </ui-view>
+
+    <ui-view class="sample_title">条形图：使用图例</ui-view>
+    <ui-view>
+      <ui-bar
+      value="{{bar3.data}}"
+      height="200"
+      width="{{width}}"
+      is-animated="true"
+      is-horizontal = "true"
+      percentage-axis-to-max-ratio=2
+      between-bars-padding = 0.3
+      margin="{{bar3.margin}}"
+      color-schema="{{bar2.colorSchema}}"
+      is-darker="{{false}}"
+      between-bars-padding = 0.6
+      has-percentage="true"
+      enable-percentage-labels="true"
+      ></ui-bar>
+      <ui-legend
+      value="{{legendData2.legend}}"
+      width="{{width-100}}"
+      height="200"
+      is-animated="true"
+      number-format=".1f"
+    ></ui-legend>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+  // bar.js
+export default {
+  config: {
+    "navigationBarTitleText": "柱状图、条形图"
+  },
+  data () {
+    return {
+      width: ui.WIN_WIDTH,
+      clickText: '',
+      clickText1: '',
+      bar1: {
+        margin: {
+          left: 60,
+          right: 20,
+          top: 20,
+          bottom: 20
+        },
+        colorSchema: ['#ffdd83'],
+        data: [
+          {
+            value: 1236,
+            name: '1月'
+          }, {
+            value: 334,
+            name: '2月'
+          }, {
+            value: 535,
+            name: '3月'
+          }, {
+            value: 413,
+            name: '4月'
+          }, {
+            value: 175,
+            name: '5月'
+          }, {
+            value: 623,
+            name: '6月'
+          }
+        ]
+
+      },
+      bar2: {
+        colorSchema: ['#70f0c7', '#41c4c9', '#fed009', '#fda71e', '#f65bb9'],
+        data: [
+          {
+            value: 134,
+            name: '1月'
+          }, {
+            value: 100,
+            name: '2月'
+          }, {
+            value: 234,
+            name: '3月'
+          }, {
+            value: 345,
+            name: '4月'
+          }, {
+            value: 432,
+            name: '5月'
+          }, {
+            value: 341,
+            name: '6月'
+          }
+        ]
+      },
+      bar3: {
+        data: [
+          {
+            value: 0.033,
+            name: '1-2分'
+          }, {
+            value: 0.023,
+            name: '3-4分'
+          }, {
+            value: 0.105,
+            name: '5-6分'
+          }, {
+            value: 0.259,
+            name: '7-8分'
+          }, {
+            value: 0.58,
+            name: '9-10分'
+          }
+        ],
+        margin: {
+          left: 60,
+          right: 20,
+          top: 10,
+          bottom: 20
+        },
+      },
+      legendData: {
+        legend: [
+          {
+            id: 1,
+            quantity: 134,
+            name: '1月'
+          },
+          {
+            id: 2,
+            quantity: 100,
+            name: '2月'
+          },
+          {
+            id: 3,
+            quantity: 234,
+            name: '3月'
+          },
+          {
+            id: 4,
+            quantity: 345,
+            name: '4月'
+          },
+          {
+            id: 4,
+            quantity: 432,
+            name: '5月'
+          },
+          {
+            id: 4,
+            quantity: 341,
+            name: '6月'
+          }
+        ]
+      },
+      legendData2: {
+        legend: [
+          {
+            id: 1,
+            quantity: 134,
+            name: '1-2分'
+          },
+          {
+            id: 2,
+            quantity: 100,
+            name: '3-4分'
+          },
+          {
+            id: 3,
+            quantity: 234,
+            name: '5-6分'
+          },
+          {
+            id: 4,
+            quantity: 345,
+            name: '7-8分'
+          },
+          {
+            id: 4,
+            quantity: 432,
+            name: '9-10分'
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    customclick (e) {
+      this.clickText = `点击的是${e.name},值为：${e.value}人`
+    },
+    customclick1 (e) {
+      this.clickText1 = `点击的是${e.name},值为：${Math.round(e.value * 100)}%`
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

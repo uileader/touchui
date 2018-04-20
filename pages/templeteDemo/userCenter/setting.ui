@@ -1,0 +1,163 @@
+<!--setting.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10"  width="50" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">设置</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50" >
+          
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <ui-row height="50" class="user_content_list2" space-top="10" bindtap="accountSecurity">
+      <ui-col vertical-align="middle" space-left="15">
+        账户与安全
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" width="50" space-right="15">
+        <ui-icon type="arrow-right" size="18" color="#BAB9BF"></ui-icon>
+      </ui-col>
+    </ui-row>
+    <ui-navigator url="/pages/templeteDemo/userCenter/commonUse">
+      <ui-row height="50" class="user_content_list2" space-bottom="10">
+        <ui-col vertical-align="middle" space-left="15">
+          通用
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" width="50" space-right="15">
+          <ui-icon type="arrow-right" size="16" color="#BAB9BF"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-navigator>
+    <ui-navigator url="/pages/templeteDemo/userCenter/about">
+      <ui-row height="50" class="user_content_list2" space-bottom="10">
+        <ui-col vertical-align="middle" space-left="15">
+          关于TouchUI Pro
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" width="50" space-right="15">
+          <ui-icon type="arrow-right" size="16" color="#BAB9BF"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-navigator>
+    <ui-row height="50" class="user_content_list2" space-top="20" bindtap="logOut">
+      <ui-col vertical-align="middle" align="center">
+        <ui-view class="log_out">退出登录</ui-view>
+      </ui-col>
+    </ui-row>
+
+  </ui-page>
+</template>
+
+<script>
+  // setting.js
+const logoutUrl = '/touchui-backstage/logout.do'
+export default {
+  config: {
+    navigationBarTitleText: '设置',
+    backgroundColor: '#F2F2F2',
+    delay:false
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    loginPage () {
+      import(`#/pages/dialogs/loginInterface.ui`).then((content) => {
+        ui.showDialog({
+          content: content,
+          statusBarColor: 'black',
+          // 向dialog2.ui传入数据
+          data: {
+
+          },
+          // 接收ui.hideDialog回传的数据
+          onHide: (data) => {
+            if (data && data.userinfo) {
+              this.isLogin = true
+              this.userName = data.userinfo.tel
+            }
+            if (data && data.isLogin) {
+              this.isLogin = data.isLogin
+            }
+          }
+        })
+      })
+    },
+    logOut () {
+      let userinfo = ui.getStorageSync('userinfo')
+      console.log(userinfo)
+      ui.request({
+        url: logoutUrl,
+        data: {
+          userId: userinfo.userId,
+          tokenId: userinfo.tokenId
+        },
+        success: function (result) {
+          console.log(result)
+          if (result.data.error_code === 0) {
+            console.log('0')
+            ui.navigateBack()
+            ui.showToast({ title: '退出成功', icon: 'success' })
+            ui.clearStorage('userinfo')
+          } else if(result.data.error_code === 3002) {
+            console.log('3003')
+            ui.clearStorage('userinfo')
+          }else{
+            console.log('失败')
+            ui.showToast({ title: '退出失败' })
+          }
+        },
+        fail: function ({ errMsg }) {
+          console.log(errMsg)
+        }
+      })
+    },
+    accountSecurity () {
+      let userinfo = ui.getStorageSync('userinfo')
+      if (userinfo.tokenId === '') {
+        this.loginPage()
+      } else {
+        ui.navigateTo({
+          url: '/pages/templeteDemo/userCenter/userInfo'
+        })
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // setting.less
+.nav_bar {
+  background: linear-gradient(to right, #1F97FE, #126DFE);
+  .nav_title{
+    color: #fff;
+  }
+}
+.ui-navigator{
+  width: 100%;
+  height: 100%;
+  line-height: 50px;
+  &.nav_left{
+    text-align: left;
+  }
+}
+.user_content_list{
+  background-color: #fff;
+}
+.user_content_list2{
+  background-color: #fff;
+  .mix-1px(0, 0, 1, 0, #ccc);
+}
+.log_out{
+  color: red;
+}
+</style>

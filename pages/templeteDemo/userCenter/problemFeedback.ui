@@ -1,0 +1,200 @@
+<!--problemFeedback.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar"  class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" width="50" space-left="10" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="19" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">问题反馈</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" width="50" space-right="10" bindtap="submit">
+          <!-- <ui-icon type="setting" size="24" color="#fff"></ui-icon> -->
+          发送
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <ui-view class="wrap">
+      <ui-textarea 
+      placeholder="请详细描述你的问题和你的意见..." 
+      placeholder-class="placeholder"
+      show-counter="{{false}}"
+      maxlength="-1"
+      height="150"
+      ></ui-textarea>
+      <ui-view class="problem_tip">图片(选填，提供问题截图，总大小10M以下)</ui-view>
+      <!-- 附件 -->
+      <ui-view class="accessory_wrap">
+        <ui-view class="accessory_content">
+          <ui-view class="accessory_list"
+          ui:for="{{ accessoryContent }}"
+          >
+            <ui-view class="close">x</ui-view>
+            <ui-image
+            src="{{ item }}"
+            mode='aspectFill'
+            width="60"
+            height="60"
+            ></ui-image>
+          </ui-view>
+          <ui-view class="add_accessory" bindtap="addAccessory">
+            <ui-view>
+              <ui-icon type="plus2" size="20" color="#B3B5B5"></ui-icon>
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-view>
+      <ui-view class="problem_tip">QQ/邮箱</ui-view>
+      <ui-input ui:model="{{ telValue }}" placeholder="(选填，方便我们联系你)" placeholder-class="placeholder"></ui-input>
+      <ui-row height="50">
+        <ui-col vertical-align="middle" align="left" width="70" space-left="10">
+          应用评分
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-star star-width="30" star-height="30" bindchange="handleStar"></ui-star>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+  </ui-page>
+</template>
+<script>
+const sourceType = [['camera'], ['album'], ['camera', 'album']]
+const sizeType = [['compressed'], ['original'], ['compressed', 'original']]
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "backgroundColor": "#EEF0F1"
+  },
+  data () {
+    return {
+      // 附件
+      accessoryContent: [],
+      imgs: [],
+      telValue: ''
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    handleStar (index) {
+      console.log(index)
+    },
+    submit () {
+      ui.showToast({
+        title: '提交成功',
+        icon: 'success'
+      })
+      ui.navigateBack()
+    },
+    // 附件
+    addAccessory () {
+      this.chooseImage(2)
+    },
+    chooseImage (index) {
+      ui.chooseImage({
+        sourceType: sourceType[index],
+        sizeType: sizeType[1],
+        success: (res) => {
+          console.log(res)
+          res.tempFilePaths.forEach((item, index) => {
+            this.accessoryContent.push(item)
+          })
+        },
+        fail: (res) => {
+
+        }
+      })
+    }
+  },
+  mounted () {}
+}
+</script>
+
+<style lang="less">
+// problemFeedback.less
+.nav_bar {
+  background: linear-gradient(to right, #1F97FE, #126DFE);
+    color: #fff;
+}
+.placeholder::-webkit-input-placeholder {
+  color: #9C9C9C;
+}
+.ui-textarea-wrapper{
+  padding: 0px;
+  border: 0;
+  .ui-textarea{
+    padding: 10px;
+  }
+}
+.ui-input{
+  border: 0;
+  border-radius: 0;
+}
+.problem_tip{
+  line-height: 40px;
+  color: #BDBDBD;
+  font-size: 14px;
+  padding: 0 10px;
+}
+.wrap{
+  padding: 10px 5px;
+}
+
+// 附件
+
+.accessory_wrap{
+  background: #fff;
+  padding: 10px;
+  // padding-bottom: 10px;
+  .ui-text{
+    text-align: left;
+    line-height: 40px;
+    color: #1A1E23;
+  }
+  .accessory_content{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    
+    .add_accessory{
+      display: inline-flex;
+      text-align: center;
+      .ui-view{
+        margin-right: 10px;
+        text-align: center;
+        width: 60px;
+        height: 60px;
+        // background-color: #F4F4F4;
+        border: 1px solid #e4e4e4;
+        border-radius: 5px;
+        line-height: 60px;
+        text-align: center;
+      }
+    }
+    .accessory_list{
+      display: inline-flex;
+      margin-right: 5px;
+      position: relative;
+      .close{
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        z-index: 9;
+        background-color: #14171B;
+        line-height:15px;
+        text-align: center;
+        font-size: 12px; 
+        color: #fff;
+      }
+    }
+  }
+}
+</style>

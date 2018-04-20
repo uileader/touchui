@@ -1,0 +1,47 @@
+<!--browserUrl.ui-->
+<template>
+  <ui-page>
+    <ui-view class="content">
+      <ui-row height="40">
+        <ui-col span="2" vertical-align="middle">
+          <ui-text class="ui-text">网址：</ui-text>
+        </ui-col>
+        <ui-col span="10">
+            <ui-input class="input" type="string" name="input" v-model="url"></ui-input>
+        </ui-col>
+      </ui-row>
+      <ui-button type="primary" bindtap="open">浏览</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// browserUrl.js
+export default {
+  config: {
+    "navigationBarTitleText": "浏览器打开网址"
+  },
+  data () {
+    return {
+      url: 'http://www.uileader.com'
+    }
+  },
+  methods: {
+    open () {
+      ui.openBrowser({
+        url: this.url,
+        backgroundColor: '#fff',
+        color: '#000'
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // browserUrl.less、
+.content{
+  padding: 10px;
+}
+</style>

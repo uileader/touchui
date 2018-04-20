@@ -1,0 +1,223 @@
+<!--waterfall2.ui-->
+<template>
+  <ui-page show-loading="{{false}}">
+    <ui-waterfall config="{{ config }}" fixed-height="true" enable-reach-bottom-load bindchange="handleListViewChange" custom-tip> 
+      <template scope="props">
+        <ui-waterfall-item
+        width="{{getWidth(props.item.oldWidth)}}"
+        height="{{getHeight(props.item.oldHeight)}}"
+        move-class="item-move"
+        >
+          <ui-view class="item" index="{{ props.item.id }}">
+            <ui-view style="background-color:#fff">
+            <ui-image src="{{props.item.src}}"></ui-image>
+                <ui-text block class="goodsName">{{props.item.name}}</ui-text>
+                <ui-text block class="price">¥{{props.item.price}}</ui-text>
+            </ui-view>
+          </ui-view>
+        </ui-waterfall-item>
+      </template>
+      
+    </ui-waterfall>
+
+    <ui-view class="ui-waterfall-tip">
+      <ui-view class="loading-content" v-if="status === 0 && isflag === false">
+        <ui-view class="loading"></ui-view>
+        <span class="loading-text">加载中...</span>
+      </ui-view>
+      
+      <ui-view class="offline" ui:if="status === 2 && isflag === false" bindtap="handleReload">网络异常....</ui-view>
+      <ui-view class="timeout" ui:if="status === 3 && isflag === false" bindtap="handleReload">请求超时...</ui-view>
+      <ui-view class="error" ui:if="status === 4 && isflag === false" bindtap="handleReload">请求失败...</ui-view>
+      <ui-view class="nomore" ui:if="status === 10 && isflag === false">没有更多了...</ui-view>
+    </ui-view>
+      
+   
+      <ui-view v-if="status === 0 && isflag" class="self-loading main" style="{{{height:height+'px'}}}">
+        <ui-view class="loading-content show_tip">
+          <ui-view class="loading"></ui-view>
+          <span class="loading-text">加载中...</span>
+        </ui-view>
+      </ui-view>
+
+      <ui-view ui:if="status === 5 && isflag" class="main" style="{{{height:height+'px'}}}">
+          <ui-view class="show_tip">
+            <ui-icon type="ico_nodata" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">没有数据</ui-view>
+          </ui-view>
+        </ui-view>
+    
+        <ui-view ui:if="status === 3 && isflag" class="main" style="{{{height:height+'px'}}}">
+          <ui-view class="show_tip">
+            <ui-icon type="qingqiuchaoshi" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">超时</ui-view>
+            <ui-button type="primary" class="selfrequestbtn" bindtap="handleReload">点击重试</ui-button>
+          </ui-view>
+        </ui-view>
+    
+        <ui-view ui:if="status === 4 && isflag" class="main" style="{{{height:height+'px'}}}">
+          <ui-view class="show_tip">
+            <ui-icon type="networkOffline" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">请求失败啦</ui-view>
+            <ui-button type="primary" class="selfrequestbtn" bindtap="handleReload">点击重试</ui-button>
+          </ui-view>
+        </ui-view>
+    
+        <ui-view ui:if="status === 2 && isflag" class="main" style="{{{height:height+'px'}}}">
+          <ui-view class="show_tip">
+            <ui-icon type="networkError" size="80" color="#d2d3d3"></ui-icon>
+            <ui-view class="title">网络无法连接，请检查您的网络</ui-view>
+            <ui-button type="primary" class="selfrequestbtn" bindtap="handleReload">点击重试</ui-button>
+          </ui-view>
+        </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+  // waterfall2.js
+export default {
+  config: {
+    "navigationBarTitleText": "自定义网络提示",
+    "backgroundColor":"#eee"
+  },
+  data () {
+    return {
+      align: 'center',
+      winWidth: ui.WIN_WIDTH,
+      height: ui.DEFAULT_CONTENT_HEIGHT,
+      sizeObj: [],
+      status: null,
+      isflag: true,
+      config: {
+        url: '/touchui-backstage/listGoods.do',
+        type: 'get',
+        pageSize: {
+          key: 'pageSize',
+          value: 20
+        },
+        pageNo: {
+          key: 'pageNo',
+          value: 1
+        },
+        dataKey: 'data.listGoods',
+        reload: false,
+        refresh: false
+      }
+    }
+  },
+  methods: {
+    getWidth (e) {
+      this.sizeObj.width = e
+      return e
+    },
+    getHeight (e) {
+      this.sizeObj.height = e
+      let colWidth = this.winWidth / 2
+      let height
+      height = colWidth * (this.sizeObj.height / this.sizeObj.width) + 50
+      return height
+    },
+    handleListViewChange (status) {
+      this.status = status
+      if (this.status === 1) {
+        this.isflag = false
+      }
+    },
+    handleReload () {
+      this.config.reload = true
+    }
+  },
+  mounted () {
+  }
+}
+
+</script>
+
+<style lang="less">
+  // waterfall.less
+.ui-page-content{
+  background-color:#eee;
+}
+.item {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+}
+
+.item-move {
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  -webkit-transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.ui-waterfall-item{
+  overflow:hidden;
+  .ui-image{
+    width:100%;
+  }
+}
+
+.goodsName{
+  color:#666;
+  .mix-text-overflow();
+  margin-top:5px;
+  text-align: center;
+}
+
+.price{
+  color:#e60012;
+  text-align: center;
+}
+
+// 自定义网络状态样式
+.main{
+  position: relative;
+}
+.show_tip{
+  width:100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  .ui-icon{
+    line-height: 1.1;
+  }
+}
+
+.selfrequestbtn{
+  width:100px !important;
+  background-color: #41ad72;
+  color:#fff;
+  border-color:#41ad72
+}
+
+.selfrequestbtn-hover{
+  background-color:#318a59;
+  border-color:#318a59
+}
+
+.list-view-msg{
+  height:50px;
+  line-height:50px;
+  .ui-view{
+    text-align: center;
+    font-size:12px;
+    color:#666;
+  }
+}
+
+.ui-waterfall-tip{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
+</style>

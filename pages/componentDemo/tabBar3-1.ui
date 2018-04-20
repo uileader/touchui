@@ -1,0 +1,36 @@
+<!--tabBar5.ui-->
+<template>
+  <ui-page>
+    <ui-view class="content">
+      <ui-text class="title">3-1</ui-text>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// tabBar5.js
+export default {
+  config: {
+    "navigationBarTitleText": "tab点击动画",
+    "navigationStyle": "default"
+  },
+  data () {
+    return {}
+  },
+  methods: {
+  }
+}
+
+</script>
+
+<style lang="less">
+// tabBar5.less
+.content{
+  padding:10px;
+  height:60px;
+  .title{
+  font-size:20px;
+  text-align: center
+}
+}
+</style>

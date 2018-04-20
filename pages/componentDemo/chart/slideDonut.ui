@@ -1,0 +1,86 @@
+<template>
+  <ui-page>
+    <ui-view class="sample_title">轮播环形图</ui-view>
+    <ui-view class="circular2">
+      <ui-slide-donut
+      value-array="{{valueArray}}"
+      color-array="{{colorArray}}"
+      image-src-array="{{imageSrcArray}}"
+      line-width= "35"
+      center-left= "120"
+      center-top= "120"
+      radius= "80"
+      img-width="32"
+      img-height= "32"
+      width="240"
+      height="240"
+      bindchange="changeHandler"
+      ></ui-slide-donut>
+      <ui-view class="center_content">
+        <ui-text>{{ text }}</ui-text>
+        <ui-view>{{ money }}</ui-view>
+        <ui-icon type="switchover" size="28" color="#F64F08"></ui-icon>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "轮播环形图"
+  },
+  data () {
+    return {
+      imageSrcArray: [],
+      valueArray: [50, 15, 25, 10],
+      colorArray: ['#F8882C', '#FBB936', '#FCCD1F', '#E23724'],
+      text: '购物',
+      money: '5000',
+      textArray: ['购物', '出行', '交友', '理财'],
+      moneyArray: ['5000', '1500', '2500', '1000']
+    }
+  },
+  methods: {
+    changeHandler (e) {
+      this.text = this.textArray[e]
+      this.money = this.moneyArray[e]
+    }
+  },
+  created () {
+    for (var i = 0; i < 4; i++) {
+      this.imageSrcArray[i] = require(`#/images/slideDonut/${i + 1}.png`)
+    }
+  },
+  mounted () {
+
+  }
+}
+
+</script>
+
+<style lang="less">
+  .circular2{
+  position: relative;
+  .mix-flex-center();
+  .center_content{
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    line-height: 30px;
+    .ui-text{
+      font-size: 12px;
+      color: #959595;
+    }
+    .ui-view{
+      font-size: 18px;
+      color: #212121;
+    }
+  }
+}
+</style>

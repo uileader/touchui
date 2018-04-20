@@ -1,0 +1,92 @@
+<template>
+  <ui-page>
+    <ui-view class="demo-view">
+
+      <ui-button bindtap="handleSetNavigationBarColor" type="default">设置背景为纯色</ui-button>
+      <ui-button bindtap="handleShowNavigationBarLoading" type="default">显示Loading</ui-button>
+      <ui-button bindtap="handleSetDarkLoading" type="default">设置dark loading</ui-button>
+      <ui-button bindtap="handleSetGradientNavigationBar" type="default">设置背景为渐变色</ui-button>
+      <ui-button bindtap="handleSetLightLoading" type="default">设置light loading</ui-button>
+      <ui-button bindtap="handleHideNavigationBarLoading" type="default">隐藏Loading</ui-button>
+      <ui-button bindtap="handleSetNavigationBarTitle" type="default">设置导航栏标题：Hello!</ui-button>
+      <!-- <ui-button bindtap="handleResetNavigationBar" type="default">还原导航栏</ui-button> -->
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// changeNavbar.js
+
+export default {
+  config: {
+    "navigationBarTitleText": "导航栏文字",
+    "navigationBarBackgroundGradient": "linear-gradient(45deg, #508EFF, #37B9FC)"
+  },
+  data () {
+    return {
+      title: this.$route && this.$route.meta.pageConfig.navigationBarTitleText
+    }
+  },
+
+  methods: {
+    handleSetNavigationBarTitle () {
+      ui.setNavigationBarTitle({
+        title: 'Hello!'
+      })
+    },
+    handleSetNavigationBarColor () {
+      ui.setNavigationBarColor({
+        frontColor: '#666',
+        backgroundColor: '#eee'
+      })
+    },
+    handleShowNavigationBarLoading () {
+      ui.showNavigationBarLoading()
+    },
+    handleHideNavigationBarLoading () {
+      ui.hideNavigationBarLoading()
+    },
+    handleSetDarkLoading () {
+      ui.showNavigationBarLoading({
+        color: 'dark'
+      })
+    },
+    handleSetLightLoading () {
+      ui.showNavigationBarLoading({
+        color: 'light'
+      })
+    },
+    handleSetGradientNavigationBar () {
+      ui.setNavigationBarColor({
+        gradient: 'linear-gradient(45deg, #FF8E00, #FF4F00)'
+      })
+      ui.setNavigationBarColor({
+        frontColor: '#fff'
+      })
+    },
+    handleResetNavigationBar () {
+      ui.setNavigationBarTitle({
+        title: this.title
+      })
+
+      ui.setNavigationBarColor({
+        frontColor: null,
+        backgroundColor: null
+      })
+
+      ui.setNavigationBarColor({
+        Gradient: this.$route.meta.pageConfig.navigationBarBackgroundGradient
+      })
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+  .demo-view{
+  padding: 10px;
+}
+</style>
+

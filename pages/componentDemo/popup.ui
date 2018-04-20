@@ -1,0 +1,298 @@
+<!--popup.ui-->
+<template>
+  <ui-page>
+      <!-- <ui-view class="sample_title">Input</ui-view> -->
+      <ui-view class="sample_content">
+        <ui-button bindtap="openPopup1">默认popup（高度由内容决定）</ui-button>
+        <ui-button bindtap="openPopup8">打开两秒后自动关闭</ui-button>
+        <ui-button bindtap="openPopup2">自定义高度</ui-button>
+        <ui-button bindtap="openPopup3">全屏popup</ui-button>
+        <ui-button bindtap="openPopup4">遮罩透明</ui-button>
+        <ui-button bindtap="openPopup5">自定义内容区域</ui-button>
+        <ui-button bindtap="openPopup6">自定义方向（右侧）</ui-button>
+        <ui-button bindtap="openPopup7">自定义方向（上方）</ui-button>
+
+
+      </ui-view>
+
+      <ui-popup value="{{show1}}" bindhide="log('hide')" bindshow="log('show')" bindinit="log('init')">
+        <ui-view class="popup0">
+          <ui-row border-bottom>
+            <ui-switch title="开关" ui:model="{{ show1 }}"></ui-switch>
+          </ui-row>
+        </ui-view>
+      </ui-popup>
+
+      <ui-popup ui:model="{{ show2 }}" position="bottom" height="300">
+        <ui-view style="padding: 15px;">
+          <ui-button bindtap="handleShow2" plain type="primary">关闭</ui-button>
+          
+        </ui-view>
+      </ui-popup>
+
+      <ui-popup ui:model="{{ show3 }}" height="100%">
+        <ui-view class="popup1">
+          <ui-button bindtap="handleShow3" plain type="primary">关闭</ui-button>
+        </ui-view>
+      </ui-popup>
+
+      <ui-popup ui:model="{{ show4 }}" position="bottom" height="300" mask-style="{{ maskStyle1}}"  hide-on-tap="{{false}}">
+        <ui-view class="popup4">
+          <ui-button bindtap="handleShow4" plain type="primary">关闭</ui-button>
+        </ui-view>
+      </ui-popup>
+
+      <ui-popup ui:model="{{ show5 }}" height="270" background="transparent">
+        <ui-view class="popup5">
+          <ui-row height="40" border-bottom>
+            <ui-col vertical-align="middle" space-left="20">动漫APP</ui-col>
+            <ui-col width="40" vertical-align="middle" align="center" bindtap="handleShow5">
+              <ui-icon type="x" size="18" color="#FC8950"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-view class="title">更新更快、流量超省、内容更全</ui-view>
+          <ui-row height="50">
+            <ui-col space-left="20" space-right="10" vertical-align="middle">
+              <ui-button>继续阅读</ui-button>
+            </ui-col>
+            <ui-col space-left="10" space-right="20" vertical-align="middle">
+              <ui-button type="primary" bindtap="handleShow5">安装享福利</ui-button>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+      </ui-popup>
+
+      <ui-popup ui:model="{{ show6 }}" position="right">
+        <ui-view style="width:80vw;">
+        </ui-view>
+      </ui-popup>
+
+      <ui-popup ui:model="{{ show7 }}" position="top" top="{{ poptpTop }}" mask-style="{{ maskStyle2}}">
+        <ui-view class="top_pop">
+            <ui-tags data="{{list00}}" bindchange="singleTap" width="{{ tagsWidth }}"  fixed-width
+             ></ui-tags>
+        </ui-view>
+      </ui-popup>
+
+      <ui-popup ui:model="{{ show8 }}" hide-on-tap="{{false}}" >
+        <ui-view class="popup2">
+          这是一段通知消息！
+        </ui-view>
+      </ui-popup>
+
+  </ui-page>
+</template>
+
+
+<script>
+// popup.js
+export default {
+  config: {
+    "navigationBarTitleText": "popup基本使用",
+    "navigationBarBackgroundColor":"#fff",
+    "navigationBarTextStyle":"black",
+    "navigationBarBorderColor": "rgba(231, 231, 231, 0.6)",
+    "navigationBarTextStyle":"black"
+  },
+  data () {
+    return {
+      show: false,
+      show1: false,
+      show2: false,
+      show3: false,
+      show4: false,
+      show5: false,
+      show6: false,
+      show7: false,
+      show8: false,
+      tagsWidth: ui.WIN_WIDTH - 20,
+      poptpTop: ui.DEFAULT_HEADER_HEIGHT,
+      maskStyle1:{
+        'background-color':'transparent'
+      },
+      maskStyle2:{
+        'top':'198px'
+      },
+      list00: [{
+        text: '全部活动',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: true
+      }, {
+        text: '电脑办公',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '精选活动',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '个护美妆',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '家用电器',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '酒水饮料',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '日用百货',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '流行服饰',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '鞋靴箱包',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '手机数码',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '钟表珠宝',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }]
+    }
+  },
+  methods: {
+    log (str) {
+      if (str === 'hide') {
+        this.show1 = false
+      }
+    },
+    handleShow2(){
+      this.show2 = false
+    },
+    handleShow3(){
+      this.show3 = false
+    },
+    handleShow4(){
+      this.show4 = false
+    },
+    handleShow5(){
+      this.show5 = false
+    },
+    singleTap (opt) {
+      ui.showToast({
+        title: this.list00[opt].text
+      })
+      this.show7 = false
+      this.list00.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+    },
+
+    openPopup1 () {
+      this.show1 = true
+    },
+    openPopup2 () {
+      this.show2 = true
+    },
+    openPopup3 () {
+      this.show3 = true
+    },
+    openPopup4 () {
+      this.show4 = true
+    },
+    openPopup5 () {
+      this.show5 = true
+    },
+    openPopup6 () {
+      this.show6 = true
+    },
+    openPopup7 () {
+      this.show7 = true
+    },
+    openPopup8 () {
+      this.show8 = true
+      setTimeout(() => {
+        this.show8 = false
+      }, 2000)
+    },
+
+  }
+}
+
+</script>
+
+<style lang="less">
+  // popup.less
+.popup1{
+  padding: 40px 20px 0 20px;
+}
+.popup2{
+  height:50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 14px;
+}
+.popup4{
+  margin-top: 20px;
+  background-color:#fff;
+  height:250px;
+  box-shadow: 0 -12px 28px -12px #e8e8e8;
+  padding: 10px;
+}
+.popup5{
+  width: 95%;
+  background-color:#fff;
+  height:250px;
+  margin:0 auto;
+  border-radius:5px;
+  overflow:hidden;
+  .title{
+    line-height: 30px;
+    padding: 10px 20px;
+  }
+}
+
+.top_pop{
+  padding: 20rpx;
+}
+
+.tag-before-00{
+  .mix-1px(1, 1, 1, 1, #ccc);
+  color: #555;
+  padding: 0 20rpx;
+  border-radius: 3px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+  margin: 14rpx 0;
+}
+.select-class {
+  .mix-1px(1, 1, 1, 1, #ccc);
+  padding: 0 20rpx;
+  border-radius: 3px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+  margin: 14rpx 0;
+  background: #F2E8E7;
+  color: #ED3027;
+}
+
+</style>

@@ -1,0 +1,289 @@
+<!--slideView.ui-->
+<template>
+    <ui-page>
+        <ui-view class="sample_title">文字按钮</ui-view>
+        <ui-swipe-out operate-width="80" can-swipe="{{item.canSwipe}}" class="swipe-out-dome-1" value="{{item.switcher}}" bindchange="changeHandler1($event,index)" ui:for="{{list1}}"  height="{{ item.height}}">
+          <ui-view slot="content">
+            <ui-row height="80" class="top_tip" border-bottom>
+              <ui-col width="80" align="center" vertical-align="middle">
+                <ui-view class="left_icon left_icon1" style="{{{ 'background-color':item.color }}}">
+                    <ui-icon type="{{ item.icon }}" color="#fff" size="20"></ui-icon>
+                </ui-view>
+              </ui-col>
+              <ui-col class="text" align="left" vertical-align="middle" space="20">
+                <ui-view style="width: 100%;">
+                  <ui-row height="30">
+                    <ui-col align="left" vertical-align="middle">
+                      <ui-text>票房总结</ui-text>
+                    </ui-col>
+                    <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                      <ui-text>09-18</ui-text>
+                    </ui-col>
+                  </ui-row>
+                  <ui-view>{{ item.text }}</ui-view>
+                </ui-view>
+              </ui-col>
+            </ui-row>
+          </ui-view>
+          <ui-view slot="operate">
+            <ui-view class="delete" bindtap="del(index)">删除</ui-view>
+          </ui-view>
+        </ui-swipe-out>
+
+
+        <ui-view class="sample_title">图标按钮</ui-view>
+        <ui-swipe-out height="60" operate-width="180" bindchange="changeHandler2(index)" value="{{item.switcher}}" ui:for="{{list2}}">
+          <ui-view slot="content">
+            <ui-row height="60" class="tel_list" border-bottom>
+              <ui-col vertical-align="middle" align="left" space-left="15">
+                <ui-view class="name">{{ item.name }}</ui-view>
+                <ui-view class="address">{{ item.address }}</ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="right" space-right="15">
+                <ui-view class="time">{{ item.time }}</ui-view>
+              </ui-col>
+            </ui-row>
+          </ui-view>
+          <ui-view slot="operate">
+            <ui-view class="dome_operate">
+              <ui-row height="60">
+                <ui-col bindtap="tap('QQ')" vertical-align="middle" align="center">
+                  <ui-icon type="QQ" size="24" color="#fff"></ui-icon>
+                </ui-col>
+                <ui-col bindtap="tap('微博')" vertical-align="middle" align="center">
+                  <ui-icon type="weibo" size="24" color="#fff"></ui-icon>
+                </ui-col>
+                <ui-col bindtap="tap('微信')" vertical-align="middle" align="center">
+                  <ui-icon type="wexin" size="24" color="#fff"></ui-icon>
+                </ui-col>
+              </ui-row>
+            </ui-view>
+          </ui-view>
+        </ui-swipe-out>
+
+        <ui-view class="sample_title">个性化样式</ui-view>
+        <ui-view class="swipe-out-dome-3" >
+          <ui-view class="swipe-out-wrap" ui:for="{{list3}}">
+          <ui-swipe-out height="125" operate-width="180" >
+            <ui-view slot="content">
+              <ui-view class="collect">
+                <ui-row height="40">
+                  <ui-col vertical-align="middle"  align="center" width="60">
+                    <ui-image
+                    src="{{ item.head }}"
+                    width="30"
+                    height="30"
+                    ></ui-image>
+                  </ui-col>
+                  <ui-col vertical-align="middle">
+                    <ui-view class="name">{{ item.name }}</ui-view>
+                  </ui-col>
+                  <ui-col vertical-align="middle" align="right" space-right="15">
+                    <ui-view class="time">{{ item.time }}</ui-view>
+                  </ui-col>
+                </ui-row>
+                <ui-row height="80">
+                  <ui-col vertical-align="middle" align="center" width="80">
+                    <ui-image
+                    src="{{ item.img }}"
+                    width="50"
+                    height="50"
+                    ></ui-image>
+                  </ui-col>
+                  <ui-col vertical-align="middle" space-right="15">
+                    <ui-view class="content">{{ item.text }}</ui-view>
+                  </ui-col>
+                </ui-row>
+              </ui-view>
+            </ui-view>
+            <ui-view slot="operate">
+              <ui-row class="dome2_operate" height="125">
+                <ui-col vertical-align="middle" align="center">
+                  <ui-view class="iconbox">
+                      <ui-icon type="draft" color="#008041" size="22" bindtap="handletap"></ui-icon>
+                  </ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="center">
+                  <ui-view class="iconbox">
+                    <ui-icon type="delete" color="#e60012" size="22" bindtap="handletap"></ui-icon>
+                  </ui-view>
+                </ui-col>
+                <ui-col vertical-align="middle" align="center">
+                  <ui-view class="iconbox">
+                    <ui-icon type="share2" color="#ff6101" size="22" bindtap="handletap"></ui-icon>
+                  </ui-view>
+                </ui-col>
+              </ui-row>
+            </ui-view>
+          </ui-swipe-out>
+        </ui-view>
+        </ui-view>
+    </ui-page>
+  </template>
+  
+
+<script>
+  // slideView.js
+export default {
+  config: {
+    navigationBarTitleText: "滑动菜单容器"
+  },
+  data () {
+    return {
+      list1: [
+        { height: 80, color: '#FCB300', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access'},
+        { height: 80, color: '#FF7360', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network'},
+        { height: 80, color: '#39CCC5', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure'},
+        { height: 80, color: '#FCB300', text: '第64周|总票房12亿较上周上涨2.85%，《票吧》突破票房10亿', switcher: 'off', icon: 'api-access'}
+      ],
+      list2: [
+        {switcher: 'off', name: '阿强', address: '北京', time: '2010/12/1', buttonText: '删除'},
+        {switcher: 'off', name: '安生', address: '北京', time: '2010/11/13', buttonText: '删除'},
+        {switcher: 'off', name: '010-52013145', address: '北京', time: '2010/09/13', buttonText: '删除'}
+      ],
+      list3: [
+        { head: 'http://images.uileader.com/20180313/b4af4e36-a677-48b8-9caa-b741582f6c12.png', name: '前端早读课', time: '2017/10/4', img: 'http://images.uileader.com/20180313/9ab8ce19-5a38-4756-9be1-fd598a4dea83.png', text: '【视频】基于Recat Native的跨三端技术实践' },
+        { head: 'http://images.uileader.com/20180313/be889b2f-7f8e-4e2f-9ae5-2e0bd3d6c85d.png', name: '极乐技术社区', time: '2017/9/5', img: 'http://images.uileader.com/20180313/76d9228c-5779-4416-8f05-2cddb200222a.png', text: '【教程】微信小程序--蓝牙连接开发总结' },
+        { head: 'http://images.uileader.com/20180313/16224b1e-bd33-482e-bde5-d416723a2970.png', name: '前端人', time: '2017/8/20', img: 'http://images.uileader.com/20180313/41448b31-1f65-4c3d-be58-e7d66601d1c0.png', text: ' 如丝般顺滑：CSS3实现60帧的动画' }
+      ],
+      el: undefined,
+      el2: undefined
+    }
+  },
+  methods: {
+    del (index) {
+      this.list1[index].height = 0
+      // 实际使用时将该项id传给后台即可，不需要在前台真正删除数据。
+      // 前台直接删除数据会导致一些问题。
+      // setTimeout(() => {
+      //   this.list1.splice(index, 1, {})
+      // }, 500)
+    },
+    tap (message) {
+      ui.showToast({ title: message })
+    },
+    changeHandler1 (state ,index) {
+      if (this.el !== index) {
+        if (this.el!== undefined) {
+          this.list1[this.el].switcher = 'off'
+        }
+        this.list1[index].switcher = 'on'
+        this.el = index
+      }
+    },
+    changeHandler2 (index) {
+      if (this.el2 !== index) {
+        if (this.el2!== undefined) {
+          this.list2[this.el2].switcher = 'off'
+        }
+        this.list2[index].switcher = 'on'
+        this.el2 = index
+      }
+    },
+    handletap (e) {
+      ui.showToast({ title: message })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+ .swipe-out-dome-1{
+   transition: height .25s ease-in;
+   overflow: hidden;
+ }
+.swipe-out-dome-1-content {
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  
+  .text {
+    font-size: 14px;
+  }
+}
+.dome_operate {
+ background: #3ECBE8;
+}
+
+.delete{
+  width: 80px;
+  text-align: center;
+  line-height: 80px;
+  font-size: 14px;
+  color: #fff;
+  background: #f22;
+}
+
+.dome2_operate{
+  background: #eee;
+}
+
+.iconbox{
+  background-color:#fff;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  box-shadow: #ccc 0px 0px 14px;
+}
+
+.top_tip{
+  background-color: #fff;
+  .left_icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color:#FCB300; 
+    text-align: center;
+    line-height: 50px;
+  }
+  .text{
+    .ui-text{
+      font-size: 16px;
+      color: #313338;
+    }
+    .ui-view{
+      color: #9C9FA4;
+      font-size: 12px;
+      .mix-text-overflow();
+    }
+  }
+}
+.tel_list{
+  background-color: #fff;
+  .name{
+    color: #0B0B0B;
+    font-size: 16px;
+  }
+  .address{
+    color: #101010;
+    font-size: 12px;
+  }
+  .time{
+    color: #AFAFAF;
+    font-size: 12px;
+  }
+}
+.swipe-out-dome-3{
+  background-color: #eee;
+  .swipe-out-wrap{
+    margin-top: 5px;
+  }
+}
+.collect{
+  padding-top: 5px;
+  background-color: #fff;
+  .name{
+    color: #787878;
+    font-size: 14px;
+  }
+  .time{
+    font-size: 12px;
+    color: #787878;
+  }
+  .content{
+    font-size: 16px;
+    color: #141414;
+  }
+}
+</style>

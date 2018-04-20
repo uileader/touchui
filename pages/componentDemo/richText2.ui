@@ -1,0 +1,78 @@
+<!--richText.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_content">
+      <ui-rich-text selectable>
+        <h1 class="article__title">iPhone X国行首发体验！全世界男人最担心的事情还是发生了……</h1>
+        <div class="article__content" style="height: auto;">
+          <div>
+            <p>千呼万唤始出来，在等待了一个多月后，上周五 iPhone X 终于是开启了<strong>全球的预定</strong>。</p>
+            <p class="img-wrapper-embedded" style="width: 100%; min-height: 254.519px;"><img src="https://p3.pstatp.com/large/434c00018057e99011e5" img_width="640" img_height="422" inline="0" alt="iPhone X国行首发体验！全世界男人最担心的事情还是发生了……" onerror="javascript:errorimg.call(this);" data-index="0" data-src="https://p3.pstatp.com/large/434c00018057e99011e5" style="opacity: 1;"></p>
+            <p>虽说 iPhone X 是<strong>全款预售不限购</strong>，并不存在能不能买到的问题，但是为了能抢到 11 月 3 号首发的机子，大家还是使出了浑身解数。</p>
+            <p class="img-wrapper-embedded" style="width: 100%; min-height: 257.333px;"><img src="https://p3.pstatp.com/large/43470003b583b1b32d11" img_width="720" img_height="480" inline="0" alt="iPhone X国行首发体验！全世界男人最担心的事情还是发生了……" onerror="javascript:errorimg.call(this);" data-index="1" data-src="https://p3.pstatp.com/large/43470003b583b1b32d11" style="opacity: 1;"></p>
+            <p>但这当中并不包括极果君，为啥呢？因为在 iPhone X 发货前，苹果就<strong>已经邀请我们体验了</strong>即将开卖的国行版 iPhone X，并且全程有<strong>苹果的产品经理解答疑问</strong>。</p>
+            <p class="img-wrapper-embedded" style="width: 100%; min-height: 139.925px;"><img src="https://p3.pstatp.com/large/43470003b58242fb0314" img_width="640" img_height="232" inline="0" alt="iPhone X国行首发体验！全世界男人最担心的事情还是发生了……" onerror="javascript:errorimg.call(this);" data-index="2" data-src="https://p3.pstatp.com/large/43470003b58242fb0314" style="opacity: 1;"></p>
+            <p>而传闻中的“女生就别买了 iPhone X 了，人脸识别解锁，<strong>深夜想玩手机还得起来化妆</strong>”“不敢买iPhone X，因为怕睡觉时<strong>媳妇偷偷解锁</strong>”等传闻，我们也都一一得到了答案。</p>
+            <h1><strong>iPhone X 的手感怎么样？</strong></h1>
+            <p class="img-wrapper-embedded" style="width: 100%; min-height: 289.5px;"><img src="https://p3.pstatp.com/large/43480003af0a5d8898eb" img_width="720" img_height="540" inline="0" alt="iPhone X国行首发体验！全世界男人最担心的事情还是发生了……" onerror="javascript:errorimg.call(this);" data-index="3" data-src="https://p3.pstatp.com/large/43480003af0a5d8898eb" style="opacity: 1;"></p>
+            <p class="pgc-img-caption">（左边 iPhone X；右边 iPhone 8 Plus）</p>
+          </div>
+        </div>
+      </ui-rich-text>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// richText.js
+export default {
+  config: {
+    "navigationBarTitleText": "富文本可选"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+// richText.less
+.article__title{
+  color: #000;
+  font-size: 22px;
+  line-height: 1.45;
+  font-weight: 600;
+}
+.article__content {
+  padding-top: 20px;
+  position: relative;
+  overflow: hidden;
+  clear: both;
+  padding-bottom: 24px;
+}
+.article__content p, .article__content li, .article__content span {
+  word-wrap: break-word;
+  color: #000;
+}
+.article__content strong {
+  font-weight: bolder;
+}
+.article__content p, .article__content li, .article__content span, .article__content strong {
+  font-size: 17px;
+  line-height: 27px;
+}
+.article__content img {
+  width: 100%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  -webkit-transition: opacity 200ms ease;
+  transition: opacity 200ms ease;
+  opacity: 0;
+}
+</style>

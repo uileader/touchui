@@ -1,0 +1,1508 @@
+<!--chart.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" width="40" space-left="10" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="18" color="#3D3D3D"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="title">新起点股票</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" width="40" space-right="10" bindtap="share">
+          <ui-icon type="share2" size="20" color="#3D3D3D"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <!-- <ui-view style="{{{ height:contentHeight+'px' }}}"> -->
+    <ui-view style="padding-bottom:56px">
+
+    
+      <ui-view class="wrap">
+        <ui-row height="100" class="top_content">
+          <ui-col vertical-align="top" align="center">
+            <ui-text>最新净值(01-12)</ui-text>
+            <ui-view>1.5370</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="3">
+            <ui-view class="line"></ui-view>
+          </ui-col>
+          <ui-col vertical-align="top" align="center">
+            <ui-text>日涨跌幅(%)</ui-text>
+            <ui-view style="color:#F76A16">0.52</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="3">
+            <ui-view class="line"></ui-view>
+          </ui-col>
+          <ui-col vertical-align="top" align="center">
+            <ui-text style="font-size:16px;color:#F76A16">中分险</ui-text>
+            <ui-view style="font-size:16px;margin-top:10px;">股票型</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+
+      <ui-view class="wrap">
+        <ui-tabs class="type-common" index="{{ current }}"  bindchange="handleChange($event, 'current')" ink-bar>
+          <ui-tab>收益走势</ui-tab>
+          <ui-tab>实时估值</ui-tab>
+          <ui-tab>单位净值</ui-tab>
+        </ui-tabs>
+
+        <ui-ex-swiper class="tab_content" style="{{{ height:swiperHeight+'px' }}}" index="{{ current }}" allow-touch-move="{{false}}">
+          <ui-ex-swiper-item>
+              <ui-segment bindchange="segment">
+                <ui-segment-item>
+                  月
+                </ui-segment-item>
+                <ui-segment-item>
+                  季
+                </ui-segment-item>
+                <ui-segment-item>
+                  半年
+                </ui-segment-item>
+                <ui-segment-item>
+                  年
+                </ui-segment-item>
+              </ui-segment>
+
+              <ui-view style="text-align: center">
+                <ui-line
+                  value="{{lineData}}"
+                  width="{{winWidth}}"
+                  height="250"
+                  is-animated="true"
+                  color-schema = "{{lineData.colorSchema}}"
+                  grid="horizontal"
+                  line-width = "1"
+                  tooltip="true"
+                  body-fill-color="rgba(0,0,0,.7)"
+                  tooltip-width="150"
+                  title-fill-color="#fff"
+                  tooltip-text-color="#fff"
+                  border-stroke-color="#fff"
+                  margin = "{{ margin }}"
+                  ></ui-line>
+                <ui-legend
+                  value="{{legendData.legend}}"
+                  width="{{winWidth}}"
+                  height="40"
+                  is-animated="true"
+                  is-horizontal="true"
+                  color-schema="{{legendData.colorSchema}}">
+                </ui-legend>
+              </ui-view>
+              <ui-view class="performance">
+                <ui-view class="title">历史业绩</ui-view>
+                <ui-table 
+                header="{{thisHeader}}" 
+                alternating-row="true" 
+                header-height="40" 
+                ui:model="thisData"></ui-table>
+                <ui-view class="more">查看更多</ui-view>
+              </ui-view>
+          </ui-ex-swiper-item>
+          <ui-ex-swiper-item>
+              <ui-stacked-area
+                value="{{areaChartData.data}}"
+                width="{{winWidth}}"
+                height="250"
+                is-animated="true"
+                grid="horizontal"
+                color-schema="{{areaChartData.colorSchema}}"
+                body-fill-color="rgba(0,0,0,.7)"
+                tooltip-width="150"
+                title-fill-color="#fff"
+                text-fill-color="#fff"
+                tooltip-text-color="#fff"
+                border-stroke-color="#fff"
+                area-opacity="0.1"
+                show-circle="{{false}}"
+                margin = "{{ margin }}"
+              ></ui-stacked-area>
+              <ui-view class="performance">
+                <ui-view class="title">相关股票</ui-view>
+                <ui-table 
+                header="{{thisHeader2}}" 
+                alternating-row="true" 
+                header-height="40" 
+                ui:model="thisData2"></ui-table>
+                <ui-view class="more">查看更多</ui-view>
+              </ui-view>
+          </ui-ex-swiper-item>
+          <ui-ex-swiper-item>
+            <ui-segment bindchange="segment2">
+              <ui-segment-item>
+                月
+              </ui-segment-item>
+              <ui-segment-item>
+                季
+              </ui-segment-item>
+              <ui-segment-item>
+                半年
+              </ui-segment-item>
+              <ui-segment-item>
+                年
+              </ui-segment-item>
+            </ui-segment>
+
+            <ui-stacked-area
+              value="{{areaChartData2.data}}"
+              width="{{winWidth}}"
+              height="250"
+              is-animated="true"
+              grid="horizontal"
+              color-schema="{{areaChartData2.colorSchema}}"
+              body-fill-color="rgba(0,0,0,.7)"
+              tooltip-width="150"
+              title-fill-color="#fff"
+              text-fill-color="#fff"
+              tooltip-text-color="#fff"
+              border-stroke-color="#fff"
+              area-opacity="0.1"
+              show-circle="{{false}}"
+              margin = "{{ margin }}"
+            ></ui-stacked-area>
+            <ui-view class="performance">
+              <ui-view class="title">历史净值</ui-view>
+              <ui-table 
+              header="{{thisHeader3}}" 
+              alternating-row="true" 
+              header-height="40" 
+              ui:model="thisData3"></ui-table>
+              <ui-view class="more">查看更多</ui-view>
+            </ui-view>
+
+          </ui-ex-swiper-item>
+        </ui-ex-swiper>
+
+
+
+      </ui-view>
+
+
+
+
+
+
+
+      <ui-view class="wrap" style="padding-left:10px">
+        <ui-row height="50" class="bottom_content" ui:for="{{ bottomContent }}">
+          <ui-col vertical-align="middle" align="left" width="80">
+            <ui-view>{{ item.title }}</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="right">
+            <ui-text>{{ item.content }}</ui-text>
+          </ui-col>
+          <ui-col vertical-align="middle" align="right" space-right="10" width="30">
+            <ui-icon type="arrow-right" size="16" color="#DFDDDF"></ui-icon>
+          </ui-col>
+        </ui-row>
+
+      </ui-view>
+
+      <ui-fixed-view bottom="0">
+        <ui-row height="56">
+          <ui-col vertical-align="middle" align="center">
+            <ui-icon type="store" color="#fff" size="18"></ui-icon>
+            <ui-view>店铺</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" bindtap="optional">
+            <ui-icon type="{{ bottomIcon }}" color="{{ isOptional ? '#EA9709':'#fff' }}" size="18"></ui-icon>
+            <ui-view>加自选</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-text>申购</ui-text>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-text>定投</ui-text>
+          </ui-col>
+        </ui-row>
+      </ui-fixed-view>
+
+
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F9F9F9",
+  },
+  data () {
+    return {
+      bottomContent: [
+        {
+          title: '基金档案',
+          content: '基金概况、基金公告、分红'
+        }, {
+          title: '投资组合',
+          content: ''
+        }, {
+          title: '基金经理',
+          content: '李XX'
+        }, {
+          title: '基金公司',
+          content: '光不乏基金管理有限公司'
+        }, {
+          title: '交易说明',
+          content: '申购/赎回流程/购买费率/赎回费率'
+        }
+      ],
+      current: 0,
+      winWidth: ui.WIN_WIDTH,
+      contentHeight: ui.DEFAULT_CONTENT_HEIGHT - 56,
+      swiperHeight: 645,
+      lineData: '',
+      margin: {
+        top: 20,
+        right: 20,
+        bottom: 0,
+        left: 60
+      },
+      data: [
+        {
+          dataByTopic: [
+            {
+              topicName: '本基金',
+              topic: 123,
+              dates: [
+                {
+                  date: '2017-01-11',
+                  value: 500
+                },
+                {
+                  date: '2017-01-12',
+                  value: 600
+                },
+                {
+                  date: '2017-01-13',
+                  value: 400
+                },
+                {
+                  date: '2017-01-14',
+                  value: 300
+                },
+                {
+                  date: '2017-01-15',
+                  value: 200
+                },
+                {
+                  date: '2017-01-16',
+                  value: 500
+                },
+                {
+                  date: '2017-01-17',
+                  value: 450
+                },
+                {
+                  date: '2017-01-18',
+                  value: 600
+                },
+                {
+                  date: '2017-01-19',
+                  value: 560
+                },
+                {
+                  date: '2017-01-20',
+                  value: 1000
+                },
+                {
+                  date: '2017-01-21',
+                  value: 1600
+                },
+                {
+                  date: '2017-01-22',
+                  value: 1900
+                },
+                {
+                  date: '2017-01-23',
+                  value: 2000
+                },
+                {
+                  date: '2017-01-24',
+                  value: 2200
+                },
+                {
+                  date: '2017-01-25',
+                  value: 3000
+                },
+                {
+                  date: '2017-01-26',
+                  value: 3200
+                },
+                {
+                  date: '2017-01-27',
+                  value: 3600
+                }
+              ]
+            }, {
+              topicName: '新起点',
+              topic: 345,
+              dates: [
+                {
+                  date: '2017-01-11',
+                  value: 500
+                },
+                {
+                  date: '2017-01-12',
+                  value: 450
+                },
+                {
+                  date: '2017-01-13',
+                  value: 300
+                },
+                {
+                  date: '2017-01-14',
+                  value: 600
+                },
+                {
+                  date: '2017-01-15',
+                  value: 650
+                },
+                {
+                  date: '2017-01-16',
+                  value: 600
+                },
+                {
+                  date: '2017-01-17',
+                  value: 550
+                },
+                {
+                  date: '2017-01-18',
+                  value: 800
+                },
+                {
+                  date: '2017-01-19',
+                  value: 960
+                },
+                {
+                  date: '2017-01-20',
+                  value: 940
+                },
+                {
+                  date: '2017-01-21',
+                  value: 1000
+                },
+                {
+                  date: '2017-01-22',
+                  value: 1500
+                },
+                {
+                  date: '2017-01-23',
+                  value: 1300
+                },
+                {
+                  date: '2017-01-24',
+                  value: 1700
+                },
+                {
+                  date: '2017-01-25',
+                  value: 2500
+                },
+                {
+                  date: '2017-01-26',
+                  value: 2700
+                },
+                {
+                  date: '2017-01-27',
+                  value: 3000
+                }
+              ]
+            }
+          ],
+          colorSchema: ['#F4192B', '#437BF3']
+        }, {
+          dataByTopic: [
+            {
+              topicName: '本基金',
+              topic: 123,
+              dates: [
+                {
+                  date: '2017-01-11',
+                  value: 700
+                },
+                {
+                  date: '2017-01-12',
+                  value: 800
+                },
+                {
+                  date: '2017-01-13',
+                  value: 600
+                },
+                {
+                  date: '2017-01-14',
+                  value: 500
+                },
+                {
+                  date: '2017-01-15',
+                  value: 400
+                },
+                {
+                  date: '2017-01-16',
+                  value: 300
+                },
+                {
+                  date: '2017-01-17',
+                  value: 950
+                },
+                {
+                  date: '2017-01-18',
+                  value: 700
+                },
+                {
+                  date: '2017-01-19',
+                  value: 1560
+                },
+                {
+                  date: '2017-01-20',
+                  value: 1500
+                },
+                {
+                  date: '2017-01-21',
+                  value: 1200
+                },
+                {
+                  date: '2017-01-22',
+                  value: 1000
+                },
+                {
+                  date: '2017-01-23',
+                  value: 2800
+                },
+                {
+                  date: '2017-01-24',
+                  value: 2600
+                },
+                {
+                  date: '2017-01-25',
+                  value: 1300
+                },
+                {
+                  date: '2017-01-26',
+                  value: 1200
+                },
+                {
+                  date: '2017-01-27',
+                  value: 3500
+                }
+              ]
+            }, {
+              topicName: '新起点',
+              topic: 345,
+              dates: [
+                {
+                  date: '2017-01-11',
+                  value: 400
+                },
+                {
+                  date: '2017-01-12',
+                  value: 650
+                },
+                {
+                  date: '2017-01-13',
+                  value: 800
+                },
+                {
+                  date: '2017-01-14',
+                  value: 200
+                },
+                {
+                  date: '2017-01-15',
+                  value: 950
+                },
+                {
+                  date: '2017-01-16',
+                  value: 1000
+                },
+                {
+                  date: '2017-01-17',
+                  value: 1550
+                },
+                {
+                  date: '2017-01-18',
+                  value: 1200
+                },
+                {
+                  date: '2017-01-19',
+                  value: 1060
+                },
+                {
+                  date: '2017-01-20',
+                  value: 1340
+                },
+                {
+                  date: '2017-01-21',
+                  value: 1500
+                },
+                {
+                  date: '2017-01-22',
+                  value: 1200
+                },
+                {
+                  date: '2017-01-23',
+                  value: 1300
+                },
+                {
+                  date: '2017-01-24',
+                  value: 1700
+                },
+                {
+                  date: '2017-01-25',
+                  value: 2500
+                },
+                {
+                  date: '2017-01-26',
+                  value: 2700
+                },
+                {
+                  date: '2017-01-27',
+                  value: 3000
+                }
+              ]
+            }
+          ],
+          colorSchema: ['#F4192B', '#437BF3']
+        }, {
+          dataByTopic: [
+            {
+              topicName: '本基金',
+              topic: 123,
+              dates: [
+                {
+                  date: '2017-01-11',
+                  value: 400
+                },
+                {
+                  date: '2017-01-12',
+                  value: 800
+                },
+                {
+                  date: '2017-01-13',
+                  value: 1000
+                },
+                {
+                  date: '2017-01-14',
+                  value: 800
+                },
+                {
+                  date: '2017-01-15',
+                  value: 1200
+                },
+                {
+                  date: '2017-01-16',
+                  value: 1300
+                },
+                {
+                  date: '2017-01-17',
+                  value: 1550
+                },
+                {
+                  date: '2017-01-18',
+                  value: 1700
+                },
+                {
+                  date: '2017-01-19',
+                  value: 2560
+                },
+                {
+                  date: '2017-01-20',
+                  value: 2100
+                },
+                {
+                  date: '2017-01-21',
+                  value: 2200
+                },
+                {
+                  date: '2017-01-22',
+                  value: 1800
+                },
+                {
+                  date: '2017-01-23',
+                  value: 2800
+                },
+                {
+                  date: '2017-01-24',
+                  value: 2600
+                },
+                {
+                  date: '2017-01-25',
+                  value: 1300
+                },
+                {
+                  date: '2017-01-26',
+                  value: 1200
+                },
+                {
+                  date: '2017-01-27',
+                  value: 3500
+                }
+              ]
+            }, {
+              topicName: '新起点',
+              topic: 345,
+              dates: [
+                {
+                  date: '2017-01-11',
+                  value: 900
+                },
+                {
+                  date: '2017-01-12',
+                  value: 550
+                },
+                {
+                  date: '2017-01-13',
+                  value: 700
+                },
+                {
+                  date: '2017-01-14',
+                  value: 800
+                },
+                {
+                  date: '2017-01-15',
+                  value: 950
+                },
+                {
+                  date: '2017-01-16',
+                  value: 1000
+                },
+                {
+                  date: '2017-01-17',
+                  value: 1550
+                },
+                {
+                  date: '2017-01-18',
+                  value: 1700
+                },
+                {
+                  date: '2017-01-19',
+                  value: 1560
+                },
+                {
+                  date: '2017-01-20',
+                  value: 1340
+                },
+                {
+                  date: '2017-01-21',
+                  value: 1600
+                },
+                {
+                  date: '2017-01-22',
+                  value: 1700
+                },
+                {
+                  date: '2017-01-23',
+                  value: 1300
+                },
+                {
+                  date: '2017-01-24',
+                  value: 1700
+                },
+                {
+                  date: '2017-01-25',
+                  value: 2500
+                },
+                {
+                  date: '2017-01-26',
+                  value: 2700
+                },
+                {
+                  date: '2017-01-27',
+                  value: 3000
+                }
+              ]
+            }
+          ],
+          colorSchema: ['#F4192B', '#437BF3']
+        }, {
+          dataByTopic: [
+            {
+              topicName: '本基金',
+              topic: 123,
+              dates: [
+                {
+                  date: '2017-01-11',
+                  value: 400
+                },
+                {
+                  date: '2017-01-12',
+                  value: 800
+                },
+                {
+                  date: '2017-01-13',
+                  value: 1000
+                },
+                {
+                  date: '2017-01-14',
+                  value: 1200
+                },
+                {
+                  date: '2017-01-15',
+                  value: 1250
+                },
+                {
+                  date: '2017-01-16',
+                  value: 1300
+                },
+                {
+                  date: '2017-01-17',
+                  value: 1550
+                },
+                {
+                  date: '2017-01-18',
+                  value: 1700
+                },
+                {
+                  date: '2017-01-19',
+                  value: 1560
+                },
+                {
+                  date: '2017-01-20',
+                  value: 1900
+                },
+                {
+                  date: '2017-01-21',
+                  value: 1800
+                },
+                {
+                  date: '2017-01-22',
+                  value: 1800
+                },
+                {
+                  date: '2017-01-23',
+                  value: 1950
+                },
+                {
+                  date: '2017-01-24',
+                  value: 2000
+                },
+                {
+                  date: '2017-01-25',
+                  value: 2100
+                },
+                {
+                  date: '2017-01-26',
+                  value: 2200
+                },
+                {
+                  date: '2017-01-27',
+                  value: 3500
+                }
+              ]
+            }, {
+              topicName: '新起点',
+              topic: 345,
+              dates: [
+                {
+                  date: '2017-01-11',
+                  value: 500
+                },
+                {
+                  date: '2017-01-12',
+                  value: 550
+                },
+                {
+                  date: '2017-01-13',
+                  value: 600
+                },
+                {
+                  date: '2017-01-14',
+                  value: 510
+                },
+                {
+                  date: '2017-01-15',
+                  value: 950
+                },
+                {
+                  date: '2017-01-16',
+                  value: 1360
+                },
+                {
+                  date: '2017-01-17',
+                  value: 1550
+                },
+                {
+                  date: '2017-01-18',
+                  value: 1600
+                },
+                {
+                  date: '2017-01-19',
+                  value: 1560
+                },
+                {
+                  date: '2017-01-20',
+                  value: 1340
+                },
+                {
+                  date: '2017-01-21',
+                  value: 1600
+                },
+                {
+                  date: '2017-01-22',
+                  value: 1700
+                },
+                {
+                  date: '2017-01-23',
+                  value: 1300
+                },
+                {
+                  date: '2017-01-24',
+                  value: 1700
+                },
+                {
+                  date: '2017-01-25',
+                  value: 2500
+                },
+                {
+                  date: '2017-01-26',
+                  value: 2700
+                },
+                {
+                  date: '2017-01-27',
+                  value: 3000
+                }
+              ]
+            }
+          ],
+          colorSchema: ['#F4192B', '#437BF3']
+        }
+      ],
+      legendData: {
+        legend: [
+          {
+            id: 1,
+            quantity: 3243,
+            name: '本基金'
+          },
+          {
+            id: 2,
+            quantity: 3,
+            name: '新起点'
+          }
+
+        ],
+        colorSchema: ['#F4192B', '#437BF3']
+      },
+      thisHeader: [
+        {
+          name: 'date',
+          display: '日期'
+        }, {
+          name: 'product',
+          display: '本产品',
+          render: (h, params) => {
+            console.log(h, params)
+            return h('span', {
+              style: {
+                color: '#F77B2B'
+              }
+            }, this.thisData.rows[params].product)
+          }
+        }, {
+          name: 'data',
+          display: '沪深300'
+        }, {
+          name: 'ranking',
+          display: '同类排名'
+        }
+      ],
+      thisData: {
+        rows: [{
+          date: '近一周',
+          product: '1.79%',
+          data: '2.08%',
+          ranking: '111/526'
+        }, {
+          date: '近一月',
+          product: '27.1%',
+          data: '5.2%',
+          ranking: '16/520'
+        }, {
+          date: '近三月',
+          product: '13.1%',
+          data: '12.97%',
+          ranking: '22/511'
+        }]
+      },
+      thisHeader2: [
+        {
+          name: 'date',
+          display: '股票名称'
+        }, {
+          name: 'product',
+          display: '占净值比',
+          render: (h, params) => {
+            console.log(h, params)
+            return h('span', {
+              style: {
+                color: '#F77B2B'
+              }
+            }, this.thisData.rows[params].product)
+          }
+        }, {
+          name: 'data',
+          display: '实时夹'
+        }, {
+          name: 'ranking',
+          display: '涨跌幅'
+        }
+      ],
+      thisData2: {
+        rows: [{
+          date: '腾不讯控股',
+          product: '1.79%',
+          data: '-',
+          ranking: '-'
+        }, {
+          date: '中国平西',
+          product: '27.1%',
+          data: '-',
+          ranking: '-'
+        }, {
+          date: '比奔迪电子',
+          product: '13.1%',
+          data: '-',
+          ranking: '-'
+        }]
+      },
+      thisHeader3: [
+        {
+          name: 'date',
+          display: '日期'
+        }, {
+          name: 'product',
+          display: '单位净值'
+        }, {
+          name: 'data',
+          display: '累计净值',
+          render: (h, params) => {
+            console.log(h, params)
+            return h('span', {
+              style: {
+                color: '#F77B2B'
+              }
+            }, this.thisData.rows[params].data)
+          }
+        }, {
+          name: 'ranking',
+          display: '日涨跌幅(%)'
+        }
+      ],
+      thisData3: {
+        rows: [{
+          date: '2018.01.12',
+          product: '1.5370',
+          data: '1.5370',
+          ranking: '0.5200'
+        }, {
+          date: '2018.01.11',
+          product: '1.5213',
+          data: '1.5213',
+          ranking: '-0.4600%'
+        }, {
+          date: '2018.01.10',
+          product: '1.5360',
+          data: '1.5360',
+          ranking: '0.5200'
+        }]
+      },
+      areaChartData: {
+        data: [
+          {
+            date: '2011-10-20',
+            name: '股票',
+            value: 15420
+          },
+          {
+            date: '2011-10-21T00:00:00Z',
+            name: '股票',
+            value: 15020
+          },
+          {
+            date: '2011-10-22T00:00:00Z',
+            name: '股票',
+            value: 15120
+          },
+          {
+            date: '2011-10-23T00:00:00Z',
+            name: '股票',
+            value: 15820
+          },
+          {
+            date: '2011-10-24T00:00:00Z',
+            name: '股票',
+            value: 15620
+          },
+          {
+            date: '2011-10-25T00:00:00Z',
+            name: '股票',
+            value: 15800
+          },
+          {
+            date: '2011-10-26T00:00:00Z',
+            name: '股票',
+            value: 14020
+          },
+          {
+            date: '2011-10-27T00:00:00Z',
+            name: '股票',
+            value: 13020
+          },
+          {
+            date: '2011-10-28T00:00:00Z',
+            name: '股票',
+            value: 12920
+          },
+          {
+            date: '2011-10-29T00:00:00Z',
+            name: '股票',
+            value: 11020
+          },
+          {
+            date: '2011-10-30T00:00:00Z',
+            name: '股票',
+            value: 12320
+          },
+          {
+            date: '2011-10-31T00:00:00Z',
+            name: '股票',
+            value: 11020
+          }
+        ],
+        colorSchema: ['#437BF3']
+      },
+      areaChartData2: '',
+      chartMore: [
+        {
+          data: [
+            {
+              date: '2011-10-20',
+              name: '股票',
+              value: 10420
+            },
+            {
+              date: '2011-10-21T00:00:00Z',
+              name: '股票',
+              value: 10020
+            },
+            {
+              date: '2011-10-22T00:00:00Z',
+              name: '股票',
+              value: 10120
+            },
+            {
+              date: '2011-10-23T00:00:00Z',
+              name: '股票',
+              value: 11820
+            },
+            {
+              date: '2011-10-24T00:00:00Z',
+              name: '股票',
+              value: 12620
+            },
+            {
+              date: '2011-10-25T00:00:00Z',
+              name: '股票',
+              value: 13800
+            },
+            {
+              date: '2011-10-26T00:00:00Z',
+              name: '股票',
+              value: 14020
+            },
+            {
+              date: '2011-10-27T00:00:00Z',
+              name: '股票',
+              value: 15020
+            },
+            {
+              date: '2011-10-28T00:00:00Z',
+              name: '股票',
+              value: 14920
+            },
+            {
+              date: '2011-10-29T00:00:00Z',
+              name: '股票',
+              value: 11020
+            },
+            {
+              date: '2011-10-30T00:00:00Z',
+              name: '股票',
+              value: 12320
+            },
+            {
+              date: '2011-10-31T00:00:00Z',
+              name: '股票',
+              value: 11020
+            }
+          ],
+          colorSchema: ['#437BF3']
+        }, {
+          data: [
+            {
+              date: '2011-10-20',
+              name: '股票',
+              value: 11420
+            },
+            {
+              date: '2011-10-21T00:00:00Z',
+              name: '股票',
+              value: 12020
+            },
+            {
+              date: '2011-10-22T00:00:00Z',
+              name: '股票',
+              value: 13120
+            },
+            {
+              date: '2011-10-23T00:00:00Z',
+              name: '股票',
+              value: 11820
+            },
+            {
+              date: '2011-10-24T00:00:00Z',
+              name: '股票',
+              value: 12620
+            },
+            {
+              date: '2011-10-25T00:00:00Z',
+              name: '股票',
+              value: 13800
+            },
+            {
+              date: '2011-10-26T00:00:00Z',
+              name: '股票',
+              value: 14020
+            },
+            {
+              date: '2011-10-27T00:00:00Z',
+              name: '股票',
+              value: 15020
+            },
+            {
+              date: '2011-10-28T00:00:00Z',
+              name: '股票',
+              value: 14920
+            },
+            {
+              date: '2011-10-29T00:00:00Z',
+              name: '股票',
+              value: 15020
+            },
+            {
+              date: '2011-10-30T00:00:00Z',
+              name: '股票',
+              value: 12320
+            },
+            {
+              date: '2011-10-31T00:00:00Z',
+              name: '股票',
+              value: 13020
+            }
+          ],
+          colorSchema: ['#437BF3']
+        }, {
+          data: [
+            {
+              date: '2011-10-20',
+              name: '股票',
+              value: 10420
+            },
+            {
+              date: '2011-10-21T00:00:00Z',
+              name: '股票',
+              value: 13020
+            },
+            {
+              date: '2011-10-22T00:00:00Z',
+              name: '股票',
+              value: 10120
+            },
+            {
+              date: '2011-10-23T00:00:00Z',
+              name: '股票',
+              value: 12820
+            },
+            {
+              date: '2011-10-24T00:00:00Z',
+              name: '股票',
+              value: 12620
+            },
+            {
+              date: '2011-10-25T00:00:00Z',
+              name: '股票',
+              value: 13800
+            },
+            {
+              date: '2011-10-26T00:00:00Z',
+              name: '股票',
+              value: 13020
+            },
+            {
+              date: '2011-10-27T00:00:00Z',
+              name: '股票',
+              value: 15020
+            },
+            {
+              date: '2011-10-28T00:00:00Z',
+              name: '股票',
+              value: 10920
+            },
+            {
+              date: '2011-10-29T00:00:00Z',
+              name: '股票',
+              value: 11020
+            },
+            {
+              date: '2011-10-30T00:00:00Z',
+              name: '股票',
+              value: 10320
+            },
+            {
+              date: '2011-10-31T00:00:00Z',
+              name: '股票',
+              value: 11020
+            }
+          ],
+          colorSchema: ['#437BF3']
+        }, {
+          data: [
+            {
+              date: '2011-10-20',
+              name: '股票',
+              value: 11420
+            },
+            {
+              date: '2011-10-21T00:00:00Z',
+              name: '股票',
+              value: 10020
+            },
+            {
+              date: '2011-10-22T00:00:00Z',
+              name: '股票',
+              value: 11120
+            },
+            {
+              date: '2011-10-23T00:00:00Z',
+              name: '股票',
+              value: 11820
+            },
+            {
+              date: '2011-10-24T00:00:00Z',
+              name: '股票',
+              value: 13620
+            },
+            {
+              date: '2011-10-25T00:00:00Z',
+              name: '股票',
+              value: 13800
+            },
+            {
+              date: '2011-10-26T00:00:00Z',
+              name: '股票',
+              value: 14020
+            },
+            {
+              date: '2011-10-27T00:00:00Z',
+              name: '股票',
+              value: 11020
+            },
+            {
+              date: '2011-10-28T00:00:00Z',
+              name: '股票',
+              value: 14920
+            },
+            {
+              date: '2011-10-29T00:00:00Z',
+              name: '股票',
+              value: 11020
+            },
+            {
+              date: '2011-10-30T00:00:00Z',
+              name: '股票',
+              value: 14320
+            },
+            {
+              date: '2011-10-31T00:00:00Z',
+              name: '股票',
+              value: 11020
+            }
+          ],
+          colorSchema: ['#437BF3']
+        }
+      ],
+      bottomIcon: 'collect1',
+      isOptional: false,
+      isApp: ui.IS_APP
+    }
+  },
+  methods: {
+    handleChange (index, key) {
+      this[key] = index
+      if (index === 0) {
+        console.log(0)
+        this.swiperHeight = 664
+      } else if (index === 1) {
+        console.log(1)
+        this.swiperHeight = 530
+      } else {
+        console.log(2)
+        this.swiperHeight = 600
+      }
+    },
+
+    segment (index) {
+      console.log(index)
+      this.lineData = this.data[index]
+    },
+    segment2 (index) {
+      console.log(index)
+      // this.lineData = this.data[index]
+      this.areaChartData2 = this.chartMore[index]
+    },
+    navigateBack () {
+      ui.navigateBack()
+    },
+    optional () {
+      if (this.isOptional) {
+        this.bottomIcon = 'collect1'
+        this.isOptional = false
+      } else {
+        this.bottomIcon = 'collect2'
+        this.isOptional = true
+      }
+    },
+    share () {
+      // if (this.isApp) {
+        // ui.app.shareMask = true
+        // ui.app.href = 'http://www.uileader.com/touchui_jdfinance/#/pages/share/chart/chart'
+        ui.getApp().globalData.shareMask = true
+        ui.getApp().globalData.href = 'http://www.uileader.com/touchui_jdfinance/#/pages/share/chart/chart'
+      // }
+    }
+  },
+  mounted () {
+    this.lineData = this.data[0]
+    this.areaChartData2 = this.chartMore[0]
+    console.log(this.isApp)
+  }
+}
+</script>
+
+<style lang="less">
+// chart.less
+.nav_bar{
+  background: #fff;
+  .title{
+    color: #3D3D3D;
+    font-size: 16px;
+  }
+}
+.wrap{
+  background-color: #fff;
+  margin-bottom: 10px;
+  height: auto;
+}
+.top_content{
+  padding-top: 20px;
+  .line{
+    width: 1px;
+    height:20px;
+    background-color: #ececec;
+  }
+  .text{
+    color: #B0B0B0;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  .ui-view{
+    font-size: 30px;
+    color: #3F4652;
+  }
+}
+.bottom_content{
+  .mix-1px(0, 0, 1, 0, #ececec);
+  .ui-view{
+    font-size: 16px;
+  }
+  .ui-text{
+    color:#959595;
+    font-size: 14px;
+  }
+}
+
+.ui-tabs{
+  background-color: #fff;
+  padding-bottom: 1px;
+  .ui-tab{
+    line-height: 40px;
+  }
+}
+.tab_content{
+  .ui-segment{
+    width: 80%;
+    margin: 20px auto;
+    .ui-segment-item{
+      color: #9F9F9F;
+      border-top: 1px solid #ececec;
+      border-bottom: 1px solid #ececec;
+    }
+    .ui-segment-item:first-child{
+      border-right: 1px solid #ececec;
+      border-left: 1px solid #ececec;
+    }
+    .ui-segment-item:not(:first-child):not(:last-child){
+      border-right: 1px solid #ececec;
+    }
+    .ui-segment-item:last-child{
+      border-right: 1px solid #ececec;
+    }
+    .ui-segment-item.active{
+      color: #396FE8;
+      background: transparent;
+    }
+  }
+}
+.performance{
+  background-color:#fff;
+  .title{
+    color: #4C4C4C;
+    font-size: 14px;
+    line-height: 40px;
+    padding-left: 10px;
+  }
+  .table-header{
+    border-bottom:0;
+  }
+  .table-header-column{
+    background-color:#fff;
+    border:0;
+    color:#666
+  }
+  .table-data-row,.table-data-cell{
+    border:0;
+  }
+  .more{
+    font-size: 14px;
+    color: #898989;
+    line-height: 40px;
+    text-align: center;
+  }
+}
+.ui-fixed-view{
+  width: 100%;
+  background-color: #4174E9;
+  z-index: 99;
+  .ui-view{
+    color: #fff;
+    font-size: 12px;
+  }
+  .ui-text{
+    color: #fff;
+    font-size: 14px;
+  }
+}
+
+</style>

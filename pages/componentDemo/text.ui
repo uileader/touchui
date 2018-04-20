@@ -1,0 +1,96 @@
+<!--text.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">基本使用（内联）</ui-view>
+    <ui-view class="sample_content">
+      <ui-text class="price">16元</ui-text>
+      <ui-text class="price2">门市价:30元</ui-text>
+    </ui-view>
+    <ui-view class="sample_title">动态增加（块级）</ui-view>
+    <ui-view class="sample_content">
+      <ui-text block>
+        {{ text }}
+      </ui-text>
+      <ui-button bindtap="add">添加一行</ui-button>
+      <ui-button bindtap="remove" disabled="{{ !canRemove }}">删除一行</ui-button>
+    </ui-view>
+
+    <ui-view class="sample_title">文本可选</ui-view>
+    <ui-view class="sample_content">
+      <ui-text selectable>
+        这是一段毫无意义的文字～
+        之所以显示这段文字，是因为要展示文字的可选择特性，所以它的作用主要是用来占位的。
+        移动设备上，长按文字进行选择。
+      </ui-text>
+    </ui-view>
+
+    <ui-view class="sample_title">space和decode属性</ui-view>
+    <ui-view class="sample_content">
+      <ui-text block decode>{{ str }}</ui-text>
+      <ui-text block>{{ str }}</ui-text>
+      <ui-text block space="nbsp">{{ str2 }}</ui-text>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// text.js
+export default {
+  config: {
+    "navigationBarTitleText": "文本"
+  },
+  data () {
+    return {
+      texts: [
+        '使用Touch UI开发移动应用的特点：',
+        '移动开发难点封装',
+        '通过配置快速实现功能',
+        '积木拼装式界面搭建',
+        '一体化的开发流程',
+        '数据驱动和虚拟DOM',
+        '极低的学习难度',
+        '开发控制台运营APP',
+        'APP一键转为微信小程序',
+        '一套代码运行在所有平台',
+        '丰富的移动端界面模板',
+        '工匠精神',
+        '......'
+      ],
+      text: '',
+      extraLine: [],
+      str: '我的世界&nbsp;&nbsp;&nbsp;&nbsp;，路人甲',
+      str2: '我的世界    ，路人甲'
+    }
+  },
+  computed: {
+    canRemove () {
+      return this.extraLine.length > 0
+    }
+  },
+  methods: {
+    add () {
+      this.extraLine.push(this.texts[this.extraLine.length % 12])
+      this.text = this.extraLine.join('\n')
+    },
+    remove () {
+      if (this.canRemove) {
+        this.extraLine.pop()
+        this.text = this.extraLine.join('\n')
+      }
+    }
+  }
+}
+</script>
+
+<style lang="less">
+// text.less
+.price{
+  color: #06c1ae;
+  font-size: 16px;
+}
+.price2{
+  color: #666;
+  font-size: 12px;
+}
+</style>

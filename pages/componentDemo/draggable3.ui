@@ -1,0 +1,234 @@
+<template>
+    <ui-page>
+      <ui-checkbox-group bindchange="checkchange">
+      <ui-draggable-area
+      height="{{300}}"
+      col="{{1}}"
+      width="{{windowWidth}}"
+      children-height="{{50}}"
+      ui:model="{{list}}"
+      direction="vertical"
+      longtap-style="none"
+      binddragstart="dragstart"
+      binddragend="dragend"
+      >
+      <ui-draggable-view ui:for="{{list}}" >
+      <ui-swipe-out ref="swipe" operate-width="100" height="{{ item.height }}" ui:model="{{item.switcher}}"  bindchange="changeHandler1(index)" can-swipe="{{item.canSwipe}}">
+          <ui-view slot="content">
+              <ui-row class="listbox">
+                <ui-col width="50" vertical-align="middle">
+                    <ui-checkbox value="{{item.value}}"></ui-checkbox>
+                </ui-col>
+                <ui-col vertical-align="middle">
+                  <ui-view class="{{item.state}}">{{item.name}}</ui-view>
+                </ui-col>
+              </ui-row>
+        </ui-view>
+        <ui-view slot="operate">
+          <ui-row>
+            <ui-col>
+              <ui-view class="know" bindtap="play">
+                <ui-icon type="playmusic" size="24" color="#fff"></ui-icon>
+              </ui-view>
+            </ui-col>
+            <ui-col>
+              <ui-view class="delete" bindtap="del(index)">
+                <ui-icon type="delete" size="24" color="#fff"></ui-icon>
+              </ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+        </ui-swipe-out>
+      </ui-draggable-view>
+      </ui-draggable-area>
+      </ui-checkbox-group>
+    </ui-page>
+  </template>
+
+<script>
+  export default {
+  config: {
+    "navigationBarTitleText": "滑动菜单纵向拖拽",
+    "disableScroll":true
+  },
+  data () {
+    return {
+      windowWidth: ui.WIN_WIDTH,
+      textclass: '',
+      draggableFlag: false,
+      el: undefined,
+      drael: null,
+      list: [{
+        name: '拜访张总',
+        value: '0',
+        state: '',
+        height: 50,
+        switcher: 'off',
+        canSwipe: true
+      }, {
+        name: '2点会议室开会',
+        value: '1',
+        state: '',
+        height: 50,
+        switcher: 'off',
+        canSwipe: true
+      }, {
+        name: '接待工厂客户',
+        value: '2',
+        state: '',
+        height: 50,
+        switcher: 'off',
+        canSwipe: true
+      }]
+    }
+  },
+  methods: {
+    checkchange (val) {
+      for (var i = 0; i < this.list.length; i++) {
+        if (val.current.checked) {
+          if (this.list[i].value === val.current.value) {
+            this.list[i].state = 'check-text'
+          }
+        } else {
+          if (this.list[i].value === val.current.value) {
+            this.list[i].state = ''
+          }
+        }
+      }
+    },
+    del (index) {
+      let that = this
+      this.list[index].height = 0
+      that.list.splice(index, 1)
+      for (let i = 0; i < this.list.length; i++) {
+        this.list[i].switcher = "off"
+      }
+      console.log(this.list)
+
+      this.el = index
+    },
+    changeHandler1 (index) {
+      if (this.el !== index) {
+        if (this.el!== undefined) {
+          this.list[this.el].switcher = 'off'
+        }
+        this.list[index].switcher = 'on'
+        this.el = index
+      }
+
+    },
+    play () {
+      ui.showToast({ title: '播放' })
+    },
+    dragstart (e) {
+      console.log(e)
+      this.draggableFlag = true
+      this.drael = e.item.value
+      for (let i = 0; i < this.list.length; i++) {
+        this.list[e.index].switcher = "off"
+      }
+
+
+      if (this.draggableFlag) {
+        this.list[e.index].canSwipe = false
+        this.draggableFlag = false
+      }
+    },
+    dragend (e) {
+      if (!this.draggableFlag) {
+        for (let i = 0; i < this.list.length; i++) {
+          if (this.list[i].value === this.drael) {
+            this.list[i].canSwipe = true
+          }
+        }
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .ui-draggable-view{
+  border:0
+}
+
+.ui-draggable-view-dragging {
+  background-color: #fff;
+  box-shadow:0px 1px 10px 1px #ccc;
+}
+
+.ui-draggable-view-dragging .ui-row{
+  border:0;
+}
+.ui-draggable-view-dragging .ui-row:after{
+  border:0;
+}
+.ui-checkbox-inner{
+  border: 1px solid #39f;
+}
+
+.draggable-item-template{
+  overflow:hidden
+}
+.listbox{
+  border-bottom: 1px solid #ececec;
+  padding:0 5px;
+  overflow: hidden;
+  background: #fff;
+}
+.ui-checkbox{
+  line-height: 48px;
+}
+.is-checked{
+  border:1px solid #999;
+  background-color: transparent !important;
+}
+
+.ui-checkbox-inner.is-checked .ui-checkbox__check{
+  border-color: #999
+}
+
+.check-text{
+  color:#999;
+  text-decoration: line-through;
+}
+
+.swipe-out-dome-1{
+  transition: height .25s ease-in;
+  // overflow: hidden;
+}
+.swipe-out-dome-1-content {
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  
+  .text {
+    font-size: 14px;
+  }
+}
+.dome_operate {
+ background: #3ECBE8;
+}
+.delete{
+  width:50px;
+  color:#fff;
+  line-height: 48px;
+  height:48px;
+  display: inline-block;
+  background: #f22;
+  text-align: center;
+  .ui-image{
+    height:48px
+  }
+}
+.know{
+  width:50px;
+  color:#fff;
+  height:48px;
+  line-height: 48px;
+  display: inline-block;
+  background: #f39826;
+  text-align: center
+}
+</style>

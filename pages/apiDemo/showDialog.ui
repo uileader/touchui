@@ -1,0 +1,121 @@
+<!--registerWindows.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">显示全屏窗口</ui-view>
+    <ui-view class="sample_content">
+        <ui-button bindtap="showDialog1()">基本弹框</ui-button>
+        <ui-button bindtap="showDialog2()">自定义标题栏背景</ui-button>
+        <ui-button bindtap="showDialog3()">不使用自带标题栏</ui-button>
+        <ui-button bindtap="showDialog4()">自定义窗体样式（仿今日头条）</ui-button>
+        <p>
+          当前选中的国家是：{{ country }}
+        </p>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// showWindow.js
+export default {
+  config: {
+    "navigationBarTitleText": "showDialog"
+  },
+  data () {
+    return {
+      country: '日本'
+    }
+  },
+  methods: {
+    showDialog1 () {
+      import(`#/pages/dialogs/dialog.ui`).then((content) => {
+        ui.showDialog({
+          // 窗体标题
+          title: '窗体1-1',
+          content: content,
+          statusBarColor: 'black',
+          // 向dialog1.ui传入数据
+          data: {
+            country: this.country
+          },
+          // 接收ui.hideDialog回传的数据
+          onHide: (data) => {
+            if (data && data.country) {
+              this.country = data.country
+            }
+          }
+        })
+      })
+    },
+    showDialog2 () {
+      import(`#/pages/dialogs/dialog1.ui`).then((content) => {
+        ui.showDialog({
+          // 窗体标题
+          title: '窗体1-2',
+          content: content,
+          headerStyle: {
+            backgroundColor: '#3399ff',
+            color: '#fff'
+          },
+          statusBarColor: 'white',
+
+          // 向dialog1.ui传入数据
+          data: {
+            country: this.country
+          },
+          // 接收ui.hideDialog回传的数据
+          onHide: (data) => {
+            if (data && data.country) {
+              this.country = data.country
+            }
+          }
+        })
+      })
+    },
+    showDialog3 () {
+      import(`#/pages/dialogs/dialog2.ui`).then((content) => {
+        ui.showDialog({
+          content: content,
+          statusBarColor: 'black',
+          // 向dialog2.ui传入数据
+          data: {
+            country: this.country
+          },
+          // 接收ui.hideDialog回传的数据
+          onHide: (data) => {
+            if (data && data.country) {
+              this.country = data.country
+            }
+          }
+        })
+      })
+    },
+    showDialog4 () {
+      import(`#/pages/dialogs/dialog3.ui`).then((content) => {
+        ui.showDialog({
+          content: content,
+          backgroundColor: '#808080',
+          fullScreen:false,
+          // 向dialog3.ui传入数据
+          data: {
+            country: this.country
+          },
+          // 接收ui.hideDialog回传的数据
+          onHide: (data) => {
+            if (data && data.country) {
+              this.country = data.country
+            }
+          }
+        })
+      })
+    }
+  },
+  mounted () {
+
+  }
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

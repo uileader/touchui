@@ -1,0 +1,71 @@
+<!--networkState.ui-->
+<template>
+  <ui-page>
+    <ui-view class="page-body-info">
+      <ui-view class="page-body-title">网络状态</ui-view>
+      <ui-view ui:if="{{hasNetworkType === false}}">
+        <ui-view class="page-body-text">未获取</ui-view>
+        <ui-view class="page-body-text">点击蓝色按钮可获取网络状态</ui-view>
+      </ui-view>
+      <ui-view ui:if="{{hasNetworkType === true}}">
+        <ui-view class="page-body-text-network-type">{{networkType}}</ui-view>
+      </ui-view>
+    </ui-view>
+    <ui-view class="btn-area">
+      <ui-button type="primary" bindtap="getNetworkType">获取手机网络状态</ui-button>
+      <ui-button bindtap="clear">清空</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// networkState.js
+export default {
+  config: {
+    "navigationBarTitleText": "网络状态"
+  },
+  data () {
+    return {
+      hasNetworkType: false,
+      networkType: ''
+    }
+  },
+  methods: {
+    getNetworkType () {
+      var that = this
+      ui.getNetworkType({
+        success: function (res) {
+          that.hasNetworkType = true
+          that.networkType = res.subtype || res.networkType
+        }
+      })
+    },
+    clear () {
+      this.hasNetworkType = false
+      this.networkType = ''
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // networkState.less
+.page-body-info {
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  .page-body-title {
+    font-size: 24px;
+    color: #333333;
+  }
+  .page-body-text-network-type {
+    font-size: 30px;
+    color: #666666;
+  }
+}
+
+.btn-area {
+  padding: 0px 15px;
+}
+</style>

@@ -1,0 +1,206 @@
+<!--roller.ui-->
+<template>
+    <ui-page>
+      <ui-view class="sample_title">基本使用</ui-view>
+      <ui-view class="sample_content">
+        <ui-roller>
+          <ui-roller-item>
+            <ui-row>
+              <ui-col span="1">
+                <ui-text style="color:#F00;">荐</ui-text>
+              </ui-col>
+              <ui-col span="11">touchui 让企业移动开发降低80%成本</ui-col>
+            </ui-row>
+          </ui-roller-item>
+          <ui-roller-item>
+            <ui-row>
+              <ui-col span="1">
+                <ui-text style="color:#F00;">荐</ui-text>
+              </ui-col>
+              <ui-col span="11">touchui 让企业移动开发降低80%成本</ui-col>
+            </ui-row>
+          </ui-roller-item>
+          <ui-roller-item>
+            <ui-row>
+              <ui-col span="1">
+                <ui-text style="color:#F00;">荐</ui-text>
+              </ui-col>
+              <ui-col span="11">touchui 让企业移动开发降低80%成本</ui-col>
+            </ui-row>
+          </ui-roller-item>
+        </ui-roller>
+      </ui-view>
+
+      <ui-view class="sample_title">自定义滚动速度 300毫秒</ui-view>
+      <ui-view class="sample_content">
+        <ui-roller  speed="300">
+          <ui-roller-item>
+            <ui-row>
+              <ui-col span="1">
+                <ui-text style="color:#F00;">荐</ui-text>
+              </ui-col>
+              <ui-col span="11">touchui 让企业移动开发降低80%成本</ui-col>
+            </ui-row>
+          </ui-roller-item>
+          <ui-roller-item>
+            <ui-row>
+              <ui-col span="1">
+                <ui-text style="color:#F00;">荐</ui-text>
+              </ui-col>
+              <ui-col span="11">touchui 让企业移动开发降低80%成本</ui-col>
+            </ui-row>
+          </ui-roller-item>
+          <ui-roller-item>
+            <ui-row>
+              <ui-col span="1">
+                <ui-text style="color:#F00;">荐</ui-text>
+              </ui-col>
+              <ui-col span="11">touchui 让企业移动开发降低80%成本</ui-col>
+            </ui-row>
+          </ui-roller-item>
+        </ui-roller>
+      </ui-view>
+
+      <ui-view class="sample_title">自定义单行滚动</ui-view>
+      <ui-view class="sample_content">
+        <ui-row height="30">
+          <ui-col span="2" vertical-align="middle">
+            <ui-image src="{{imgSrc}}" width="100%" mode="aspectFill"></ui-image>
+          </ui-col>
+          <ui-col span="10" space-left="10">
+            <ui-roller autoplay="2000">
+              <ui-roller-item>
+                <ui-row>
+                  <ui-col span="1">
+                    <ui-text style="color:#F00;">荐</ui-text>
+                  </ui-col>
+                  <ui-col span="11">
+                    <ui-text block class="roller-text">touchui 让企业移动开发降低80%成本</ui-text>
+                  </ui-col>
+                  
+                </ui-row>
+              </ui-roller-item>
+              <ui-roller-item>
+                <ui-row>
+                  <ui-col span="1">
+                    <ui-text style="color:#F00;">荐</ui-text>
+                  </ui-col>
+                  <ui-col span="11">
+                    <ui-text block class="roller-text">touchui 让企业移动开发降低80%成本</ui-text>
+                  </ui-col>
+                </ui-row>
+              </ui-roller-item>
+              <ui-roller-item>
+                <ui-row>
+                  <ui-col span="1">
+                    <ui-text style="color:#F00;">荐</ui-text>
+                  </ui-col>
+                  <ui-col span="11">
+                    <ui-text block class="roller-text">touchui 让企业移动开发降低80%成本</ui-text>
+                  </ui-col>
+                </ui-row>
+              </ui-roller-item>
+            </ui-roller>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+
+      <ui-view class="sample_title">多行滚动 自定义滚动时间 5秒</ui-view>
+      <ui-view class="sample_content">
+        <ui-row height="40">
+          <ui-col span="2" vertical-align="middle">
+            <ui-image src="{{imgSrc2}}" width="45" mode="aspectFill"></ui-image>
+          </ui-col>
+          <ui-col span="10">
+            <ui-roller autoplay="5000" height=40>
+              <ui-roller-item>
+                <ui-view class="item">
+                  <ui-row>
+                    <ui-col span="1"><ui-text style="color:#F00;">荐</ui-text></ui-col>
+                    <ui-col span="11">
+                      <ui-text block class="roller-text">touchui 让企业移动开发降低80%成本</ui-text>
+                    </ui-col>
+                  </ui-row>
+                </ui-view>
+                <ui-view class="item">
+                  <ui-row>
+                    <ui-col span="1"><ui-text style="color:#F00;">荐</ui-text></ui-col>
+                    <ui-col span="11">
+                      <ui-text block class="roller-text">touchui 让企业移动开发降低80%成本</ui-text>
+                    </ui-col>
+                    
+                  </ui-row>
+                </ui-view>
+              </ui-roller-item>
+              <ui-roller-item>
+                <ui-view class="item">
+                  <ui-row>
+                    <ui-col span="1"><ui-text style="color:#F00;">荐</ui-text></ui-col>
+                    <ui-col span="11">
+                      <ui-text block class="roller-text">touchui 让企业移动开发降低80%成本</ui-text>
+                    </ui-col>
+                  </ui-row>
+                </ui-view>
+                <ui-view class="item">
+                  <ui-row>
+                    <ui-col span="1"><ui-text style="color:#F00;">荐</ui-text></ui-col>
+                    <ui-col span="11">
+                      <ui-text block class="roller-text">touchui 让企业移动开发降低80%成本</ui-text>
+                    </ui-col>
+                  </ui-row>
+                </ui-view>
+              </ui-roller-item>
+              <ui-roller-item>
+                <ui-view class="item">
+                  <ui-row>
+                    <ui-col span="1"><ui-text style="color:#F00;">荐</ui-text></ui-col>
+                    <ui-col span="11">
+                      <ui-text block class="roller-text">touchui 让企业移动开发降低80%成本</ui-text>
+                    </ui-col>
+                  </ui-row>
+                </ui-view>
+                <ui-view class="item">
+                  <ui-row>
+                    <ui-col span="1"><ui-text style="color:#F00;">荐</ui-text></ui-col>
+                    <ui-col span="11">
+                      <ui-text block class="roller-text">touchui 让企业移动开发降低80%成本</ui-text>
+                    </ui-col>
+                  </ui-row>
+                </ui-view>
+              </ui-roller-item>
+            </ui-roller>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+    </ui-page>
+  </template>
+
+
+<script>
+// roller.js
+export default {
+  config: {
+    "navigationBarTitleText": "滚动公告"
+  },
+  data () {
+    return {
+      imgSrc: require('#/images/jd-news-tit.png'),
+      imgSrc2: require('#/images/taobao.png')
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  // roller.less
+.item{
+  height: 20px;
+  line-height: 20px;
+}
+.roller-text{
+  .mix-text-overflow();
+}
+</style>
+  

@@ -1,0 +1,117 @@
+<!--constant.ui-->
+<template>
+  <ui-page>
+    <ui-view class="content">
+      <ui-row-list>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="5"  vertical-align="middle" align="right">
+            App环境：
+          </ui-col>
+          <ui-col span="7" vertical-align="middle" space-left="10">
+              <ui-view>{{ isAPP }}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="5"  vertical-align="middle" align="right">
+            Android环境：
+          </ui-col>
+          <ui-col span="7" vertical-align="middle" space-left="10">
+              <ui-view>{{ isAndroid }}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="5"  vertical-align="middle" align="right">
+            IOS环境：
+          </ui-col>
+          <ui-col span="7" vertical-align="middle" space-left="10">
+              <ui-view>{{ isIOS }}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="5"  vertical-align="middle" align="right">
+            窗体高度：
+          </ui-col>
+          <ui-col span="7" vertical-align="middle" space-left="10">
+              <ui-view>{{ winHeight }}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="5"  vertical-align="middle" align="right">
+            状态栏高度：
+          </ui-col>
+          <ui-col span="7" vertical-align="middle" space-left="10">
+              <ui-view>{{ statusBarHright }}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="5"  vertical-align="middle" align="right">
+            当前导航栏高度：
+          </ui-col>
+          <ui-col span="7" vertical-align="middle" space-left="10">
+              <ui-view>{{ defaultHeaderHeight }}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="5"  vertical-align="middle" align="right">
+            当前内容高度：
+          </ui-col>
+          <ui-col span="7" vertical-align="middle" space-left="10">
+              <ui-view>{{ defaultContentHright }}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space-bottom="10">
+          <ui-col span="5"  vertical-align="middle" align="right">
+            当前屏幕宽度：
+          </ui-col>
+          <ui-col span="7" vertical-align="middle" space-left="10">
+              <ui-view>{{ winWidth }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// constant.js
+export default {
+  config: {
+    "navigationBarTitleText": "获取常量"
+  },
+  data () {
+    return {
+      isAPP:'',
+      isAndroid:'',
+      isIOS:'',
+      winHeight:'',
+      statusBarHright:'',
+      defaultHeaderHeight:'',
+      defaultContentHright:'',
+      winWidth:''
+    }
+  },
+  methods: {
+   
+  },
+  mounted () {
+    this.isAPP=ui.IS_APP
+    this.isAndroid=ui.IS_ANDROID
+    this.isIOS=ui.IS_IOS
+    this.winHeight=ui.WIN_HEIGHT
+    this.statusBarHright=ui.STATUS_BAR_HEIGHT
+    this.defaultHeaderHeight=ui.DEFAULT_HEADER_HEIGHT
+    this.defaultContentHright=ui.DEFAULT_CONTENT_HEIGHT
+    this.winWidth=ui.WIN_WIDTH
+  }
+}
+
+</script>
+
+<style lang="less">
+  // constant.less
+.content{
+  padding: 10px;
+}
+
+</style>

@@ -1,0 +1,188 @@
+<!--indexList.ui-->
+<template>
+    <ui-page>
+          <ui-view class="sample_title">
+            城市选择（单选，不含图标）
+          </ui-view>
+          <ui-view class="sample_content" bindtap="showIndexList1">
+            <ui-text style="font-size: 14px;">{{country1}}</ui-text>
+            <ui-icon type="arrow-down"><ui-icon>
+          </ui-view>
+  
+          <ui-view class="sample_title">
+            汽车品牌选择（单选，含图标）
+          </ui-view>
+          <ui-view class="sample_content" bindtap="showIndexList2">
+            <ui-text style="font-size: 14px;">{{country2}}</ui-text>
+            <ui-icon type="arrow-down"><ui-icon>
+          </ui-view>
+
+          <ui-view class="sample_title">
+            汽车品牌选择（多选，含图标）
+          </ui-view>
+          <ui-view class="sample_content" bindtap="showIndexList3">
+            <ui-text style="font-size: 14px;">{{country3}}</ui-text>
+            <ui-icon type="arrow-down"><ui-icon>
+          </ui-view>
+  
+          <ui-view class="sample_title">
+            仿微信通讯录（可切换单选与多选）
+          </ui-view>
+          <ui-view class="sample_content" bindtap="showIndexList4">
+            <ui-text style="font-size: 14px;">{{country4}}</ui-text>
+            <ui-icon type="arrow-down"><ui-icon>
+          </ui-view>
+  
+          <ui-view class="sample_title">
+            自定义数据格式
+          </ui-view>
+          <ui-view class="sample_content" bindtap="showIndexList5">
+              <ui-text style="font-size: 14px;">{{country5}}</ui-text>
+              <ui-icon type="arrow-down"><ui-icon>
+          </ui-view>
+
+  
+    </ui-page>
+  </template>
+  
+  
+  <script>
+    // indexList.js
+  export default {
+    config: {
+      "navigationBarTitleText": "索引选择器"
+    },
+    data () {
+      return {
+        country1: '北京',
+        country2: '请选择',
+        country3: '请选择',
+        country4: '请选择',
+        country5: '请选择'
+
+      }
+    },
+    mounted () {
+  
+    },
+    methods: {
+      showIndexList1 () {
+        import(`#/pages/dialogs/index-list.ui`).then((content) => {
+          ui.showDialog({
+            content: content,
+            data: {
+              country: this.country1
+            },
+            // 接收ui.hideDialog回传的数据
+            onHide: (data) => {
+              if (data && data.country) {
+                this.country1 = data.country
+              }
+            }
+          })
+        })
+      },
+      showIndexList2 () {
+        import(`#/pages/dialogs/index-list2.ui`).then((content) => {
+          ui.showDialog({
+            title: '请输入汽车品牌',
+            content: content,
+            data: {
+              country: this.country2
+            },
+            // 接收ui.hideDialog回传的数据
+            onHide: (data) => {
+              if (data && data.country) {
+                this.country2 = data.country
+              }
+            }
+          })
+        })
+      },
+      showIndexList3 () {
+        import(`#/pages/dialogs/index-list3.ui`).then((content) => {
+          ui.showDialog({
+            content: content,
+            data: {
+              country: this.country3
+            },
+            // 接收ui.hideDialog回传的数据
+            onHide: (data) => {
+              if (data && data.country) {
+                this.country3 = data.country
+              }
+            }
+          })
+        })
+      },
+      showIndexList4 () {
+        import(`#/pages/dialogs/index-list4.ui`).then((content) => {
+          ui.showDialog({
+            content: content,
+            data: {
+              country: this.country4
+            },
+            // 接收ui.hideDialog回传的数据
+            onHide: (data) => {
+              if (data && data.country) {
+                this.country4 = data.country
+              }
+            }
+          })
+        })
+      },
+      showIndexList5 () {
+        import(`#/pages/dialogs/index-list5.ui`).then((content) => {
+          ui.showDialog({
+            content: content,
+            title: '自定义数据',
+            data: {
+              country: this.country5
+            },
+            // 接收ui.hideDialog回传的数据
+            onHide: (data) => {
+              console.log(data)
+              if (data && data.country) {
+                this.country5 = data.country
+              }
+            }
+          })
+        })
+      }
+
+    }
+  }
+  
+  </script>
+  
+  <style lang="less">
+    // indexList.less
+  .swiper-item {
+    display: block;
+    height: 100%;
+  }
+  /*swiper end*/
+  .swiper-item.items {
+    padding: 20px;
+    font-size: 14px;
+    .tips {
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px 10px 20px;
+      line-height: 2;
+      .tips-img {
+        width: 100%;
+        height: 150px;
+      }
+    }
+  }
+  .tabs {
+    background: #fff;
+  }
+  
+  .demo-content {
+    padding: 10px;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+  }
+  </style>

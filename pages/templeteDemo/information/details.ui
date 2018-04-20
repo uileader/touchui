@@ -1,0 +1,888 @@
+<template>
+  <ui-page bindscroll="handleScroll" >
+    <ui-nav-bar class="nav_bar {{ navClass }}" slot="nav-bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" width="35" space-left="10" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#373737"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>朋友们</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35" bindtap="shareMask">
+          <ui-icon type="more" size="22" color="#373737"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-view style="padding-bottom:46px">
+    <ui-view class="wrap {{ sizeClass }}">
+      <ui-view class="details_title">社区近场零售的竞争核心与市场机会</ui-view>
+      <ui-row class="author" height="80">
+        <ui-col vertical-align="middle" align="right" width="60" >
+          <ui-image 
+            src="{{ require('#/images/indexList/t4.png') }}"
+            width="40"
+            height="40"
+          ></ui-image>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view>touchUI 的朋友们</ui-view>
+          <ui-text>昨天</ui-text>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="80">
+          <ui-view class="attention"><ui-icon type="plus2" size="12" color="#5687F4"></ui-icon>关注</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-view class="title2">零售是门古老的生意。</ui-view>
+      <ui-view class="article">作为一门古老的生意，零售行业发展至今，逐渐形成了两种业态，一是以大卖场为代表的量贩式零售，以其丰富的SKU和较大的售卖量存在，二是小型近场零售，其突出特点是将单品做深做透，因其单品符合群体需求的最大公约数，也日益兴盛。典型代表是便利店，而眼下，日渐兴盛的社区生鲜便利店也属于此类。</ui-view>
+      <ui-image
+        src="http://images.uileader.com/20180304/02e31141-e0fb-414f-8d66-2c07b45eb29f.jpg"
+        data-preview-src="http://images.uileader.com/20180304/22c70067-f55a-4f9a-90d1-351909268895.jpg" 
+        data-preview-group="1"
+        width="100%"
+        class="article_imgs"
+      ></ui-image>
+      <ui-view class="article">在探讨社区生鲜便利店缘何兴盛之前，我们不妨先看看社区近场零售的核心竞争点：</ui-view>
+      <ui-view class="article">1、  用管理产品品牌的方式做单品管理</ui-view>
+      <ui-view class="article">2、  在SKU和店效之间找到最佳平衡点</ui-view>
+      <ui-view class="article">首先来看单品管理，这包括深度的消费者洞察、优秀的定位、近距离的品牌交互、一体化的供应链、质量把控以及最核心的产品创造力。</ui-view>
+      <ui-view class="article">研究零售业的标杆公司7-11可以发现，这家公司有60%的自有品牌，新产品推出时候是会打广告的，且对单品细节的把控非常精细。</ui-view>
+      <ui-view class="article">与传统零售商不同之处在于，7-11有许多是基于消费者洞察的创造性单品，这无疑对近场零售的经营者提出了更高的要求。实际上，零售商适合在自身供应链的优势品类以及市场本身缺乏强势品牌的品类上去建立自有品牌。</ui-view>
+      <ui-view class="article">此外，过去国内的零售商建立自有品牌的情况相对少见，而日本的便利店则不同，甚至能在拥有强势品牌的可乐这个饮料垂直领域上，建立了自有品牌，他们敏锐的捕捉到了，消费者在去品牌化上的认知进程。其次看如何在SKU和店效之间找到平衡，这样的平衡实际上是动态存在的，需要不断打磨。Sku少了，很可能满足不了需求；反之，则可能影响坪效，继而影响公司整体的扩张效率。</ui-view>
+      <ui-view class="article">不妨用这两个核心竞争力来剖析当下的社区生鲜店业态，不难发现也契合其中的逻辑。生鲜面对的是中国新零售市场中最大、机会最明确的市场——拥有替代掉传统菜市场的机会。</ui-view>
+      <ui-image
+        src="http://images.uileader.com/20180304/13867e56-b2fc-47ff-ab15-9f356c826003.jpg"
+        width="100%"
+        class="article_imgs"
+        data-preview-src="http://images.uileader.com/20180304/b8892f61-9bb6-491d-bc28-6f6a88c0e083.jpg" 
+        data-preview-group="1"
+      ></ui-image>
+      <ui-view class="article">首先，农产品历来没有强势的产品品牌，这个市场一定是去建立渠道品牌。社区生鲜便利店是以家庭日常一日三餐的肉类蔬菜、水果、柴米油盐补货为服务场景的小型复合业态，该业态本质是肢解传统大型商超中需求最密集的板块，改造成更便利的近场零售。这场改造运动的核心用户价值在于家庭场景下“做饭和吃的体验升级”，不管去社区生鲜店还是半小时到家，核心是让家庭主妇完成一次次便利、放心、愉悦、满足的一日三餐购买过程。这其中，消费者的时间效率（到家or到店）、购买体验（性价比、菜品丰富度、店感、店员服务）和生活场景（围绕厨房场景的延展），都是值得创业公司切入的点。</ui-view>
+      <ui-view class="article">纵观历史，零售巨头的诞生，往往伴随城市与人口的结构性变化、消费需求和习惯的代际级的变化、消费文化的建立以及技术进步，形成大规模的资源重新组织与分配。具体到社区生鲜来看，目前的机会在于生鲜品类与消费人群连接上的重构，这是综合了城市结构（中国新城区建立的结构性机会）、人口结构（农村高素质人口向新城区流动，从一种分布状态打破后向另一种分布状态重新聚集）、家庭结构（生鲜供应链上采取与中国小家庭式结构饮食场景匹配的小包装式）、消费升级（消费者开始重视新鲜肉、高品质蔬菜水果）、技术（大数据、动态库存管理、供应链包装、城配）等，形成对传统大卖场、菜市场生鲜购买场景的绝对重构与高维打击。</ui-view>
+      <ui-view class="article">之所以认为社区生鲜店未来更有价值，在于其有可能依托高频消费的品类建立起小区级的近距离服务与交付能力。</ui-view>
+      <ui-view class="article">中国的一二线城市的商业辐射能力正在形成3级体系：以shopping mall为代表的市级商业体、盒马鲜生为代表的社区商业体及小区商业体。盒马的前店后仓模式跑通不仅对单纯前置仓模式形成高维打击，更为一二线城市的到家场景树立了标杆。</ui-view>
+      <ui-image
+        src="http://images.uileader.com/20180304/93551802-6bd9-4761-aa39-eb8b1708065b.jpg"
+        width="100%"
+        class="article_imgs"
+        data-preview-src="http://images.uileader.com/20180304/dd863d5c-5f9f-4d1b-b1f9-4469dc34bd51.jpg" 
+        data-preview-group="1"
+      ></ui-image>
+      <ui-view class="article">盒马的前置仓对应多个小区，建在市级商业辐射不到的区域 ，形成类似美国的镇级的商业服务能力。而依托新零售业态商业模式跑通，全社会商品流转和仓储体系也不断下沉：京东的城市分拣仓（半天到家）=》盒马的社区前置仓（30分钟到家）=》生鲜等业态对应的小区微仓储。（20分钟到家）。</ui-view>
+      <ui-view class="article">一切库存的产生皆来自于人群需求的不确定性，而小区经济由于颗粒度更小，服务人群有限（往往只是1-2个小区），在长期高频的交互过程中零售商可以越来越清晰地知晓和预测本地居民的需求，这为更前置的微仓储带来可能。</ui-view>
+      <ui-view class="article">同时，由连锁品牌信任度及近距离、高粘性带来的零售商与社区居民间更紧密的关系，也有利于更多高客单品类的预售模式的展开，彻底打掉库存。由此，可以预判，这张零售渠道网络未来的护城河：以城市小区入口动线为核心的近场渠道网络+近距离交付与服务能力+独占的心智。</ui-view>
+      <ui-view class="article">第二，从SKU和店效之间寻找平衡的维度来看，由于社区生鲜店的核心是服务家庭餐饮消费场景，零售商需要在针对该场景的品类选择上与公司本身门店的效率、可扩张性性上找到最优解，以此训练出一个标准化能力最强的单店模型。我们看到了，已经有优秀的创业者在降本增效、以及创造性的单品建设上有非常好的idea。</ui-view>
+      <ui-view class="article">从目前具体的市场环境来看， 我们判断，一线和新一线城市人口多为新生精英人口，生活节奏快，且线上支付习惯成熟，城市人口密度支撑到家配送，因此主打这些城市的选手必须要有线上场景的支撑。线上场景长期看会有头部效应，拥有超级app的巨头则更有机会。</ui-view>
+      <ui-image
+        src="http://images.uileader.com/20180304/ebfd098c-f68a-4957-8d24-6dad71988848.jpg"
+        width="100%"
+        class="article_imgs"
+        data-preview-src="http://images.uileader.com/20180304/2f67363a-ea29-4061-bfb7-d88bb1d7f605.jpg" 
+        data-preview-group="1"
+      ></ui-image>
+      <ui-view class="article">二三四线城市赛道更宽。在一些人口持续流入、新城区建造较多且社区服务配套还不完善的城市我们认为是先期切入建立连锁社区生鲜业态的较佳选择。比如安徽从100万到700万人口的增长多为外来务工人员（主城区200万，一年流入61.3万外来人口），这部分人群对时间效率要求不高，也愿意自己去店里挑菜。但到家场景依然会有一定的需求。</ui-view>
+      <ui-view class="article">我们认为在后者市场中，优秀的选手有望通过并购整合加速做成百亿级的公司。适用于并购整合、加盟快速做大的模型：</ui-view>
+      <ui-view class="article">1、规模效应  </ui-view>
+      <ui-view class="article">2、标准化程度高</ui-view>
+      <ui-view class="article">3、较少的人工依赖，人才市场富余 </ui-view>
+      <ui-view class="article">4、强品牌效应，对区域品牌或个体小店整合后有短时间提升其盈利水平的能力</ui-view>
+      <ui-view class="article">5、点位资产有价值</ui-view>
+      <ui-view class="article">6、自身良好的速动比率、资产负债率及Free cash Flow支撑外延式发展的商业模型。</ui-view>
+      <ui-view class="article">而并购整合的好处也显而易见：</ui-view>
+      <ui-view class="article">1、快速构建起区域密度，形成消费者心智和区域壁垒，使得竞争者入局困难 </ui-view>
+      <ui-view class="article">2、节约了时间成本。在单个门店销售额弹性有限的情况下，这类公司的估值核心增长驱动力来自于门店数的增加。而并购可以加速拓展，节约时间，快速做大。</ui-view>
+      <ui-view class="article">中国的牛羊肉深加工能力及上游种植业相比日本、美国还非常落后，而所谓新零售我们认为最大的核心价值在于让中国消费者终于吃上鲜食了。这是个10万亿的市场，创业公司可以不断在整个供应链上（包括种植、深加工）进行深耕，成为真正满足家庭消费高品质一日三餐的服务提供方。同时，利用高频的场景与亲密的小区纽带关系为合作伙伴赋能，紧密联合物业、金融、居家养老等社会服务机构，形成延展性更强的平台级公司。</ui-view>
+      <ui-view class="accredit">本文经授权发布，不代表任何立场。如若转载请联系原作者。</ui-view>
+
+      <ui-view class="article_label">
+        <ui-view>京东</ui-view>
+        <ui-view>大数据</ui-view>
+        <ui-view>新零售</ui-view>
+        <ui-view>消费</ui-view>
+        <ui-view>消费升级</ui-view>
+        <ui-view>电商</ui-view>
+        <ui-view>零售</ui-view>
+      </ui-view>
+
+      <!-- <ui-row height="80" class="praise" space="40">
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>
+            <ui-icon type="praise" size="20" color="#6C6D6E"></ui-icon>
+          </ui-view>
+          <ui-text>3</ui-text>
+        </ui-col>
+      </ui-row> -->
+
+      <ui-row height="80" class="praise" space="80">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="praise">
+          <ui-view class="praise_wrap">
+            <ui-icon type="praise" size="24" color="#F1961C"></ui-icon>
+          </ui-view>
+          <ui-view>赞({{ upCount }})</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" space="20">
+          <ui-contrast
+            height="15"
+            value="{{ contrastValue }}"
+            color="{{ colorArry }}"
+            round-corner="true"
+            mode="full"
+          ></ui-contrast>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center"  width="60" bindtap="tread">
+          <ui-view class="tread_wrap">
+            <ui-icon type="tread" size="24" color="#3C7ADA"></ui-icon>
+          </ui-view>
+          <ui-view>呵呵({{ downCount }})</ui-view>
+        </ui-col>
+      </ui-row>
+
+      <ui-row height="60" class="article_share">
+        <ui-col vertical-align="middle" align="left">
+          <ui-view>分享至：</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" width="70">
+          <ui-view>
+            <ui-icon type="weixin" color="#35D015" size="20"></ui-icon>
+            <ui-text>微信</ui-text>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" width="90">
+          <ui-view>
+            <ui-icon type="friends-circle" color="#35D015" size="20"></ui-icon>
+            <ui-text>朋友圈</ui-text>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+
+      <ui-row height="80" class="author" border-top>
+        <ui-col vertical-align="middle" align="left">
+          <ui-view>消费</ui-view>
+          <ui-text>干货分享</ui-text>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="80">
+          <ui-view class="attention"><ui-icon type="plus2" size="12" color="#5687F4"></ui-icon>关注</ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+    <ui-view class="line"></ui-view>
+    <ui-view class="wrap {{ sizeClass }}">
+      <ui-view class="about_title">相关文章</ui-view>
+      <ui-row border-bottom class="about_list">
+        <ui-col vertical-align="middle" align="left" width="90">
+          <ui-image 
+            src="https://pic.36krcnd.com/201801/03094943/jbd7rj2pkbkv5h7y!feature"
+            width="70"
+            height="70"
+            mode="scaleToFill"
+          ></ui-image>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-view>盒马2018年在北京开30家门店！京东总部也在“盒区房”范围内</ui-view>
+          <ui-text>汽车交通</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row border-bottom class="about_list">
+        <ui-col vertical-align="middle" align="left" width="90">
+          <ui-image 
+            src="https://pic.36krcnd.com/201801/25053442/2cpj2ub45oim6bcu!feature"
+            width="70"
+            height="70"
+            mode="scaleToFill"
+          ></ui-image>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-view>touchUI领读 | 新零售的背后：社区商业价值的重塑</ui-view>
+          <ui-text>读书</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="about_list">
+        <ui-col vertical-align="middle" align="left" width="90">
+          <ui-image 
+            src="https://pic.36krcnd.com/201802/23055851/0ktwjwb82sr2vq4r!feature"
+            width="70"
+            height="70"
+            mode="scaleToFill"
+          ></ui-image>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-view>2017「新零售」的成绩单：无人零售成新风口，商超、便利店狂吸880亿</ui-view>
+          <ui-text>消费</ui-text>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+    <ui-view class="line"></ui-view>
+    <ui-view class="wrap {{ sizeClass }}">
+      <ui-view class="about_title">最新评论</ui-view>
+      <ui-row class="discuss" space="40" ui:for="{{ commentContent }}">
+        <ui-col vertical-align="top" align="left" width="50">
+          <ui-image 
+            src="{{ item.head }}"
+            width="30"
+            height="30"
+          ></ui-image>
+        </ui-col>
+        <ui-col vertical-align="top" align="left">
+          <ui-row space-bottom="20">
+            <ui-col vertical-align="top" align="left">
+              <ui-view>{{ item.name }}</ui-view>
+              <ui-text>{{ item.time }}</ui-text>
+            </ui-col>
+            <ui-col vertical-align="top" align="right" width="30">
+              <ui-icon type="praise" size="16" color="#5A5B5E"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-view class="discuss_text">{{ item.text }}</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row height="50" class="base_line">
+        <ui-col vertical-align="middle" align="center" width="140">
+          <ui-view>
+            <ui-view>——————————————————</ui-view>
+          <ui-view>喂喂，你碰到我的底线了</ui-view>
+          <ui-view>——————————————————</ui-view>
+          </ui-view>
+          
+        </ui-col>
+      </ui-row>
+    </ui-view>
+    </ui-view>
+    <ui-fixed-view bottom="0">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" bindclick="comment('wrap')">
+          <ui-view class="discuss_input">有何高见，展开讲讲</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50" bindtap="comment('')">
+          <ui-icon type="login_04" size="20" color="#484848"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50" bindtap="collect">
+          <ui-icon type="{{ iconName }}" size="20" color="{{ iconColor }}"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50">
+          <ui-icon type="share2" size="20" color="#484848"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-fixed-view>
+
+
+    <ui-popup ui:model="showMask" bindtap="hideMask" height="240">
+      <ui-view class="share_content">
+        <ui-scroll-view scroll-x height="80">
+          <ui-row height="60" class="share_list">
+            <ui-col vertical-align="middle" align="center">
+              <ui-icon type="wexin" size="30" color="#35D015"></ui-icon>
+              <ui-text>微信</ui-text>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-icon type="friends-circle" size="30" color="#35D015"></ui-icon>
+              <ui-text>朋友圈</ui-text>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-icon type="weibo" size="30" color="#F4000F"></ui-icon>
+              <ui-text>微博</ui-text>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-icon type="qq_img" size="30" color="#2E7AFF"></ui-icon>
+              <ui-text>QQ</ui-text>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-icon type="qzone" size="30" color="#F1B733"></ui-icon>
+              <ui-text>QQ空间</ui-text>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              <ui-icon type="attachment" size="30" color="#323337"></ui-icon>
+              <ui-text>复制链接</ui-text>
+            </ui-col>
+          </ui-row>
+        </ui-scroll-view>
+        <ui-view class="wrap">
+          <ui-view class="mask_line"></ui-view>
+          <ui-row height="60" class="screen">
+            <ui-col vertical-align="middle" align="left">
+              <ui-view>屏幕亮度</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right">
+              <ui-slider ui:model="slideValue" bindchange="sliderChange"></ui-slider>
+            </ui-col>
+          </ui-row>
+          <ui-row height="60" class="screen">
+            <ui-col vertical-align="middle" align="left">
+              <ui-view>字号大小</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="60" bindtap="fontSize('小')">
+              <ui-view class="{{ sizeClassArry[0] }}">小</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="60" bindtap="fontSize('中')">
+              <ui-view class="{{ sizeClassArry[1] }}">中</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="60" bindtap="fontSize('大')">
+              <ui-view class="{{ sizeClassArry[2] }}">大</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="60" bindtap="fontSize('超大')">
+              <ui-view class="{{ sizeClassArry[3] }}">超大</ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+      </ui-view>
+    </ui-popup>
+
+
+    <!-- 全片输入框 -->
+
+    <ui-popup ui:model="{{ popupShow }}" height="100%" background="#F2F2F2">
+      <ui-view class="comment_wrap" style="{{{ 'padding-top':statusBar+'px' }}}">
+        <ui-row height="46" class="head">
+          <ui-col vertical-align="middle" align="left" space-left="10" width="40" bindtap="cancel">
+            <ui-view>取消</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-view class="title">评论</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="right" width="40" space-right="10" bindtap="publish">
+            <ui-view class="publish {{ className }}">发布</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-textarea maxlength="-1" show-counter="{{false}}" focus="{{ popupShow }}" height="120" placeholder="发表评论" placeholder-style="color:#A8A8A8" value="{{ textareaValue }}" bindinput="changeTextarea"></ui-textarea>
+        <ui-view class="choose">
+          <ui-row height="50" bindtap="showActionSheet">
+            <ui-col vertical-align="middle" align="left" space-left="10">
+              <ui-view class="left">选择发布身份</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right">
+              <ui-view class="right">{{ identity }}</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="14" color="#DFDDDF"></ui-icon>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+      </ui-view>
+    </ui-popup>
+
+    <ui-previewer bindopen="handleopen" bindclose="handleclose" bindchange="handlechange">
+			<!-- <ui-text class="text-font" block ui:show="textShow">{{text}}</ui-text> -->
+		</ui-previewer>
+
+
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":"black"
+  },
+  data () {
+    return {
+      navClass:'',
+      contrastValue: [3, 2],
+      colorArry: ['#F1961C', '#3C7ADA'],
+      upCount: 3,
+      downCount: 2,
+      contentHeight:ui.DEFAULT_CONTENT_HEIGHT,
+      iconName:'collect1',
+      iconColor:'#484848',
+      isShow:true,
+      showMask:false,
+      slideValue:0,
+      sizeClassArry:['active'],
+      sizeClass:'',
+
+      commentContent:[
+        {
+          head:require('#/images/indexList/t2.png'),
+          name:'菜仓-a-b-c',
+          time:'昨天',
+          text:'买生鲜还是要去菜场，那里有生活的味道，是任何地方都不可比的。如果要和菜场抢生意，那还是得先起个好名字，电商也好，实体店铺也好，菜仓怎么样，或者菜仓生鲜？更接近菜场，高大上，还很接地气：）'
+        },
+        {
+          head:require('#/images/indexList/t2.png'),
+          name:'老格',
+          time:'昨天',
+          text:'这不就是“touchUI”正在做的事情吗'
+        }
+      ],
+      popupShow:false,
+      identity:'TOUCH UI（自己）',
+      textareaValue:'',
+      className:'',
+      statusBar:ui.STATUS_BAR_HEIGHT,
+
+
+      idx: 0,
+    }
+  },
+  methods: {
+    handleScroll (scrollTop) {
+      console.log(scrollTop)
+      if (scrollTop > 10) {
+        console.log(520)
+        this.navClass='active'
+      }else{
+        this.navClass=''
+      }
+    },
+    navigateBack () {
+      ui.navigateBack()
+    },
+    praise () {
+      this.contrastValue = [this.upCount += 1, this.downCount]
+    },
+    tread () {
+      this.contrastValue = [this.upCount, this.downCount += 1]
+    },
+    collect(){
+      if(this.iconName==='collect1'){
+        this.iconName='collect2'
+        this.iconColor="#F2961C"
+      }else{
+        this.iconName='collect1'
+        this.iconColor=""
+      }
+    },
+    log(str){
+      console.log(str)
+    },
+    sliderChange (value) {
+      console.log(value)
+      this.set(value / 100)
+    },
+    set (value) {
+      ui.setScreenBrightness({
+        value
+      })
+    },
+    fontSize(val){
+      this.sizeClassArry=[]
+      if(val==='小'){
+        this.sizeClassArry[0]='active'
+        this.sizeClass='small'
+      }else if(val==='中'){
+        this.sizeClassArry[1]='active'
+        this.sizeClass='middle'
+      }else if(val==='大'){
+        this.sizeClassArry[2]='active'
+        this.sizeClass='big'
+      }else{
+        this.sizeClassArry[3]='active'
+        this.sizeClass='oversized'
+      }
+    },
+    shareMask(){
+      this.showMask=true
+    },
+    hideMask(){
+      // console.log(this.positionBottom)
+      // this.positionBottom=0
+      // console.log(this.positionBottom)
+    },
+    comment(val){
+      if(val==='wrap'){
+        // ui.navigateTo({
+        //   url: '/pages/templeteDemo/information/commentWrap'
+        // })
+        this.popupShow=true
+      }else{
+        ui.navigateTo({
+          url: '/pages/templeteDemo/information/comment'
+        })
+      }
+    },
+
+
+    //评论
+    changeTextarea(e){
+      console.log(e)
+      this.textareaValue=e
+      if (this.textareaValue.length > 0) {
+        this.className = 'active'
+      } else {
+        this.className = ''
+      }
+    },
+    cancel() {
+      this.popupShow = false
+    },
+    publish(){
+      if (this.className!==''){
+        this.popupShow = false
+        let date = new Date();
+        let mytime = date.toLocaleTimeString()
+        let content = {
+          head: require('#/images/indexList/t2.png'),
+          name: 'Touch UI',
+          time: mytime,
+          text: this.textareaValue
+        }
+        this.commentContent.unshift(content)
+        ui.showToast({ title: '评论成功' })
+        this.textareaValue = ''
+      }
+    },
+    showActionSheet(){
+      let itemList = [
+        'TOUCH UI（自己）'
+      ]
+      ui.showActionSheet({
+        header: '<p><span style="color:#828282;font-size:12px;">选择发布身份</span></p>',
+        itemList: itemList,
+        success: (index) => {
+          this.identity = itemList[index]
+        }
+      })
+    },
+
+
+    //图片预览
+    handleopen (e) {
+      console.log(e)
+    },
+    handleclose () {
+      
+    },
+    handlechange (e) {
+      console.log(e)
+      this.idx = e
+      // this.text = this.value[e].text
+    }
+  },
+  mounted () {
+    ui.getScreenBrightness({
+      success: ({ value }) => {
+        this.slideValue = value * 100
+      }
+    })
+  }
+}
+
+</script>
+
+<style lang="less">
+// @font1:14px;
+// @font2:16px;
+// @font3:18px;
+// @font4:20px;
+.nav_bar{
+  background-color:#fff;
+  .ui-view{
+    font-size: 14px;
+    color: #2A2A2A;
+  }
+  &.active{
+    box-shadow: 0px 0px 13px 0px #ccc;
+  }
+}
+.wrap{
+  padding: 10px;
+  background-color: #fff;
+}
+.details_title{
+  color: #3d464d;
+  font-size: 20px;
+  // margin-top: 20px;
+  font-weight: 600;
+  padding: 20px;
+  text-align: center;
+}
+.author{
+  .ui-image{
+    border-radius: 50%;
+  }
+  .ui-view{
+    font-size: 14px;
+    color: #282828;
+  }
+  .ui-text{
+    color: #878A8F;
+    font-size: 12px;
+  }
+  .attention{
+    border-radius: 25px;
+    border: 1px solid #5687F4;
+    color:#5687F4;
+    font-size: 12px;
+    text-align: center;
+    padding: 0 10px;
+  }
+}
+.title2{
+  font-size: 14px;
+  color: #2A2A2A;
+  background-color: #F6F6F6;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+.article{
+  color: #3d464d;
+  font-size: 14px;
+  line-height: 30px;
+  margin: 20px 0;
+}
+.article_imgs{
+  // margin: 10px 0;
+  border-radius: 5px;
+}
+.accredit{
+  color: #999;
+  font-size: 12px;
+  line-height: 30px;
+  margin-bottom:10px;
+}
+.article_label{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  .ui-view{
+    display: inline-flex;
+    // border: 1px solid #68727d;
+    border-radius: 25px;
+    color: #2F2F2F;
+    font-size: 12px;
+    padding: 5px 10px;
+    margin-right:10px;
+    margin-bottom:10px;
+    background-color: #F2F2F2;
+  }
+}
+.praise{
+  .praise_wrap{
+    width:40px;
+    height: 40px;
+    border-radius: 50%;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #F1961C;
+  }
+}
+
+.article_share{
+
+}
+.line{
+  height: 10px;
+  background-color: #F1F1F1;
+}
+.about_title{
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 30px;
+}
+.about_list{
+  padding: 10px 0;
+  .ui-image{
+    border-radius: 3px;
+  }
+  .ui-view{
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .ui-text{
+    font-size: 14px;
+    color: #B4B5B9;
+  }
+}
+.discuss{
+  .ui-image{
+    border-radius: 50%;
+  }
+  .ui-row{
+    width:100%;
+    .ui-view{
+      font-size: 14px;
+      color: #7B7C7F;
+    }
+    .ui-text{
+      font-size: 12px;
+      color: #95979C;
+    }
+  }
+  .discuss_text{
+    font-size: 14px;
+    color: #3D3D3D;
+  }
+}
+.base_line{
+  font-size: 12px;
+  color: #C7C8CA;
+  .ui-view{
+    display: inline-block;
+  }
+}
+.ui-fixed-view {
+  width: 100%;
+  background-color: #fff;
+  .ui-row{
+    .mix-1px(1, 0, 0, 0, #ccc);
+    .discuss_input{
+      width: 90%;
+      background-color: #F1F1F1;
+      font-size: 14px;
+      color: #929498;
+      border-radius: 25px;
+      padding: 0 10px;
+      line-height: 30px;
+    }
+  }
+}
+.share_content{
+  background-color: #fff;
+  border-radius: 5px 5px 0 0;
+  padding: 20px 0 0 0;
+  position: absolute;
+  bottom: -0;
+  transition: bottom 2s ease-in;
+  .share_list{
+    width:500px;
+  }
+  .mask_line{
+    .mix-1px(1, 0, 0, 0, #ccc);
+  }
+  .screen{
+    .ui-view{
+      font-size: 14px;
+      color: #5D6168;
+      &.active{
+        font-weight: 700;
+        font-size: 16px;
+      }
+    }
+  }
+}
+.ui-slider [slider=slider]{
+  width: 20px;
+  height: 20px;
+  top: 10px!important;
+}
+
+
+.comment_wrap{
+  background-color: #fff;
+  .head{
+    color: #646464;
+    font-size: 14px;
+    .title{
+      font-size: 16px;
+    }
+    .publish{
+      color: #B4D3F5;
+      &.active{
+        color: #0E63FF;
+      }
+    }
+  }
+  .ui-textarea-wrapper{
+    padding: 10px;
+    border: 0;
+    .ui-textarea{
+      padding: 0;
+    }
+  }
+  .choose{
+    padding-left: 10px;
+    border-top: 1px solid #FAFAFA;
+    background-color: #fff;
+    .ui-row{
+      border-top: 1px solid #FAFAFA;
+      .left{
+        color: #2A2A2A;
+        font-size: 14px;
+      }
+      .right{
+        color: #929292;
+        font-size: 14px;
+      }
+    }
+    
+  }
+}
+
+.ui-previewer{
+  z-index: 9999;
+  position: fixed;
+  bottom: 0;
+  .ui-text{
+    color:#fff
+  }
+}
+
+
+
+
+
+
+.wrap{
+  &.middle{
+    .details_title{
+      font-size: 22px;
+    }
+    .title2,
+    .article,
+    .author .ui-view,
+    .about_title,
+    .about_list .ui-view,
+    .about_list .ui-text,
+    .discuss .ui-row .ui-view,
+    .discuss .discuss_text{
+      font-size: 16px;
+    }
+    .accredit,
+    .article_label .ui-view,
+    .author .ui-text,
+    .author .attention,
+    .discuss .ui-row .ui-text,
+    .base_line,
+    .attention .ui-icon{
+      font-size: 14px;
+    }
+  }
+  &.big{
+    .details_title{
+      font-size: 24px;
+    }
+    .title2,
+    .article,
+    .author .ui-view,
+    .about_title,
+    .about_list .ui-view,
+    .about_list .ui-text,
+    .discuss .ui-row .ui-view,
+    .discuss .discuss_text{
+      font-size: 18px;
+    }
+    .accredit,
+    .article_label .ui-view,
+    .author .ui-text,
+    .author .attention,
+    .discuss .ui-row .ui-text,
+    .base_line{
+      font-size: 16px;
+    }
+  }
+  &.oversized{
+    .details_title{
+      font-size: 26px;
+    }
+    .title2,
+    .article,
+    .author .ui-view,
+    .about_title,
+    .about_list .ui-view,
+    .about_list .ui-text,
+    .discuss .ui-row .ui-view,
+    .discuss .discuss_text{
+      font-size: 20px;
+    }
+    .accredit,
+    .article_label .ui-view,
+    .author .ui-text,
+    .author .attention,
+    .discuss .ui-row .ui-text,
+    .base_line{
+      font-size: 18px;
+    }
+  }
+}
+</style>

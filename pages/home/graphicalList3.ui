@@ -1,0 +1,66 @@
+<!--graphicalList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row >
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <!-- {{ item.title }} -->
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// graphicalList.js
+export default {
+  config: {
+    "navigationBarTitleText": "图形化"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '图表',
+          items: [
+            { title: '柱状图 条形图 bar', link: '/pages/componentDemo/chart/bar' },
+            { title: '分组柱状图 grouped-bar', link: '/pages/componentDemo/chart/groupedBar' },
+            { title: '堆积柱状图 stacked-bar', link: '/pages/componentDemo/chart/stackedBar' },
+            { title: '折线图 曲线图 line', link: '/pages/componentDemo/chart/line' },
+            { title: '面积图 stacked-area', link: '/pages/componentDemo/chart/stackedArea' },
+            { title: '环形图 donut', link: '/pages/componentDemo/chart/donut' },
+            { title: '轮播环形图 slide-donut', link: '/pages/componentDemo/chart/slideDonut' },
+            { title: '层级环形图 level-donut', link: '/pages/componentDemo/chart/levelDonut' },
+            { title: '漏斗图 funnel', link: '/pages/componentDemo/chart/funnel' },
+            { title: '直方图 step', link: '/pages/componentDemo/chart/step' },
+            { title: '趋势图 sparkline', link: '/pages/componentDemo/chart/sparkline' },
+            { title: '对比图 contrast', link: '/pages/componentDemo/chart/contrast' },
+            { title: '仪表盘 dashboard', link: '/pages/componentDemo/chart/dashboard' }
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+  
+</style>
+  

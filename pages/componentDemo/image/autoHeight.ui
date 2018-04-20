@@ -1,0 +1,65 @@
+<!--image2.ui-->
+<template>
+  <ui-page>
+    <ui-view class="container">
+      <ui-view class="top">
+        <ui-image src="{{ src }}" mode="aspectFit"></ui-image>
+      </ui-view>
+      <ui-view class="bottom">
+        固定400px高度
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "高度自适应"
+  },
+  data () {
+    return {
+      src: require('#/images/cat.jpg'),
+      width: 200,
+      height: 200,
+      naturalWidth: 400,
+      naturalHeight: 300
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  // image2.less
+.ui-page-content, .container {
+  height: 100%;
+}
+
+.ui-image-container {
+  background-color: #eee;
+}
+
+.container{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .top {
+    flex: 1;
+    height: auto;
+    overflow: hidden;
+    .ui-image {
+      margin: 0 auto;
+    }
+  }
+  .bottom {
+    flex: 0 0 400px;
+    height: 400px;
+    background-color: #ccc;
+    font-size: 14px;
+    text-align: center;
+  }
+}
+</style>

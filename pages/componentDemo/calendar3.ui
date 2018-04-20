@@ -1,0 +1,114 @@
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar">
+      <ui-row>
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col align="center">
+          <ui-view>{{dataMonth}}</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-view class="bg-blue">
+        <ui-w-calendar
+        bindweekchange="weekHandler"
+        value="{{date}}"
+        bindchanged="selectedHandler($event)"
+      ></ui-w-calendar>
+    <ui-wave style="position:absolute;bottom:0" canvas-id="waterball" height="64"></ui-wave>
+
+    </ui-view>
+    <ui-text block style="margin-top:10px;text-align:center">当前选中的日期是{{dateDay}}</ui-text>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "calendar3",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":"white"
+  },
+  data () {
+    return {
+      // 周日历绑定的日期
+      date: '',
+      // 天
+      dateDay: '',
+      // 时间对象，存储临时变化的时间
+      dateObj: {},
+      // 月
+      dataMonth:''
+    }
+  },
+  methods: {
+    // 周日历滑时出发，获取滑动后的日期。并赋值给nav-bar上
+    weekHandler(e){
+      let dataMonth = e.substring(0,7)
+      dataMonth = dataMonth.split('/')
+      this.dataMonth = `${dataMonth[0]}年${dataMonth[1]}月`
+    },
+    // 选择日期时触发。将选择后的日期格式化后显示出来
+    selectedHandler (e) {
+      this.dateObj = e.split('/')
+      this.dateDay = `${this.dateObj[0]}年${this.dateObj[1]}月${this.dateObj[2]}日`
+    },
+    // 返回
+    navigateBack () {
+      ui.navigateBack()
+    },
+    // 将日期格式化成 "年/月/日" 格式
+    format (obj) {
+      var date = new Date(obj)
+      var y = 1900 + date.getYear()
+      var m = '0' + (date.getMonth() + 1)
+      var d = '0' + date.getDate()
+      return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+    }
+  },
+  mounted () {
+    // 获取今天的时间
+    let date = new Date()
+    date = this.format(date)
+    this.date = date
+
+    // 在初始化时，获取当天日期，并显示出来。
+    this.dateObj = this.date.split('/')
+    this.dateDay = `${this.dateObj[0]}年${this.dateObj[1]}月${this.dateObj[2]}日`
+    this.dataMonth = `${this.dateObj[0]}年${this.dateObj[1]}月`
+  }
+}
+
+</script>
+
+<style lang="less">
+  // calendar3.less
+.ui-nav-bar{
+  background-color: #39f;
+  color:#fff
+}
+.calendartab{
+  padding:10px 0
+}
+.ui-w-calendar{
+  background-color: transparent;
+  color:#fff;
+}
+.is-holiday{
+  color:#fff !important;
+}
+.is-selected{
+  background-color:#fff!important;
+  color:#39f!important
+}
+
+.bg-blue{
+  background-color:#3399FF; 
+  width:100%; 
+  height: 100px;
+  position: relative;
+}
+</style>

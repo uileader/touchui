@@ -1,0 +1,35 @@
+<!--tabBar11.ui-->
+<template>
+  <ui-page>
+    <ui-view class="content">
+      <ui-text class="title">5-3</ui-text>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// tabBar11.js
+export default {
+  config: {
+    "navigationBarTitleText": "5-3 BeforeChange"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  // tabBar11.less
+.content{
+  padding:10px;
+  height:60px;
+  .title{
+  font-size:20px;
+  text-align: center
+}
+}
+</style>

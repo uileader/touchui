@@ -1,0 +1,239 @@
+<!--register.ui-->
+<template>  
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col width="50" align="left" space-left="10" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-text>在线支付</ui-text>  
+        </ui-col>
+        <ui-col width="50" vertical-align="middle" align="center">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-row height="10"></ui-row>
+    <ui-view class="form">
+      <ui-row height="80" class="form_top">
+        <ui-col vertical-align="middle" align="right" width="100" space-right="5">
+          <ui-icon type="success" size="40" color="#39f"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="5">
+          <ui-view class="title">结算成功，马上付款～</ui-view>
+          <ui-view class="title2">请尽快完成支付，超时订单将关闭。</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-view class="form_top2">
+        <ui-view>应付金额：¥ <ui-text>500</ui-text></ui-view>
+        <ui-view>订单金额：¥ 500</ui-view>
+        <ui-view>余额支付：¥ 0</ui-view>
+        <ui-view>收货信息：北京市丰台区搜宝商务中心</ui-view>
+      </ui-view>
+    </ui-view>
+    <ui-view class="form_tip">请选择支付方式 <ui-text>请在120分钟内完成支付</ui-text></ui-view>
+    <ui-view class="demo-content">
+      <ui-radio-group>
+        <ui-label>
+          <ui-row height="60" border-bottom>
+            <ui-col width="50" vertical-align="middle" align="center">
+              <ui-icon type="weixin" size="36" color="#72d345"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle">
+              <ui-view class="title">微信支付</ui-view>
+              <ui-view class="msg">推荐安装微信客户端的用户使用</ui-view>
+            </ui-col>
+            <ui-col width="30" vertical-align="middle">
+              <ui-radio value="1" checked></ui-radio>
+            </ui-col>
+          </ui-row>
+        </ui-label>
+        <ui-label>
+          <ui-row height="60" border-bottom>
+            <ui-col width="50" vertical-align="middle" align="center">
+              <ui-icon type="zhifubao" size="36" color="#009fe8"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle">
+              <ui-view class="title">支付宝支付</ui-view>
+              <ui-view class="msg">推荐安装支付宝客户端的用户使用</ui-view>
+            </ui-col>
+            <ui-col width="30" vertical-align="middle">
+              <ui-radio value="2"></ui-radio>
+            </ui-col>
+          </ui-row>
+        </ui-label>
+        <ui-label>
+          <ui-row height="60" border-bottom>
+            <ui-col width="50" vertical-align="middle" align="center">
+              <ui-view class="pay_icon">
+                <ui-icon type="login_01" size="25" color="#fff"></ui-icon>
+              </ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle">
+              <ui-view class="title">财富通支付</ui-view>
+              <ui-view class="msg">提供储蓄卡、信用卡快捷支付</ui-view>
+            </ui-col>
+            <ui-col width="30" vertical-align="middle">
+              <ui-radio value="3"></ui-radio>
+            </ui-col>
+          </ui-row>
+        </ui-label>
+        <ui-label>
+          <ui-row height="60">
+            <ui-col width="50" vertical-align="middle" align="center">
+              <ui-view class="pay_icon pay_icon2">
+                <ui-icon type="qq_img" size="25" color="#fff"></ui-icon>
+              </ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle">
+              <ui-view class="title">QQ钱包支付</ui-view>
+              <ui-view class="msg">推荐已安装QQ客户端的用户使用</ui-view>
+            </ui-col>
+            <ui-col width="30" vertical-align="middle">
+              <ui-radio value="4"></ui-radio>
+            </ui-col>
+          </ui-row>
+        </ui-label>
+      </ui-radio-group>
+    </ui-view>
+
+    <ui-row height="40" class="confirm">
+      <ui-col vertical-align="middle" align="center">
+        <ui-view bindtap="confirm">确定支付</ui-view>
+      </ui-col>
+    </ui-row>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "backgroundColor":"#EFEFEF"
+  },
+  data () {
+    return {
+      
+    }
+  },
+  methods: {
+    navigateBack() {
+      ui.navigateBack()
+    },
+    confirm(){
+      ui.showToast({title: '付款成功', icon: 'success'})
+      ui.removeStorageSync('v3_ui_shopList')
+      setTimeout(() => {
+        ui.navigateBack()
+      }, 500);
+    }
+    
+  },
+  mounted () {
+    
+  }
+}
+
+</script>
+
+
+<style lang="less">
+.nav_bar{
+  .mix-1px(0, 0, 1, 0, #ccc);
+   background-color: #fff;
+  .ui-text{
+    color: #2F2F2F;
+    font-size: 16px;
+  }
+  .ui-view{
+    color: #454545;
+    font-size: 12px;
+  }
+}
+.form{
+  padding: 10px 10px 0 10px;
+  background-color: #fff;
+}
+.form_top{
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .title{
+    font-size: 14px;
+    color: #39f;
+  }
+  .title2{
+    font-size: 12px;
+    color: #616161;
+  }
+}
+.form_top2{
+  .ui-view{
+    font-size: 14px;
+    color:#232323;
+    line-height: 30px;
+    .ui-text{
+      color:#F42734;
+    }
+  }
+}
+.form_tip{
+  color: #4C4C4C;
+  font-size: 12px;
+  line-height: 40px;
+  padding-left:10px;
+  .ui-text{
+    color: #39f;
+    margin-left: 10px;
+  }
+}
+.demo-content{
+  background-color: #fff;
+  .radio {
+    display: block;
+    margin-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    &:not(:first-of-type) {
+      .mix-1px(1, 0, 0, 0, #d4d4d4);
+    }
+    .ui-radio {
+      margin-right: 6px;
+    }
+  }
+  .title{
+    color:#333;
+    font-size:14px;
+  }
+  .msg{
+    color:#666;
+    font-size:12px
+  }
+  .pay_icon{
+    width: 33px;
+    height: 33px;
+    background-color: #F6650D;
+    line-height: 33px;
+    text-align: center;
+    border-radius: 5px;
+    &.pay_icon2{
+      background-color: #2363D3;
+    }
+  }
+}
+.confirm{
+  margin-top: 30px;
+  background-color: #fff;
+  padding: 10px 0;
+  .ui-view{
+    display: inline-block;
+    // padding: 5px 30px;
+    width: 35%;
+    line-height: 30px;
+    background-color: #39f;
+    border-radius: 15px;
+    color: #fff;
+    font-size:14px;
+  }
+}
+
+</style>

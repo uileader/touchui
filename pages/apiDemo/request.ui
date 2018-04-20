@@ -1,0 +1,88 @@
+<!--request.ui-->
+<template>
+  <ui-page>
+    <ui-view class="page-body">
+      <ui-view class="page-body-wording">
+        <ui-view class="page-body-div">
+          点击向服务器发起请求
+        </ui-view>
+        <ui-view class="code">
+          <ui-view class="title">服务器返回：</ui-view>
+          <pre>{{res}}</pre>
+        </ui-view>
+      </ui-view>
+      <ui-view class="btn-area">
+        <ui-button bindtap="makeRequest" type="primary" disabled="{{loading}}" loading="{{loading}}">request</ui-button>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// request.js
+const requestUrl = '/touchui-backstage/testRequest.do'
+export default {
+  config: {
+    "navigationBarTitleText": "发起请求"
+  },
+  data () {
+    return {
+      loading: false,
+      res: ''
+    }
+  },
+  methods: {
+    makeRequest () {
+      var self = this
+      self.loading = true
+      ui.request({
+        url: requestUrl,
+        data: {
+          // noncestr: Date.now()
+          x: '',
+          y: ''
+        },
+        success: function (result) {
+          self.loading = false
+          self.res = JSON.stringify(result, null, 4)
+        },
+        fail: function ({ errMsg }) {
+          self.loading = false
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // request.less
+.page-body-wording {
+  padding: 15px;
+  font-size: 24px;
+  color: #333;
+}
+
+.page-body-div {
+  text-align: center;
+}
+
+.code {
+  margin-top: 10px;
+  .title {
+    padding: 5px;
+    font-size: 16px;
+  }
+  pre {
+    padding: 5px;
+    color: #3399ff;
+    font-size: 12px;
+    overflow-x: scroll;
+  }
+}
+
+.btn-area {
+  padding: 0px 15px;
+}
+</style>

@@ -1,0 +1,110 @@
+<template>
+  <ui-page>
+    <ui-view class="container">
+      <ui-view class="page-body">
+        <ui-view class="page-section">
+          <ui-view class="page-body-info">
+            <ui-view class="page-body-text-small">当前位置经纬度</ui-view>
+            <ui-view ui:if="{{hasLocation === false}}">
+              <ui-view class="page-body-text">未获取</ui-view>
+            </ui-view>
+            <ui-view ui:if="{{hasLocation === true}}">
+              <ui-view class="page-body-text-location">
+                <ui-view>E: {{location.longitude[0]}}°{{location.longitude[1]}}′</ui-view>
+                <ui-view>N: {{location.latitude[0]}}°{{location.latitude[1]}}′</ui-view>
+              </ui-view>
+            </ui-view>
+          </ui-view>
+          <ui-view class="btn-area">
+            <ui-button type="primary" bindtap="getLocation">获取位置</ui-button>
+            <ui-button bindtap="clear">清空</ui-button>
+            <ui-view>在浏览器中使用GPS需要通过https访问webApp</ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// import util from '#/static/utils/util'
+var util = require('#/static/utils/util')
+var formatLocation = util.formatLocation
+export default {
+  config: {
+    "navigationBarTitleText": "获取当前位置"
+  },
+  data () {
+    return {
+      hasLocation: false,
+      location: ''
+    }
+  },
+  methods: {
+    getLocation: function () {
+      var that = this
+      ui.getLocation({
+        success: function (res) {
+          that.setData({
+            hasLocation: true,
+            location: formatLocation(res.longitude, res.latitude)
+          })
+        }
+      })
+    },
+    clear: function () {
+      this.setData({
+        hasLocation: false
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .btn-area {
+  padding: 0px 15px;
+}
+
+.page-section {
+  width: 100%;
+  margin-bottom: 60rpx;
+}
+
+.page-body-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  padding: 50rpx 0 150rpx 0;
+}
+
+.page-body-text {
+  font-size: 30rpx;
+  line-height: 26px;
+  color: #ccc;
+}
+
+
+
+.page-body-info {
+  height: 250rpx;
+}
+
+.page-body-text-small {
+  font-size: 24rpx;
+  color: #000;
+  margin-bottom: 40rpx;
+}
+
+.page-body-text-location {
+  display: flex;
+  font-size: 50rpx;
+}
+
+.page-body-text-location text {
+  margin: 10rpx;
+}
+</style>

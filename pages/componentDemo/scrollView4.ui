@@ -1,0 +1,77 @@
+<!--scrollView4.ui-->
+<template>
+  <ui-page>
+      <ui-scroll-view scroll-x height="200" scroll-into-view.sync="{{toView}}"
+       scroll-left="{{scrollLeft}}" 
+       >
+        <ui-view class="content">
+          <ui-view id="a1" class="item bc_green">1</ui-view>
+          <ui-view id="a2" class="item bc_red">2</ui-view>
+          <ui-view id="a3" class="item bc_blue">3</ui-view>
+          <ui-view id="a4" class="item bc_green">4</ui-view>
+          <ui-view id="a5" class="item bc_red">5</ui-view>
+          <ui-view id="a6" class="item bc_blue">6</ui-view>
+        </ui-view>
+      </ui-scroll-view>
+      <ui-view class="sample_content">
+        <ui-button bindtap="tapMove">点击我滚动</ui-button>
+        <ui-button bindtap="tap">点击我滚动到视图6</ui-button>
+      </ui-view>
+  </ui-page>
+</template>
+
+<script>
+  // scrollView4.js
+export default {
+  config: {
+    navigationBarTitleText: "scroll-view横向滚动",
+    disableScroll:true
+  },
+  data () {
+    return {
+      toView: 'a4',
+      scrollLeft: 100
+    }
+  },
+  methods: {
+    tap () {
+      this.toView = 'a6'
+    },
+    tapMove () {
+      this.scrollLeft = this.scrollLeft + 20
+    },
+    backTop () {
+      this.scrollLeft = 0
+    }
+
+  },
+  mounted () {
+  }
+}
+
+</script>
+
+<style lang="less">
+.content{
+  background-color: #FFFFFF;
+  width:1800px;
+  .mix-clearfix();
+}
+.item{
+  width: 300px;
+  height: 200px;
+  float: left;
+  color: #FFFFFF;
+  line-height: 200px;
+  text-align: center;
+}
+.bc_green{
+  background-color: #7CC422;
+}
+.bc_red{
+  background-color: #FFA060;
+}
+.bc_blue{
+  background-color: #46D1E4;
+}
+</style>

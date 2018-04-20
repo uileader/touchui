@@ -1,0 +1,77 @@
+<!--savepictures.ui-->
+<template>
+  <ui-page>
+    <ui-view class="win">
+      <ui-view class="img_win">
+        <ui-image src="{{ imageSrc }}" height="200" ></ui-image>
+      </ui-view>
+      <ui-view>
+        <ui-button type="primary" bindtap="saveImg">保存到手机相册</ui-button>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// savepictures.js
+export default {
+  config: {
+    "navigationBarTitleText": "保存图片"
+  },
+  data () {
+    return {
+      imageSrc: 'http://images.uileader.com/20170930/7fbde6a5-2e25-4f74-873d-a4b44fd82269.jpg'
+    }
+  },
+  methods: {
+    saveImg () {
+      var self = this
+      ui.downloadFile({
+        url: self.imageSrc,
+        success: function (res) {
+          ui.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success: function (res) {
+              ui.showToast({ title: '已保存到相册', icon: 'success' })
+            },
+            fail () {
+              ui.showToast({
+                title: '保存失败'
+              })
+            },
+            complete () {
+
+            }
+          })
+        },
+        fail: function ({ errMsg }) {
+          ui.showToast({
+            title: '图片下载失败'
+          })
+        },
+        complete: function () {
+
+        }
+      })
+    }
+  },
+  mounted () {
+
+  }
+
+}
+
+</script>
+
+<style lang="less">
+  // savepictures.less
+.win{
+  padding: 10px;
+}
+.img_win{
+  width: 200px;
+  height: 200px;
+  border: 1px solid #ccc;
+  margin: auto;
+}
+</style>

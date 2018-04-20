@@ -1,0 +1,41 @@
+<!--tabBar10.ui-->
+<template>
+  <ui-page page-load="{{pageload2}}">
+    <ui-view class="content">
+      <ui-text block class="title">5-2</ui-text>
+      {{ pageloadText }}
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "5-2 tabLoad"
+  },
+  data () {
+    return {
+      pageloadText: '',
+      pageload2: {
+        trigger: 'always',
+        handle: () => {
+          this.pageloadText += `pageload事件：每次页面加载时都触发\n`
+        }
+      }
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  .content{
+  padding:10px;
+  height:60px;
+  .title{
+  font-size:20px;
+  text-align: center
+}
+}
+</style>

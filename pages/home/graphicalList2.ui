@@ -1,0 +1,71 @@
+<!--graphicalList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row >
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <!-- {{ item.title }} -->
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// graphicalList.js
+export default {
+  config: {
+    "navigationBarTitleText": "图形化"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '时间轴 timeline',
+          items: [
+            { title: '竖向时间轴', link: '/pages/componentDemo/timeline' },
+            { title: '横向时间轴', link: '/pages/componentDemo/timeline2' },
+            { title: '时间轴综合', link: '/pages/componentDemo/timeline3' }
+          ]
+        },
+        {
+          title: '进度环',
+          items: [
+            { title: '进度环 circular', link: '/pages/componentDemo/circular' },
+            { title: '多层进度环 multi-circular', link: '/pages/componentDemo/multiCircular' },
+            { title: '迷你进度环 mini-circular', link: '/pages/componentDemo/miniCircular' }
+          ]
+        },
+        {
+          title: '进度条',
+          items: [
+            { title: '进度条 progress', link: '/pages/componentDemo/progress' },
+            { title: '进度条应用案例', link: '/pages/componentDemo/progress2' }
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+  
+</style>
+  

@@ -1,0 +1,404 @@
+
+<template>
+  <ui-page >
+      <ui-view class="sample_title">测试1</ui-view>
+      <ui-view class="sliderbox">
+        <ui-slider value="41" show-max-value="true" show-value="true"></ui-slider>
+      </ui-view>
+
+      <ui-view class="sample_title">测试2</ui-view>
+      <ui-view class="sliderbox">
+        <ui-slider  show-value="true"></ui-slider>
+      </ui-view>
+    <ui-view class="sample_title">基本使用</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider custom- style="left:10%;width:80%" show-value="true"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">基本使用</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider style="left:10%;width:80%" show-value="true"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">设置初始值</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider style="left:10%;width:80%" value="20" show-value="true"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">外部改变值</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider
+      show-value="true"
+      style="left:10%;width:80%;margin-bottom:20px;" ui:model="value1"></ui-slider>
+      <ui-button bindtap="changeValue()">增加10</ui-button>
+    </ui-view>
+
+    <ui-view class="sample_title">change事件</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider
+      show-value="true"
+      style="left:10%;width:80%;margin-bottom:20px;" bindchange="sliderchange"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">显示当前值和总值</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider show-max-value="true" show-value="true" style="left:10%;width:80%"></ui-slider>
+    </ui-view>
+    <ui-view class="sample_title">设置上下限</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider
+      show-max-value="true"
+      show-value="true"
+      style="left:10%;width:80%"
+       min="100" max="300"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义线的粗细</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider show-value="true" style="left:10%;width:80%" slider-weight="5"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义线的颜色</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider show-value="true" value="30" style="left:10%;width:80%" background-color="#666666" active-color="#7dd43c"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">设置步长</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider show-value="true" style="left:10%;width:80%" max="1" step="0.1"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">设置刻度</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider style="left:10%;width:80%;height:30px" scale-line="20" max="100" show-value="true" show-max-value="true"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">双刻度和设置步长</ui-view>
+    <ui-view class="sliderbox" style="padding-bottom:35px;">
+      <ui-slider
+      style="left:10%;width:80%;height:30px"
+      step="10"
+      max="100"
+      scale-line="10"
+      key-scale-line="20"
+      show-max-value="true" show-value="true"
+      ></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">显示tooltip</ui-view>
+    <ui-view class="sliderbox" style="padding-top:40px;">
+      <ui-slider style="left:10%;width:80%" show-tooltip="true"></ui-slider>
+    </ui-view>
+
+     <ui-view class="sample_title">双滑块</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider style="left:10%;width:80%;margin:10px 0" value="{{value2}}" show-tooltip="true" min="1" max="15"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义滑块样式</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider
+      show-max-value="true"
+      show-value="true"
+      style="left:10%;width:80%"   
+      thumb-class="play-class"
+      thumb-down-class="play-down-class"
+      ></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义滑块图片和自定义Tooltip</ui-view>
+    <ui-view class="sliderbox" style="padding-bottom:40px;">
+      <ui-slider style="left:10%;width:80%" thumb-class="custom-image-class" step="10" show-tooltip="true" tooltip-class="tooltip-class" scale-line="10" key-scale-line="20"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">个性样式</ui-view>
+    <ui-view class="sliderbox" style="padding-bottom:40px;">
+      <ui-slider
+        style="left:10%;width:80%"
+        slider-weight="12"
+        active-color="#ed5565"
+        show-tooltip="true"
+        tooltip-class="custom-2-tooltip-class"
+        thumb-class="custom-2-class"
+        max="5000"
+        scale-line="625"
+        key-scale-line="1250"
+        tooltip-format="{{tooltipformat2}}"
+        bar-border-radius='2'
+      >
+      </ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">双滑块自定义样式</ui-view>
+    <ui-view style="padding:20px;">
+      <ui-row>
+        <ui-col width="45">
+          <ui-text>公里数</ui-text>
+        </ui-col>
+        <ui-col>
+          <ui-text style="color:#666">单位:（万公里）</ui-text>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+    <ui-view class="sliderbox">
+
+      <ui-slider style="left:10%;width:80%;margin:10px 0" ui:model="value2" thumb-class="custom-4-class" slider-weight="4" active-color="#f85426" show-tooltip="true" min="1" max="15"></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">显示值自定义格式</ui-view>
+    <ui-view class="sliderbox">
+      <ui-slider value-pos="left" show-max-value="true" show-value="true" style="left:10%;width:80%"
+        max-format="{{formatval}}"
+        value-format="{{formatval}}"
+        tooltip-format="{{tooltipformat}}"
+        show-tooltip="true"
+        tooltip-class="tooltip-far-class"
+        thumb-class="play-class"
+        ></ui-slider>
+    </ui-view>
+
+    <ui-view class="sample_title">仿腾讯视频进度条和缓冲控制</ui-view>
+    <ui-view class="sliderbox" style="margin-top:20px;">
+      <ui-slider style="left:10%;width:80%"
+                 max="202"
+                 buffer-color="#ccc"
+                 buffer-value="{{bufferValue}}"
+                 thumb-class="music_slider"
+                 thumb-down-class="touch_music_slider"
+                 background-color="#999"
+                 active-color="#FF7000"
+                 show-value="true"
+                 show-max-value="true"
+                 value-pos="left"
+                max-format="{{formatval}}"
+                value-format="{{formatval}}"
+                tooltip-format="{{tooltipformat}}"
+                 ></ui-slider>
+      <ui-button bindtap="changeBufferValue()" style="margin-top:10px;">开始缓冲</ui-button>
+      <ui-text>实际使用时，由音乐或视频的进度来控制slider的进度</ui-text>
+      <ui-view>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "滑动条",
+    "disableIosGesture":true,
+    "scrollType": "body"
+  },
+  data () {
+    return {
+      value1: 0,
+      value2: [3, 12],
+      bufferValue: 0,
+      interval: null,
+      formatval: this.getformatval,
+      tooltipformat: this.gettooltipformat,
+      tooltipformat2: this.gettooltipformat2
+    }
+  },
+  methods: {
+    changeValue () {
+      this.value1 += 10
+      if (this.value1 >= 100) {
+        this.value1 = 100
+      } else if (this.value1 < 0) {
+        this.value1 = 0
+      }
+    },
+    sliderchange (val) {
+      ui.showToast({ title: '拖动后的值为：' + val })
+    },
+    changeBufferValue () {
+      this.interval = setInterval(() => {
+        this.bufferValue += 50
+
+        if (this.bufferValue > 202) {
+          this.bufferValue = 202
+          clearInterval(this.interval)
+        }
+      }, 1000)
+    },
+    getformatval (num) {
+      return parseInt(num / 60) + ':' + parseInt((num % 60 >= 10 ? '' : '0') + (num % 60))
+    },
+    gettooltipformat (num) {
+      return parseInt(num / 60) + ':' + (num % 60 >= 10 ? '' : '0') + (num % 60)
+    },
+    gettooltipformat2 (num) {
+      return num + '元'
+    }
+  }
+}
+</script>
+
+<style lang="less">
+  // slider.less
+
+
+.sliderbox{
+  display: table; 
+  padding:20px;
+  width:100%;
+  height:60px;
+  background-color: white;
+  text-align: center
+}
+
+//自定义滑块图片和自定义Tooltip
+.custom-image-class {
+  top: 15px !important;
+  left: -2px !important;
+  border: 0 !important;
+  width:15px;
+  height:20px;
+  border-radius: 0 !important;
+  background-size:100%;
+  box-shadow: 0px 0px 0px !important;
+  transform:rotate(180deg);
+  background: url('~images/slider.svg') no-repeat !important;
+}
+
+.tooltip-class {
+  font-size: 10px !important;
+  background-color: #3399FF !important;
+  color: white !important;
+  text-align: center !important;
+  width: 28px !important;
+  height: 16px !important;
+  line-height: 16px !important;
+  border-radius: 4px !important;
+  top: -4px !important;
+  left: 6px !important;
+}
+
+
+//显示值自定义格式
+.play-class {
+  position: absolute !important;
+  width: 10px !important;
+  height: 10px !important;
+  background-color: #3399FF !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  top: 15px !important;
+  left: 15px !important;
+  z-index: 2 !important;
+  box-shadow: 0px 0px 0px !important;
+}
+
+//自定义滑块样式
+.play-down-class {
+  width: 20px !important;
+  height: 20px !important;
+  background-color: #3399FF !important;
+  border-radius: 10px !important;
+  top: 10px !important;
+  left: 10px !important;
+}
+
+
+//个性样式
+.custom-2-class {
+  position: absolute!important;
+  width: 4px !important;
+  height: 18px !important;
+  left: 18px !important;
+  top: 11px !important;
+  background-color: #ed5565 !important;
+  border-radius: 2px !important;
+  border: 0 !important;
+  box-shadow: 0px 0px 0px !important;
+  z-index: 2 !important;
+}
+
+.custom-2-tooltip-class {
+  font-size: 10px !important;
+  background-color: #ed5565 !important;
+  color: white !important;
+  text-align: center !important;
+  white-space:nowrap;
+  width: 50px !important;
+  height: 14px !important;
+  line-height: 16px !important;
+  border-radius: 4px !important;
+  top: -10px !important;
+  left: -5px !important;
+}
+
+.custom-2-tooltip-class::after {
+  position: absolute !important;
+  display: block !important;
+  content: "" !important;
+  bottom: -6px !important;
+  left: 50% !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin-left: -3px !important;
+  overflow: hidden !important;
+  border: 3px solid transparent !important;
+  border-top-color: #ed5565 !important;
+}
+
+
+//显示值自定义格式
+.tooltip-far-class {
+  font-size: 10px !important;
+  background-color: #3399FF !important;
+  color: white !important;
+  text-align: center !important;
+  width: 28px !important;
+  height: 16px !important;
+  line-height: 16px !important;
+  border-radius: 4px !important;
+  top: -8px !important;
+  left: 6px !important;
+}
+
+.tooltip-far-class::after , .tooltip-class::after {
+  position: absolute !important;
+  display: block !important;
+  content: "" !important;
+  bottom: -6px !important;
+  left: 50% !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin-left: -3px !important;
+  overflow: hidden !important;
+  border: 3px solid transparent !important;
+  border-top-color: #3399FF !important;
+}
+
+
+//双滑块自定义样式
+.custom-4-class{
+  background-image: url('~images/slider2.svg');
+  background-size:60%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  border:1px solid #ececec;
+  width:35px;
+  height:35px;
+}
+
+//仿腾讯视频
+.music_slider{
+  box-sizing: unset;
+  width: 10px !important;
+  height: 10px !important;
+  top: 15px!important;
+  left:15px!important;
+  box-shadow: 0px 0px 0px 5px rgba(255,112,0, 0.5) !important;
+  background-color: rgba(255,112,0, 1) !important;;
+}
+// 滑块动画 按住放大
+.touch_music_slider {
+  box-shadow: 0px 0px 0px 10px rgba(255,112,0, 0.5) !important;
+}
+
+</style>

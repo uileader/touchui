@@ -1,0 +1,405 @@
+<template>
+<ui-page>
+  <ui-divider>文字放大</ui-divider>
+  <ui-tab-view class="text-zoomIn" height="210">
+      <template slot="header">
+        <ui-tab-view-header>推荐</ui-tab-view-header>
+        <ui-tab-view-header>热点</ui-tab-view-header>
+        <ui-tab-view-header>视频</ui-tab-view-header>
+        <ui-tab-view-header>深圳</ui-tab-view-header>
+        <ui-tab-view-header>社会</ui-tab-view-header>
+        <ui-tab-view-header>娱乐</ui-tab-view-header>
+        <ui-tab-view-header>科技</ui-tab-view-header>
+        <ui-tab-view-header>体育</ui-tab-view-header>
+        <ui-tab-view-header>汽车</ui-tab-view-header>
+      </template>
+      <template slot="body">
+        <ui-tab-view-body height="160">
+            <ui-view class="tab-content">内容1</ui-view>
+        </ui-tab-view-body>
+        <ui-tab-view-body height="160">
+            <ui-view class="tab-content">内容2</ui-view>
+        </ui-tab-view-body>
+        <ui-tab-view-body height="160">
+            <ui-view class="tab-content">内容3</ui-view>
+        </ui-tab-view-body>
+        <ui-tab-view-body height="160">
+            <ui-view class="tab-content">内容4</ui-view>
+        </ui-tab-view-body>
+        <ui-tab-view-body height="160">
+            <ui-view class="tab-content">内容5</ui-view>
+        </ui-tab-view-body>
+        <ui-tab-view-body height="160">
+            <ui-view class="tab-content">内容6</ui-view>
+        </ui-tab-view-body>
+        <ui-tab-view-body height="160">
+            <ui-view class="tab-content">内容7</ui-view>
+        </ui-tab-view-body>
+        <ui-tab-view-body height="160">
+            <ui-view class="tab-content">内容8</ui-view>
+        </ui-tab-view-body>
+        <ui-tab-view-body height="160">
+            <ui-view class="tab-content">内容9</ui-view>
+        </ui-tab-view-body>
+      </template>
+  </ui-tab-view>
+
+<ui-divider>ink-bar</ui-divider>
+<ui-tab-view height="210" ink-bar ink-bar-style="{{ { borderBottom: '1px solid #39f', width: '60%' } }}">
+    <template slot="header">
+      <ui-tab-view-header>推荐</ui-tab-view-header>
+      <ui-tab-view-header>热点</ui-tab-view-header>
+      <ui-tab-view-header>视频</ui-tab-view-header>
+      <ui-tab-view-header>深圳</ui-tab-view-header>
+      <ui-tab-view-header>社会</ui-tab-view-header>
+      <ui-tab-view-header>娱乐</ui-tab-view-header>
+      <ui-tab-view-header>科技</ui-tab-view-header>
+      <ui-tab-view-header>体育</ui-tab-view-header>
+      <ui-tab-view-header>汽车</ui-tab-view-header>
+    </template>
+    <template slot="body">
+      <ui-tab-view-body height="160">
+          <ui-view class="tab-content">内容1</ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body height="160">
+          <ui-view class="tab-content">内容2</ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body height="160">
+          <ui-view class="tab-content">内容3</ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body height="160">
+          <ui-view class="tab-content">内容4</ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body height="160">
+          <ui-view class="tab-content">内容5</ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body height="160">
+          <ui-view class="tab-content">内容6</ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body height="160">
+          <ui-view class="tab-content">内容7</ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body height="160">
+          <ui-view class="tab-content">内容8</ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body height="160">
+          <ui-view class="tab-content">内容9</ui-view>
+      </ui-tab-view-body>
+    </template>
+</ui-tab-view>
+
+<!-- <ui-divider>zoomIn</ui-divider>
+<ui-tab-view class="zoomIn">
+    <template slot="header">
+      <ui-tab-view-header>推荐</ui-tab-view-header>
+      <ui-tab-view-header>热点</ui-tab-view-header>
+      <ui-tab-view-header>视频</ui-tab-view-header>
+      <ui-tab-view-header>深圳</ui-tab-view-header>
+      <ui-tab-view-header>社会</ui-tab-view-header>
+      <ui-tab-view-header>娱乐</ui-tab-view-header>
+      <ui-tab-view-header>科技</ui-tab-view-header>
+      <ui-tab-view-header>体育</ui-tab-view-header>
+      <ui-tab-view-header>汽车</ui-tab-view-header>
+    </template>
+    <template slot="body">
+      <ui-tab-view-body>
+        <ui-view>
+          <ui-view class="content_list">
+            <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+              {{ item }}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view>
+          <ui-view class="content_list">
+            <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+              {{ item }}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view>
+          <ui-view class="content_list">
+            <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+              {{ item }}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view>
+          <ui-view class="content_list">
+            <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+              {{ item }}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view>
+          <ui-view class="content_list">
+            <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+              {{ item }}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view>
+          <ui-view class="content_list">
+            <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+              {{ item }}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view class="tab-content">内容7</ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view class="tab-content">内容8</ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view class="tab-content">内容9</ui-view>
+      </ui-tab-view-body>
+    </template>
+</ui-tab-view> -->
+
+<!-- <ui-divider>slideInDown</ui-divider>
+<ui-tab-view class="slideInDown">
+    <template slot="header">
+      <ui-tab-view-header>推荐</ui-tab-view-header>
+      <ui-tab-view-header>热点</ui-tab-view-header>
+      <ui-tab-view-header>视频</ui-tab-view-header>
+      <ui-tab-view-header>深圳</ui-tab-view-header>
+      <ui-tab-view-header>社会</ui-tab-view-header>
+      <ui-tab-view-header>娱乐</ui-tab-view-header>
+      <ui-tab-view-header>科技</ui-tab-view-header>
+      <ui-tab-view-header>体育</ui-tab-view-header>
+      <ui-tab-view-header>汽车</ui-tab-view-header>
+    </template>
+    <template slot="body">
+      <ui-tab-view-body>
+        <ui-view>
+          <ui-view class="content_list">
+            <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+              {{ item }}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view>
+          <ui-view class="content_list">
+            <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+              {{ item }}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view>
+          <ui-view class="content_list">
+            <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+              {{ item }}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view>
+          <ui-view class="content_list">
+            <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+              {{ item }}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view>
+          <ui-view class="content_list">
+            <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+              {{ item }}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view>
+          <ui-view class="content_list">
+            <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+              {{ item }}
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view class="tab-content">内容7</ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view class="tab-content">内容8</ui-view>
+      </ui-tab-view-body>
+      <ui-tab-view-body>
+        <ui-view class="tab-content">内容9</ui-view>
+      </ui-tab-view-body>
+    </template>
+</ui-tab-view> -->
+
+<ui-divider>结合角标使用</ui-divider>
+<ui-tab-view height="210" class="type-badge" bindchange="handleChange">
+  <template slot="header">
+    <ui-tab-view-header>
+      <ui-view>物流</ui-view>
+    </ui-tab-view-header>
+    <ui-tab-view-header>
+      <ui-view>通知</ui-view>
+    </ui-tab-view-header>
+    <ui-tab-view-header bindtap="hideBadge4">
+      <ui-view class="item item-left" style="position:relative;width:60px;">
+          优惠
+          <ui-badge text="2" ui:if="showBadge4"></ui-badge>
+      </ui-view>
+    </ui-tab-view-header>
+    <ui-tab-view-header>
+      <ui-view>收藏</ui-view>
+    </ui-tab-view-header>
+  </template>
+  <template slot="body">
+    <ui-tab-view-body height="160">
+      <ui-view class="tab-content">内容一</ui-view>
+    </ui-tab-view-body>
+    <ui-tab-view-body height="160">
+      <ui-view class="tab-content">内容二</ui-view>
+    </ui-tab-view-body>
+    <ui-tab-view-body height="160">
+      <ui-view class="tab-content">内容三</ui-view>
+    </ui-tab-view-body>
+    <ui-tab-view-body height="160">
+      <ui-view class="tab-content">内容四</ui-view>
+    </ui-tab-view-body>
+  </template>
+</ui-tab-view>
+
+<ui-divider>与图标结合使用</ui-divider>
+<ui-tab-view height="210" class="type-icon">
+    <template slot="header">
+      <ui-tab-view-header>
+        <ui-view class="item item-right">
+          <ui-icon type="mail"></ui-icon> 邮件
+        </ui-view>
+      </ui-tab-view-header>
+      <ui-tab-view-header>
+        <ui-view class="item item-left">
+            <ui-icon type="api-data"></ui-icon> 存储
+        </ui-view>
+      </ui-tab-view-header>
+      <ui-tab-view-header>
+        <ui-view class="item item-left">
+            <ui-icon type="api-network"></ui-icon> 网络
+        </ui-view>
+      </ui-tab-view-header>
+    </template>
+    <template slot="body">
+        <ui-tab-view-body height="160">
+          <ui-view class="tab-content">内容一</ui-view>
+        </ui-tab-view-body>
+        <ui-tab-view-body height="160">
+          <ui-view class="tab-content">内容二</ui-view>
+        </ui-tab-view-body>
+        <ui-tab-view-body height="160">
+          <ui-view class="tab-content">内容三</ui-view>
+        </ui-tab-view-body>
+      </template>
+</ui-tab-view>
+</ui-page>
+</template>
+
+<script>
+  export default {
+  config: {
+    "navigationBarTitleText": "自定义tab-view样式"
+  },
+  data () {
+    return {
+      showBadge4: true
+    }
+  },
+  methods: {
+    handleChange (e) {
+      if (e === 2) {
+        this.showBadge4 = false
+      }
+    },
+    hideBadge4(){
+      this.showBadge4 = false
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .tab-content{
+  margin:1em;
+}
+
+.ui-tab-view {
+  height: 200px;
+}
+.ui-tab-view-item {
+  background-color: #eee;
+}
+.type-badge{
+  .ui-badge{
+    position: absolute;
+    right: 8px;
+    top: 2px;
+    font-size:20rpx;
+    &.ui-badge-dot {
+      padding: 3px;
+    }
+  }
+}
+
+.type-icon{
+  &.ui-tab-view-header{
+    text-align:center
+    .item {
+      position: relative;
+      width: 60px;
+    }
+  }
+}
+
+
+.zoomIn {
+  .ui-tab-view-header-wrapper .ui-tab-view-header.active {
+    animation: zoomIn .3s;
+  }
+}
+
+.slideInDown {
+  .ui-tab-view-header-wrapper .ui-tab-view-header.active {
+    animation: slideInDown .3s;
+  }
+}
+
+
+.text-zoomIn{
+  .ui-tab-view-header-wrapper .ui-tab-view-header.active{
+    border:0;
+    animation: textzoomIn .2s;
+    animation-fill-mode:forwards
+  }
+}
+
+@keyframes textzoomIn
+{
+from {transform:scale(1)}
+to {transform:scale(1.1)}
+}
+
+</style>

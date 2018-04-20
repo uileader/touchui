@@ -1,0 +1,148 @@
+<!--notice.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10"  width="50" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">我的收藏</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50" >
+          <ui-icon type="delete" size="16" color="#fff"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-swipe-out operate-width="80" class="swipe-out-dome-1" bindchange="changeHandler(index)" ui:model="{{item.switcher}}" ui:for="{{list}}"  height="{{ item.height}}">
+      <ui-view slot="content">
+        <ui-row height="80" class="collect_content">
+          <ui-col vertical-align="middle" align="center" width="80">
+            <ui-image
+            src="{{ item.imgUrl }}"
+            mode='aspectFill'
+            width="60"
+            height="60"
+            ></ui-image>
+          </ui-col>
+          <ui-col>
+            <ui-view class="title">{{ item.title }}</ui-view>
+            <ui-view class="sales">
+              <ui-star value=4.5 read-only half star-width=14 star-height=14></ui-star>
+              <ui-text>4.5</ui-text>
+              <ui-text>月售2595单</ui-text>
+            </ui-view>
+            <ui-row class="bottom" height="20">
+              <ui-col vertical-align="middle" align="left">
+                <ui-view>¥20起送</ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="right">
+                <ui-view>1.2Km | 43分钟</ui-view>
+              </ui-col>
+            </ui-row>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-view slot="operate">
+        <ui-view class="delete" bindtap="del(index)">删除</ui-view>
+      </ui-view>
+    </ui-swipe-out>
+  </ui-page>
+</template>
+
+
+<script>
+// notice.js
+export default {
+  config: {
+    "navigationStyle": "custom",
+  "backgroundColor": "#F2F2F2"
+  },
+  data () {
+    return {
+      list: [
+        { height: 80, title: '旺顺阁鱼头泡饼', imgUrl: 'http://p0.meituan.net/200.0/deal/1e257a1f5b0d974b292ac7bc9a3c21ad71414.jpg', switcher: 'off' },
+        { height: 80, title: '吉野家', imgUrl: 'http://p0.meituan.net/200.0/deal/271ab37c767d8c4ba5f705da8eb00e9032980.jpg', switcher: 'off' }
+      ]
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    del (index) {
+      this.list[index].height = 0
+      // 实际使用时将该项id传给后台即可，不需要在前台真正删除数据。
+      // 前台直接删除数据会导致一些问题。
+      // setTimeout(() => {
+      //   this.list.splice(index, 1, {})
+      // }, 500)
+    },
+    changeHandler (index) {
+      for (var i = 0; i < this.list.length; i++) {
+        if (i !== index) {
+          this.list[i].switcher = 'off'
+        }
+      }
+    }
+
+  }
+}
+
+</script>
+
+<style lang="less">
+  // notice.less
+.nav_bar {
+  background: linear-gradient(to right, #1F97FE, #126DFE);
+  .nav_title{
+    color: #fff;
+  }
+}
+
+.collect_content{
+  padding: 10px 10px 10px 0;
+  background: #fff;
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .title{
+    color: #212121;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .sales{
+    display: flex;
+    .ui-stars{
+      width: 85px;
+    }
+    .ui-text{
+      font-size: 12px;
+      color: #5C5C5C;
+    }
+  }
+  .bottom{
+    .ui-view{
+      font-size: 12px;
+      color: #646464;
+    }
+  }
+}
+.swipe-out-dome-1{
+  transition: height .25s ease-in;
+  overflow: hidden;
+  background: #fff;
+}
+.swipe-out-dome-1-content {
+  overflow: hidden;
+  background: #fff;
+  
+}
+
+.delete{
+  width: 80px;
+  height: 80px;
+  .mix-flex-center();
+  font-size: 14px;
+  color: #fff;
+  background: #f22;
+}
+</style>

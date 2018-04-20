@@ -1,0 +1,168 @@
+<!--draggable5.ui-->
+<template>
+  <ui-page page-load="{{ pageLoad }}">
+    <ui-view class="sample_title">首页应用</ui-view>
+    <ui-view style="height:250px;width:100%;background-color:white;margin-top:20px;">
+        <ui-view
+          ui:for="{{list}}">
+        <ui-view class="draggable-plus">
+            <ui-view class="draggable-warp2" style="{{{background:'#fff',height:windowWidth/(3*1.5)}}}">
+              <ui-icon color="{{item.color}}" type="{{item.imgname}}" size="22"></ui-icon>
+              <ui-text class="draggable-text ">{{item.name}}</ui-text>
+            </ui-view>
+        </ui-view>
+      </ui-view>
+      <ui-view class="draggable-plus">
+          <ui-view bindtap="navigateTo" class="draggable-warp2" style="{{{background:'#fff',height:windowWidth/(3*1.5)}}}">
+            <ui-icon type="qrcode2" size="22"></ui-icon>
+            <ui-text class="draggable-text ">更多</ui-text>
+          </ui-view>
+      </ui-view>
+    </ui-view>
+    （点击更多按钮进行编辑）
+  </ui-page>
+</template>
+
+<script>
+  // draggable5.js
+export default {
+  config: {
+    "navigationBarTitleText": "仿支付宝首屏"
+  },
+  data () {
+    return {
+      windowWidth: ui.WIN_WIDTH,
+      list: [{
+        imgname: 'gongxiangdanche',
+        name: '共享单车',
+        id: 'id1',
+        color: '#ec9a27'
+      }, {
+        imgname: 'didichuhang',
+        name: '滴滴出行',
+        id: 'id2',
+        color: '#ec9a27'
+      }, {
+        imgname: 'shoujichongzhi',
+        name: '手机充值',
+        id: 'id3',
+        color: '#318fdb'
+      }, {
+        imgname: 'huochepiaoicon01',
+        name: '机票火车票',
+        id: 'id4',
+        color: '#318fdb'
+      }, {
+        imgname: 'jizhang',
+        name: '记账本',
+        id: 'id5',
+        color: '#ec9a27'
+      }, {
+        imgname: 'shenghuojiaofei',
+        name: '水电费缴费',
+        id: 'id6',
+        color: '#318fdb'
+      }],
+      pageLoad: {
+        trigger: 'always',
+        handle: () => {
+          console.log('111')
+          this.init()
+        }
+      }
+    }
+  },
+  methods: {
+    navigateTo () {
+      ui.navigateTo({
+        url: 'draggable2'
+      })
+    },
+    init () {
+      let value = ui.getStorageSync('draggabledata')
+      if (value !== null) {
+        this.list = JSON.parse(value)
+      } else {
+        return false
+      }
+      console.log(value)
+    }
+  },
+  mounted () {
+    console.log('222')
+  }
+}
+
+</script>
+
+<style lang="less">
+.draggable-box{
+  margin:0 3px;
+  text-align:center;  
+}
+  .draggable-warp{
+    background-color:#eee;
+    padding:5px 0;
+    
+  }
+
+  .draggable-text {
+    font-size: 13px;
+  }
+  .draggable-img {
+    width:70rpx;
+    height:70rpx;
+    margin:0 auto;
+  }
+
+  .draggable-plus {
+    width:25%;
+    float:left;
+    background-color:white;
+    padding:3px;
+    text-align:center;
+    position: relative;
+    .ui-icon{
+      display: block;
+    }
+  }
+  .draggable-warp2 {
+    padding:5px 0;
+  }
+  .draggable-delete {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    // line-height:15px;
+    right: 0px;
+    top: 0px;
+    // background-color:#e60012;
+    // border-radius:50%;
+  }
+  .draggable-add {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 0px;
+    top: 0px;
+}
+  .list-group-item {
+    background-color: white;
+    height:32px;
+    width: 100%;
+  }
+  
+  .flip-list-move {
+    transition: transform 0.5s;
+  }
+
+
+  .blockicon{
+    display:block;
+    width:30px;
+    height:30px;
+    margin:0 auto;
+    font-size:26px;
+  }
+</style>
+

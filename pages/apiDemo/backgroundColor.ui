@@ -1,0 +1,31 @@
+<!--background.ui-->
+<template>
+  <ui-page>
+    <ui-view class="title">
+      通过配置文件来设置背景色
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// background.js
+export default {
+  config: {
+    "navigationBarTitleText": "窗口背景色",
+    "backgroundColor":"#F7FBFF"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+.title{
+  text-align: center;
+  font-size: 16px;
+  line-height: 50px;
+}
+</style>

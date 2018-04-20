@@ -1,0 +1,168 @@
+<!--timeline3.ui-->
+<template>
+  <ui-page>
+    <ui-timeline>
+      <ui-timeline-item
+        ui:for="{{list}}"
+        ui:key="index"
+        point-color="#df4f3c"
+        line-color="#dfe2e5"
+        show-line="{{true}}">
+        <ui-view class="item-content">
+          <ui-view class="title">
+            <ui-view class="title-info">{{item.time}}</ui-view>
+            <ui-view class="title-date">{{item.date}}</ui-view>
+          </ui-view>
+          <ui-view class="head">
+            <ui-view class="head-info">{{item.title}}</ui-view>
+            <em class="head-tag">{{item.tag}}</em>
+          </ui-view>
+          <ui-view class="content">
+            <ui-view class="content-info">{{item.info}}</ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-timeline-item>
+    </ui-timeline>
+  </ui-page>
+</template>
+
+
+<script>
+// timeline3.js
+export default {
+  config: {
+    "navigationBarTitleText": "时间轴综合"
+  },
+  data () {
+    return {
+      list: [
+        {
+          time: '上映后第30天',
+          date: '2017-10-16',
+          title: '《羞羞的铁拳》破2D票房纪录，蝉联14天单日票房冠军',
+          tag: '其他',
+          info: '《羞羞的铁拳》也在上映第15天时，票房突破16.15亿（不含电商服务费），打破了2015年《港囧》的票房纪录，成为新的国产2D票房冠军。'
+        },
+        {
+          time: '上映后第28天',
+          date: '2017-10-16',
+          title: '《羞羞的铁拳》破14亿曝“导演特辑” ，宋阳讲戏用头砸桌子',
+          tag: '其他',
+          info: '今日，片方曝光一款“导演特辑”，揭开两位导演——宋阳导演和张吃鱼导演幕后的故事。'
+        },
+        {
+          time: '上映后第25天',
+          date: '2017-10-16',
+          title: '《羞羞的铁拳》破2D票房纪录，蝉联14天单日票房冠军',
+          tag: '其他',
+          info: '《羞羞的铁拳》也在上映第15天时，票房突破16.15亿（不含电商服务费），打破了2015年《港囧》的票房纪录，成为新的国产2D票房冠军。'
+        },
+        {
+          time: '上映后第22天',
+          date: '2017-10-16',
+          title: '《羞羞的铁拳》破2D票房纪录，蝉联14天单日票房冠军',
+          tag: '其他',
+          info: '《羞羞的铁拳》也在上映第15天时，票房突破16.15亿（不含电商服务费），打破了2015年《港囧》的票房纪录，成为新的国产2D票房冠军。'
+        },
+        {
+          time: '上映后第18天',
+          date: '2017-10-16',
+          title: '《羞羞的铁拳》破2D票房纪录，蝉联14天单日票房冠军',
+          tag: '其他',
+          info: '《羞羞的铁拳》也在上映第15天时，票房突破16.15亿（不含电商服务费），打破了2015年《港囧》的票房纪录，成为新的国产2D票房冠军。'
+        },
+        {
+          time: '上映后第14天',
+          date: '2017-10-16',
+          title: '《羞羞的铁拳》破2D票房纪录，蝉联14天单日票房冠军',
+          tag: '其他',
+          info: '《羞羞的铁拳》也在上映第15天时，票房突破16.15亿（不含电商服务费），打破了2015年《港囧》的票房纪录，成为新的国产2D票房冠军。'
+        },
+        {
+          time: '上映后第9天',
+          date: '2017-10-16',
+          title: '《羞羞的铁拳》破14亿曝“导演特辑” ，宋阳讲戏用头砸桌子',
+          tag: '其他',
+          info: '今日，片方曝光一款“导演特辑”，揭开两位导演——宋阳导演和张吃鱼导演幕后的故事。'
+        },
+        {
+          time: '上映后第7天',
+          date: '2017-10-16',
+          title: '《羞羞的铁拳》破2D票房纪录，蝉联14天单日票房冠军',
+          tag: '其他',
+          info: '《羞羞的铁拳》也在上映第15天时，票房突破16.15亿（不含电商服务费），打破了2015年《港囧》的票房纪录，成为新的国产2D票房冠军。'
+        },
+        {
+          time: '上映后第5天',
+          date: '2017-10-16',
+          title: '《羞羞的铁拳》破2D票房纪录，蝉联14天单日票房冠军',
+          tag: '其他',
+          info: '《羞羞的铁拳》也在上映第15天时，票房突破16.15亿（不含电商服务费），打破了2015年《港囧》的票房纪录，成为新的国产2D票房冠军。'
+        },
+        {
+          time: '上映后第3天',
+          date: '2017-10-16',
+          title: '《羞羞的铁拳》破2D票房纪录，蝉联14天单日票房冠军',
+          tag: '其他',
+          info: '《羞羞的铁拳》也在上映第15天时，票房突破16.15亿（不含电商服务费），打破了2015年《港囧》的票房纪录，成为新的国产2D票房冠军。'
+        }
+
+      ]
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+.item-content {
+  margin-left: 30px;
+  padding: 0 15px 10px 5px;
+  
+}
+.title-info {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 12px;
+  color: #EF4238;
+  margin-right: 5px;
+  vertical-align: top;
+}
+.title-date {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 12px;
+  color: #919090;
+  vertical-align: top;
+}
+
+.head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &-info {
+      width: 270px;
+      color: #222;
+      font-size: 16px;
+  }
+  &-tag {
+      width: 30px;
+      height: 14px;
+      border: 1px solid #F5A623;
+      border-radius: 2px;
+      font-size: 12px;
+      box-sizing: border-box;
+      font-style: normal;
+      text-align: center;
+      line-height: 14px;
+      color: #F5A623;
+  }
+}
+
+.content-info {
+  color: #919090;
+}
+</style>
+  

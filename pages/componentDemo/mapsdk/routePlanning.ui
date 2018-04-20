@@ -1,0 +1,202 @@
+<!--routePlanning.ui-->
+<template>
+  <ui-page>
+    <ui-view style="height:{{ mapHeight }}">
+      <ui-map 
+        id="map" 
+        class="map"
+        longitude="{{longitude}}" 
+        latitude="{{latitude}}"
+        show-location="{{showLocation}}"
+        markers="{{markers}}"
+        polyline="{{polyline}}"
+        include-points="{{includePoints}}">
+      </ui-map>
+    </ui-view>
+
+    <ui-fixed-view class="map_text">
+      <ui-row height="45" space-bottom="10">
+        <ui-col span="3" algin="center" vertical-align="middle" space="10">
+          <ui-button type="primary" bindtap="walkNav">步行</ui-button>
+        </ui-col>
+        <ui-col span="3" algin="center" vertical-align="middle" space="10">
+          <ui-button type="primary" bindtap="driveNav">驾车</ui-button>
+        </ui-col>
+        <ui-col span="3" algin="center" vertical-align="middle" space="10">
+          <ui-button type="primary" bindtap="ridingNav">骑行</ui-button>
+        </ui-col>
+        <ui-col span="3" algin="center" vertical-align="middle" space="10">
+          <ui-button type="primary" bindtap="transitNav">公交</ui-button>
+        </ui-col>
+      </ui-row>
+      <ui-row>
+        <ui-col span="6" space="10">距离:{{distance}}米</ui-col>
+        <ui-col span="6" space="10">车费:{{cost}}元</ui-col>
+      </ui-row>
+    </ui-fixed-view>
+  </ui-page>
+</template>
+  
+
+<script>
+// routePlanning.js
+var amapFile = require('amap-touchui')
+var key = '4216f7d550dc95ef4ac91e3c0ee6a19a'
+export default {
+  config: {
+    "navigationBarTitleText": "路线选择与规划"
+  },
+  data () {
+    return {
+      mapHeight: ui.DEFAULT_CONTENT_HEIGHT - 35 + 'px',
+      latitude: 39.973700,
+      longitude: 116.470528,
+      // scale: 16,
+      showLocation: true,
+      mapCtx: null,
+      myAmapFun: null,
+      polyline: [],
+      markers: [{
+        id: 0,
+        latitude: 39.989643,
+        longitude: 116.481028,
+        iconPath: require('#/images/map/mapicon_navi_s.png'),
+        width: 24,
+        height: 34
+      }, {
+        id: 1,
+        latitude: 39.90816,
+        longitude: 116.434446,
+        iconPath: require('#/images/map/mapicon_navi_e.png'),
+        width: 24,
+        height: 34
+      }],
+      includePoints: [],
+      polyline: [],
+      distance: 0,
+      cost: 0.00
+    }
+  },
+  created () {
+    this.initView()
+  },
+  mounted () {
+    this.mapCtx = ui.createMapContext('map')
+    this.myAmapFun = new amapFile.AMapWX({key: key})
+    this.initView()
+  },
+  methods: {
+    walkNav () {
+      this.initView()
+      this.myAmapFun.getWalkingRoute({
+        origin: '116.481028,39.989643',
+        destination: '116.434446,39.90816',
+        success: (data) => {
+          this.drawLine(data, 'steps')
+        },
+        fail: (info) => {
+        }
+      })
+    },
+    driveNav () {
+      this.initView()
+      this.myAmapFun.getDrivingRoute({
+        origin: '116.481028,39.989643',
+        destination: '116.434446,39.90816',
+        success: (data) => {
+          this.drawLine(data, 'steps')
+        },
+        fail: (info) => {
+        }
+      })
+    },
+    ridingNav () {
+      this.initView()
+      this.myAmapFun.getRidingRoute({
+        origin: '116.481028,39.989643',
+        destination: '116.434446,39.90816',
+        success: (data) => {
+          this.drawLine(data, 'rides')
+        },
+        fail: (info) => {
+        }
+      })
+    },
+    transitNav () {
+      this.initView()
+      this.myAmapFun.getTransitRoute({
+        origin: '116.481028,39.989643',
+        destination: '116.434446,39.90816',
+        city: '北京',
+        success: (data) => {
+          this.setData({
+            distance: data.distance,
+            cost: parseFloat(data.taxi_cost).toFixed(2)
+          })
+        },
+        fail: (info) => {
+        }
+      })
+    },
+    drawLine (data, styles) {
+      var points = []
+      if (data.paths && data.paths[0] && data.paths[0][styles]) {
+        this.setData({
+          distance: data.paths[0].distance,
+          cost: 0.00
+        })
+        var steps = data.paths[0][styles]
+        steps.forEach((item, index) => {
+          var polen = item.polyline.split(';')
+
+          polen.forEach((item_, index_) => {
+            points.push({
+              longitude: parseFloat(item_.split(',')[0]),
+              latitude: parseFloat(item_.split(',')[1])
+            })
+          })
+        })
+      }
+      this.setData({
+        polyline: [{
+          points: points,
+          color: '#0091ff',
+          width: 5
+        }]
+      })
+    },
+    initView () {
+      this.setData({
+        includePoints: [{
+          latitude: 39.989643,
+          longitude: 116.481028
+        }, {
+          latitude: 39.90816,
+          longitude: 116.434446
+        }]
+      })
+    }
+
+  }
+}
+
+</script>
+
+<style lang="less">
+  // routePlanning.less
+.map {
+  height: 100%
+}
+.map_text{
+  width: 100%;
+  height: 100px;
+  bottom:0;
+  left: 0;
+  padding: 10px;
+  background: #fff;
+  box-shadow: 0 0 25px 0 #cccccc;
+  .ui-text{
+    line-height: 25px;
+  }
+}
+</style>

@@ -1,0 +1,472 @@
+
+<template>
+    <ui-page>
+    <ui-nav-bar class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10" width="50" bindtap="hideWindow">
+          <ui-view>
+            <ui-icon type="arrow-left" size="16" color="#3399ff"></ui-icon>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">公司成员</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50" bindtap="hideWindow">
+          <ui-view>取消</ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+      <ui-view class="member_content" style="{{{ height:contentHeight+'px' }}}">
+        <ui-view class="member_list">
+          <ui-row height="50" ui:for="{{ memberList }}" ui:for-item="item" bindtap="choose(index)">
+            <ui-col vertical-align="middle" align="center" width="60">
+              <ui-image
+              src="{{ require('#/images/portrait_bg.png') }}"
+              ></ui-image>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left">
+              <ui-view>{{ item.userName }}</ui-view>
+            </ui-col>
+
+          </ui-row>
+        </ui-view>
+      </ui-view>
+    </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F6F6F6"
+  },
+  data () {
+    return {
+      contentHeight: ui.DEFAULT_CONTENT_HEIGHT,
+      memberList: [
+        {
+            "userId":1,
+            "orgId":0,
+            "userName":"系统",
+            "email":null,
+            "head":null,
+            "registerTime":null,
+            "tel":"10000000000",
+            "pwd":"060941a46cdee835ec46c5843ded4b7d",
+            "orgName":null,
+            "type":"BJ",
+            "roles":Array[0],
+            "del":true
+        },
+        {
+            "userId":2,
+            "orgId":1,
+            "userName":"韩海东",
+            "email":"",
+            "head":null,
+            "registerTime":1502879598000,
+            "tel":"13581792818",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"国际销售部",
+            "type":"BJ",
+            "roles":[
+
+            ],
+            "del":false
+        },
+        {
+            "userId":3,
+            "orgId":1,
+            "userName":"冯浩杰",
+            "email":"",
+            "head":null,
+            "registerTime":1502879598000,
+            "tel":"15910239655",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"国际销售部",
+            "type":"BJ",
+            "roles":Array[0],
+            "del":false
+        },
+        {
+            "userId":4,
+            "orgId":1,
+            "userName":"高尚",
+            "email":"",
+            "head":null,
+            "registerTime":1503042364000,
+            "tel":"18210619623",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"国际销售部",
+            "type":"BJ",
+            "roles":[
+
+            ],
+            "del":false
+        },
+        {
+            "userId":5,
+            "orgId":1,
+            "userName":"郭鸾",
+            "email":"",
+            "head":null,
+            "registerTime":1503043804000,
+            "tel":"18500297021",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"国际销售部",
+            "type":"BJ",
+            "roles":[
+
+            ],
+            "del":false
+        },
+        {
+            "userId":6,
+            "orgId":1,
+            "userName":"谭东雪",
+            "email":"",
+            "head":null,
+            "registerTime":1503044245000,
+            "tel":"15010859571",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"国际销售部",
+            "type":"BJ",
+            "roles":[
+
+            ],
+            "del":false
+        },
+        {
+            "userId":7,
+            "orgId":1,
+            "userName":"郭亭亭",
+            "email":"",
+            "head":null,
+            "registerTime":1513838716000,
+            "tel":"13520344834",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"国际销售部",
+            "type":"BJ",
+            "roles":[
+
+            ],
+            "del":false
+        },
+        {
+            "userId":8,
+            "orgId":2,
+            "userName":"陈博武",
+            "email":"",
+            "head":null,
+            "registerTime":1513838713000,
+            "tel":"15133225953",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"国内销售部",
+            "type":"BJ",
+            "roles":[
+
+            ],
+            "del":false
+        },
+        {
+            "userId":9,
+            "orgId":3,
+            "userName":"李景",
+            "email":"",
+            "head":null,
+            "registerTime":1513838718000,
+            "tel":"13653222758",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"财务部",
+            "type":"BJ",
+            "roles":[
+                {
+                    "roleId":3,
+                    "roleName":"总监",
+                    "roleMemo":"",
+                    "authorityList":[
+
+                    ]
+                }
+            ],
+            "del":false
+        },
+        {
+            "userId":10,
+            "orgId":2,
+            "userName":"王松",
+            "email":"",
+            "head":null,
+            "registerTime":1513838721000,
+            "tel":"15383222739",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"国内销售部",
+            "type":"BJ",
+            "roles":[
+
+            ],
+            "del":false
+        },
+        {
+            "userId":11,
+            "orgId":1,
+            "userName":"jun",
+            "email":null,
+            "head":null,
+            "registerTime":1513843638000,
+            "tel":"13716365799",
+            "pwd":"934103aafce5be89cc003e9eef87907c",
+            "orgName":"国际销售部",
+            "type":"BJ",
+            "roles":[
+                {
+                    "roleId":11,
+                    "roleName":"测试",
+                    "roleMemo":"",
+                    "authorityList":[
+                        {
+                            "authorityId":"ExpendApproval",
+                            "authorityName":"报销审批权限",
+                            "authorityMemo":""
+                        },
+                        {
+                            "authorityId":"LoanApproval1",
+                            "authorityName":"一级借款审批权限",
+                            "authorityMemo":"30000"
+                        },
+                        {
+                            "authorityId":"LoanApproval2",
+                            "authorityName":"二级借款审批权限",
+                            "authorityMemo":"50000"
+                        },
+                        {
+                            "authorityId":"LoanApproval3",
+                            "authorityName":"三级借款审批权限",
+                            "authorityMemo":"50000+"
+                        },
+                        {
+                            "authorityId":"LoanApproval4",
+                            "authorityName":"三级借款复审权限",
+                            "authorityMemo":"50000+"
+                        },
+                        {
+                            "authorityId":"PayApproval1",
+                            "authorityName":"二级付款审批权限",
+                            "authorityMemo":"50000"
+                        },
+                        {
+                            "authorityId":"PayApproval2",
+                            "authorityName":"三级付款审批权限",
+                            "authorityMemo":"50000+"
+                        },
+                        {
+                            "authorityId":"PayApproval3",
+                            "authorityName":"三级付款复审权限",
+                            "authorityMemo":"50000+"
+                        }
+                    ]
+                }
+            ],
+            "del":false
+        },
+        {
+            "userId":12,
+            "orgId":2,
+            "userName":"孙强",
+            "email":"",
+            "head":null,
+            "registerTime":1502879598000,
+            "tel":"13754528799",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"国内销售部",
+            "type":"BJ",
+            "roles":[
+                {
+                    "roleId":2,
+                    "roleName":"经理",
+                    "roleMemo":"",
+                    "authorityList":[
+
+                    ]
+                }
+            ],
+            "del":false
+        },
+        {
+            "userId":13,
+            "orgId":1,
+            "userName":"孙洪",
+            "email":null,
+            "head":null,
+            "registerTime":1517221144000,
+            "tel":"13903129319",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"国际销售部",
+            "type":"BJ",
+            "roles":[
+                {
+                    "roleId":1,
+                    "roleName":"副总经理",
+                    "roleMemo":"",
+                    "authorityList":[
+
+                    ]
+                }
+            ],
+            "del":false
+        },
+        {
+            "userId":14,
+            "orgId":4,
+            "userName":"刘宁宁",
+            "email":null,
+            "head":null,
+            "registerTime":1517221250000,
+            "tel":"15128262530",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"采购部",
+            "type":"BJ",
+            "roles":[
+                {
+                    "roleId":4,
+                    "roleName":"出纳",
+                    "roleMemo":"",
+                    "authorityList":[
+
+                    ]
+                }
+            ],
+            "del":false
+        },
+        {
+            "userId":15,
+            "orgId":3,
+            "userName":"贾冀宁",
+            "email":null,
+            "head":null,
+            "registerTime":1517221252000,
+            "tel":"18331164665",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"财务部",
+            "type":"BJ",
+            "roles":[
+                {
+                    "roleId":5,
+                    "roleName":"会计",
+                    "roleMemo":"",
+                    "authorityList":[
+
+                    ]
+                }
+            ],
+            "del":false
+        },
+        {
+            "userId":16,
+            "orgId":2,
+            "userName":"马腾飞",
+            "email":null,
+            "head":null,
+            "registerTime":1517221254000,
+            "tel":"13933225223",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"国内销售部",
+            "type":"BJ",
+            "roles":[
+
+            ],
+            "del":false
+        },
+        {
+            "userId":17,
+            "orgId":5,
+            "userName":"陈琨",
+            "email":null,
+            "head":null,
+            "registerTime":1517221257000,
+            "tel":"15233721317",
+            "pwd":"217af16d2231a3a31bc6da446cc800ff",
+            "orgName":"人事部",
+            "type":"BJ",
+            "roles":[
+
+            ],
+            "del":false
+        }
+    ],
+      recipients: []
+    }
+  },
+  methods: {
+    hideWindow (e) {
+      ui.hideDialog()
+    },
+    choose (index) {
+      this.recipients = []
+      let info = {
+        head: require('#/images/portrait_bg.png'),
+        userName: this.memberList[index].userName,
+        userId: this.memberList[index].userId
+      }
+      this.recipients.push(info)
+      ui.hideDialog({
+        recipients: this.recipients
+      })
+    }
+  },
+  // 抄送人列表
+  mounted () {
+    
+  }
+}
+</script>
+
+<style lang="less">
+.nav_bar {
+  // background: linear-gradient(to right, #1F97FE, #126DFE);
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .ui-view{
+    color: #3399ff;
+    font-size: 14px;
+  }
+  .nav_title{
+    color: #010101;
+  }
+}
+.member_content{
+  // background-color: #F6F6F6;
+  padding-top: 10px;
+  .search_wrap{
+    padding: 5px 10px;
+    background-color: #fff;
+    .ui-row{
+      background-color: #E8E8EA;
+      border-radius: 4px;
+      overflow: hidden;
+      .ui-view{
+        font-size: 14px;
+        color: #A4A6A9;
+      }
+    }
+  }
+  .member_list{
+    background-color: #fff;
+    .ui-image{
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+    .ui-row{
+      .ui-view{
+        width: 100%;
+        // height: 100%;
+        line-height: 50px;
+        color: #24292C;
+        .mix-1px(0, 0, 1, 0, #ccc);
+      }
+    }
+  }
+}
+</style>

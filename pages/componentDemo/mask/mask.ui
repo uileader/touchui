@@ -1,0 +1,189 @@
+<!--mask.ui-->
+<template>
+  <ui-page>
+    <ui-view>
+      <ui-view class="sample_title">基本使用</ui-view>
+      <ui-view class="sample_content">
+        <ui-button type="primary" bindtap="handleShowMask1(true)">打开全屏遮罩</ui-button>
+        <ui-button type="primary" bindtap="handleShowMask2(true)">遮罩导航栏以下的区域</ui-button>
+        <ui-button type="primary" bindtap="handleShowMask3(true)">点击遮罩不关闭</ui-button>
+        <ui-button type="primary" bindtap="handleShowMask4(true)">自定义遮罩背景</ui-button>
+        <ui-button type="primary" bindtap="handleShowMask5(true)">全透明遮罩</ui-button>
+        <ui-button type="primary" bindtap="handleShowMask6(true)">遮罩动画（由小变大）</ui-button>
+        <ui-button type="primary" bindtap="handleShowMask9(true)">遮罩动画（由大变小）</ui-button>
+        <ui-button type="primary" bindtap="handleShowMask7(true)">白色毛玻璃效果（仅IOS）</ui-button>
+        <ui-button type="primary" bindtap="handleShowMask8(true)">黑色毛玻璃效果（仅IOS）</ui-button>
+      </ui-view>
+    </ui-view>
+    <ui-mask ui:model="showMask1" hide-delay="500" disable-ios-gesture>
+      <ui-view class="content">
+        <ui-button type="success" bindtap="handleShowMask1(false)">关闭遮罩</ui-button>
+      </ui-view>
+    </ui-mask>
+    <ui-mask ui:model="showMask2" top="{{ top2 }}">
+      <ui-view class="content">
+        <ui-button type="success" bindtap="handleShowMask2(false)">关闭遮罩</ui-button>
+      </ui-view>
+    </ui-mask>
+    <ui-mask ui:model="showMask3" hide-on-tap="{{false}}">
+      <ui-view class="content">
+        <ui-button type="success" bindtap="handleShowMask3(false)">关闭遮罩</ui-button>
+      </ui-view>
+    </ui-mask>
+    <ui-mask ui:model="showMask4" custom-style="{{ customStyle1 }}">
+      <ui-view class="content">
+        <ui-button type="success" bindtap="handleShowMask4(false)">关闭遮罩</ui-button>
+      </ui-view>
+    </ui-mask>
+
+
+    <ui-mask ui:model="showMask5" custom-style="{{ customStyle2 }}" hide-on-tap="{{false}}">
+      <ui-view class="content">
+        <ui-button type="success" bindtap="handleShowMask5(false)">关闭遮罩</ui-button>
+      </ui-view>
+    </ui-mask>
+
+    <ui-mask ui:model="showMask6" effect="scale-out" >
+      <ui-view class="content">
+        <ui-button type="success" bindtap="handleShowMask6(false)">关闭遮罩</ui-button>
+      </ui-view>
+    </ui-mask>
+
+    <ui-mask ui:model="showMask7" blur="light">
+      <ui-view class="content">
+        <ui-button type="success" bindtap="handleShowMask7(false)">关闭遮罩</ui-button>
+      </ui-view>
+    </ui-mask>
+
+    <ui-mask ui:model="showMask8" blur="dark">
+      <ui-view class="content">
+        <ui-button type="success" bindtap="handleShowMask8(false)">关闭遮罩</ui-button>
+      </ui-view>
+    </ui-mask>
+
+    <ui-mask ui:model="showMask9" effect="scale-in" >
+      <ui-view class="content content2" bindtap="handleShowMask9(false)">
+        <ui-image src="{{imgSrc1}}" width="300"></ui-image>
+        <!-- <ui-button type="success" bindtap="handleShowMask9(false)">关闭遮罩</ui-button> -->
+      </ui-view>
+    </ui-mask>
+
+
+  </ui-page>
+</template>
+
+
+<script>
+// mask.js
+export default {
+  config: {
+    "navigationBarTitleText": "mask基本使用",
+    "scrollType": "body"
+  },
+  data () {
+    return {
+      top2: ui.DEFAULT_HEADER_HEIGHT,
+      showMask1: false,
+      showMask2: false,
+      showMask3: false,
+      showMask4: false,
+      showMask5: false,
+      showMask6: false,
+      showMask7: false,
+      showMask8: false,
+      showMask9: false,
+      showMask10: false,
+      imgSrc1: 'http://images.uileader.com/20180315/da626bbd-4a86-4d5d-9690-00350528d91f.png',
+      customStyle1:{
+        'background-color':'rgba(255, 255, 255, 0.8)',
+      },
+      customStyle2:{
+        'background-color':'rgba(255, 255, 255, 0)',
+      }
+    }
+  },
+  methods: {
+    handleTap () {
+      ui.showToast({
+        title: 'tap...'
+      })
+    },
+    handleShowMask1 (show) {
+      this.showMask1 = show
+    },
+    handleShowMask2 (show) {
+      this.showMask2 = show
+    },
+    handleShowMask3 (show) {
+      this.showMask3 = show
+    },
+    handleShowMask4 (show) {
+      this.showMask4 = show
+    },
+    handleShowMask5 (show) {
+      this.showMask5 = show
+    },
+    handleShowMask6 (show) {
+      this.showMask6 = show
+    },
+    handleShowMask7 (show) {
+      this.showMask7 = show
+    },
+    handleShowMask8 (show) {
+      this.showMask8 = show
+    },
+    handleShowMask9 (show) {
+      this.showMask9 = show
+    },
+    handleShowMask10 (show) {
+      this.showMask10 = show
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // mask.less
+.ui-view {
+  &.content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    width: 100%;
+  }
+  &.content2{
+    height: 100%;
+    .mix-flex-center();
+  }
+}
+
+.mask8{
+  .mix-flex-center();
+  .finger-swiper{
+    color: #fff;
+    text-align: center;
+  }
+  .know{
+    color: #d6545d;
+    text-decoration: underline;
+  }
+}
+
+
+.tag-6 {
+  border: 1px solid #f1f2f3;
+  border-radius: 3px;
+  text-align: center;
+  height: 24px;
+  line-height: 24px;
+}
+
+.select-class {
+  background: #54d09f;
+  color: #fff;
+}
+
+</style>

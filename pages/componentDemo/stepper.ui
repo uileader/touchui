@@ -1,0 +1,86 @@
+<!--stepper.ui-->
+<template>
+  <ui-page>
+
+      <ui-view class="sample_title">基本使用</ui-view>
+    <ui-view class="sample_content">
+        <ui-stepper></ui-stepper>
+    </ui-view>
+
+    <ui-view class="sample_title">事件</ui-view>
+    <ui-view class="sample_content">
+        <ui-stepper value="1" bindsubtraction="subtraction" bindaddition="addition"></ui-stepper>
+    </ui-view>
+
+    <ui-view class="sample_title">设置最大值9最小值1：</ui-view>
+    <ui-view class="sample_content">
+        <ui-stepper max=9 min=1></ui-stepper>
+    </ui-view>
+
+    <ui-view class="sample_title">设置步长值10：</ui-view>
+    <ui-view class="sample_content">
+      <ui-stepper step=10></ui-stepper>
+    </ui-view>
+
+    <ui-view class="sample_title">设置步长值0.5（保留小数点后一位）：</ui-view>
+    <ui-view class="sample_content">
+      <ui-stepper step=0.5></ui-stepper>
+    </ui-view>
+
+
+    <ui-view class="sample_title">自定义尺寸</ui-view>
+    <ui-view class="sample_content">
+      <ui-stepper height="35" width="120"></ui-stepper>
+    </ui-view>
+
+
+    <ui-view class="sample_title">自定义颜色</ui-view>
+    <ui-view class="sample_content">
+      <ui-stepper color="red"></ui-stepper>
+    </ui-view>
+
+    
+    <ui-view class="sample_title">自定义直角</ui-view>
+    <ui-view class="sample_content">
+      <ui-stepper corner="butt"></ui-stepper>
+    </ui-view>
+
+
+
+
+
+  </ui-page>
+</template>
+
+
+<script>
+// stepper.js
+export default {
+  config: {
+    "navigationBarTitleText": "数字步进器"
+  },
+  data () {
+    return {
+      quantity1: [
+        {
+          minusIcon: require('#/images/jian1.png'),
+          plusIcon: require('#/images/jia1.png')
+        }
+      ]
+    }
+  },
+  methods: {
+    subtraction (val) {
+      ui.showToast({ title: val })
+    },
+    addition (val) {
+      ui.showToast({ title: val })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

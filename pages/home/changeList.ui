@@ -1,0 +1,96 @@
+<!--tabList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row >
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+  </ui-page>
+</template>
+
+
+<script>
+// tabList.js
+export default {
+  config: {
+    "navigationBarTitleText": "容器"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '轮播 swiper',
+          items: [
+            { title: '基本使用', link: '/pages/componentDemo/swiper' },
+            { title: '全屏swiper', link: '/pages/componentDemo/swiper2' }
+          ]
+        },
+        {
+          title: '高级轮播 ex-swiper',
+          items: [
+            { title: '基本使用', link: '/pages/componentDemo/ex-swiper' },
+            { title: '异步加载', link: '/pages/componentDemo/ex-swiper2' },
+            { title: '自定义分页', link: '/pages/componentDemo/ex-swiper3' },
+            { title: '一行多个item', link: '/pages/componentDemo/ex-swiper4' },
+            { title: '边界露出其他item', link: '/pages/componentDemo/ex-swiper5' },
+            { title: '纵深变化', link: '/pages/componentDemo/ex-swiper6' },
+            { title: '纵向切换', link: '/pages/componentDemo/ex-swiper7' }
+            // { title: '纵向拉动切换', link: '/pages/componentDemo/swiper8'}
+          ]
+        },
+        {
+          title: '集成选项卡 tab-view',
+          items: [
+            { title: '典型场景', link: '/pages/componentDemo/tabView' },
+            { title: '自定义下拉刷新动画', link: '/pages/componentDemo/tabView2' },
+            { title: '自定义样式', link: '/pages/componentDemo/tabView3' }
+          ]
+        },
+        {
+          title: '选项卡 tabs',
+          items: [
+            { title: '自定义样式', link: '/pages/componentDemo/tabs' },
+            { title: '全局tabs', link: '/pages/componentDemo/tabs2' },
+            { title: '内容共用一个容器', link: '/pages/componentDemo/tabs3' }
+          ]
+        },
+        {
+          title: '纵向选项卡 v-tabs',
+          items: [
+            { title: '锚点跳转内容(订餐列表)', link: '/pages/componentDemo/vtabs3' },
+            { title: '内容共用一个容器(商品分类)', link: '/pages/componentDemo/vtabs' }
+          ]
+        },
+        {
+          title: '分段式选项卡 segment',
+          items: [
+            { title: '基本使用', link: '/pages/componentDemo/segment' },
+            { title: '全局segment', link: '/pages/componentDemo/segment2' }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

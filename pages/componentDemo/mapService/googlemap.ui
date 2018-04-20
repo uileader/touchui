@@ -1,0 +1,355 @@
+<!--mapSearchTips.ui-->
+<template>
+    <ui-page height="{{conHeight}}">
+      <ui-view bindtap="searchShow(flag)" class="section {{show?'sectionBack':''}}">
+        <ui-row>
+          <ui-col vertical-align="middle">
+            <ui-view class="analogSearch" ui:if="keywords === ''">搜索地点</ui-view>
+            <ui-view class="analogSearch" ui:elif="keywords !== ''">{{analogSearch}}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+  
+  
+      <ui-view class="querySearch" style="{{{height:conHeight+'px'}}}" ui:show="{{show}}">
+        <ui-view class="section {{show?'sectionBack':''}}">
+        <ui-form action="/search" bindsubmit="search"> 
+          <ui-row>
+            <ui-col vertical-align="middle">
+              <ui-input bindinput="bindInput" focus="{{ show }}" ui:model={{keywords}} type="search"  bindfocus="bindfocus" bindblur="bindblur" name="search" placeholder="搜索地点"></ui-input>
+            </ui-col>
+          </ui-row>
+        </ui-form>
+      </ui-view>
+          <ui-view bindtap="associationalSearch($event,'tips',index,item.structured_formatting.main_text,item.place_id,0)" ui:for-item="item" class="text_box" ui:for="{{tips}}">
+          {{item.structured_formatting.main_text}}
+        </ui-view>
+      </ui-view>
+      
+  
+      <ui-popup ui:model="{{ show2 }}" position="bottom" height="300" mask-style="{{{ backgroundColor: 'transparent' }}}"  hide-on-tap="{{false}}" bindhide="bindhide" bindshow="bindshow">
+         <ui-view class="infobox" bindtap="associationalSearch($event,'tips3',index,item.structured_formatting.main_text,item.place_id,1)" ui:for-item="item" class="text_box" ui:for="{{tips3}}">
+          <ui-row>
+            <ui-col class="info-1">{{item.structured_formatting.main_text}}</ui-col>
+          </ui-row>
+          <ui-row>
+            <ui-col>{{item.description}}</ui-col>
+          </ui-row>
+        </ui-view>
+          
+      </ui-popup>
+  
+      <ui-fixed-view bottom="0" left="0" right="0" style="height:45px;z-index:1;background-color:#fff;width:100%;text-align:center;line-height:45px;" ui:show="{{show3}}" bindtap="toggle">
+        查看“{{keywords}}”搜索结果
+      </ui-fixed-view> 
+      
+    
+      <ui-map 
+      id="map" 
+      map-service="google"
+      height="{{conHeight}}"
+      markers="{{markers}}"
+      longitude="{{longitude}}"
+      latitude="{{latitude}}"
+      show-location="{{true}}"
+      bindcallouttap="callouttap"
+      scale="18"
+      style="width:100%;height:93vh;">
+    </ui-map>
+    </ui-page>
+  </template>
+  
+  
+  <script>
+  export default {
+    config: {
+      "navigationBarTitleText": "谷歌地图webService"
+    },
+    data () {
+      return {
+        conHeight:ui.DEFAULT_CONTENT_HEIGHT,
+        headerHeight:ui.DEFAULT_HEADER_HEIGHT,
+        tips: [],
+        tips2:[],
+        tips3:[],
+        keywords: '',
+        tempKeywords:'',
+        latitude: 39.855060,
+        longitude: 116.368650,
+        analogSearch:'',
+        show:false,
+        show2:false,
+        show3:false,
+        flag:null,
+        markers:[]
+      }
+    },
+    mounted () {
+      console.log('11111')
+    },
+    methods: {
+      callouttap (e) {
+        this.toSysMap(39.855060, 116.368650, '北京引领视觉科技有限公司')
+      },
+      toSysMap (lat, lng, names) {
+        ui.openSysMap({
+          latitude: lat,
+          longitude: lng,
+          name: names,
+          success: function (res) {
+          },
+          fail: function (res) {
+          },
+          complete: function (res) {
+          }
+        })
+      },
+      bindhide(){
+        this.show3 = true
+      },
+      bindshow(){
+        console.log('111')
+        this.show3 = false
+      },
+      toggle(){
+        this.show2 = true
+      },
+      bindtap2(){
+        this.show2 = true
+        let that = this
+        this.analogSearch = this.keywords 
+        ui.request({
+          url: 'http://apis.map.qq.com/ws/place/v1/search', 
+          data: {
+            keyword: this.keywords,
+            boundary:'region(北京,0)',
+            key: 'RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV'
+          },
+          success: function (res) {
+            that.tips3 = res.data.data
+          }
+        })
+      },
+      // 输入时请求接口实现联想词
+      bindInput(e){
+        this.show = true
+        let that = this
+        ui.request({
+          url: 'https://maps.googleapis.com/maps/api/place/autocomplete/json', 
+          data: {
+            input: this.keywords,
+            // components:'country:CN',
+            language:'en',
+            key: 'AIzaSyAkMGyXxYXxJkWR1VJmGaa66ma-2Ni13kQ'
+          },
+          success: function (res) {
+            that.tips = res.data.predictions
+          }
+        })
+      },
+      search(){
+        let that = this
+        this.show2 = true
+        ui.request({
+          url: 'https://maps.googleapis.com/maps/api/place/autocomplete/json', 
+          data: {
+            input: this.keywords,
+            // components:'country:CN',
+            language:'en',
+            key: 'AIzaSyAkMGyXxYXxJkWR1VJmGaa66ma-2Ni13kQ'
+          },
+          success: function (res) {
+            that.tips3 = res.data.predictions
+            console.log(that.tips3)
+          }
+        })
+      },
+      // 点击联想词实现搜索
+      associationalSearch(e,data,index,title,place_id,flag){
+        let that = this
+        this.show3 = false
+        var keywords = title
+        if(flag === 0){
+          this.analogSearch = keywords
+          this.tempKeywords = keywords
+          this.flag = 0
+        }else if(flag === 1){
+          this.flag = 1
+          this.tempKeywords = keywords
+        }
+        ui.request({
+          url: 'https://maps.googleapis.com/maps/api/place/details/json', 
+          data: {
+            placeid: place_id,
+            language:'en',
+            key: 'AIzaSyAkMGyXxYXxJkWR1VJmGaa66ma-2Ni13kQ'
+          },
+          success: function (res) {
+            console.log(res)
+            that.latitude = res.data.result.geometry.location.lat
+            that.longitude = res.data.result.geometry.location.lng
+            let markersSearch = [
+                {
+                id: 1,
+                latitude: that.latitude,
+                longitude: that.longitude,
+                iconPath: require('#/images/map/posi.png'),
+                label: {
+                  fontSize: 12,
+                  color: '#FF0000',
+                  content: '',
+                  x: 0.5,
+                  y: 0.5
+                },
+                callout: {
+                  content: `<div class="c-wrap">
+                            <div class="info">
+                              <p class="a-name">${res.data.result.name}</p>
+                              <p class="a-info">${res.data.result.formatted_address}</p>
+                            </div>
+                            <div class="click">导航</div>
+                          </div>
+                          `,
+                  color: '#000000',
+                  fontSize: 16,
+                  bgColor: '#ffffff',
+                  borderRadius: 10,
+                  display: 'ALWAYS',
+                  padding: 6
+                },
+                width: 30,
+                height: 40
+              }]
+              that.markers = JSON.parse(JSON.stringify(markersSearch))
+          }
+        })
+  
+        this.show = false
+        this.show2= false
+      },
+      bindfocus(){
+        this.show = true
+        this.bindInput()
+     },
+      bindblur(){
+        this.show = false
+      },
+      searchShow(){
+        this.show = true
+        if(this.flag === 0){
+          this.keywords = this.tempKeywords
+        }else if(this.flag === 1){
+          return false
+        }
+      }
+    }
+  }
+  
+  </script>
+  
+  <style lang="less">
+    // mapSearchTips.less
+    .analogSearch{
+      background-color:#fff;
+      border:1px solid #ccc;
+      border-radius:5px;
+      height:33px;
+      line-height:33px;
+      padding:0 12px;
+      color:#797474;
+    }
+    .infobox{
+      padding:10px 20px;
+      .mix-1px(0, 0, 1, 0, #ccc);
+      .info-1{
+        font-size:18px;
+        padding-right:5px;
+      }
+      .overflow{
+        .mix-text-overflow();
+      }
+      .info-2{
+        font-size:12px;
+      }
+      .info-3{
+        font-size:12px;
+        color:#666;
+      }
+    }
+  
+  .section {
+    padding: 5px 20px;
+    position: absolute;
+    width: 100%;
+    height: 46px;
+    z-index: 9;
+    input {
+      width: 100%;
+      height: 30px;
+      border-radius: 5px;
+      outline: none;
+    }
+  }
+  
+  .sectionBack{
+    background-color:#fff
+  }
+  
+  .querySearch{
+    position: absolute;
+    width: 100%;
+    z-index: 9;
+    background-color:rgba(255,255,255,.8)
+  }
+  .text_box {
+    padding: 10px 20px;
+    line-height: 20px;
+  }
+  .map .section {
+    margin-bottom: 0;
+  }
+  
+  .c-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  }
+  .info {
+  max-width:180px;
+  .mix-text-overflow();
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-right: 25px;
+  p {
+      padding: 0 5px;
+  }
+  }
+  .a-name {
+  font-size: 14px;
+  color: #000;
+  line-height: 20px;
+  }
+  .a-info {
+  width:100%;
+  font-size: 12px;
+  color: #000;
+  line-height: 16px;
+  .mix-text-overflow();
+  }
+  .click {
+  position: absolute;
+  left: calc(100% - 6px);
+  top: 0;
+  width: 50px;
+  height: 100%;
+  background-color: #FF6600;
+  line-height: 48px;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 0 10px 10px 0; 
+  }
+  </style>

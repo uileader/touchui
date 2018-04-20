@@ -1,0 +1,177 @@
+<!--page9.ui-->
+<template>
+  <ui-view>
+    <ui-view class="top_content" style="{{{ top: headerTop +'px'}}}">
+        <ui-tags
+        data="{{list00}}"
+        bindchange="singleTap"
+        fixed-width
+        col-number="4"></ui-tags>
+    </ui-view>
+    <ui-page top="{{130+headerTop}}" backgroundColor="#F5F5F5" pull-down="{{ pullDown }}" >
+        <!-- <ui-tags
+        data="{{list00}}"
+        bindchange="singleTap"
+        fixed-width
+        col-number="4"></ui-tags> -->
+      <ui-view class="content_list">
+        <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+          {{ tagName }}：{{ item }}
+        </ui-view>
+      </ui-view>
+    </ui-page>
+  </ui-view>
+</template>
+
+<script>
+  // page9.js
+export default {
+  config: {
+    navigationBarTitleText: "外部触发下拉刷新",
+    "scrollType": "div"
+  },
+  data () {
+    return {
+      headerTop: ui.DEFAULT_HEADER_HEIGHT,
+      items: [],
+      bottom: 30,
+      tempName: '新媒体运营',
+      tagName: '新媒体运营',
+      list00: [{
+        text: '新媒体运营',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: true
+      }, {
+        text: '文案写作',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '营销策划',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '品牌公关',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '市场推广',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '用户运营',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '团队管理',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }, {
+        text: '全程课程',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }],
+      pullDown: {
+        distance: 60,
+        onBegin: this.handleBegin,
+        onActive: this.handleActive,
+        onAfter: this.handleAfter
+      }
+    }
+  },
+  methods: {
+    singleTap (opt) {
+      console.log(opt,'1111')
+      this.tempName = this.list00[opt].text
+      this.list00.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+      ui.startPullDownRefresh()
+    },
+    handleAfter (flag) {
+      if (flag) {
+        this.tagName = this.tempName
+      }
+      this.tagName = this.tempName
+    },
+
+    handleLoadMore () {
+      window.setTimeout(() => {
+        for (let i = this.bottom + 1; i <= this.bottom + 10; i++) {
+          this.items.push(`列表项目${i}`)
+        }
+        this.bottom += 10
+      }, 1500)
+    },
+    handleActive () {
+      // 将返回的请求接管，实现让请求结果来控制下拉刷新的状态
+      return ui.request({
+        // promise设置为true，让请求返回promise，这样就可以接管请求
+        // 请求结束后页面自动回弹
+        promise: true,
+        url: '/touchui-backstage/listInfo.do?state=1',
+        success: (response) => {
+        },
+        fail: (err) => {
+        }
+      })
+    }
+    // 下拉结束后，执行的函数。因为只要下拉即时没有到达刷新的高度也会触发这个方法
+    // flag 为1表示执行了handleActive。为undefined代表handleActive没有执行。
+
+  },
+  mounted () {
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // page9.less
+
+
+.top_content{
+  padding: 10px 5px;
+  position: absolute;
+}
+
+.tag-before-00{
+  background: #F5F5F5;
+  color: #525252;
+  padding: 5 10px;
+  border-radius: 20px;
+  text-align: center;
+  // height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 30px;
+  font-size: 12px;
+  margin: 10px 0;
+}
+
+.select-class {
+  padding: 5 10px;
+  border-radius: 20px;
+  text-align: center;
+  // height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 30px;
+  font-size: 12px;
+  margin: 10px 0;
+  background: #EBF2FB;
+  color: #3374AD;
+}
+</style>

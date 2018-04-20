@@ -1,0 +1,297 @@
+<!--userinfo.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10"  width="50" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">账户信息</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50"></ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <ui-row height="50" class="userInfo_list2" space-top="10" bindtap="uploadPhoto">
+      <ui-col vertical-align="middle" space-left="15">
+        头像
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" space-right="15">
+        <ui-view class="portrait">
+        <ui-image
+        src="{{ portraitUrl }}"
+        width="40"
+        height="40"
+        ></ui-image>
+        <ui-icon type="arrow-right" size="16" color="#656565"></ui-icon>
+        </ui-view>
+      </ui-col>
+    </ui-row>
+    <ui-row height="50" class="userInfo_list">
+      <ui-col vertical-align="middle" space-left="15">
+        <ui-navigator url="/pages/templeteDemo/userCenter/commonUse">
+        用户名
+        </ui-navigator>
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" space-right="15">
+        <ui-view class="active">TOUCH UI</ui-view>
+      </ui-col>
+    </ui-row>
+
+    <ui-view class="list_title">账号绑定</ui-view>
+    <ui-row height="50" class="userInfo_list2">
+      <ui-col width="50" vertical-align="middle" align="center">
+        <ui-icon type="api-equipment" color="#1E94FF" size="20"></ui-icon>
+      </ui-col>
+      <ui-col vertical-align="middle">
+        手机
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" space-right="15">
+        <ui-view class="active">137****9999
+        <ui-icon type="arrow-right" size="16" color="#656565"></ui-icon>
+        </ui-view>
+      </ui-col>
+    </ui-row>
+    <ui-row height="50" class="userInfo_list2">
+      <ui-col width="50" vertical-align="middle" align="center">
+        <ui-icon type="wexin" color="#37B431" size="20"></ui-icon>
+      </ui-col>
+      <ui-col vertical-align="middle">
+        微信
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" space-right="15">
+        <ui-view class="active">已绑定
+        <ui-icon type="arrow-right" size="16" color="#656565"></ui-icon>
+        </ui-view>
+      </ui-col>
+    </ui-row>
+    <ui-row height="50" class="userInfo_list2">
+      <ui-col width="50" vertical-align="middle" align="center">
+        <ui-icon type="qq_img" color="#1F96FF" size="20"></ui-icon>
+      </ui-col>
+      <ui-col vertical-align="middle">
+        QQ
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" space-right="15">
+        <ui-view class="active2">未绑定
+        <ui-icon type="arrow-right" size="16" color="#656565"></ui-icon>
+        </ui-view>
+      </ui-col>
+    </ui-row>
+    <ui-row height="50" class="userInfo_list2">
+      <ui-col width="50" vertical-align="middle" align="center">
+        <ui-icon type="weibo" color="#DD0022" size="20"></ui-icon>
+      </ui-col>
+      <ui-col vertical-align="middle">
+        微博
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" space-right="15">
+        <ui-view class="active2">未绑定
+        <ui-icon type="arrow-right" size="16" color="#656565"></ui-icon>
+        </ui-view>
+      </ui-col>
+    </ui-row>
+    <ui-row height="50" class="userInfo_list">
+      <ui-col width="50" vertical-align="middle" align="center">
+        <ui-icon type="taobao" color="#F41E07" size="20"></ui-icon>
+      </ui-col>
+      <ui-col vertical-align="middle">
+        淘宝
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" space-right="15">
+        <ui-view class="active2">未绑定
+        <ui-icon type="arrow-right" size="16" color="#656565"></ui-icon>
+        </ui-view>
+      </ui-col>
+    </ui-row>
+
+    <ui-view class="list_title">安全设置</ui-view>
+    <ui-row height="50" class="userInfo_list2">
+      <ui-col vertical-align="middle" space-left="15">
+        登录密码
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" space-right="15">
+        <ui-view class="active">修改
+          <ui-icon type="arrow-right" size="16" color="#656565"></ui-icon>
+        </ui-view>
+      </ui-col>
+    </ui-row>
+    <ui-row height="50" class="userInfo_list2">
+      <ui-col vertical-align="middle" space-left="15">
+        支付密码
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" space-right="15">
+        <ui-view class="active2">未设置
+          <ui-icon type="arrow-right" size="16" color="#656565"></ui-icon>
+        </ui-view>
+      </ui-col>
+    </ui-row>
+    <ui-row height="50" class="userInfo_list">
+      <ui-col vertical-align="middle" space-left="15">
+        小额免密支付
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" space-right="15">
+        <ui-icon type="arrow-right" size="16" color="#656565"></ui-icon>
+      </ui-col>
+    </ui-row>
+  </ui-page>
+</template>
+
+
+<script>
+// userinfo.js
+const sourceType = [['camera'], ['album'], ['camera', 'album']]
+const sizeType = [['compressed'], ['original'], ['compressed', 'original']]
+const uploadFileUrl = 'http://www.uileader.com/touchui-backstage/uploadImgSubmit.do'
+const updataHeadUrl = 'http://www.uileader.com/touchui-backstage/updateHead.do'
+export default {
+  config: {
+    backgroundColor: '#F2F2F2',
+    delay:false
+  },
+  data () {
+    return {
+      portraitUrl: require('#/images/portrait_bg.png'),
+      tokenId: ''
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    uploadPhoto () {
+      // ui.showActionSheet({
+      //   itemList: [
+      //     '拍摄',
+      //     '从手机相册选择'
+      //   ],
+      //   success: (index) => {
+      //     if (index > -1) {
+      //       this.chooseImage(index)
+      //     }
+      //   }
+      // })
+      this.chooseImage(2)
+    },
+    chooseImage (index) {
+      let that = this
+      ui.chooseImage({
+        clip: true,
+        sourceType: sourceType[index],
+        sizeType: sizeType[1],
+        success: function (res) {
+          let imageSrc = res.tempFilePaths[0]
+          ui.uploadFile({
+            url: uploadFileUrl,
+            filePath: imageSrc,
+            name: 'file',
+            success: function (res) {
+              let data = res.data.toString()
+              if (data === '10000') {
+                ui.showToast({ title: '上传文件不能超过200k' })
+              } else if (data === '40000') {
+                ui.showToast({ title: '请添加上传文件' })
+              } else if (data === '50000') {
+                ui.showToast({ title: '上传图片失败' })
+              } else {
+                ui.request({
+                  url: updataHeadUrl,
+                  data: {
+                    tokenId: that.tokenId,
+                    head: res.data
+                  },
+                  success: function (result) {
+                    if (result.data.error_code === -1) {
+                      ui.showToast({ title: '接口失败' })
+                    } else if (result.data.error_code === 3002) {
+                      ui.showToast({ title: 'tokenId失败' })
+                    } else {
+                      ui.showToast({ title: '上传成功。', icon: 'success' })
+                      that.portraitUrl = res.data
+                      let userinfo = ui.getStorageSync('userinfo')
+                      userinfo.head = res.data
+                      ui.setStorageSync('userinfo', userinfo)
+                    }
+                  },
+                  fail: function ({ errMsg }) {
+                  }
+                })
+              }
+            },
+            fail: function ({ errMsg }) {
+              ui.showAlert({
+                title: '上传失败' + errMsg
+              })
+              // self.msg = '上传失败。' + errMsg
+            },
+            complete: function () { }
+          })
+        },
+        fail: function (res) {
+        }
+      })
+    }
+  },
+  mounted () {
+    let userinfo = ui.getStorageSync('userinfo')
+    this.tokenId = userinfo.tokenId
+    if (userinfo.head === null) {
+      this.portraitUrl = require('#/images/portrait_bg.png')
+    } else {
+      this.portraitUrl = userinfo.head
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+
+// userinfo.less
+.nav_bar {
+  background: linear-gradient(to right, #1F97FE, #126DFE);
+  .nav_title{
+    color: #fff;
+  }
+}
+.userInfo_list{
+  background-color: #fff;
+  .active{
+    font-size: 14px;
+    color: #8C8C8C;
+  }
+  .active2{
+    font-size: 14px;
+    color: #1F95FF;
+  }
+}
+.userInfo_list2{
+  background-color: #fff;
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .active{
+    font-size: 14px;
+    color: #8C8C8C;
+  }
+  .active2{
+    font-size: 14px;
+    color: #1F95FF;
+  }
+  .portrait{
+    display: flex;
+    .ui-image{
+      border-radius: 50%;
+    }
+    .ui-icon{
+      line-height: 40px;
+    }
+  }
+}
+
+.list_title{
+  font-size: 12px;
+  color: #656565;
+  padding-left: 15px;
+  line-height: 40px;
+}
+</style>

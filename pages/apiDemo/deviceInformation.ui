@@ -1,0 +1,77 @@
+<!--systemInformation.ui-->
+<template>
+  <ui-page>
+      <ui-view class="content">
+          <ui-row-list>
+          <ui-row height="40" space-bottom="10">
+              <ui-col width="100"  vertical-align="middle" align="right">
+                安卓IMEI：
+              </ui-col>
+              <ui-col vertical-align="middle">
+                  <ui-view>{{deviceInfo.imei}}</ui-view>
+              </ui-col>
+          </ui-row>
+          <ui-row height="40" space-bottom="10">
+              <ui-col width="100"  vertical-align="middle" align="right">
+                安卓IMSI：
+              </ui-col>
+              <ui-col vertical-align="middle">
+                  <ui-view>{{deviceInfo.imsi}}</ui-view>
+              </ui-col>
+          </ui-row>
+          <ui-row height="40" space-bottom="10">
+              <ui-col width="100"  vertical-align="middle" align="right">
+                安卓MAC：
+              </ui-col>
+              <ui-col vertical-align="middle">
+                  <ui-view>{{deviceInfo.mac}}</ui-view>
+              </ui-col>
+          </ui-row>
+          <ui-row height="40" space-bottom="10">
+              <ui-col width="100"  vertical-align="middle" align="right">
+                uuid：
+              </ui-col>
+              <ui-col vertical-align="middle">
+                  <ui-view>{{deviceInfo.uuid}}</ui-view>
+              </ui-col>
+          </ui-row>
+          </ui-row-list>
+            <ui-button type="primary" bindtap="getDeviceInfo">获取手机系统信息</ui-button>
+        </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+  // systemInformation.js
+export default {
+config: {
+  "navigationBarTitleText": "设备信息"
+},
+data () {
+  return {
+    deviceInfo: {}
+  }
+},
+methods: {
+  getDeviceInfo () {
+    var that = this
+    ui.getDeviceInfo({
+      success: function (res) {
+        console.log(res)
+        that.deviceInfo = res
+      }
+    })
+  }
+}
+}
+
+</script>
+
+<style lang="less">
+// systemInformation.less
+.content{
+padding: 10px;
+}
+
+</style>

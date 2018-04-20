@@ -1,0 +1,61 @@
+<!--graphicalList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row >
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <!-- {{ item.title }} -->
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// graphicalList.js
+export default {
+  config: {
+    "navigationBarTitleText": "图形化"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '图形与交互',
+          items: [
+            { title: '角标 badge', link: '/pages/componentDemo/badge' },
+            { title: '分隔符 divider', link: '/pages/componentDemo/divider' },
+            { title: '星级评价 star', link: '/pages/componentDemo/star' },
+            { title: '星级展示 mini-star', link: '/pages/componentDemo/miniStar' },
+            { title: '波浪 wave', link: '/pages/componentDemo/wave' },
+            { title: '手势解锁 locker（设置）', link: '/pages/componentDemo/locker' },
+            { title: '手势解锁 locker（解锁）', link: '/pages/componentDemo/locker2' },
+            { title: '绘图 canvas', link: '/pages/componentDemo/canvas' }
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+  
+</style>
+  

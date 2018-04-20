@@ -1,0 +1,142 @@
+<template>
+    <ui-page top="0">
+        <ui-fixed-view top="0" left="0" right="0" style="{{{height:STATUS_BAR_HEIGHT+'px',backgroundColor:'#FF643F'}}}" ></ui-fixed-view>
+        <ui-row class="self-navbar" space-top="{{STATUS_BAR_HEIGHT}}">
+          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+              <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+          </ui-col>
+        <ui-col>
+          <ui-view class="search">
+            <ui-view class="search_center" >
+              <ui-row height="30">
+                <ui-col align="right" vertical-align="middle" width="20">
+                  <ui-icon type="magnifier" size="18" color="#FF643F"></ui-icon>
+                </ui-col>
+                <ui-col align="left" vertical-align="middle" space-left="10" span="8" style="font-size:12px">
+                  附近热搜：首地大峡谷
+                </ui-col>
+              </ui-row>
+            </ui-view>
+          </ui-view>
+        </ui-col>
+        <ui-col width="60"></ui-col>
+      </ui-row>
+        <ui-scroll-view
+        id="ui-scroller"
+        scroll-y
+        height="{{height}}"
+        bindtouchend="touchend"
+        bindtouchmove="touchmove"
+        bindtouchstart="touchstart"
+        >
+        <ui-view class="content_list" >
+          <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+            {{ item }}
+          </ui-view>
+        </ui-view>
+        </ui-scroll-view>
+    </ui-page>
+  </template>
+
+
+<script>
+  export default {
+    config: {
+    "navigationBarTitleText": "doubleScroll2",
+    "scrollType":"body",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":"white"
+  },
+  data () {
+    return {
+      items: [],
+      imgHeight: parseInt(ui.WIN_WIDTH / 1125 * 628),
+      scrollDirection: null,
+      startX: '',
+      startY: '',
+      scrollTop: null,
+      height: ui.WIN_HEIGHT,
+      STATUS_BAR_HEIGHT: ui.STATUS_BAR_HEIGHT
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    touchstart (e) {
+      this.startX = e.changedTouches[0].clientX
+      this.startY = e.changedTouches[0].clientY
+    },
+    touchmove (e) {
+      var moveX = e.changedTouches[0].clientX
+      var moveY = e.changedTouches[0].clientY
+      var disX = moveX - this.startX
+      var disY = moveY - this.startY
+      // 判断scrollview内容向下滚动
+      if (Math.abs(disX) < Math.abs(disY) && disY < 0) {
+        this.scrollDirection = '0'
+      } else if (Math.abs(disX) < Math.abs(disY) && disY > 0) {    // 判断scrollview内容向上滚动
+        this.scrollDirection = '1'
+      }
+    },
+
+    touchend (e) {
+      // scrollview内容向下滚动时，把图片隐藏
+      if (this.scrollDirection === '0') {
+        ui.pageScrollTo(46, 200)
+      } else if (this.scrollDirection === '1') {
+        ui.pageScrollTo(0, 200)
+      }
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= 30; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .self-navbar{
+  background-color:#FF643F;
+  color:#fff
+}
+
+.ui-image-container{
+  background-color: #eee;
+}
+.city{
+  color: #fff;
+  font-size: 14px;
+}
+.search{
+  width: 100%;
+  height:45px;
+  line-height:45px;
+  border-radius: 3px;
+  overflow: hidden;
+  .mix-flex-center();
+  .ui-view{
+    width:100%;
+    height: 30px;
+    line-height: 30px;
+    color:#666;
+    font-size: 14px;
+    background-color: #fff;
+    margin:0 auto;
+    border-radius: 30px;
+  }
+}
+
+.header {
+  padding: 0 15px;
+  height: 46px;
+  line-height: 46px;
+}
+
+.header1 {
+  background-color: #eee;
+}
+</style>

@@ -1,0 +1,74 @@
+<!--chooseLocation.ui-->
+<template>
+  <ui-page>
+      <ui-view class="content">
+        <ui-row height="40" space="10">
+          <ui-col span="4" vertical-align="middle">
+            地址：
+          </ui-col>
+          <ui-col span="8" vertical-align="middle">
+              <ui-view>{{hasLocation?locationAddress:'未选择位置'}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space="10">
+          <ui-col span="4" vertical-align="middle">
+            经纬度：
+          </ui-col>
+          <ui-col span="8" vertical-align="middle">
+              <ui-view>{{hasLocation?'E:'+ location.longitude[0]+'°'+location.longitude[1]+'′ N:'+location.latitude[0]+'°'+location.latitude[1]+'′':'未选择位置'}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-button type="primary" bindtap="chooseLocation">选择位置</ui-button>
+        <ui-button bindtap="clear">清空</ui-button>
+      </ui-view>
+  </ui-page>
+</template>
+ 
+
+<script>
+import util from '#/static/utils/util'
+var formatLocation = util.formatLocation
+export default {
+  config: {
+    "navigationBarTitleText": "选择位置"
+  },
+  data () {
+    return {
+      hasLocation: false,
+      location: '',
+      locationAddress: ''
+    }
+  },
+  methods: {
+    chooseLocation: function () {
+      var that = this
+      ui.chooseLocation({
+        backgroundColor: '#fff',
+        color:'#000',
+        success: function (res) {
+          that.setData({
+            hasLocation: true,
+            location: formatLocation(res.longitude, res.latitude),
+            locationAddress: res.address
+          })
+        },
+        fail: function (res) {
+        }
+      })
+    },
+    clear: function () {
+      this.setData({
+        hasLocation: false
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+// chooseLocation.less
+.content{
+  padding: 10px;
+}
+</style>

@@ -1,0 +1,58 @@
+<!--navigator.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">保留当前页面，跳转到新页面</ui-view>
+    <ui-view class="sample_content">
+      <ui-navigator bindtap="navigatortap" url="/pages/componentDemo/navigator2?state=1">
+        <ui-button bindtap="btntap" type="primary" plain="{{true}}">
+          navigator组件
+        </ui-button>
+      </ui-navigator>
+    </ui-view>
+
+    <ui-view class="sample_title">关闭当前页面，跳转到新页面</ui-view>
+    <ui-view class="sample_content">
+      <ui-navigator open-type="redirect" url="/pages/componentDemo/navigator2?state=2">
+        <ui-button type="primary" plain="{{true}}">
+          navigator组件
+        </ui-button>
+      </ui-navigator>
+    </ui-view>
+
+    <ui-view class="sample_title">跳转到 tabBar 页面</ui-view>
+    <ui-view class="sample_content">
+      <ui-navigator open-type="switchTab" url="/pages/componentDemo/tabBar1-1">
+        <ui-button type="primary" plain="{{true}}">
+          navigator组件
+        </ui-button>
+      </ui-navigator>
+    </ui-view>
+
+
+  </ui-page>
+</template>
+
+
+<script>
+// navigator.js
+export default {
+  config: {
+    "navigationBarTitleText": "跳转传参"
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    navigatortap () {
+    },
+    btntap () {
+    }
+  }
+
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

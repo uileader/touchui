@@ -1,0 +1,156 @@
+<!--button.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">默认宽度</ui-view>
+    <ui-view class="win">
+      <ui-button type="primary">主要操作</ui-button>
+      <ui-button type="primary" loading="true">提交中</ui-button>
+      <ui-button type="primary" disabled>主要操作-禁用</ui-button>
+      <ui-button>次要操作</ui-button>
+      <ui-button disabled>次要操作-禁用</ui-button>
+      <ui-button type="warn">警告操作</ui-button>
+      <ui-button type="warn" disabled>警告操作-禁用</ui-button>
+      <ui-button type="primary" plain="true">主要操作-镂空</ui-button>
+      <ui-button plain="true">次要操作-镂空</ui-button>
+      <ui-button type="warn" plain="true">警告操作-镂空</ui-button>
+    </ui-view>
+    <ui-view class="sample_title">自适应文字</ui-view>
+    <ui-view class="win">
+      <ui-button type="primary" full-width="{{false}}">主要操作</ui-button>
+      <ui-button type="primary" full-width="{{false}}" loading="true">提交中</ui-button>
+      <ui-button type="primary" full-width="{{false}}" disabled>禁用</ui-button>
+      <ui-button full-width="{{false}}">次要操作</ui-button>
+      <ui-button full-width="{{false}}" disabled>禁用</ui-button>
+      <ui-button type="warn" full-width="{{false}}">警告操作</ui-button>
+      <ui-button type="warn" full-width="{{false}}" disabled>禁用</ui-button>
+      <ui-button type="primary" full-width="{{false}}" plain="true">主要操作-镂空</ui-button>
+      <ui-button full-width="{{false}}" plain="true">次要操作-镂空</ui-button>
+      <ui-button type="warn" full-width="{{false}}" plain="true">警告操作-镂空</ui-button>
+    </ui-view>
+    <ui-view class="sample_title">mini按钮</ui-view>
+    <ui-view class="win">
+      <ui-button type="primary" size="mini">主要</ui-button>
+      <ui-button type="primary" size="mini" loading="true">提交中</ui-button>
+      <ui-button type="primary" size="mini" disabled>禁用</ui-button>
+      <ui-button type="default" size="mini">次要</ui-button>
+      <ui-button type="default" size="mini" disabled>禁用</ui-button>
+      <ui-button type="warn" size="mini">警告</ui-button>
+      <ui-button type="warn" size="mini" disabled>禁用</ui-button>
+      <ui-button type="primary" size="mini" plain="true">主要</ui-button>
+      <ui-button type="default" size="mini" plain="true">次要</ui-button>
+      <ui-button type="warn" size="mini" plain="true">警告</ui-button>
+    </ui-view>
+    <ui-view class="sample_title">引入icon</ui-view>
+    <ui-view class="win">
+      <ui-button class="button-style-demo2" icon="search">搜索</ui-button>
+    </ui-view>
+
+    <ui-view class="sample_title">引入图片</ui-view>
+    <ui-view class="win">
+      <ui-button class="button-style-demo3"><img src="{{ require('#/images/sousuo.svg') }}">搜索</ui-button>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义样式</ui-view>
+    <ui-view class="win">
+      <ui-button class="button-style-demo1">立即预订</ui-button>
+      <ui-button type="primary" loading="{{isLoading}}" bindtap="submitHandler" disabled="{{isDisable}}">{{buttonText}}</ui-button>
+    </ui-view>
+
+    <ui-view class="sample_title">其他特性</ui-view>
+    <ui-view class="win box" bindtap="handleViewTap">
+        <ui-button type="primary" bindtap="handleButtonTap">点击按钮冒泡</ui-button>
+      </ui-view>
+      <ui-view class="win box" bindtap="handleViewTap">
+        <ui-button type="primary" bindtap="handleButtonTap" hover-stop-propagation>点击按钮不冒泡</ui-button>
+      </ui-view>
+  <ui-view class="win">
+    <ui-button hover-class="hover-btn" type="primary">自定义点击态效果</ui-button>
+    <ui-button hover-class="hover-btn" hover-start-time=30 hover-stay-time=2000 type="primary">设置点击态时间</ui-button>
+  </ui-view>
+
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "按钮"
+  },
+  data () {
+    return {
+      isLoading: false,
+      buttonText: '提交',
+      isDisable: false
+    }
+  },
+  mounted () {
+  },
+  methods: {
+    submitHandler () {
+      this.isLoading = true
+      this.buttonText = '提交中...'
+      this.isDisable = true
+      var that = this
+      setTimeout(function () {
+        that.isLoading = false
+        that.buttonText = '提交'
+        that.isDisable = false
+      }, 1000)
+    },
+    handleViewTap () {
+      ui.showToast({
+        title: '点击了ui-view'
+      })
+    },
+    handleButtonTap () {
+      ui.showToast({
+        title: '点击了ui-button'
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // button.less
+.win{padding:10px;}
+
+.button-style-demo1 {
+  background-color: #C01920;
+  border-radius: 20px;
+  border-color: #C01920;
+  box-shadow: 3px 3px 8px #E57A7E;
+  color: #fff;
+}
+.button-style-demo1::after{
+  border: none;
+}
+.button-style-demo2 {
+  background-color: #4A88DB;
+  color: #fff;
+}
+
+.button-style-demo3 {
+  background-color: #4A88DB;
+  color: #fff;
+  img{
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+}
+
+.hover-btn{
+  background-color:red;
+  border-color:red;
+  color:#fff
+}
+
+.icon-search{
+  font-size:14px;
+}
+
+</style>

@@ -1,0 +1,683 @@
+<!--table5.ui-->
+<template>
+  <ui-page>
+  <ui-fixed-view top="{{offsetTop}}" left="0" style="width: 100%;">
+    <ui-tabs class="type-common" index="{{ current1 }}" bindchange="changeTab($event)">
+      <ui-tab>全部</ui-tab>
+      <ui-tab>2017</ui-tab>
+      <ui-tab>2016</ui-tab>
+      <ui-tab>2015</ui-tab>
+      <ui-tab>2014</ui-tab>
+      <ui-tab>2013</ui-tab>
+      <ui-tab>2012</ui-tab>
+    </ui-tabs>
+  </ui-fixed-view>
+  <ui-view style="margin-top:42px" class="title">{{tabletitles}}</ui-view>
+  <ui-view>
+    <ui-table header="{{thisHeader}}" ui:model="tabledatas" alternating-row sticky="{{false}}"></ui-table>
+  </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// table5.js
+export default {
+  config: {
+    "navigationBarTitleText": "点击标签切换table 数据"
+  },
+  data () {
+    return {
+      tabledatas: {},
+      tabletitles: '',
+      current1: 0,
+      offsetTop: ui.DEFAULT_HEADER_HEIGHT,
+      tab: [
+        { name: '全部' },
+        { name: '2017' },
+        { name: '2016' },
+        { name: '2015' },
+        { name: '2014' },
+        { name: '2013' },
+        { name: '2012' }
+      ],
+      thisHeader: [{
+        name: 'id',
+        display: '排名'
+      }, {
+        name: 'filmtitles',
+        display: '影片名'
+      }, {
+        name: 'bout',
+        display: '票房'
+      }, {
+        name: 'fares',
+        display: '平均票价'
+      }, {
+        name: 'averagednum',
+        display: '均场人数'
+      }],
+      thisDatas: [
+        {
+          thisData: {
+            tabletitle: '中国电影票房总榜',
+            rows: [{
+              id: '1',
+              filmtitles: '猩球崛起',
+              bout: '549856',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '6',
+              filmtitles: '王牌保镖',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '7',
+              filmtitles: '看不见的客人',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '8',
+              filmtitles: '蜘蛛侠：英雄归来',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '9',
+              filmtitles: '猩球崛起',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '7',
+              filmtitles: '看不见的客人',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '8',
+              filmtitles: '蜘蛛侠：英雄归来',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '9',
+              filmtitles: '猩球崛起',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }]
+          }
+        }, {
+          thisData: {
+            tabletitle: '2017中国电影票房总榜',
+            rows: [{
+              id: '1',
+              filmtitles: '猩球崛起2017',
+              bout: '549856',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2017',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2017',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2017',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2017',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2017',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2017',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2017',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2017',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2017',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2017',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2017',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2017',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }]
+          }
+        }, {
+          thisData: {
+            tabletitle: '2016中国电影票房总榜',
+            rows: [{
+              id: '1',
+              filmtitles: '猩球崛起2016',
+              bout: '549856',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2016',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2016',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2016',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2016',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2016',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2016',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2016',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2016',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2016',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2016',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2016',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2016',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }]
+          }
+        }, {
+          thisData: {
+            tabletitle: '2015中国电影票房总榜',
+            rows: [{
+              id: '1',
+              filmtitles: '猩球崛起2015',
+              bout: '549856',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2015',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2015',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2015',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2015',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2015',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2015',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2015',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2015',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2015',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2015',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }]
+          }
+        }, {
+          thisData: {
+            tabletitle: '2014中国电影票房总榜',
+            rows: [{
+              id: '1',
+              filmtitles: '猩球崛起2014',
+              bout: '549856',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2014',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2014',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2014',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2014',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2014',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2014',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2014',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2014',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2014',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2014',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2014',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2014',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }]
+          }
+        }, {
+          thisData: {
+            tabletitle: '2013中国电影票房总榜',
+            rows: [{
+              id: '1',
+              filmtitles: '猩球崛起2013',
+              bout: '549856',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2013',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2013',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2013',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2013',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2013',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2013',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2013',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2013',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2013',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2013',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2013',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }]
+          }
+        }, {
+          thisData: {
+            tabletitle: '2012中国电影票房总榜',
+            rows: [{
+              id: '1',
+              filmtitles: '猩球崛起2012',
+              bout: '549856',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2012',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2012',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2012',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2012',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2012',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2012',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2012',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2012',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }, {
+              id: '2',
+              filmtitles: '王牌保镖2012',
+              bout: '8754426',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '3',
+              filmtitles: '看不见的客人2012',
+              bout: '423543',
+              fares: '25',
+              averagednum: '46'
+            }, {
+              id: '4',
+              filmtitles: '蜘蛛侠：英雄归来2012',
+              bout: '123314',
+              fares: '35',
+              averagednum: '56'
+            }, {
+              id: '5',
+              filmtitles: '猩球崛起2012',
+              bout: '95345',
+              fares: '35',
+              averagednum: '33'
+            }]
+          }
+        }
+      ]
+    }
+  },
+  methods: {
+    changeTab (index) {
+      this.tabledatas = this.thisDatas[index].thisData
+      this.tabletitles = this.thisDatas[index].thisData.tabletitle
+    }
+
+  },
+  mounted () {
+    this.tabledatas = this.thisDatas[0].thisData
+    this.tabletitles = this.thisDatas[0].thisData.tabletitle
+  }
+}
+
+</script>
+
+<style lang="less">
+  // table5.less
+.ui-tabs {
+  background-color: #f5f5f5;
+  padding-bottom: 1px;
+
+  &.type-common {
+    .swiper-slide {
+      padding: 10px;
+      transition: color .1s;
+      width:100px
+    }
+    .active {
+      border-bottom: 1px solid #39f;
+      color: #39f;
+    }
+
+    .ui-icon {
+      margin: 0 5px;
+      font-size: 16px;
+    }
+  }
+}
+.table-header-column{
+  background-color: #f8f8f8;
+  border:0
+}
+.table-header{
+  border:0
+}
+
+.table-data-row{
+  border:0
+}
+
+.title{
+  padding:5px;
+  color:#666;
+  font-size:14px;
+}
+
+.ui-sticky{
+  background-color: #fff
+}
+
+
+</style>

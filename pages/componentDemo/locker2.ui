@@ -1,0 +1,136 @@
+<!--locker.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar class="nab_bar" slot="nav-bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="70" bindtap="navigateBack">
+          <ui-view class="nav_left">
+              <ui-icon type="arrow-left" size="16" color="#3399ff"></ui-icon>返回
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">解锁</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="70"></ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <ui-view class="top_content">
+      <ui-view>
+      <ui-image
+      src="{{ require('#/images/indexList/t5.png') }}"
+      ></ui-image>
+      <ui-text block>{{ title }}</ui-text>
+      </ui-view>
+    </ui-view>
+    <ui-view ui:show="btnshow" class="sample_content">
+      <ui-navigator bindtap="navigatortap" url="/pages/componentDemo/locker">
+        <ui-button bindtap="btntap" type="primary" plain="{{true}}">
+          设置手势密码
+        </ui-button>
+      </ui-navigator>
+    </ui-view>
+    <ui-locker
+      ui:show="!btnshow"
+      containerid="locker2"
+      mode="{{ mode }}"
+      bindmismatch="mismatch()" 
+      bindshorterror="shorterror()"  
+      bindsuccess="success()"
+      password="{{ password }}"
+      n="3"
+      line-width="10"
+      size="300"
+      focus-color="#39f"
+    ></ui-locker>
+  </ui-page>
+</template>
+
+
+<script>
+  // locker2.js
+export default {
+  config: {
+    "navigationBarTitleText": "locker"
+  },
+  data () {
+    return {
+      mode: 'locker',
+      title: '请输入手势密码',
+      btnshow: false,
+      lockerKey: null,
+      password: null
+    }
+  },
+  created () {
+    this.password = ui.getStorageSync('lockerKey')
+    if (this.password === null || this.password === '') {
+      this.title = '还未设置手势密码'
+      this.btnshow = true
+    }
+  },
+  computed: {
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    func3 (e) {
+      ui.showToast({ title: '解锁成功', icon: 'success' })
+      this.title = '解锁成功'
+    },
+    success () {
+      this.func3()
+    },
+    mismatch () {
+      ui.showToast({ title: '密码有误,解锁不成功' })
+      this.title = '密码有误,解锁不成功'
+    },
+    shorterror () {
+      ui.showToast({ title: '密码至少连接了4个点' })
+      this.title = '密码至少连接了4个点'
+    }
+  }
+}
+</script>
+
+<style lang="less">
+  // locker2.less
+.nab_bar{
+  background-color: #fff;
+  .nav_title{
+    color: #666;
+  }
+  .nav_left{
+    color: #3399ff;
+  }
+}
+.top_content{
+  margin-top: 50px;
+  margin-bottom: 30px;
+  .mix-flex-center();
+  .ui-image{
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .ui-text{
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #757070;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 350px){
+  .top_content{
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  
+}
+</style>

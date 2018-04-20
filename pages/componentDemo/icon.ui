@@ -1,0 +1,90 @@
+<!--icon.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">自定义尺寸</ui-view>
+    <ui-view class="sample_content">
+      <ui-row>
+        <ui-col align="center" vertical-align="middle">
+          <ui-icon type="ring" size="16"></ui-icon>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+          <ui-icon type="ring" size="24"></ui-icon>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+          <ui-icon type="ring" size="32"></ui-icon>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+          <ui-icon type="ring" size="40"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义颜色</ui-view>
+    <ui-view class="sample_content">
+      <ui-row>
+        <ui-col align="center" vertical-align="middle">
+          <ui-icon type="ring" size="32" color="#09BB07"></ui-icon>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+          <ui-icon type="ring" size="32" color="#3399FF"></ui-icon>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+          <ui-icon type="ring" size="32" color="#FFBE00"></ui-icon>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+          <ui-icon type="ring" size="32" color="#F43530"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+    <ui-view class="sample_title">多色图标</ui-view>
+    <ui-view class="sample_content">
+      <ui-row>
+        <ui-col align="center" vertical-align="middle">
+          <ui-image src="{{ require('#/images/play.svg') }}" width="48"></ui-image>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+          <ui-image src="{{ require('#/images/pause.svg') }}" width="48"></ui-image>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+    
+    <ui-view class="sample_title">微信图标</ui-view>
+    <ui-view class="sample_content">
+      <ui-icon mode="wechat" type="success" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="info" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="info-circle" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="warn" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="waiting" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="waiting-circle" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="safe-success" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="safe_warn" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="success-circle" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="success-no-circle" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="circle" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="download" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="cancel" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="search" size="24"></ui-icon>
+      <ui-icon mode="wechat" type="clear" size="24"></ui-icon>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "图标库"
+  },
+  data () {
+    return {
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

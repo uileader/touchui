@@ -1,0 +1,66 @@
+<!--networkList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row >
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+    
+<script>
+// networkList.js
+export default {
+  config: {
+    "navigationBarTitleText": "网络"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '导航',
+          items: [
+            { title: '界面跳转', link: '/pages/apiDemo/navigate' },
+            { title: '参数传递', link: '/pages/apiDemo/parameter' }
+          ]
+        },
+        {
+          title: '数据',
+          items: [
+            { title: '数据缓存', link: '/pages/apiDemo/localStorage' }
+          ]
+        },
+        {
+          title: '网络',
+          items: [
+            { title: '发起请求', link: '/pages/apiDemo/request' },
+            { title: 'WebSocket', link: '/pages/apiDemo/webSocket' }
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+
+</style>

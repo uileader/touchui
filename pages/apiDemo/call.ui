@@ -1,0 +1,54 @@
+<!--call.ui-->
+<template>
+  <ui-page>
+    <ui-view class="content">
+        <ui-view class="ui-text">请在下方输入电话号码</ui-view>
+        <ui-input class="input" type="number" name="input" bindinput="bindInput" value="{{ inputValue }}"></ui-input>
+        <ui-button type="primary" bindtap="makePhoneCall" disabled="{{disabled}}">拨打</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// call.js
+export default {
+  config: {
+    "navigationBarTitleText": "拨打电话"
+  },
+  data () {
+    return {
+      inputValue: '10086',
+      disabled: false
+    }
+  },
+  methods: {
+    bindInput (val) {
+      this.inputValue = val
+      if (this.inputValue.length > 0) {
+        this.disabled = false
+      } else {
+        this.disabled = true
+      }
+    },
+    makePhoneCall () {
+      ui.makePhoneCall({
+        phoneNumber: this.inputValue,
+        success: function () {
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // call.less
+.content{
+  padding: 10px;
+}
+.ui-text{
+  line-height: 36px;
+}
+</style>

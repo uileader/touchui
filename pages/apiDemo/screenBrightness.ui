@@ -1,0 +1,95 @@
+<!--screenBrightness.ui-->
+<template>
+    <ui-page>
+      <ui-view class="content">
+        <ui-row height="40" space-bottom="30">
+          <ui-col span="3" vertical-align="middle">
+            当前亮度：
+          </ui-col>
+          <ui-col span="9" vertical-align="middle">
+              <ui-view>{{value+'%'}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-view class="slider_win">
+          <ui-slider width="{{WIN_WIDTH-50}}" ui:model="value" bindchange="sliderChange"></ui-slider>
+        </ui-view>
+        <ui-row height="40" space-top="30">
+          <ui-col span="3" vertical-align="middle">
+            常亮：
+          </ui-col>
+          <ui-col span="9" vertical-align="middle">
+              <ui-view>{{isKeep?'是':'否'}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-button type="primary" bindtap="keep">设置屏幕常亮</ui-button>
+        <ui-button bindtap="cancel">取消屏幕常亮</ui-button>
+      </ui-view>
+    </ui-page>
+  </template>
+
+
+<script>
+// screenBrightness.js
+export default {
+  config: {
+    "navigationBarTitleText": "屏幕亮度"
+  },
+  data () {
+    return {
+      WIN_WIDTH:ui.WIN_WIDTH,
+      value: 0,
+      isKeep: false,
+      sliderMax: 100,
+      sliderMin: 0
+    }
+  },
+  methods: {
+    get () {
+      ui.getScreenBrightness({
+        success: ({ value }) => {
+          this.value = value * 100
+        }
+      })
+    },
+    set (value) {
+      ui.setScreenBrightness({
+        value
+      })
+    },
+    keep () {
+      ui.setKeepScreenOn({
+        keepScreenOn: true,
+        success: () => {
+          this.isKeep = true
+        }
+      })
+    },
+    cancel () {
+      ui.setKeepScreenOn({
+        keepScreenOn: false,
+        success: () => {
+          this.isKeep = false
+        }
+      })
+    },
+    sliderChange (value) {
+      this.set(value / 100)
+    }
+  },
+  mounted () {
+    this.get()
+  }
+}
+
+
+</script>
+
+<style lang="less">
+  // screenBrightness.less
+.content{
+  padding: 10px;
+}
+.slider_win{
+  padding: 0 20px;
+}
+</style> 

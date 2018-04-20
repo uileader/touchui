@@ -1,0 +1,127 @@
+<!--locker.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar class="nab_bar" slot="nav-bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="70" bindtap="navigateBack">
+          <ui-view class="nav_left">
+              <ui-icon type="arrow-left" size="16" color="#3399ff"></ui-icon>返回
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">设置手势密码</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="70"></ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <ui-view class="top_content">
+      <ui-view>
+      <ui-image
+      src="{{ require('#/images/indexList/t5.png') }}"
+      ></ui-image>
+      <ui-text block>{{ title }}</ui-text>
+      </ui-view>
+    </ui-view>
+    <ui-locker
+      containerid="locker1"
+      mode="{{ mode }}"
+      bindnotenough="notenough()"
+      bindfirstinputed="firstinputed()"
+      bindchanged="changed($event)"
+      bindnotsame="notsame()"
+      n="3"
+      line-width="10"
+      size="300"
+      focus-color="#39f"
+      ></ui-locker>
+  </ui-page>
+</template>
+
+
+<script>
+// locker.js
+export default {
+  config: {
+    "navigationStyle": "custom",
+  "navigationBarTextStyle": "black",
+  "disableScroll":"true"
+  },
+  data () {
+    return {
+      mode: 'recorder',
+      title: '请设置手势密码'
+    }
+  },
+  computed: {
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.$forceUpdate()
+    })
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    firstinputed (e) {
+      this.title = '请再次确认手势密码'
+    },
+    changed (res) {
+      ui.setStorageSync('lockerKey', res)
+      this.mode = 'locker'
+      ui.showToast({ title: '手势设置成功', icon: 'success' })
+      this.title = '手势密码设置成功'
+    },
+    notsame () {
+      ui.showToast({ title: '两次设置的密码不匹配，请重新设置' })
+      this.title = '两次设置的密码不匹配，请重新设置'
+    },
+    notenough () {
+      ui.showToast({ title: '请至少连接4个点' })
+      this.title = '请至少连接4个点'
+    }
+  }
+}
+</script>
+
+<style lang="less">
+  // locker.less
+.nab_bar{
+  background-color: #fff;
+  .nav_title{
+    color: #666;
+  }
+  .nav_left{
+    color: #3399ff;
+  }
+}
+.top_content{
+  margin-top: 50px;
+  margin-bottom: 30px;
+  .mix-flex-center();
+  .ui-image{
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .ui-text{
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #757070;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 350px){
+  .top_content{
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  
+}
+</style>

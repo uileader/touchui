@@ -1,0 +1,194 @@
+<!--popicon4.ui-->
+<template>
+  <ui-page>
+    <ui-fixed-view style="z-index:1000" top="0">
+      <ui-pop-icon left="{{thisLeft}}" bindhide="dismiss" bindmaskhide="maskhide" top="{{thisTop + 50}}" background="transparent" ui:model="toggle" class="pop-menu-demo4" animate="none">
+        <ui-view class="circle1" style="{{{display:display}}}"></ui-view>
+        <ui-view class="circle2" style="{{{display:display}}}"></ui-view>  
+        <ui-pop-icon-item bindtap="closepopicon('新建日程')" item-color="#55ACEE" top="{{offsetY - 8}}" left="{{offsetX - 80}}">
+            <ui-view>新建</ui-view>
+            <ui-view>日程</ui-view>
+          </ui-pop-icon-item>
+          <ui-pop-icon-item bindtap="closepopicon('快速签到')" item-color="#55ACEE" top="{{offsetY - 65}}" left="{{offsetX - 55}}">
+            <ui-view>快速</ui-view> 
+            <ui-view>签到</ui-view>
+          </ui-pop-icon-item>
+          <ui-pop-icon-item bindtap="closepopicon('发布动态')" item-color="#55ACEE" top="{{offsetY - 95}}" left="{{offsetX }}">
+            <ui-view>发布</ui-view>
+            <ui-view>动态</ui-view>
+          </ui-pop-icon-item>
+          <ui-pop-icon-item bindtap="closepopicon('设置')" item-color="#07C7A5" top="{{offsetY -195}}" left="{{offsetX + 10}}">
+            <ui-view style="line-height: 38px">设置</ui-view>
+          </ui-pop-icon-item>
+          <ui-pop-icon-item bindtap="closepopicon('扫一扫')" item-color="#FFA95D" top="{{offsetY -65}}" left="{{offsetX - 170}}">
+            <ui-view style="line-height: 38px">扫一扫</ui-view>
+          </ui-pop-icon-item>
+          <ui-pop-icon-item bindtap="closepopicon('考勤')" item-color="#FA6470" top="{{offsetY -135}}" left="{{offsetX - 125}}">
+            <ui-view style="line-height: 38px">考勤</ui-view>
+          </ui-pop-icon-item>
+          <ui-pop-icon-item bindtap="closepopicon('名片扫描')" item-color="#BA9CCC" top="{{offsetY -175}}" left="{{offsetX - 60}}">
+            <ui-view>名片</ui-view>
+            <ui-view>扫描</ui-view>
+          </ui-pop-icon-item>
+          <ui-pop-icon-item bindtap="closepopicon('新建任务')" item-color="#98CF65" top="{{offsetY+5}}" left="{{offsetX - 195}}">
+            <ui-view>新建</ui-view>
+            <ui-view>任务</ui-view>
+          </ui-pop-icon-item>
+      </ui-pop-icon>
+    </ui-fixed-view>
+      <ui-fixed-view bottom="12" right="19" style="z-index:1000">
+        <ui-view class="togglebtn {{toggleicon}}" bindtap="togglepopicon">
+          <ui-icon type="plus" size="24"></ui-icon>
+        </ui-view>
+      </ui-fixed-view>
+      <ui-view class="content_list">
+        <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+          {{ item }}
+        </ui-view>
+      </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// popicon4.js
+export default {
+  config: {
+    "navigationBarTitleText": "图标扇形排列"
+  },
+  data () {
+    return {
+      items: [],
+      bottom: 30,
+      toggle: false,
+      thisLeft: window.innerWidth,
+      thisTop: window.innerHeight,
+      offsetX: -70,
+      offsetY: -110,
+      display: 'none',
+      canClick: true,
+      toggleicon: 'togglebtn'
+    }
+  },
+  methods: {
+    // 点击开始／关闭按钮
+    togglepopicon () {
+      if (this.toggle) {
+        if (this.canClick) {
+          this.toggleicon = 'closestyle'
+          this.display = 'none'
+          this.toggle = false
+          this.canClick = false
+        }
+      } else {
+        if (this.canClick) {
+          this.toggleicon = 'openstyle'
+          this.display = 'block'
+          this.toggle = true
+          setTimeout(() => {
+            this.canClick = true
+          }, 700)
+        }
+      }
+    },
+    // 点击每一项时
+    closepopicon (val) {
+      ui.showToast({ title: val })
+      this.display = 'none'
+      this.toggleicon = 'closestyle'
+      this.toggle = false
+    },
+    // 点击遮罩触发，安卓回退时触发
+    dismiss () {
+      if (this.canClick) {
+        this.canClick = false
+        this.toggleicon = 'closestyle'
+        this.display = 'none'
+        this.toggle = false
+      }
+    },
+    // 设置mask延时的情况下，mask关闭时触发，安卓回退时触发
+    maskhide () {
+      this.canClick = true
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+// popicon4.less
+.circle1{
+  display: none;
+  width:340px;
+  height:340px;
+  border-radius:50%; 
+  padding:20px;
+  position:absolute;
+  top:-233px;
+  left:-196px;
+  box-shadow:rgba(220, 234, 244,.8) -1px -3px 3px;
+  background-color:rgba(236, 245, 252,.5)
+}
+
+.circle2{
+  display: none;
+  width:540px;
+  height:540px;
+  border-radius:50%; 
+  padding:20px;
+  position:absolute;
+  top:-334px;
+  left:-284px;
+  box-shadow:rgba(220, 234, 244,.8) -1px -3px 3px;
+  background-color:rgba(236, 245, 252,.5)
+}
+.ui-icon-item{
+  color:#fff;
+  .ui-view{
+    line-height:1.4
+  }
+}
+.togglebtn{
+  width:53px;
+  height:53px;
+  background-color:#fdd15c;
+  line-height:53px;
+  color:#fff;
+  text-align:center;
+  border-radius:50%;
+
+}
+.openstyle{
+  animation: open .5s;
+  animation-fill-mode:forwards;
+  animation-delay:.1s;
+}
+
+@keyframes open {
+  0% {
+    transform:rotate(0);
+   }
+   100% {
+    transform:rotate(45deg);
+   }
+}
+
+.closestyle{
+  animation: close .5s;
+  animation-fill-mode:forwards;
+}
+@keyframes close {
+  0% {
+    transform:rotate(45deg);
+   }
+   100% {
+    transform:rotate(0);
+   }
+}
+
+</style>

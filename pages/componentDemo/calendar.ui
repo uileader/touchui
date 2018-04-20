@@ -1,0 +1,229 @@
+<template>
+    <ui-page>
+    <ui-view style="{{{height:contentHeight+'px'}}}">
+      <ui-view class="personalbox">
+        <ui-view class="headimgbox">
+          <ui-image src="http://images.uileader.com/20180318/e62a5f83-64a6-428a-8726-7cbb65eab3dd.jpg"></ui-image>
+        </ui-view>
+            <ui-row class="infobox">
+              <ui-col align="center">
+                <ui-text class="num">0</ui-text>
+                <ui-text class="text">连续签到天数</ui-text>
+              </ui-col>
+              <ui-col align="center">
+                <ui-text class="num">0</ui-text>
+                <ui-text class="text">积分</ui-text>
+              </ui-col>
+            </ui-row>
+      </ui-view>
+      <ui-view class="calendartab">
+        <ui-row>
+          <ui-col bindtap="prevchange" align="center" width="50">
+            <ui-icon type="arrow-left" color="#666"></ui-icon>
+          </ui-col>
+          <ui-col>
+            <ui-text>{{dateyear}}年{{datemonth}}月</ui-text>
+          </ui-col>
+          <ui-col bindtap="nextchange" align="center" width="50">
+            <ui-icon type="arrow-right" color="#666"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-view>  
+      <ui-calendar
+        disable-past-days="true"
+        select-range-mode="{{false}}"
+        bindmonthchange="monthChangeHandler($event)"
+        bindchange="selectedHandler($event)"
+        ui:model="{{date}}"
+        max-range="60"
+        date-page="{{datePage}}"
+      ></ui-calendar>
+      <ui-row>
+        <ui-col vertical-align="middle" space-left="10">
+          <ui-text>今日签到可得到10积分</ui-text>
+        </ui-col>
+        <ui-col>
+          <ui-button bindtap="qiandao">签到</ui-button>
+        </ui-col>
+      </ui-row>
+      </ui-view>
+    </ui-page>
+  </template>
+  
+  <script>
+  export default {
+    config: {
+      "navigationBarTitleText": "",
+      "navigationBarBackgroundColor":"#39f",
+      "navigationBarTextStyle":"white",
+      "navigationBarBorderColor":"#39f",
+      "scrollType":'body'
+    },
+    data () {
+      return {
+        //控制日历翻页属性
+        datePage: '',
+        //控制日历当前选中日期
+        date: '',
+        //临时存储日期
+        dateobj: {},
+        // 年
+        dateyear: null,
+        // 月
+        datemonth: null,
+        // 日
+        dateday: null,
+        // 日历可选之间范围
+        monthrange: [],
+        contentHeight: ui.DEFAULT_CONTENT_HEIGHT
+      }
+    },
+    methods: {
+      // 选择日期
+      selectedHandler (e) {
+        this.init(e)
+      },
+      // 滑动时变化
+      monthChangeHandler (e) {
+        this.changeDate(e)
+      },
+      //手动切换下一个月
+      nextchange () {
+        // 结束时间范围的时间戳
+        let endrange = Date.parse(new Date(this.monthrange[1]))
+        let arr = this.monthrange[1].split('/')
+        endrange = new Date(arr[0],arr[1]-1)
+        let date = new Date(this.dateobj.arr[0],this.dateobj.arr[1]-1)
+        date.setMonth(date.getMonth() + 1)
+        // 改变后的日期时间戳
+        
+        //判断切换后下一个月的时间是否超出给定的时间范围
+        if (date > endrange) {
+          return false
+        } else {
+          this.dateobj.date = this.format(date)
+          this.changeDate(this.dateobj.date)
+          this.datePage = this.dateobj.arr[0]+'/'+this.dateobj.arr[1]
+        }
+        
+      },
+      // 手动切换上一个月
+      prevchange () {
+        // 开始时间范围的时间戳
+        let startrange = Date.parse(new Date(this.monthrange[0]))
+        // let startrange
+        let arr = this.monthrange[0].split('/')
+        startrange = new Date(arr[0],arr[1]-1)
+        let date = new Date(this.dateobj.arr[0],this.dateobj.arr[1]-1)
+        date.setMonth(date.getMonth() - 1)
+        //判断切换后上一个月的时间是否超出给定的时间范围
+        if (date < startrange) {
+          return false
+        } else {
+          this.dateobj.date = this.format(date)
+          this.changeDate(this.dateobj.date)
+          this.datePage = this.dateobj.arr[0]+'/'+this.dateobj.arr[1]
+        }
+      },
+      // 签到
+      qiandao () {
+        let arr = this.date.split('/')
+        let year = arr[0]
+        let month = arr[1]
+        let day = arr[2]
+        ui.showToast({ title: `签到：${year} 年 ${month} 月 ${day} 日` })
+      },
+      // 将日期格式化成 "年/月/日" 格式
+      format (obj) {
+        var date = new Date(obj)
+        var y = 1900 + date.getYear()
+        var m = '0' + (date.getMonth() + 1)
+        var d = '0' + date.getDate()
+        return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+      },
+      // 初始化、以及点击切换日期时调用。改变日历组件value值。给年月日分别赋值
+      init (date) {
+        this.dateobj.date = date
+        this.dateobj.arr = date.split('/')
+        this.date = this.dateobj.date
+        this.dateyear = this.dateobj.arr[0]
+        this.datemonth = this.dateobj.arr[1]
+        this.dateday = this.dateobj.arr[2]
+      },
+      //滑动时改变日期，不改变日历组件的value值。给年月日分别赋值
+      changeDate(date){
+        this.dateobj.date = date
+        this.dateobj.arr = date.split('/')
+        this.dateyear = this.dateobj.arr[0]
+        this.datemonth = this.dateobj.arr[1]
+        this.dateday = this.dateobj.arr[2]
+      }
+    },
+    mounted () {
+      //计算日期范围。控制手动点击上个月／下个月 时在在时间范围内切换 
+      let start, end
+      let rangedate = new Date()
+      let rangedate2 = new Date()
+      start = this.format(rangedate.setMonth(new Date().getMonth() - 6))
+      end = this.format(rangedate2.setMonth(new Date().getMonth() + 6))
+      start = start.substring(0, 7)
+      end = end.substring(0, 7)
+      this.monthrange.push(start, end)
+      // 获取今天日期，并格式化日期格式
+      let date = new Date()
+      this.init(this.format(date))
+  
+    }
+  }
+  
+  </script>
+  
+  <style lang="less">
+    .win{
+    background-color: #f4f2f3
+  }
+  .personalbox{
+    background-color: #39f;
+    .headimgbox{
+      width:50px;
+      height:50px;
+      border-radius: 50%;
+      margin:0 auto;
+      border:1px solid #ccc;
+      overflow: hidden;
+      .ui-image{
+        width:100%;
+      }
+    }
+    .infobox{
+      color:#fff;
+      padding:20px 0;
+      .num{
+        font-size:16px;
+      }
+      .text{
+        font-size:14px;
+      }
+    }
+  
+  }
+  
+  .calendartab{
+    width:200px;
+    margin:0 auto;
+    text-align: center;
+    line-height: 50px;
+    background-color: #fff
+  }
+  .calendartab{
+    margin-top:20px;
+  }
+  
+  .calendar-head{
+    background-color:#fff !important
+  }
+  .calendar-week-head{
+    color:#333;
+  }
+  </style>
+  

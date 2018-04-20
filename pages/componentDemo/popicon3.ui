@@ -1,0 +1,115 @@
+<template>
+  <ui-page>
+  <ui-fixed-view style="z-index:1000" top="0">
+  <ui-pop-icon blur="light" mask-hide-delay="500" hide-on-tap="{{hideOnTap}}" bindhide="dismiss" bindmaskhide="maskhide" left="{{offsetX-48}}" ui:model="toggle" class="pop-icon-demo3" animate="bounce" >
+    <ui-pop-icon-item item-color="#45ddd2" top="-30" left="-7">
+        <ui-text style="position: absolute;left: -57px;top: 11px;">写日记</ui-text>
+        <ui-view class="icon_view">
+          <ui-icon type="draft" size="20"></ui-icon>
+        </ui-view>
+      </ui-pop-icon-item>
+      <ui-pop-icon-item item-color="#45ddd2" top="-80" left="-7">
+      <ui-text style="position: absolute;left: -57px;top: 11px;">提问题</ui-text>
+          <ui-view class="icon_view">
+            <ui-icon type="wenti1" size="20"></ui-icon>
+          </ui-view>
+        </ui-pop-icon-item>
+  </ui-pop-icon>
+</ui-fixed-view>
+  <ui-fixed-view bindtap="togglepopicon" right="10" bottom="20" style="z-index:1000">
+      <ui-view class="btnbox">
+        <ui-icon type="bianji" size="24"></ui-icon>
+      </ui-view>
+  </ui-fixed-view>
+  <ui-view class="content_list">
+    <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+      {{ item }}
+    </ui-view>
+  </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "图标纵向排列"
+  },
+  data () {
+    return {
+      items: [],
+      bottom: 30,
+      toggle: false,
+      height: ui.DEFAULT_CONTENT_HEIGHT + 'px',
+      canClick: true,
+      hideOnTap: true,
+      offsetX: ui.WIN_WIDTH
+    }
+  },
+  methods: {
+    // 点击开始／关闭按钮
+    togglepopicon () {
+      if (this.toggle) {
+        if (this.canClick) {
+          this.canClick = false
+          this.toggle = false
+        }
+      } else {
+        if (this.canClick) {
+          this.canClick = false
+          this.toggle = true
+          this.hideOnTap = false
+          setTimeout(() => {
+            this.canClick = true
+            this.hideOnTap = true
+          }, 700)
+        }
+      }
+    },
+    // 点击遮罩触发，安卓回退时触发
+    dismiss () {
+      if (this.canClick) {
+        this.canClick = false
+        this.toggle = false
+      }
+    },
+    // 设置mask延时的情况下，mask关闭时触发，安卓回退时触发
+    maskhide () {
+      this.canClick = true
+    }
+  },
+  mounted () {
+    this.togglestyle = 'popdefault2'
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+
+
+</script>
+
+<style lang="less">
+.btnbox{
+  background-color:#45ddd2;
+  color:#fff;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  line-height:48px;
+  text-align:center
+}
+
+.pop-icon-demo3 {
+  .icon_view{
+    height: 100%;
+    z-index: 999;
+    .mix-flex-center();
+  }
+}
+
+.ui-icon-item{
+  width:40px;
+  height:40px;
+}
+</style>

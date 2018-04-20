@@ -1,0 +1,59 @@
+<!--formList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row type="flex">
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+        <ui-row type="flex" ui:for="{{ group.items }}" url="{{ item.link }}" hover-class="touchui-hover">
+          <ui-col>{{ item.title }}</ui-col>
+          <ui-col align="right" width="30">
+              <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+  // formList.js
+export default {
+  config: {
+    "navigationBarTitleText": "表单"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '综合表单',
+          items: [
+            { title: '级联选择器 cascader', link: '/pages/componentDemo/cascader' },
+            { title: '索引选择器 index-list', link: '/pages/componentDemo/indexList' },
+            { title: '日历 calendar', link: '/pages/componentDemo/calendar' },
+            { title: '纵向日历 v-calendar', link: '/pages/componentDemo/calendar2' },
+            { title: '周日历 w-calendar', link: '/pages/componentDemo/calendar3' },
+            { title: '表单容器 form', link: '/pages/componentDemo/form' }
+            // { title: '日历 calendar(混合模式)', link: '/pages/componentDemo/calendar4' }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+
+</style>

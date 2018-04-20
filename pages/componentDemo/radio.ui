@@ -1,0 +1,175 @@
+<template>
+  <ui-page>
+    <ui-view class="demo">
+      <ui-view class="demo-block">
+        <ui-view class="sample_title">文字放在右边</ui-view>
+        <ui-view class="demo-content">
+          <ui-radio-group>
+            <ui-label class="radio">
+              <ui-radio value="3" ></ui-radio>选项1
+            </ui-label>
+            <ui-label class="radio">
+              <ui-radio value="6" checked ></ui-radio>选项2
+            </ui-label>
+            <ui-label class="radio">
+              <ui-radio value="9" ></ui-radio>选项3
+            </ui-label>
+            <ui-label class="radio">
+              <ui-radio value="15" disabled ></ui-radio>选项4
+            </ui-label>
+          </ui-radio-group>
+        </ui-view>
+      </ui-view>
+      <ui-view class="demo-block">
+          <ui-view class="sample_title">文字放在左边</ui-view>
+          <ui-view class="demo-content">
+            <ui-radio-group>
+              <ui-label class="radio">
+                选项1 <ui-radio value="3"></ui-radio>
+              </ui-label>
+              <ui-label class="radio">
+                选项2 <ui-radio value="6" checked ></ui-radio>
+              </ui-label>
+              <ui-label class="radio">
+                选项3 <ui-radio value="9" ></ui-radio>
+              </ui-label>
+              <ui-label class="radio">
+                选项4 <ui-radio value="12" disabled></ui-radio>
+              </ui-label>
+            </ui-radio-group>
+          </ui-view>
+        </ui-view>
+      <ui-view class="demo-block">
+        <ui-view class="sample_title">设置颜色</ui-view>
+        <ui-view class="demo-content">
+          <ui-radio-group>
+            <ui-label class="radio">
+              选项1 <ui-radio value="3" color="#ffa42f"></ui-radio>
+            </ui-label>
+            <ui-label class="radio">
+              选项2 <ui-radio value="6" color="#ffa42f" checked ></ui-radio>
+            </ui-label>
+            <ui-label class="radio">
+              选项3 <ui-radio value="9" color="#ffa42f" ></ui-radio>
+            </ui-label>
+            <ui-label class="radio">
+              选项4 <ui-radio value="12" color="#ffa42f" disabled></ui-radio>
+            </ui-label>
+          </ui-radio-group>
+        </ui-view>
+      </ui-view>
+      <ui-view class="demo-block">
+        <ui-view class="sample_title">change事件</ui-view>
+        <ui-view class="demo-content">
+          <ui-radio-group bindchange="handleChange1">
+            <ui-label class="radio">
+              选项1 <ui-radio value="3"></ui-radio>
+            </ui-label>
+            <ui-label class="radio">
+              选项2 <ui-radio value="6" checked ></ui-radio>
+            </ui-label>
+            <ui-label class="radio">
+              选项3 <ui-radio value="9" ></ui-radio>
+            </ui-label>
+            <ui-label class="radio">
+              选项4 <ui-radio value="12" disabled></ui-radio>
+            </ui-label>
+          </ui-radio-group>
+          <ui-view class="changemsg">
+            Radio当前的值为：{{ value1 }}
+          </ui-view>
+        </ui-view>
+      </ui-view>
+
+        <ui-view class="sample_title">自定义样式</ui-view>
+        <ui-view class="demo-content">
+              <ui-radio-group>
+              <ui-label>
+              <ui-row height="60" border-bottom space-bottom="20">
+                <ui-col width="50" vertical-align="middle" align="center">
+                    <ui-icon type="weixin" size="36" color="#72d345"></ui-icon>
+                </ui-col>
+                <ui-col vertical-align="middle">
+                  <ui-view class="title">微信支付</ui-view>
+                  <ui-view class="msg">推荐安装微信客户端的用户使用</ui-view>
+                </ui-col>
+                <ui-col width="30" vertical-align="middle">
+                  <ui-radio value="1" checked></ui-radio>
+                </ui-col>
+              </ui-row>
+              </ui-label>
+              <ui-label>
+              <ui-row height="40">
+                <ui-col width="50" vertical-align="middle" align="center">
+                    <ui-icon type="zhifubao" size="36" color="#009fe8"></ui-icon>
+                </ui-col>
+                <ui-col>
+                  <ui-view class="title">支付宝支付</ui-view>
+                  <ui-view class="msg">推荐安装支付宝客户端的用户使用</ui-view>
+                </ui-col>
+                <ui-col width="30" vertical-align="middle">
+                  <ui-radio value="2"></ui-radio>
+                </ui-col>
+              </ui-row>
+              </ui-label>
+              </ui-radio-group>
+        </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "单选框"
+  },
+  data () {
+    return { value1: '' }
+  },
+  methods: {
+    handleChange1 (value) {
+      this.value1 = value
+    }
+
+  }
+}
+
+</script>
+
+<style lang="less">
+.demo-content {
+  .radio {
+    display: block;
+    margin-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    &:not(:first-of-type) {
+      .mix-1px(1, 0, 0, 0, #d4d4d4);
+    }
+    .ui-radio {
+      margin-right: 6px;
+    }
+   
+  }
+   .changemsg{
+    font-size:14px;
+    color:#666;
+    padding-left:15px
+  }
+  .paybox{
+    text-align:left;
+    margin:0;
+    padding:0
+  }
+  .title{
+    color:#333;
+    font-size:14px;
+  }
+  .msg{
+    color:#666;
+    font-size:12px
+  }
+}
+
+</style>

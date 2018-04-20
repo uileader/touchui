@@ -1,0 +1,621 @@
+<template>
+    <ui-page>
+        <ui-nav-bar slot="nav-bar" class="ui-nav-bar">
+          <ui-row>
+            <ui-col vertical-align="middle" align="center" width="60" bindtap="back">
+              <ui-icon type="arrow-left" size="24" color="#fff"></ui-icon>
+            </ui-col>
+            <ui-col></ui-col>
+            <ui-col width="60"></ui-col>
+          </ui-row>
+        </ui-nav-bar>
+        <ui-view class="imgbox">
+          <ui-image src="{{ require('#/images/logo-white.png') }}"></ui-image>
+        </ui-view>
+        <ui-view style='{{[backgroundStyleObj]}}' class="bthdemo2-page">
+            <ui-view style="{{[buttonsWrapStyleObj]}}" class="buttons-wrap" >
+              <ui-view class="direction-buttons" ui:if="{{connectionStatus === 2}}">
+                <ui-view class="direction-button direction-button-up"
+                bindtouchstart='buttonUpTouchStartHandler' 
+                bindtouchend='buttonDirectionTouchEndHandler'
+                style="{{[]}}">前</ui-view>
+                <ui-view class="direction-button direction-button-left"
+                bindtouchstart='buttonLeftTouchStartHandler' 
+                bindtouchend='buttonDirectionTouchEndHandler'
+                style="{{[]}}">左</ui-view>
+                <ui-view class="direction-button direction-button-down"
+                bindtouchstart='buttonDownTouchStartHandler' 
+                bindtouchend='buttonDirectionTouchEndHandler'
+                style="{{[]}}">后</ui-view>
+                <ui-view class="direction-button direction-button-right"
+                bindtouchstart='buttonRightTouchStartHandler'
+                bindtouchend='buttonDirectionTouchEndHandler'
+                style="{{[]}}">右</ui-view>
+                <ui-view class="servo-button servo-button-left"
+                bindtouchstart='servoButtonLeftTouchStartHandler' 
+                style="{{[]}}">左看</ui-view>
+  
+                <ui-view class="servo-button servo-button-right"
+                bindtouchstart='servoButtonRightTouchStartHandler'
+                style="{{[]}}">右看</ui-view>
+  
+                <ui-view class="servo-button servo-button-forward"
+                bindtouchstart='servoButtonForwardTouchStartHandler'
+                style="{{[]}}">前看</ui-view>
+  
+              </ui-view>
+  
+              <ui-view ui:if="{{connectionStatus !== 3}}"
+              bindtap="buttonConnectTouchStartHandler"
+              class="direction-button bth-button"
+              >
+              <ui-icon ui:if="connectionStatus === 0" type="lanya" size="30"></ui-icon>
+                {{connectionStatusText}}
+              </ui-view>
+          
+              <ui-view ui:if="{{connectionStatus === 1}}" class='circle-ani'></ui-view>
+              <ui-view ui:if="{{connectionStatus === 1}}" class='circle-ani'></ui-view>
+              <ui-view ui:if="{{connectionStatus === 1}}" class='circle-ani'></ui-view>
+            </ui-view>
+            <ui-view class="wave_wrap">
+              <ui-wave canvas-id="waterball" height="150"></ui-wave>
+            </ui-view>
+          </ui-view>
+          
+  
+    </ui-page>
+  </template>
+  
+  <script>
+  // bthdemo.js
+  export default {
+    config: {
+      navigationBarTitleText: '智能硬件',
+      navigationStyle: 'custom',
+      disableScroll: true,
+      navigationBarTextStyle: 'white'
+    },
+    data () {
+      return {
+        connected: false,
+        deviceId: null,
+        thisValue: '123',
+        idValue: null,
+        windowHeight: 0,
+        windowWidth: 0,
+        connectionStatusText: '',
+        connectImageUrl: `url('http://www.one-story.cn/bth-demo/bth.png')`,
+        connectionStatus: 0    }
+    },
+    watch: {
+      thisValue (val) {
+        console.log(this.thisValue)
+      }
+    },
+    destroy () {
+      ui.closeBLEConnection({
+        deviceId: this.deviceId,
+        success: () => {
+          ui.showToast({
+            title: '已断开连接'
+          })
+        }
+      })
+    },
+    mounted () {
+      this.windowWidth = ui.WIN_WIDTH
+      this.windowHeight = ui.DEFAULT_CONTENT_HEIGHT
+    },
+    computed: {
+      buttonConnectionStyleObj () {
+        let style = {}
+        style['background-image'] = this.connectImageUrl
+        return style
+      },
+      buttonsWrapStyleObj () {
+        let style = {}
+        style.left = this.windowWidth / 2 - 30 + 'px'
+        style.top = this.windowHeight / 2 - 30 + 'px'
+        return style
+      },
+      backgroundStyleObj () {
+        let style = {}
+        console.log(this.windowHeight)
+        style.height = this.windowHeight + 'px' // xiaochegnxu
+        style.background = 'linear-gradient(to bottom, #39AAFB, #2B8CE4)'
+        return style
+      },
+    },
+    methods: {
+      buttonConnectTouchStartHandler () {
+      if (this.connectionStatus === 0) {
+        this.connectImageUrl = ''
+        this.setData({
+          connectionStatusText: '连接中',
+          connectionStatus: 1
+        })
+        this.startConnection()
+      }
+      setTimeout(() => {
+        console.log(this.connectionStatus)
+        if (this.connectionStatus === 1) {
+          ui.showToast({ title: '连接超时，请重试' })
+          this.setData({
+            connectionStatusText: '',
+            connectionStatus: 0
+          })
+        }
+      },30000)
+  
+    },
+    back(){
+      ui.navigateBack()
+    },
+    arrayToArrayBuffer(strs) {
+      let out = new ArrayBuffer(strs.length * 2)
+      let u16a = new Uint16Array(out)
+      for (let i = 0; i < strs.length; i++) {
+        u16a[i] = strs[i]
+      }
+      console.log(out)
+      return out
+    },
+    charToArrayBuffer(str) {
+      let out = new ArrayBuffer(str.length * 2)
+      let u16a = new Uint8Array(out)
+      let strs = str.split('')
+      for (let i = 0; i < strs.length; i++) {
+        u16a[i] = strs[i].charCodeAt()
+      }
+      console.log(out)
+      return out
+    },
+    sendMessage(msg) {
+      console.log(msg)
+      // let buffer = new ArrayBuffer(1)
+      // let dataView = new DataView(buffer)
+      // dataView.setUint8(0, 0)
+      ui.writeBLECharacteristicValue({
+        deviceId: this.deviceId,
+        serviceId: '0000FFE0-0000-1000-8000-00805F9B34FB',
+        characteristicId: '0000FFE1-0000-1000-8000-00805F9B34FB',
+        value: this.charToArrayBuffer(msg),
+        success: function (res) {
+          console.dir(res)
+        }
+      })
+    },
+    buttonConnectTouchEndHandler(e) {
+  
+    },
+    buttonUpTouchStartHandler(e) {
+      e.stopPropagation();
+  
+      // this.sendMessage([0x75, 0x70, 0x0A])
+      this.sendMessage('up\n')
+    },
+    buttonDownTouchStartHandler(e) {
+      e.stopPropagation();
+  
+      this.sendMessage('down\n')
+    },
+    buttonLeftTouchStartHandler(e) {
+      e.stopPropagation();
+  
+      this.sendMessage('left\n')
+    },
+    buttonRightTouchStartHandler(e) {
+      e.stopPropagation();
+  
+      this.sendMessage('right\n')
+    },
+    buttonDirectionTouchEndHandler (e) {
+      e.stopPropagation();
+  
+      // this.sendMessage([0x73, 0x74, 0x6F, 0x70, 0x0A])
+      this.sendMessage('stop\n')
+  
+    },
+    servoButtonLeftTouchStartHandler (e) {
+      e.stopPropagation();
+      this.sendMessage('lwat\n')
+    },
+    servoButtonRightTouchStartHandler (e) {
+      e.stopPropagation();
+      this.sendMessage('rwat\n')
+    },
+    servoButtonForwardTouchStartHandler (e) {
+      console.log('78678678678')
+  
+      e.stopPropagation();
+      this.sendMessage('mwat\n')
+    },
+  
+    startConnection() {
+      ui.openBluetoothAdapter({
+        success: () => {
+          ui.getBluetoothAdapterState({
+            success: () => {
+              ui.startBluetoothDevicesDiscovery({
+                allowDuplicatesKey: false,
+                success: (errMsg) => {
+                  setTimeout(() => {
+                    ui.stopBluetoothDevicesDiscovery({
+                      success: () => {
+                        ui.getBluetoothDevices({
+                          success: (deviceArr) => {
+                            console.log(deviceArr)
+                            for (let i = 0; i < deviceArr.devices.length; i++) {
+                              console.log(deviceArr.devices[i].name)
+                              if (deviceArr.devices[i].name === 'JDY-16') {
+                                this.deviceId = deviceArr.devices[i].deviceId
+                                break
+                              }
+                            }
+                            // console.log(this.deviceId)
+                            ui.createBLEConnection({
+                              deviceId: this.deviceId,
+                              success: () => {
+                                this.setData({
+                                  connected: true
+                                })
+                                console.log('hehehe')
+                                console.log(this.deviceId)
+                                ui.getBLEDeviceServices({
+                                  deviceId: this.deviceId,
+                                  success: (res) => {
+                                    console.log('device services:', res.services)
+                                    ui.getBLEDeviceCharacteristics({
+                                      // 这里的 deviceId 需要在上面的 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取
+                                      deviceId: this.deviceId,
+                                      // 这里的 serviceId 需要在上面的 getBLEDeviceServices 接口中获取
+                                      serviceId: '0000FFE0-0000-1000-8000-00805F9B34FB',
+                                      success: (res) => {
+                                        ui.notifyBLECharacteristicValueChange({
+                                          deviceId: this.deviceId,
+                                          serviceId: '0000FFE0-0000-1000-8000-00805F9B34FB',
+                                          characteristicId: '0000FFE2-0000-1000-8000-00805F9B34FB',
+                                          state: true,
+                                          success: (res) => {
+                                            console.log('已监听成功服务')
+                                          },
+                                          complete: (res) => {
+                                            console.dir(res)
+                                          }
+                                        })
+                                        ui.onBLECharacteristicValueChange((res) => {
+                                          let dv = new DataView(res.value)
+                                          let arr = []
+                                          console.log('特征值数据更改')
+                                          for (let i = 0; i < dv.byteLength; i++) {
+                                            arr.push(dv.getUint8(i))
+                                          }
+                                          // let arr = this.arrayBufferToChar(res.value)
+                                          console.log(arr)
+                                        })
+                                        setTimeout(() => {
+                                          // ui.showToast({
+                                          //   title: '一切就绪，可以控制小车'
+                                          // })
+                                          this.setData({
+                                            connectionStatusText: '连接成功',
+                                            connectionStatus: 2
+                                          })
+                                          
+                                          // setTimeout(() => {
+                                          //   this.setData({
+                                          //     connectionStatus: 3
+                                          //   })
+                                          // }, 1000)
+                                        }, 1000)
+                                        
+                                      }
+                                    })
+                                  }
+                                })
+                              }
+                            })
+                          }
+                        })
+                      }
+                    })
+                  }, 5000)
+                }
+              })
+            }
+          })
+        }
+      })
+    },
+    changeValue (res) {
+      console.log(res.detail.value)
+      this.setData({
+        thisValue: res.detail.value
+      })
+    },
+  
+    // charToArrayBuffer(str) {
+    //   let out = new ArrayBuffer(str.length * 2)
+    //   let u16a = new Uint16Array(out)
+    //   let strs = str.split('')
+    //   for (let i = 0; i < strs.length; i++) {          
+    //     u16a[i] = strs[i].charCodeAt()
+    //   }
+    //   return out
+    // },
+    arrayBufferToChar(buf) {
+      return String.fromCharCode.apply(null, new Uint8Array(buf));
+    },
+    getUUID() {
+      let ab = new ArrayBuffer(2)
+      let dv = new DataView(ab)
+      dv.setUint16(0, 0xe112)
+      ui.writeBLECharacteristicValue({
+        deviceId: this.deviceId,
+        serviceId: '0000FFE0-0000-1000-8000-00805F9B34FB',
+        characteristicId: '0000FFE2-0000-1000-8000-00805F9B34FB',
+        value: ab,
+        success: function (res) {
+          console.dir(res)
+        }
+      })
+    },
+    getMajorId() {
+      let ab = new ArrayBuffer(2)
+      let dv = new DataView(ab)
+      dv.setUint16(0, 0xe222)
+      ui.writeBLECharacteristicValue({
+        deviceId: this.deviceId,
+        serviceId: '0000FFE0-0000-1000-8000-00805F9B34FB',
+        characteristicId: '0000FFE2-0000-1000-8000-00805F9B34FB',
+        value: ab,
+        success: function (res) {
+          console.dir(res)
+        }
+      })
+    },
+    getMinorId() {
+      let ab = new ArrayBuffer(2)
+      let dv = new DataView(ab)
+      dv.setUint16(0, 0xe332)
+      ui.writeBLECharacteristicValue({
+        deviceId: this.deviceId,
+        serviceId: '0000FFE0-0000-1000-8000-00805F9B34FB',
+        characteristicId: '0000FFE2-0000-1000-8000-00805F9B34FB',
+        value: ab,
+        success: function (res) {
+          console.dir(res)
+        }
+      })
+    },
+  
+    }
+  }
+  
+  </script>
+  
+  <style lang="less">
+    /* pages/bthdemo/bthdemo.wxss */
+  
+  .ui-nav-bar{
+    background-color:#39AAFB;
+  }
+  
+  .wave_wrap{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    .ui-view{
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      font-size: 12px;
+    }
+  }
+  
+  .imgbox{
+    text-align:center;
+    position:absolute;
+    left:50%;
+    margin-left:-125px;
+    margin-top:20px;
+    .ui-image-container{
+      width:250px;
+      .ui-image{
+        width:100%;
+      }
+    }
+  }
+  .bthdemo2-page {
+    background: #03A9F4;
+    width: 100%;
+  }
+  
+  .buttons-wrap {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .direction-button {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: 15px 15px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12);
+    color: gray;
+    text-align: center;
+    line-height: 60px;
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    left: 0px;
+    top: 0px;
+  }
+  
+  .servo-button {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: 15px 15px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12);
+    color: gray;
+    text-align: center;
+    line-height: 60px;
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    left: 0px;
+    top: 0px;
+  }
+  
+  .bth-button {
+    z-index: 1001;
+  }
+  
+  .servo-button-left {
+    transform: rotate(135deg);
+    animation: servo-left-ani 2s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-delay: 1.5s;
+  }
+  
+  .servo-button-right {
+    transform: rotate(-135deg);
+    animation: servo-right-ani 2s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-delay: 1.5s;
+  }
+  
+  
+  .servo-button-forward {
+    z-index: 1000;
+    animation: servo-forward-ani 2s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-delay: 1.5s;
+  }
+  
+  
+  @keyframes servo-left-ani{
+    100% {
+    transform: rotate(0deg);
+    left: -100px;
+    top: 100px;
+    }
+  }
+  
+  @keyframes servo-right-ani{
+    100% {
+    transform: rotate(0deg);
+    left: 100px;
+    top: 100px;
+    }
+  }
+  
+  @keyframes servo-forward-ani {
+    100% {
+    transform: rotate(0deg);
+    top: 150px;
+    }
+  }
+  
+  
+  
+  .circle-ani {
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.3); 
+    animation: circle-ani 2s forwards infinite linear;
+    /* animation-direction:alternate; */
+  
+  }
+  
+  .direction-button-up {
+    animation: up-ani 2s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  
+  .direction-button-left {
+    animation: left-ani 2s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-delay: .3s;
+  }
+  
+  .direction-button-down {
+    animation: down-ani 2s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-delay: .6s;
+  }
+  
+  .direction-button-right {
+    animation: right-ani 2s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-delay: .9s;
+  }
+  
+  @keyframes up-ani{
+    100% {
+    top: -70px;
+    }
+  }
+  
+  @keyframes down-ani{
+    100% {
+    top: 70px;
+    }
+  }
+  
+  @keyframes left-ani{
+    100% {
+    left: -70px;
+    }
+  }
+  
+  @keyframes right-ani{
+    100% {
+    left: 70px;
+    }
+  }
+  
+  /* .circle-ani:nth-of-type(1) {
+  } */
+  
+  .circle-ani:nth-of-type(2) {
+    animation-delay: .3s;
+  }
+  
+  .circle-ani:nth-of-type(3) {
+    animation-delay: .6s;
+  }
+  
+  @keyframes circle-ani{
+    0% {
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    left: 0px;
+    top: 0px;
+    background-color: rgba(255, 255, 255, 0.3); 
+    }
+    30% {
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    left: 0px;
+    top: 0px;
+    }
+    80% {
+    border-radius: 100px;
+    width: 200px;
+    height: 200px;
+    left: -70px;
+    top: -70px;
+    }
+    100%{
+      background-color: rgba(255, 255, 255, 0); 
+      border-radius: 100px;
+      width: 200px;
+      height: 200px;
+      left: -70px;
+      top: -70px;
+    }
+  }
+  </style>
+  

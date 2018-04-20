@@ -1,0 +1,186 @@
+<template>
+  <ui-page top="0" bindscroll="handleScroll" id="Bigger">
+    <ui-nav-bar class="nab_bar" slot="nav-bar" style="{{{ 'background-color': `rgba(232, 52, 52, ${alpha})` }}}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="70">
+          <ui-view class="city">
+            <ui-icon type="map" size="18" color="#fff"></ui-icon>北京市
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" space="20">
+          <ui-view class="search">
+            <ui-row height="35">
+              <ui-col vertical-align="middle" align="center" width="40">
+                <ui-icon type="magnifier" size="18" color="#fff"></ui-icon>
+              </ui-col>
+              <ui-col vertical-align="middle" align="left">
+                <ui-view>0元保养</ui-view>
+              </ui-col>
+            </ui-row>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35">
+          <ui-icon type="scan-qrcode" size="20" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35">
+          <ui-icon type="comment" size="22" color="#fff"></ui-icon>
+        </ui-col>
+      </ui-row>
+      
+    </ui-nav-bar>
+    
+
+    <ui-view style="{{imgObj}}">
+      <ui-swiper 
+        class="demo"
+        style="height: {{ swiperHeight }}px;"
+        indicator-dots
+        circular
+      >
+        <ui-swiper-item ui:for="{{items1}}" ui:for-item="item" ui:for-index="index">
+          <ui-image src="{{ item.src }}"
+          ></ui-image>
+        </ui-swiper-item>
+      </ui-swiper>
+    </ui-view>
+    <!-- 以上需要给ui-view加一个imgObj -->
+  
+    <ui-view style="{{placeObj}}"></ui-view>
+    <!-- 以上需要给ui-view加一个placeObj, 此为占位元素 -->
+    
+
+    <ui-view style="{{underObj}}">
+      <!-- 此为underObj,下面的元素 -->
+      <ui-view class="content_list">
+        <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+          {{ item }}
+        </ui-view>
+      </ui-view>
+    </ui-view>
+    
+    <ui-fixed-view bindtap="navigateBack">返回上页</ui-fixed-view>
+  </ui-page>
+</template>
+
+
+<script>
+  // navBar4.js
+import Bigger from '#/static/utils/bigger.js'// 仅仅需要将bigger.js引入即可
+// var Bigger = require('#/static/utils/bigger.js')
+export default {
+  config: {
+    "navigationBarTitleText": "自定义透明导航",
+    "navigationStyle": "custom",
+    "scrollType": "body",
+    "navigationBarTextStyle":"white"
+  },
+  data () {
+    return {
+      ...Bigger.data, // Bigger所需data
+      items: [],
+      bottom: 30,
+      swiperHeight: ui.WIN_WIDTH / 750 * 375,
+      alpha: 0,
+      items1: [{
+        src: 'http://images.uileader.com/20171103/5906a28c-0f12-4b71-8df2-98791d8716f6.jpg',
+        title: '放肆玩乐，轻巧办公'
+      },
+      {
+        src: 'http://images.uileader.com/20171103/34795a1c-1365-4256-b9c1-6fb4af1de3da.jpg',
+        title: '高温保护，一路驰骋'
+      },
+      {
+        src: 'http://images.uileader.com/20171103/926a6fdc-80f6-4244-8354-860627c88115.jpg',
+        title: '七夕好货，独家礼赠'
+      }]
+    }
+  },
+  computed: {
+    imgObj () {
+      return Bigger.imgObj(this)
+    },
+    underObj () {
+      return Bigger.underObj(this)
+    },
+    placeObj () {
+      return Bigger.placeObj(this)
+    }
+  },
+  methods: {
+    handleScroll (scrollTop) {
+      if (scrollTop === 0) {
+        Bigger.setPrevent(true)
+      } else {
+        Bigger.setPrevent(false)
+      }
+      if (scrollTop > 100) {
+        this.alpha = 1
+      } else {
+        var val = scrollTop / 100
+        this.alpha = val
+      }
+    },
+    navigateBack () {
+      ui.navigateBack()
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+    Bigger.init('#Bigger', this, this.swiperHeight)// 传入三个参数,id,this,图片高度
+  }
+}
+
+</script>
+
+<style lang="less">
+  // navBar4.less
+.city {
+    color: #fff;
+    font-size: 14px;
+}
+
+.search {
+    width: 100%;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, .4);
+    .ui-view {
+        height: 35px;
+        line-height: 35px;
+        color: #fff;
+        font-size: 14px;
+    }
+}
+
+
+.swiper-slide {
+    color: #fff;
+    text-align: center;
+    .ui-image {
+        width: 100%;
+        display: block;
+    }
+}
+
+.ui-fixed-view {
+    bottom: 100px;
+    right: 20px;
+    width: 46px;
+    padding: 7px;
+    height: 46px;
+    line-height: 16px;
+    border: 1px solid #F76346;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: #F76346;
+    z-index: 99;
+    &:active {
+        opacity: 0.8;
+    }
+}
+</style>

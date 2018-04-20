@@ -1,0 +1,88 @@
+<!--if.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">ui:if</ui-view>
+    <ui-view class="sample_content">
+        <ui-view class="code">{{codeDemo1}}</ui-view>
+        <ui-view ui:if="{{condition}}"> True </ui-view>
+    </ui-view>
+
+    <ui-view class="sample_title">用 ui:elif 和 ui:else 来添加一个 else 块</ui-view>
+    <ui-view class="sample_content">
+        <ui-view class="code">{{codeDemo2}}</ui-view>
+        <ui-view class="code">{{codeDemo3}}</ui-view>
+        <ui-view class="code">{{codeDemo4}}</ui-view>
+        <ui-view ui:if="{{length > 5}}"> 1 </ui-view>
+        <ui-view ui:elif="{{length > 2}}"> 2 </ui-view>
+        <ui-view ui:else> 3 </ui-view>
+    </ui-view>
+
+    <ui-view class="sample_title">block ui:if</ui-view>
+    <ui-view class="sample_content">
+        <ui-view class="code">{{codeDemo5}}</ui-view>
+        <ui-block ui:if="{{true}}">
+          <ui-view> view1 </ui-view>
+          <ui-view> view2 </ui-view>
+        </ui-block>
+    </ui-view>
+
+    <ui-view class="sample_title">ui:if vs ui:show</ui-view>
+    <ui-view class="sample_content">
+        <ui-view class="code">{{codeDemo6}}</ui-view>
+        <ui-row height="60">
+          <ui-col vertical-align="middle">
+            <ui-text>开关后内容会隐藏/显示</ui-text>
+          </ui-col>
+          <ui-col vertical-align="middle">
+              <ui-view ui:show="{{flag ? true : false}}"> 我叫内容 </ui-view>
+          </ui-col>
+          <ui-col width="100" vertical-align="middle" align="right">
+            <ui-switch title="" bindtap='show'></ui-switch>
+          </ui-col>
+        </ui-row>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// if.js
+export default {
+  config: {
+    "navigationBarTitleText": "if"
+  },
+  data () {
+    return {
+      condition: true,
+      length: 3,
+      flag: false,
+      codeDemo1:'<ui-view ui:if="{{condition}}"> True </ui-view>',
+      codeDemo2:'<ui-view ui:if="{{length > 5}}"> 1 </ui-view>',
+      codeDemo3:'<ui-view ui:elif="{{length > 2}}"> 2 </ui-view>',
+      codeDemo4:'<ui-view ui:else> 3 </ui-view>',
+      codeDemo5:'<ui-block ui:if="{{true}}"><ui-view> view1 </ui-view><ui-view> view2 </ui-view></ui-block>',
+      codeDemo6:'<ui-view ui:show="{{flag ? true : false}}"> 我叫内容 </ui-view>'
+    }
+  },
+  methods: {
+    show () {
+      // this.flag = true
+      if (this.flag) {
+        this.flag = false
+      } else {
+        this.flag = true
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // if.less
+.code {
+  color: #40B883;
+  font-size: 14px;
+  overflow-x: scroll;
+}
+</style>

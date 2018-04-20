@@ -1,0 +1,649 @@
+<!--chart.ui-->
+<template>
+  <ui-page top="0">
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" width="40" space-left="10" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="18" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <!-- <ui-view class="nav_title">用户画像</ui-view> -->
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" width="40" space-right="10"></ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-swiper id="swiperdotsstyle" indicator-dots circular>
+      <ui-swiper-item ui:for="{{swiperItem}}" ui:for-item="item" ui:for-index="index">
+        <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+      </ui-swiper-item>
+    </ui-swiper>
+
+    <ui-view style="background-color:#fff">
+      <ui-tabs class="type-center" index="{{ current }}"  bindchange="handleChange($event, 'current')">
+        <ui-tab>
+          <ui-view class="item">
+            <ui-text>国内</ui-text>
+          </ui-view>
+        </ui-tab>
+        <ui-tab>
+          <ui-view class="item">
+            <ui-text>国际/港澳台</ui-text>
+          </ui-view>
+        </ui-tab>
+        <ui-tab>
+          <ui-view class="item">
+            <ui-text>民宿</ui-text>
+          </ui-view>
+        </ui-tab>
+      </ui-tabs>
+      <!-- <ui-swiper index="{{ current }}" bindbeforechange="handleContentChange($event, 'current')"> -->
+      <ui-view class="wrap">
+        <ui-view ui:if="{{ current===0 }}">
+          <ui-row height="40" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>目的地</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" bindtap="showIndexList">
+              <ui-view>{{ country }}</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row height="50" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>时间</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" bindtap="rangeCalendarDefaultOpen">
+              <ui-view>{{rangestart2}}<ui-text>入住</ui-text></ui-view>
+              <ui-view>{{rangeend2}}<ui-text>离店 共{{ differ2 }}晚</ui-text></ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row height="40" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>搜索</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left">
+              <ui-view>我的附近<ui-text>酒店/地名/关键词</ui-text></ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row height="40" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>星级价格</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" bindtap="showPopup">
+              <ui-view>{{ price }}</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+
+        <ui-view ui:if="{{ current===1 }}">
+          <ui-row height="40" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>目的地</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" bindtap="showIndexList">
+              <ui-view>{{ country }}</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row height="50" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>当地时间</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" bindtap="rangeCalendarDefaultOpen">
+              <ui-view>{{rangestart2}}<ui-text>入住</ui-text></ui-view>
+              <ui-view>{{rangeend2}}<ui-text>离店 共{{ differ2 }}晚</ui-text></ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row height="40" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>每间人数</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" bindtap="room">
+              <ui-view>{{ people }}</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row height="40" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>搜索</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left">
+              <ui-view><ui-text>酒店/地名/关键词</ui-text></ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row height="40" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>星级价格</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" bindtap="showPopup">
+              <ui-view>{{ price }}</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+        <ui-view ui:if="{{ current===2 }}">
+          <ui-row height="40" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>目的地</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" bindtap="showIndexList">
+              <ui-view>{{ country }}</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row height="50" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>当地时间</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" bindtap="rangeCalendarDefaultOpen">
+              <ui-view>{{rangestart2}}<ui-text>入住</ui-text></ui-view>
+              <ui-view>{{rangeend2}}<ui-text>离店 共{{ differ2 }}晚</ui-text></ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row height="40" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>搜索</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left">
+              <ui-view><ui-text>酒店/地名/关键词</ui-text></ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row height="40" class="form_list" space-bottom="10" space-top="10">
+            <ui-col vertical-align="middle" align="left" width="90" space-left="10">
+              <ui-view>星级价格</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" bindtap="showPopup">
+              <ui-view>{{ price }}</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="16" color="#8F8E8E"></ui-icon>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+
+      <!-- </ui-swiper> -->
+
+      <ui-button class="find_hotel" hover-class="find_hotel" bindtap="findHotel">查找酒店</ui-button>
+
+      <ui-row height="30" class="find_hotel_bottom" space-top="10">
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>
+            <ui-icon type="collect1" size="14" color="#323232"></ui-icon>
+            <ui-text>住过/收藏</ui-text>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>
+            <ui-icon type="home-icon-01" size="14" color="#323232"></ui-icon>
+            <ui-text>我的订单</ui-text>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>
+            <ui-icon type="vip" size="14" color="#323232"></ui-icon>
+            <ui-text>会员中心</ui-text>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+    </ui-view>
+    <ui-popup ui:model="{{ rangeCalendarDefault }}">
+      <ui-view  class="popup2">
+        <ui-row space-top="{{statusBarHeight}}" height="{{headerHeight}}" > 
+          <ui-col align="center" vertical-align="middle" width="70">
+          </ui-col>
+          <ui-col align="center" vertical-align="middle">
+            <ui-text>请选择入住离店日期</ui-text>
+          </ui-col>
+          <ui-col align="right" space-right="10" vertical-align="middle" width="70" bindtap="handleSelect('rangeCalendarDefault')">
+            <ui-text>完成</ui-text>
+          </ui-col>
+        </ui-row>
+        <ui-v-calendar
+        ui:if="{{rangeCalendarDefault}}"
+        height="{{height - headerHeight}}"
+        select-range-mode="{{true}}"
+        show-month-range="{{monthrange}}"
+        max-range="{{30}}"
+        value="{{defaultMonthrange}}"
+        bindselectedstart="selectedStartHandler2($event)"
+        bindselectedend="selectedEndHandler2($event)"
+        bindfailed="failedHandler2($event)"
+      ></ui-v-calendar>
+      </ui-view>
+    </ui-popup>
+    <!-- <ui-view class="sliderbox">
+      <ui-slider style="left:10%;width:80%;margin:10px 0" value="{{value2}}" show-tooltip="true" min="1" max="15"></ui-slider>
+    </ui-view> -->
+
+    <ui-popup ui:model="{{ evaluate }}" position="bottom">
+      <ui-view class="star_wrap">
+        <ui-view class="title">星级</ui-view>
+        <ui-tags 
+          data="{{ starList }}" 
+          fixed-width ="true"
+          bindchange="multipleTap"
+          item-width="70"
+          item-space="5"
+        ></ui-tags>
+        <ui-view class="title">价格</ui-view>
+        <!-- <ui-view class="sliderbox">
+          <ui-slider 
+            style="left:10%;width:80%;margin:10px 0" 
+            ui:model="sliderValue" 
+            thumb-class="custom-4-class" 
+            slider-weight="4" 
+            active-color="#f85426" 
+            show-tooltip="true" 
+            min="1" 
+            max="15"
+          ></ui-slider>
+        </ui-view> -->
+        <ui-view class="sliderbox">
+          <ui-slider 
+          ui:if="{{evaluate}}"
+          scale-position="over"
+          scale-margin="15"
+          width="{{width-50}}"
+          value="{{sliderValue}}" 
+          unlimited="{{true}}"
+          max="500"
+          key-scale-line="100"
+          active-color="#39f"
+          slider-weight="4"
+          thumb-style="{{tbObj6}}"
+          step="100"
+        ></ui-slider>
+        </ui-view>
+      </ui-view>
+      <ui-view class="finish_wrap">
+        <ui-button class="finish" bindtap="finish">完成</ui-button>
+      </ui-view>
+      
+    </ui-popup>
+    
+   
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#EFEFEF",
+  },
+  data () {
+    return {
+      width:ui.WIN_WIDTH,
+      tbObj6:{
+        'background-image': 'url(http://images.uileader.com/20180316/b9552e11-d460-471c-bc87-e14ae40c30d9.svg)',
+        'background-size':'60%',
+        'background-position': '50% 50%',
+        'background-repeat': 'no-repeat',
+        'background-color': '#fff',
+        'border':'1px solid #ececec',
+        'width':'38px',
+        'height':'26px',
+        'top':'4px',
+        'left':'-6px',
+        'border-radius':'5px'
+      },
+      swiperItem: [{
+        src: 'http://images.uileader.com/20171103/5906a28c-0f12-4b71-8df2-98791d8716f6.jpg',
+        title: '放肆玩乐，轻巧办公'
+      },
+      {
+        src: 'http://images.uileader.com/20171103/34795a1c-1365-4256-b9c1-6fb4af1de3da.jpg',
+        title: '高温保护，一路驰骋'
+      },
+      {
+        src: 'http://images.uileader.com/20171103/926a6fdc-80f6-4244-8354-860627c88115.jpg',
+        title: '七夕好货，独家礼赠'
+      }],
+      current:0,
+      //城市
+      country: '北京',
+
+      //时间
+      height: ui.WIN_HEIGHT,
+      statusBarHeight: ui.STATUS_BAR_HEIGHT,
+      headerHeight: ui.DEFAULT_HEADER_HEIGHT,
+      // 时间可选范围
+      monthrange: [],
+      // 默认选中的时间范围
+      defaultMonthrange: [],
+      rangeCalendarDefault: false,
+      // 时间差
+      differ2: '',
+      rangestart2: '',
+      rangeend2: '',
+      rangeDate2: '',
+      // 时间对象，存储临时变化的时间
+      dateobj: {},
+
+
+      //评价
+      evaluate:false,
+      starList: [
+        {
+          text: '经济型', tagClass: 'tag-6', tagSelectedClass: 'select-class2', checked: false
+        },
+        {
+          text: '舒适/三星', tagClass: 'tag-6', tagSelectedClass: 'select-class2', checked: false
+        },
+        {
+          text: '高档/四星', tagClass: 'tag-6', tagSelectedClass: 'select-class2', checked: false
+        },
+        {
+          text: '豪华/五星', tagClass: 'tag-6', tagSelectedClass: 'select-class2', checked: false
+        }
+      ],
+      grade:'',
+      price:'不限价格，不限等级',
+
+      //滑块
+      sliderValue:[100, 500],
+      value2: [3, 12],
+
+      //人数
+      people:'2成人 0儿童'
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    handleChange (index, key) {
+      this[key] = index
+    },
+    handleContentChange (index, key) {
+      // console.log(index, key)
+      this[key] = index
+    },
+    //城市选择
+    showIndexList () {
+      import(`#/pages/dialogs/index-list.ui`).then((content) => {
+        ui.showDialog({
+          content: content,
+          statusBarColor: 'black',
+          data: {
+            country: this.country1
+          },
+          // 接收ui.hideDialog回传的数据
+          onHide: (data) => {
+            if (data && data.country) {
+              this.country = data.country
+            }
+          }
+        })
+      })
+    },
+    rangeCalendarDefaultOpen () {
+      this.rangeCalendarDefault = true
+      // ui.setStatusBarStyle({ style: 'dark' })
+    },
+    handleSelect (key) {
+      this[key] = false
+      // ui.setStatusBarStyle({style: 'light'})
+    },
+    
+    selectedStartHandler2 (e) {
+      this.rangeDate2 = e
+    },
+    selectedEndHandler2 (e) {
+      this.dateobj.rangedate2 = e
+      this.defaultMonthrange = e
+      setTimeout(() => {
+        this.rangeCalendarDefault = false
+      }, 500)
+      this.calculationDays2()
+      this.rangeinit2(this.dateobj)
+    },
+    rangeinit2 (thisdate) {
+      let start, end
+      this.dateobj.rangestart2 = thisdate.rangedate2[0]
+      this.dateobj.rangeend2 = thisdate.rangedate2[1]
+      start = this.dateobj.rangestart2.split('/')
+      end = this.dateobj.rangeend2.split('/')
+      this.rangestart2 = `${start[1]}月${start[2]}日`
+      this.rangeend2 = `${end[1]}月${end[2]}日`
+    },
+    failedHandler2 (err) {
+      if (err === 1) {
+        ui.showToast({ title: '您选择的时间超过30天,请重新选择' })
+      }
+    },
+    format (obj) {
+      var date = new Date(obj)
+      var y = 1900 + date.getYear()
+      var m = '0' + (date.getMonth() + 1)
+      var d = '0' + date.getDate()
+      return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+    },
+    // 默认选中的。范围选择，根据选择日期，计算几晚
+    calculationDays2 () {
+      let start, end
+      start = Date.parse(this.dateobj.rangedate2[0])
+      end = Date.parse(this.dateobj.rangedate2[1])
+      this.differ2 = Math.floor((end - start) / (24 * 3600 * 1000))
+    },
+     multipleTap (opt) {
+      this.starList.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+      this.grade=this.starList[opt].text
+      console.log(this.grade)
+    },
+    showPopup(){
+      this.evaluate=true
+    },
+    //完成
+    finish(){
+      this.evaluate=false
+    },
+
+    // 房间
+    room(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/O2O/room'
+      })
+    },
+    findHotel(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/O2O/hotel'
+      })
+    }
+  },
+ 
+  mounted () {
+    // let people=ui.getStorageSync('people')
+    this.people='2成人 0儿童'
+    this.current=1
+
+    let rangedate2 = new Date()
+    let defaultStart, defaultEnd
+    defaultStart = this.format(rangedate2.setDate(new Date().getDate()))
+    defaultEnd = this.format(rangedate2.setDate(new Date().getDate() + 2))
+    this.defaultMonthrange.push(defaultStart, defaultEnd)
+    let start, end
+    this.dateobj.rangestart2 = this.defaultMonthrange[0]
+    this.dateobj.rangeend2 = this.defaultMonthrange[1]
+    start = this.dateobj.rangestart2.split('/')
+    end = this.dateobj.rangeend2.split('/')
+    this.rangestart2 = `${start[1]}月${start[2]}日`
+    this.rangeend2 = `${end[1]}月${end[2]}日`
+  }
+}
+</script>
+
+<style lang="less">
+.nav_bar {
+  .nav_title{
+    color: #fff;
+  }
+}
+.swiper-slide {
+  // color: #fff;
+  text-align: center;
+  .ui-image {
+    width: 100%;
+    display: block;
+  }
+}
+.swiper-container{
+  // margin-bottom:20px
+}
+.swiper-pagination{
+  text-align: right;
+}
+#swiperdotsstyle{
+  .swiper-pagination-bullet {
+    width: 20px;
+    height: 3px;
+    background-color: #eee;
+    opacity: .5;
+    border-radius: 0;
+    
+    &.swiper-pagination-bullet-active {
+      background-color: #fff;
+      opacity: 1;
+    }
+  }
+}
+
+.wrap{
+  background-color: #fff;
+  padding: 10px;
+}
+.type-center {
+  .active {
+    border-bottom:0 !important;
+  }
+  .active {
+    .item {
+      .ui-text{
+        border-bottom: 2px solid #39f;
+      }
+    }
+  }
+  .item {
+    position: relative;
+    // width: 35px;
+    // padding: 10px 0;
+    text-align: center;
+    .ui-text{
+      display: inline-block;
+      line-height: 40px;
+    }
+  }
+}
+
+.form_list{
+  background-color: #EFEFEF;
+  border-radius: 3px;
+  .ui-view{
+    font-size: 14px;
+    color: #1D1D1D;
+    .ui-text{
+      font-size:12px;
+      color: #626262;
+      margin-left:5px;
+    }
+  }
+}
+.find_hotel{
+  color:#fff;
+  background-color: #F54A26;
+  border-radius: 25px;
+  border:0;
+}
+
+.star_wrap{
+  padding: 10px;
+  .title{
+    font-size: 14px;
+    color: #8C8C8C;
+  }
+  .ui-tags{
+    margin: 10px 0;
+    
+  }
+}
+.tag-6,.select-class2 {
+  border: 1px solid #f1f2f3;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 25px;
+  font-size:12px;
+}
+
+.select-class2 {
+  border: 1px solid #39f;
+  background: #39f;
+  color: #fff;
+}
+
+.sliderbox{
+  display: table; 
+  padding:28px 10px;
+  padding-bottom:0px;
+  width:100%;
+  height:60px;
+  background-color: white;
+  text-align: center
+}
+//双滑块自定义样式
+.custom-4-class{
+  background-image: url('~images/slider2.svg');
+  background-size:60%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  border:1px solid #ececec;
+  width:35px;
+  height:35px;
+}
+.finish_wrap{
+  padding: 10px;
+  background-color: #F9F9F9;
+}
+.finish{
+  border: 0;
+  color: #fff;
+  background-color: #39f;
+}
+
+
+</style>

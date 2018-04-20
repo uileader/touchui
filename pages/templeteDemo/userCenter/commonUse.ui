@@ -1,0 +1,106 @@
+<!--commonUse.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar"  class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10" width="50"bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">设置</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50" >
+          
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <ui-row height="50" class="user_content_list2" space-top="10" bindtap="clearCache">
+      <ui-col vertical-align="middle" space-left="15">
+        清除图片缓存
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" space-right="15">
+        0MB
+      </ui-col>
+    </ui-row>
+    <ui-row height="50" class="user_content_list" space-bottom="10" bindtap="imgQuality">
+      <ui-col vertical-align="middle" space-left="15">
+        非WIFI下图片质量
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" space-right="15">
+        {{ imageQuality }}
+      </ui-col>
+    </ui-row>
+
+    <ui-row height="50" class="user_content_list">
+      
+      <!-- <ui-col vertical-align="middle">
+        金币商城
+      </ui-col> -->
+      <!-- <ui-col vertical-align="middle" align="right" space-right="15">
+        
+      </ui-col> -->
+      <ui-switch title="摇一摇，截屏反馈问题" color="#32C432"></ui-switch>
+    </ui-row>
+
+
+  </ui-page>
+</template>
+
+<script>
+  // commonUse.js
+export default {
+  config: {
+    navigationStyle: 'custom',
+    backgroundColor: '#F2F2F2',
+    delay:false
+  },
+  data () {
+    return {
+      imageQuality: '普通'
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    clearCache () {
+      ui.showToast({ title: '缓存清除', icon: 'success' })
+    },
+    imgQuality () {
+      let itemList = [
+        '普通',
+        '高清'
+      ]
+      ui.showActionSheet({
+        itemList: itemList,
+        success: (index) => {
+          // ui.showToast({
+          //   title: `index: ${index}`
+          // })
+          this.imageQuality = itemList[index]
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // commonUse.less
+.nav_bar{
+  background: linear-gradient(to right, #1F97FE, #126DFE); 
+  .nav_title{
+    color: #fff;
+  }
+}
+.user_content_list{
+  background-color: #fff;
+}
+.user_content_list2{
+  background-color: #fff;
+  .mix-1px(0, 0, 1, 0, #ccc);
+}
+
+</style>

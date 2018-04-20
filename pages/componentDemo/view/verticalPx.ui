@@ -1,0 +1,55 @@
+<!--verticalPx.ui-->
+<template>
+  <ui-page>
+    <ui-view class="win" style="{{ { height: height + 'px'} }}">
+      <ui-view class="top">
+        高度固定：150px
+      </ui-view>
+      <ui-view class="content">
+        高度自适应
+      </ui-view>
+      <ui-view class="bottom">
+        高度固定：150px
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: "纵向全屏：px",
+    disableScroll:true
+  },
+  data () {
+    return {
+      height: ui.DEFAULT_CONTENT_HEIGHT
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  // verticalPx.less
+.win{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.top{
+  height: 150px;
+  background-color: #46D1E4;
+  
+}
+.bottom{
+  height: 150px;
+  background-color: #7CC422;
+}
+.content{
+  flex-grow:1;
+  background-color: #FFA060;
+  
+}
+</style>

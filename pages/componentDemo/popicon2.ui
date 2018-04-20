@@ -1,0 +1,157 @@
+<template>
+    <ui-page>
+      <ui-fixed-view style="z-index:1000" top="0">
+        <ui-pop-icon mask-hide-delay="300" hide-on-tap="{{false}}" bindhide="dismiss" bindmaskhide="maskhide" blur="dark" left="{{offsetX}}" top="{{thisTop -70 }}" ui:model="toggle" class="pop-icon-demo2" animate="none" >
+            <ui-pop-icon-item item-color="#ff6767" top="0" left="-91.75">
+              <ui-view class="icon_view">
+                <ui-icon type="bell"></ui-icon>
+              </ui-view>
+            </ui-pop-icon-item>
+            <ui-pop-icon-item item-color="#599de9" top="-55" left="-55.75">
+              <ui-view class="icon_view">
+                <ui-icon type="wexin"></ui-icon>
+              </ui-view>
+            </ui-pop-icon-item>
+            <ui-pop-icon-item item-color="#fd9d21" top="-76" left="{{0}}">
+              <ui-view class="icon_view">
+                <ui-icon type="my"></ui-icon>
+              </ui-view>
+            </ui-pop-icon-item>
+            <ui-pop-icon-item item-color="#f9dc66" top="-55" left="56.75">
+              <ui-view class="icon_view">
+                <ui-icon type="gift"></ui-icon>
+              </ui-view>
+            </ui-pop-icon-item>
+            <ui-pop-icon-item item-color="#4dc6ee" top="0" left="85.75">
+              <ui-view class="icon_view">
+                <ui-icon type="api-network"></ui-icon>
+              </ui-view>
+            </ui-pop-icon-item>
+          </ui-pop-icon>
+        </ui-fixed-view>
+            <ui-fixed-view left="0" right="0" bottom = "10" style="z-index:1000">
+              <ui-view class="togglebtn {{toggleicon}}" bindtap="togglepopicon">
+                <ui-icon type="plus" color="#555" size="24"></ui-icon>
+              </ui-view>
+            </ui-fixed-view>
+            <ui-view class="content_list">
+              <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+                {{ item }}
+              </ui-view>
+            </ui-view>
+    </ui-page>
+  </template>
+
+
+<script>
+// popicon.js
+export default {
+  config: {
+    "navigationBarTitleText": "图标环形排列"
+  },
+  data () {
+    return {
+      items: [],
+      bottom: 30,
+      toggle: false,
+      offsetX: ui.WIN_WIDTH / 2 - 24,
+      thisTop: window.innerHeight,
+      canClick: true,
+      toggleicon: 'togglebtn'
+    }
+  },
+  methods: {
+    // 点击遮罩触发，安卓回退时触发
+    dismiss () {
+      if (this.canClick) {
+        this.canClick = false
+        this.toggleicon = 'closestyle'
+        this.toggle = false
+      }
+    },
+    // 点击开始／关闭按钮
+    togglepopicon () {
+      if (this.toggle) {
+        if (this.canClick) {
+          this.canClick = false
+          this.toggleicon = 'closestyle'
+          this.toggle = false
+        }
+      } else {
+        if (this.canClick) {
+          this.canClick = false
+          this.toggleicon = 'openstyle'
+          this.toggle = true
+          setTimeout(() => {
+            this.canClick = true
+          }, 700)
+        }
+      }
+    },
+    // 设置mask延时的情况下，mask关闭时触发，安卓回退时触发
+    maskhide () {
+      this.canClick = true
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .ui-icon{
+  font-weight: bold
+}
+.pop-icon-demo2 {
+  .icon_view{
+    height: 100%;
+    z-index: 999;
+    .mix-flex-center();
+  }
+}
+.togglebtn{
+  width:50px;
+  height:50px;
+  margin:0 auto;
+  line-height:50px;
+  text-align:center;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  background-color:#fff
+}
+
+.openstyle{
+  display: block !important;
+  animation: open .5s;
+  animation-fill-mode:forwards;
+  animation-delay:.2s;
+}
+
+@keyframes open {
+  0% {
+    display: block;
+    transform:rotate(0);
+   }
+   100% {
+    display: block;
+    transform:rotate(45deg);
+   }
+}
+
+.closestyle{
+  animation: close .5s;
+  animation-fill-mode:forwards;
+}
+@keyframes close {
+  0% {
+    transform:rotate(45deg);
+   }
+   100% {
+    transform:rotate(0);
+   }
+}
+</style>

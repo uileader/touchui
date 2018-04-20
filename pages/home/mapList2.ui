@@ -1,0 +1,58 @@
+<!--mapList.ui-->
+<template>
+    <ui-page>
+      <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+        <ui-view class="group-title">
+          <ui-row >
+            <ui-col width="5" align="center" vertical-align="middle">
+              <ui-view class="sign"></ui-view>
+            </ui-col>
+            <ui-col align="left" vertical-align="middle" space-left="10">
+              <ui-view >{{ group.title }}</ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+        <ui-row-list bordered>
+            <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+              <ui-col>{{ item.title }}</ui-col>
+              <ui-col align="right" width="30">
+                  <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+              </ui-col>
+            </ui-row>
+        </ui-row-list>
+      </ui-view>
+    </ui-page>
+  </template>
+    
+
+<script>
+// mapList.js
+export default {
+  config: {
+    "navigationBarTitleText": "地图"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '地图数据服务SDK',
+          items: [
+            { title: '周围兴趣点', link: '/pages/componentDemo/mapsdk/interestPointAroud' },
+            { title: '搜索位置并查看', link: '/pages/componentDemo/mapsdk/mapSearchTips' },
+            { title: '计算距离', link: '/pages/componentDemo/mapsdk/distanceCalculation' },
+            { title: '路线选择与规划', link: '/pages/componentDemo/mapsdk/routePlanning' },
+            { title: '绘制静态图', link: '/pages/componentDemo/mapsdk/drawStaticMap' },
+            { title: '地址逆解析', link: '/pages/componentDemo/mapsdk/mapComprehensive' }
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+
+</style>

@@ -1,0 +1,226 @@
+<template>
+  <ui-page>
+    <!-- 自定义nav-bar -->
+    <ui-nav-bar class="nab_bar" slot="nav-bar">
+       <ui-row height="46" >
+        <ui-col vertical-align="middle" align="left" space-left="10" width="70" bindtap="navigateBack">
+          <ui-view >
+            <ui-icon type="arrow-left" size="18" color="#fff"></ui-icon>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>
+            消息列表(长按出现菜单)
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" space-right="10" width="70">
+
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <ui-row border-bottom height="70" class="list" bindlongtap="popoverShow($event,index)" ui:for="{{item}}" >
+        <ui-col vertical-align="middle" align="center" width="70">
+            <ui-image
+                src="{{ item.head }}"
+                width="50"
+                height="50"
+            ></ui-image>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-right="10">
+            <ui-view>
+                <ui-row height="30">
+                    <ui-col vertical-align="middle" align="left">
+                        <ui-view class="title">{{ item.title }}</ui-view>
+                    </ui-col>
+                    <ui-col vertical-align="middle" align="right">
+                        <ui-view class="time">{{ item.time }}</ui-view>
+                    </ui-col>
+                </ui-row>
+                <ui-view class="content">{{ item.content }}</ui-view>
+            </ui-view>
+        </ui-col>
+    </ui-row>
+
+
+    <!-- popover -->
+    <ui-popover hide-on-touch="true" ref="popover" show-arrow="{{false}}" height="135" mask-style="{{ maskStyle }}" class="custom">
+        <ui-view bindtap="showTitle('标为未读')" hover-class="touch_end">标为未读</ui-view>
+        <ui-view bindtap="showTitle('置顶聊天')" hover-class="touch_end">置顶聊天</ui-view>
+        <ui-view bindtap="showTitle('删除该聊天')" hover-class="touch_end">删除该聊天</ui-view>
+    </ui-popover>
+
+
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "backgroundColor":"#E5E5E5",
+    navigationBarTextStyle: 'white'
+  },
+  data () {
+    return {
+      listIndex: null,
+      item: [{
+        head: require('#/images/indexList/t1.png'),
+        title: '阿强',
+        time: '1月25日',
+        content: '如何优雅的抄袭代码？'
+      }, {
+        head: require('#/images/indexList/t2.png'),
+        title: '安生',
+        time: '1月20日',
+        content: '如何在大屏幕上吃鸡？'
+      }, {
+        head: require('#/images/indexList/t3.png'),
+        title: '波波',
+        time: '1月28日',
+        content: '过去了没？我快到了'
+      }, {
+        head: require('#/images/indexList/t4.png'),
+        title: '陈杰',
+        time: '1月20日',
+        content: '麻烦去一下快递！'
+      }, {
+        head: require('#/images/indexList/t5.png'),
+        title: '长安',
+        time: '1月29日',
+        content: '我今天不回家了，你自己吃吧。'
+      }, {
+        head: require('#/images/indexList/t4.png'),
+        title: '程玲',
+        time: '1月10日',
+        content: '今天天气正好，适合出行。'
+      }, {
+        head: require('#/images/indexList/t3.png'),
+        title: '董子健',
+        time: '1月15日',
+        content: '通知：再过几天都放假，请做好手头工作。'
+      }, {
+        head: require('#/images/indexList/t1.png'),
+        title: '董洁',
+        time: '1月25日',
+        content: '如何优雅的抄袭代码？'
+      }, {
+        head: require('#/images/indexList/t2.png'),
+        title: '冬雪',
+        time: '1月20日',
+        content: '如何在大屏幕上吃鸡？'
+      }, {
+        head: require('#/images/indexList/t3.png'),
+        title: '丁洁',
+        time: '1月28日',
+        content: '过去了没？我快到了'
+      }, {
+        head: require('#/images/indexList/t4.png'),
+        title: '邓超',
+        time: '1月20日',
+        content: '麻烦去一下快递！'
+      }, {
+        head: require('#/images/indexList/t5.png'),
+        title: '大豆',
+        time: '1月29日',
+        content: '我今天不回家了，你自己吃吧。'
+      }, {
+        head: require('#/images/indexList/t4.png'),
+        title: '厄尔',
+        time: '1月10日',
+        content: '今天天气正好，适合出行。'
+      }, {
+        head: require('#/images/indexList/t3.png'),
+        title: '何伟',
+        time: '1月15日',
+        content: '通知：再过几天都放假，请做好手头工作。'
+      }],
+      maskStyle: { backgroundColor: 'transparent' }
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    popoverShow (e, index) {
+      console.log(index)
+      this.listIndex = index
+      // this.popover = []
+      // this.popover[index] = true
+      // if (this.popoverText[index] === undefined) {
+      //   this.popoverText[index] = '赞'
+      // }
+      this.$refs.popover.showPopover({
+        el: e.target,
+        position: 'bottom',
+        effect: 'slide'
+      })
+    },
+    showTitle (title) {
+      console.log(this.item[this.listIndex])
+      ui.showToast({
+        title: `${title}(${this.item[this.listIndex].title})`
+      })
+      this.$refs.popover.hidePopover()
+    }
+  },
+  mounted () {
+
+  }
+}
+
+</script>
+
+<style lang="less">
+.nab_bar {
+  background-color: #121114;
+  .ui-view {
+      color: #fff;
+      font-size: 16px;
+  }
+}
+
+.custom {
+    width:130px;
+    background-color:#fff; 
+    .ui-popover-overlay-outer{
+        box-shadow: 0 0px 22px -1px #c1bfbf;
+        .ui-popover-overlay{
+            padding:0;
+        }
+    }
+  .ui-view{
+    font-size:16px;
+    color:#2E2E2E;
+    padding: 10px;
+  }
+}
+.touch_end {
+    background: #eee;
+}
+
+.list{
+   background-color:#fff;
+.ui-view{
+       width:100%;
+   }
+   .ui-row{
+       width:100%;
+       .title{
+            font-size: 16px;
+            color:#202020;
+       }
+       .time{
+           font-size:12px;
+           color:#B8B8B8;
+       }
+   }
+   .content{
+       color:#8A8A8A;
+       font-size:14px;
+       .mix-text-overflow();
+       padding-right:40px;
+   }
+}
+</style>

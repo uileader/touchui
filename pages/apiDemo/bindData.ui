@@ -1,0 +1,117 @@
+<!--bindData.ui-->
+<template>
+    <ui-page>
+        <ui-view class="sample_title">简单绑定</ui-view>
+        <ui-view class="sample_content">
+            <ui-view class="code">{{codeDemo1}}</ui-view>
+            <ui-view>{{ message }}</ui-view>
+        </ui-view>
+
+        <ui-view class="sample_title">组件属性(需要在双引号之内)</ui-view>
+        <ui-view class="sample_content">
+            <ui-view class="code">{{codeDemo2}}</ui-view>
+        </ui-view>
+
+        <ui-view class="sample_title">控制属性(需要在双引号之内)</ui-view>
+        <ui-view class="sample_content">
+        <ui-view class="code">{{codeDemo3}}</ui-view>
+        </ui-view>
+
+        <ui-view class="sample_title">关键字(需要在双引号之内)</ui-view>
+        <ui-view class="sample_content">
+            <ui-view class="code">{{codeDemo4}}</ui-view>
+            <ui-checkbox checked="{{true}}"> </ui-checkbox>
+        </ui-view>
+
+        <ui-view class="sample_title">三元运算</ui-view>
+        <ui-view class="sample_content">
+            <ui-view class="code">{{codeDemo5}}</ui-view>
+            <ui-view hidden="{{flag ? true : false}}"> Hidden </ui-view>
+        </ui-view>
+
+        <ui-view class="sample_title">算数运算</ui-view>
+        <ui-view class="sample_content">
+            <ui-view class="code">{{codeDemo6}}</ui-view>
+            <ui-view> {{a + b}} + {{c}} + d </ui-view>
+        </ui-view>
+        
+        <ui-view class="sample_title">逻辑判断</ui-view>
+        <ui-view class="sample_content">
+            <ui-view class="code">{{codeDemo7}}</ui-view>
+            <ui-view ui:if="{{length > 5}}">123</ui-view>
+        </ui-view>
+
+        <ui-view class="sample_title">字符串运算</ui-view>
+        <ui-view class="sample_content">
+            <ui-view class="code">{{codeDemo8}}</ui-view>
+            <ui-view>{{"hello" + name}}</ui-view>
+        </ui-view>
+    
+    <ui-view class="sample_title">数据路径运算</ui-view>
+    <ui-view class="sample_content">
+        <ui-view class="code">{{codeDemo9}}</ui-view>
+        <ui-view>{{object.key}} {{array[0]}}</ui-view>
+    </ui-view>
+    
+    <ui-view class="sample_title">数组</ui-view>
+    <ui-view class="sample_content">
+        <ui-view class="code">{{codeDemo10}}</ui-view>
+        <ui-view ui:for="{{arryitem}}">{{item}}</ui-view>
+        <ui-view class="code">{{codeDemo11}}</ui-view>
+        <ui-view ui:for="{{arryitem2}}" ui:for-item="obj">{{obj}}</ui-view>
+    </ui-view>
+    </ui-page>
+</template>
+
+
+<script>
+// bindData.js
+export default {
+  config: {
+    "navigationBarTitleText": "数据绑定"
+  },
+  data () {
+    return {
+      message: 'Hello TOUCH UI',
+      id: 0,
+      condition: true,
+      flag: false,
+      a: 1,
+      b: 2,
+      c: 3,
+      length: 7,
+      name: 'TOUCH UI',
+      object: {
+        key: 'Hello '
+      },
+      array: ['TOUCH UI'],
+      zero: 0,
+      arryitem: [1, 2, 3, 4],
+      arryitem2: [10, 20, 3, 40],
+      arryitem3: [15, 10, 90, 30],
+      codeDemo1:'<ui-view>{{ message }}</ui-view>',
+      codeDemo2:'<ui-view id="item-{{ id }}"></ui-view>',
+      codeDemo3:'<ui-view ui:if="{{ condition }}"> </ui-view>',
+      codeDemo4:'<ui-checkbox checked="{{true}}"> </ui-checkbox>',
+      codeDemo5:'<ui-view hidden="{{flag ? true : false}}"> Hidden </ui-view>',
+      codeDemo6:'<ui-view> {{a + b}} + {{c}} + d </ui-view>',
+      codeDemo7:'<ui-view ui:if="{{length > 5}}">123</ui-view>',
+      codeDemo8:'<ui-view>{{"hello" + name}}</ui-view>',
+      codeDemo9:'<ui-view>{{object.key}} {{array[0]}}</ui-view>',
+      codeDemo10:'<ui-view ui:for="{{arryitem}}">{{item}}</ui-view>',
+      codeDemo11:'<ui-view ui:for="{{arryitem2}}" ui:for-item="obj">{{obj}}</ui-view>',
+    }
+  },
+  methods: {}
+} 
+
+</script>
+
+<style lang="less">
+    // bindData.less
+.code {
+  color: #40B883;
+  font-size: 14px;
+  overflow-x: scroll;
+}
+</style>

@@ -1,0 +1,96 @@
+<!--register.ui-->
+<template>  
+  <ui-page>
+    <ui-nav-bar slot="nav-bar"  class="nav_bar">
+      <ui-row height="46">
+        <ui-col width="70" align="left" space-left="10" vertical-align="middle" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#A5A5A5"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" space="20">
+          <ui-view class="head_title">注册</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="70" bindtap="navigateBack">
+          <ui-view>登录</ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+   
+    <ui-view class="login_content">
+      <ui-form bindsubmit="formSubmit">
+        <ui-row height="50" border-bottom>
+          <ui-col vertical-align="bottom">
+            <ui-input name="phone" placeholder="请输入您的手机号码" placeholder-style="color:#9C9C9C"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50" border-bottom>
+          <ui-col vertical-align="bottom">
+            <ui-input name="img-code" placeholder="请输入图片验证码" placeholder-style="color:#9C9C9C" password ></ui-input>
+          </ui-col>
+          <ui-col width="80" align="center" vertical-align="middle">
+            xjkf
+          </ui-col>
+        </ui-row>
+        <ui-row height="50" border-bottom>
+          <ui-col vertical-align="bottom">
+            <ui-input name="code" placeholder="请输入验证码" placeholder-style="color:#9C9C9C" password ></ui-input>
+          </ui-col>
+          <ui-col width="80" align="center" vertical-align="middle">
+            <ui-view>获取验证码<ui-view>
+          </ui-col>
+        </ui-row>
+        <!-- <ui-view class="submit">下一步</ui-view> -->
+        <ui-button formType="submit" type="primary" class="submit">下一步</ui-button>
+      </ui-form>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// register.js
+export default {
+  config: {
+    "navigationBarTitleText": "注册"
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    hideWindow (e) {
+      ui.hideDialog()
+    },
+    navigateBack () {
+      ui.navigateBack()
+    },
+    formSubmit (e) {
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // register.less
+.nav_bar{
+  .ui-view{
+    color: #A5A5A5;
+    font-size: 14px;
+    &.head_title{
+      font-size: 16px;
+    }
+  }
+}
+.login_content{
+  padding: 50px 20px 0 20px;
+  .ui-input{
+    border: 0;
+  }
+  .submit{
+    margin-top: 50px;
+  }
+  .ui-row{
+    .ui-view{
+      color: #A5A5A5;
+    }
+  }
+}
+</style>

@@ -1,0 +1,318 @@
+<!--tab-view.ui-->
+<template>
+  <ui-page>
+    <ui-divider>基本使用</ui-divider>
+    <ui-tabs index="{{ current1 }}"  bindchange="handleChange($event, 'current1')">
+      <ui-tab>选项卡一</ui-tab>
+      <ui-tab>选项卡二</ui-tab>
+    </ui-tabs>
+    <ui-swiper class="content" current="{{ current1 }}" bindchange="handleContentChange($event, 'current1')">
+      <ui-swiper-item>
+        <ui-view>内容 1</ui-view>
+       
+      </ui-swiper-item>
+      <ui-swiper-item>
+        <ui-view>内容 2</ui-view>
+      </ui-swiper-item>
+    </ui-swiper>
+
+
+    <ui-divider>ink-bar</ui-divider>
+    <ui-tabs index="{{ current2 }}"  bindchange="handleChange($event, 'current2')" ink-bar active-tab-style="{{activeTabStyle}}" ink-bar-style="{{inkBarStyle}}">
+      <ui-tab>选项卡一</ui-tab>
+      <ui-tab>选项卡二</ui-tab>
+      <ui-tab>选项卡三</ui-tab>
+      <ui-tab>选项卡四</ui-tab>
+    </ui-tabs>
+
+    <ui-swiper class="content"  current="{{ current2 }}" bindchange="handleContentChange($event, 'current2')">
+      <ui-swiper-item>
+        内容一
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容二
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容三
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容四
+      </ui-swiper-item>
+    </ui-swiper>
+
+
+
+    <ui-divider>居中显示</ui-divider>
+    <ui-view style="background-color:#f5f5f5">
+      <ui-view style="width:120px;margin:0 auto;">
+        <ui-tabs tab-style="{{tabStyle}}" width="120" auto-width="{{false}}" index="{{ current3 }}"  bindchange="handleChange($event, 'current3')">
+          <ui-tab>
+            <ui-view>精选</ui-view>
+          </ui-tab>
+          <ui-tab>
+            <ui-view>订阅</ui-view>
+          </ui-tab>
+        </ui-tabs>
+      </ui-view>
+    </ui-view>
+    <ui-swiper class="content" current="{{ current3 }}" bindchange="handleContentChange($event, 'current3')">
+      <ui-swiper-item>
+        内容一
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容二
+      </ui-swiper-item>
+    </ui-swiper>
+
+    <ui-divider>结合角标使用</ui-divider>
+    <ui-view style="background-color:#f5f5f5">
+        <ui-view style="width:120px;margin:0 auto;">
+    <ui-tabs tab-style="{{tabStyle}}" width="120" auto-width="{{false}}" index="{{ current4 }}"  bindchange="handleChangeBadge($event, 'current4')">
+      <ui-tab>
+        <ui-view>精选</ui-view>
+      </ui-tab>
+      <ui-tab>
+        <ui-view>
+          订阅
+          <ui-badge custom-style="padding: 3px;top:-5px" ui:if="showBadge3"></ui-badge>
+        </ui-view>
+      </ui-tab>
+    </ui-tabs>
+    </ui-view>
+  </ui-view>
+
+    <ui-swiper class="content" current="{{ current4 }}" bindchange="handleContentChange($event, 'current4')">
+      <ui-swiper-item>
+        内容一
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容二
+      </ui-swiper-item>
+    </ui-swiper>
+
+    <ui-divider>与图标结合使用：图标在左</ui-divider>
+    <ui-tabs index="{{ current5 }}"  bindchange="handleChange($event, 'current5')">
+      <ui-tab>
+        <ui-view>
+          <ui-icon type="mail"></ui-icon>邮件
+        </ui-view>
+      </ui-tab>
+      <ui-tab>
+        <ui-view>
+          <ui-icon type="api-data"></ui-icon>存储
+        </ui-view>
+      </ui-tab>
+      <ui-tab>
+        <ui-view>
+          <ui-icon type="api-network"></ui-icon>网络
+        </ui-view>
+      </ui-tab>
+    </ui-tabs>
+
+    <ui-swiper class="content" current="{{ current5 }}" bindchange="handleContentChange($event, 'current5')">
+      <ui-swiper-item>
+        内容一
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容二
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容三
+      </ui-swiper-item>
+    </ui-swiper>
+
+    <ui-divider>与图标结合使用：图标在右</ui-divider>
+    <ui-tabs index="{{ current6 }}"  bindchange="handleChange($event, 'current6')">
+      <ui-tab>
+        <ui-view>
+          邮件<ui-icon type="mail"></ui-icon>
+        </ui-view>
+      </ui-tab>
+      <ui-tab>
+        <ui-view>
+          存储<ui-icon type="api-data"></ui-icon>
+        </ui-view>
+      </ui-tab>
+      <ui-tab>
+        <ui-view>
+          网络<ui-icon type="api-network"></ui-icon>
+        </ui-view>
+      </ui-tab>
+    </ui-tabs>
+
+    <ui-swiper class="content" current="{{ current6 }}" bindchange="handleContentChange($event, 'current6')">
+      <ui-swiper-item>
+        内容一
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容二
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容三
+      </ui-swiper-item>
+    </ui-swiper>
+
+    <ui-divider>外部触发切换</ui-divider>
+    <ui-tabs index="{{ current7 }}"  bindchange="handleChange($event, 'current7')">
+      <ui-tab>选项卡一</ui-tab>
+      <ui-tab>选项卡二</ui-tab>
+    </ui-tabs>
+
+    <ui-swiper class="content" current="{{ current7 }}" bindchange="handleContentChange($event, 'current7')">
+      <ui-swiper-item>
+        <ui-button type="primary" bindtap="handleChange(1, 'current7')">切换到第二项</ui-button>
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容二
+      </ui-swiper-item>
+    </ui-swiper>
+
+    <ui-divider>只支持点击标签切换</ui-divider>
+    <ui-tabs index="{{ current8 }}"  bindchange="handleChange8($event, 'current8')">
+      <ui-tab>选项卡一</ui-tab>
+      <ui-tab>选项卡二</ui-tab>
+    </ui-tabs>
+    <ui-view ui:show="{{ show8_1 }}">选项卡一</ui-view>
+    <ui-view ui:show="{{ show8_2 }}">选项卡二</ui-view>
+
+
+    <ui-divider>自定义颜色</ui-divider>
+    <ui-tabs index="{{ current9 }}"  bindchange="handleChange($event, 'current9')" active-tab-style="{{activeTabStyle2}}">
+      <ui-tab>选项卡一</ui-tab>
+      <ui-tab>选项卡二</ui-tab>
+    </ui-tabs>
+
+    <ui-swiper class="content" current="{{ current9 }}" bindchange="handleContentChange($event, 'current9')">
+      <ui-swiper-item>
+        内容一
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容二
+      </ui-swiper-item>
+    </ui-swiper>
+
+
+
+    <ui-divider>超出屏幕宽度</ui-divider>
+    <ui-tabs  index="{{ current11 }}" bounce="{{true}}"  bindchange="handleChange($event, 'current11')">
+      <ui-tab>选项卡一</ui-tab>
+      <ui-tab>选项卡二</ui-tab>
+      <ui-tab>选项卡三</ui-tab>
+      <ui-tab>选项卡四</ui-tab>
+      <ui-tab>选项卡五</ui-tab>
+      <ui-tab>选项卡六</ui-tab>
+      <ui-tab>选项卡七</ui-tab>
+      <ui-tab>选项卡八</ui-tab>
+    </ui-tabs>
+
+    <ui-swiper class="content" current="{{ current11 }}" bindchange="handleContentChange($event, 'current11')">
+      <ui-swiper-item>
+        内容一
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容二
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容三
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容四
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容五
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容六
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容七
+      </ui-swiper-item>
+      <ui-swiper-item>
+        内容八
+      </ui-swiper-item>
+    </ui-swiper>
+
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "自定义样式"
+  },
+  data () {
+    return {
+      activeTabStyle:{
+        'color': '#e60012',
+      },
+      activeTabStyle2:{
+        'color': '#e60012',
+        'border-bottom':'1px solid #e60012'
+      },
+      inkBarStyle:{
+        'border-bottom': '1px solid red',
+        'width': '60%',
+        'color':'red'
+      },
+      tabStyle:{
+        'flex':'0 0 40px'
+      },
+      current1: 0,
+      current2: 0,
+      current3: 0,
+      current4: 0,
+      current5: 0,
+      current6: 0,
+      current7: 0,
+      current8: 0,
+      current9: 0,
+      current11: 0,
+      current12: 0,
+      showBadge3: true,
+      show8_1:true,
+      show8_2:false
+    }
+  },
+  methods: {
+    handleChange (index, key) {
+      this[key] = index
+    },
+    handleChangeBadge(index, key){
+      this[key] = index
+      if(key === 1){
+        this.showBadge3 = false
+      }
+    },
+    handleChange8 (index) {
+      if(index){
+        this.show8_1=false
+        this.show8_2=true
+      }else{
+        this.show8_1=true
+        this.show8_2 = false
+      }
+    },
+    handleContentChange (index, key) {
+      // console.log(index, key)
+      this[key] = index
+      if(key==="current4"){
+        this.showBadge3 = false
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.ui-tabs{
+  background-color: #f5f5f5;
+  padding-bottom: 1px;
+}
+.content {
+  height: 60px;
+  line-height: 60px;
+}
+
+</style>

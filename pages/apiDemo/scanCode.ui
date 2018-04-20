@@ -1,0 +1,50 @@
+<!--scanCode.ui-->
+<template>
+  <ui-page>
+    <ui-view class="content">
+      <ui-text class="ui-text">扫码结果：</ui-text>
+      <ui-textarea ui:model="result" maxlength='-1' auto-height readonly></ui-textarea>
+      <ui-button type="primary" bindtap="scanCode">扫一扫</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// scanCode.js
+export default {
+  config: {
+    "navigationBarTitleText": "扫码"
+  },
+  data () {
+    return {
+      result: ''
+    }
+  },
+  methods: {
+    scanCode: function () {
+      var that = this
+      ui.scanCode({
+        success: function (res) {
+          that.setData({
+            result: res.result
+          })
+        },
+        fail: function (res) {
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // scanCode.less
+.content{
+  padding: 10px;
+}
+.ui-text{
+  line-height: 36px;
+}
+
+</style>

@@ -1,0 +1,324 @@
+<template>
+    <ui-page top="0" style="background-color:transparent;"> 
+        <ui-view class="ui-dialog-customheader">
+         <ui-row height="46"> 
+          <ui-col vertical-align="middle" align="center" width="40" bindtap="hideWindow"> 
+           <ui-icon type="close" size="18" color="#222"></ui-icon> 
+          </ui-col> 
+          <ui-col vertical-align="middle" align="center">
+            25条回复 
+          </ui-col> 
+          <ui-col vertical-align="middle" align="left" width="40"></ui-col> 
+         </ui-row> 
+        </ui-view> 
+        <ui-scroll-view class="comment_list_content" scroll-y   height="{{height}}"> 
+          <ui-row class="comment_list article" space-bottom="20"> 
+            <ui-col vertical-align="top" align="center" width="60"> 
+            <ui-image src="{{ require('#/images/avatar.jpeg') }}" mode="aspectFill" width="40" height="40"></ui-image> 
+            </ui-col> 
+            <ui-col space-right="10"> 
+            <ui-view class="article_title">
+              奶酪蛋糕
+            </ui-view> 
+            <ui-view class="comment_content">
+              奶酪蛋糕，听名字就知道，这类蛋糕奶酪放的比较多，目前很受消费者的喜爱，根据奶酪的多少又分为三种，奶酪放的很多的是重奶酪蛋糕，中间水平的是轻奶酪蛋糕，还有一种是冻奶酪蛋糕，这种蛋糕不需要烤，是用冰冻的方式使蛋糕成型的。轻奶酪蛋糕口感非常绵软，入口即化，小宝宝跟老人家会很适合吃。
+            </ui-view> 
+            <ui-view class="comment_time">
+              11-29 05:35 
+            </ui-view> 
+            </ui-col> 
+          </ui-row> 
+          <ui-view class="hot">
+            热门评论
+          </ui-view> 
+          <ui-row class="comment_list" space-bottom="20"> 
+            <ui-col vertical-align="top" align="center" width="60"> 
+            <ui-image src="{{ require('#/images/avatar.jpeg') }}" mode="aspectFill" width="40" height="40"></ui-image> 
+            </ui-col> 
+            <ui-col space-right="10"> 
+            <ui-row height="20"> 
+              <ui-col vertical-align="middle"> 
+              <ui-view class="user_name">
+                传递正能量
+              </ui-view> 
+              </ui-col> 
+              <ui-col vertical-align="middle" width="60"> 
+              <ui-view class="like"> 
+                <ui-icon type="like" size="14" color="#9EA4AA"></ui-icon>220 
+              </ui-view> 
+              </ui-col> 
+            </ui-row> 
+            <ui-view class="comment_content">
+              你说你能吃那么多蛋糕，你现在吃啊！有本事你全部都吃光。
+            </ui-view> 
+            <ui-view class="comment_time">
+              11-29 05:35 回复
+            </ui-view> 
+            </ui-col> 
+          </ui-row> 
+          <ui-row class="comment_list" space-bottom="20"> 
+            <ui-col vertical-align="top" align="center" width="60"> 
+            <ui-image src="{{ require('#/images/avatar.jpeg') }}" mode="aspectFill" width="40" height="40"></ui-image> 
+            </ui-col> 
+            <ui-col space-right="10"> 
+            <ui-row height="20"> 
+              <ui-col vertical-align="middle"> 
+              <ui-view class="user_name">
+                传递正能量
+              </ui-view> 
+              </ui-col> 
+              <ui-col vertical-align="middle" width="60"> 
+              <ui-view class="like"> 
+                <ui-icon type="like" size="14" color="#9EA4AA"></ui-icon>220 
+              </ui-view> 
+              </ui-col> 
+            </ui-row> 
+            <ui-view class="comment_content">
+              你说你能吃那么多蛋糕，你现在吃啊！有本事你全部都吃光。
+            </ui-view> 
+            <ui-view class="comment_time">
+              11-29 05:35 回复
+            </ui-view> 
+            </ui-col> 
+          </ui-row> 
+          <ui-row class="comment_list" space-bottom="20"> 
+            <ui-col vertical-align="top" align="center" width="60"> 
+            <ui-image src="{{ require('#/images/avatar.jpeg') }}" mode="aspectFill" width="40" height="40"></ui-image> 
+            </ui-col> 
+            <ui-col space-right="10"> 
+            <ui-row height="20"> 
+              <ui-col vertical-align="middle"> 
+              <ui-view class="user_name">
+                传递正能量
+              </ui-view> 
+              </ui-col> 
+              <ui-col vertical-align="middle" width="60"> 
+              <ui-view class="like"> 
+                <ui-icon type="like" size="14" color="#9EA4AA"></ui-icon>220 
+              </ui-view> 
+              </ui-col> 
+            </ui-row> 
+            <ui-view class="comment_content">
+              你说你能吃那么多蛋糕，你现在吃啊！有本事你全部都吃光。
+            </ui-view> 
+            <ui-view class="comment_time">
+              11-29 05:35 回复
+            </ui-view> 
+            </ui-col> 
+          </ui-row> 
+          <ui-row class="comment_list" space-bottom="20"> 
+            <ui-col vertical-align="top" align="center" width="60"> 
+            <ui-image src="{{ require('#/images/avatar.jpeg') }}" mode="aspectFill" width="40" height="40"></ui-image> 
+            </ui-col> 
+            <ui-col space-right="10"> 
+            <ui-row height="20"> 
+              <ui-col vertical-align="middle"> 
+              <ui-view class="user_name">
+                传递正能量
+              </ui-view> 
+              </ui-col> 
+              <ui-col vertical-align="middle" width="60"> 
+              <ui-view class="like"> 
+                <ui-icon type="like" size="14" color="#9EA4AA"></ui-icon>220 
+              </ui-view> 
+              </ui-col> 
+            </ui-row> 
+            <ui-view class="comment_content">
+              你说你能吃那么多蛋糕，你现在吃啊！有本事你全部都吃光。
+            </ui-view> 
+            <ui-view class="comment_time">
+              11-29 05:35 回复
+            </ui-view> 
+            </ui-col> 
+          </ui-row> 
+          <ui-row class="comment_list" space-bottom="20"> 
+            <ui-col vertical-align="top" align="center" width="60"> 
+            <ui-image src="{{ require('#/images/avatar.jpeg') }}" mode="aspectFill" width="40" height="40"></ui-image> 
+            </ui-col> 
+            <ui-col space-right="10"> 
+            <ui-row height="20"> 
+              <ui-col vertical-align="middle"> 
+              <ui-view class="user_name">
+                传递正能量
+              </ui-view> 
+              </ui-col> 
+              <ui-col vertical-align="middle" width="60"> 
+              <ui-view class="like"> 
+                <ui-icon type="like" size="14" color="#9EA4AA"></ui-icon>220 
+              </ui-view> 
+              </ui-col> 
+            </ui-row> 
+            <ui-view class="comment_content">
+              你说你能吃那么多蛋糕，你现在吃啊！有本事你全部都吃光。
+            </ui-view> 
+            <ui-view class="comment_time">
+              11-29 05:35 回复
+            </ui-view> 
+            </ui-col> 
+          </ui-row> 
+        </ui-scroll-view> 
+
+        <ui-fixed-view class="comment_bottom" bottom="0" left="0"> 
+         <ui-row height="46"> 
+          <ui-col vertical-align="middle" align="center" space="20" bindtap="article"> 
+           <ui-view class="article_input"> 
+            <ui-row height="30" ui:show="{{ inputShow1 }}"> 
+             <ui-col vertical-align="middle" align="center" width="40"> 
+              <ui-icon type="write" size="20" color="#343436"></ui-icon> 
+             </ui-col> 
+             <ui-col vertical-align="middle" align="left">
+               写评论 
+             </ui-col> 
+             <ui-col vertical-align="middle" align="center" width="40"> 
+              <ui-icon type="phiz" size="24" color="#9C9DA2"></ui-icon> 
+             </ui-col> 
+            </ui-row> 
+            <ui-row height="30" ui:show="{{ inputShow2 }}"> 
+             <ui-col vertical-align="middle"> 
+              <ui-input placeholder="优质评论会被优先展示" bindblur="blur" focus="{{ inputShow2 }}" show-clear="{{false}}"></ui-input> 
+             </ui-col> 
+            </ui-row> 
+           </ui-view> 
+          </ui-col> 
+          <ui-col vertical-align="middle" align="center" width="40"> 
+           <ui-icon type="like" size="18" color="#9EA4AA"></ui-icon> 
+          </ui-col> 
+          <ui-col vertical-align="middle" align="center" width="40"> 
+           <ui-icon type="share2" size="18" color="#9EA4AA"></ui-icon> 
+          </ui-col> 
+         </ui-row> 
+        </ui-fixed-view>  
+    </ui-page>
+</template>
+<script>
+
+
+export default {
+  config: {
+    backgroundColor:'transparent'
+  },
+  data() {
+    return {
+      imgSrc:require('#/images/avatar.jpeg'),
+      country: '',
+      height: ui.DEFAULT_CONTENT_HEIGHT,
+      inputShow1:true,
+      inputShow2:false
+    }
+  },
+
+  mounted() {
+    this.$DialogOpen((data) => {
+      if (data && data.country) {
+        this.country = data.country
+      }
+    })
+  },
+
+  methods: {
+    onShowModeChange(val) {
+      this.country = val
+    },
+
+    hideWindow (e) {
+      ui.hideDialog()
+    },
+
+    confirmSelect() {
+      ui.hideDialog({ country: this.country })
+    },
+    article(){
+      this.inputShow1=false
+      this.inputShow2=true
+    },
+    blur(){
+      this.inputShow1=true
+      this.inputShow2=false
+    }
+  }
+}
+  </script>
+  <style lang="less">
+  /* .ui-dialog-content {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 2px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  } */
+  .ui-dialog-customheader{
+    background-color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    .mix-1px(0, 0, 1, 0, #ccc);
+    box-shadow: none;
+  }
+  .hot{
+    padding: 20px 0 10px 10px;
+    color: #444444;
+  }
+  .comment_list_content{
+    padding-bottom: 50px;
+    background-color: #fff;
+  }
+
+  .comment_list{
+    .ui-image{
+      border-radius: 50%;
+    }
+    .user_name{
+      color: #405C88;
+      line-height: 20px;
+      font-size:13px;
+    }
+    .like{
+      color:#9EA4AA;
+      line-height: 20px;
+      .ui-icon{
+        margin-right: 5px;
+      }
+    }
+    .comment_content{
+      font-size: 16px;
+      color: #1E1E1E;
+      padding: 10px 0;
+    }
+    .comment_time{
+      font-size: 12px;
+      color: #1E1E1E;
+    }
+  }
+  .article{
+    padding: 20px 0;
+    .mix-1px(0, 0, 1, 0, #ccc);
+    .article_title{
+      font-size: 16px;
+      color: #1E1E1E;
+      padding: 10px 0;
+      text-align: center;
+    }
+  }
+  .comment_bottom{
+    width:100%;
+    background-color: #fff;
+    z-index: 505;
+
+    .mix-1px(1, 0, 0, 0, #ccc);
+    
+    .article_input{
+      width:100%;
+      background-color: #F1F2F5;
+      border-radius: 25px;
+      overflow: hidden;
+      .ui-input{
+        border: 0;
+        background-color: transparent;
+      }
+      .ui-input-inner{
+        height: 30px;
+
+      }
+    }
+  }
+  
+  </style>

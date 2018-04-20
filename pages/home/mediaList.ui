@@ -1,0 +1,76 @@
+<!--dataList.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row >
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <!-- {{ item.title }} -->
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "媒体"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '照片',
+          items: [
+            { title: '拍摄或选择照片', link: '/pages/apiDemo/takePictures' },
+            { title: '照片的上传与下载', link: '/pages/apiDemo/uploadDownload' },
+            { title: '网络图片保存到相册', link: '/pages/apiDemo/networkPictures' },
+            { title: '图片预览', link: '/pages/apiDemo/previewImage' }
+          ]
+        },
+        {
+          title: '语音',
+          items: [
+            { title: '录音与播放', link: '/pages/apiDemo/playRecord' },
+            { title: '语音消息播放', link: '/pages/apiDemo/playSound' }
+          ]
+        },
+        {
+          title: '背景音频',
+          items: [
+            { title: '基本使用', link: '/pages/apiDemo/bgAudio' }
+          ]
+        },
+        {
+          title: '视频',
+          items: [
+            { title: '拍摄或选择视频上传', link: '/pages/apiDemo/shootVideo' },
+            { title: '网络视频保存到相册', link: '/pages/apiDemo/networkVideo' }
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+
+  }
+}
+</script>
+
+<style lang="less">
+  
+</style>

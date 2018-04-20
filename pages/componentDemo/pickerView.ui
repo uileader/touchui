@@ -1,0 +1,208 @@
+<!--picker.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">单列选择器</ui-view>
+    <ui-view class="sample_content">
+      <ui-picker-view range="{{ list }}" value="{{ value }}" bindchange="handleChange"></ui-picker-view>
+      <ui-button bindtap="resetPicker">将选项重置为第一项</ui-button>
+    </ui-view>
+  
+    <ui-view class="sample_title">多列选择器</ui-view>
+    <ui-view class="sample_content">
+      <ui-divider>不联动</ui-divider>
+      <ui-picker-view mode="multiSelector" range="{{ phones }}" bindchange="handleChange1"></ui-picker-view>
+      
+      <ui-divider>二级联动</ui-divider>
+      <ui-picker-view mode="multiSelector" is-chain value="{{ value2 }}" range="{{ departments }}" bindchange="handleChange2"></ui-picker-view>
+      
+      <ui-divider>三级联动</ui-divider>
+      <ui-picker-view mode="multiSelector" is-chain value="{{ value3 }}" range="{{ relaxes }}" bindchange="handleChange3"></ui-picker-view>
+    </ui-view>
+    
+    <ui-view class="sample_title">时间选择器</ui-view>
+    <ui-view class="sample_content">
+      <ui-picker-view mode="time" value="{{ timeValue }}" bindchange="handleChange4"></ui-picker-view>
+      <ui-button  bindtap="resetPicker2">将时间重置为00:00</ui-button>
+    </ui-view>
+  
+    <ui-view class="sample_title">日期选择器</ui-view>
+    <ui-view class="sample_content">
+      <ui-divider>format：YYYY-MM-DD</ui-divider>
+      <ui-picker-view mode="date" start="2017-09-01" end="2018-09-30" value="{{ dataValue }}" bindchange="handleChange5"></ui-picker-view>
+     
+      <ui-divider>format：YYYY/MM/DD</ui-divider>
+      <ui-picker-view mode="date" start="2017-09-01" end="2018-09-30" value="{{ dataValue }}" date-format="YYYY/MM/DD" bindchange="handleChange5"></ui-picker-view>
+    
+      <ui-divider>format：YYYY年MM月DD日</ui-divider>
+      <ui-picker-view mode="date" start="2017-09-01" end="2018-09-30" value="{{ dataValue }}" date-format="YYYY年MM月DD日" bindchange="handleChange5"></ui-picker-view>
+     
+      <ui-divider>format：YYYY年M月D日</ui-divider>
+      <ui-picker-view mode="date" start="2017-09-01" end="2018-09-30" value="{{ dataValue }}" date-format="YYYY年M月D日" bindchange="handleChange5"></ui-picker-view>
+     
+      <ui-divider>format：MMMM Do, YYYY</ui-divider>
+      <ui-picker-view mode="date" start="2017-09-01" end="2018-09-30" value="{{ dataValue }}" date-format="MMMM Do, YYYY" bindchange="handleChange5"></ui-picker-view>
+     
+      <ui-divider>format：dddd MMMM Do, YYYY</ui-divider>
+      <ui-picker-view mode="date" start="2017-09-01" end="2018-09-30" value="{{ dataValue }}" date-format="dddd MMMM Do, YYYY" bindchange="handleChange5"></ui-picker-view>
+      <ui-button  bindtap="resetPicker3">将日期设置为今天</ui-button>
+    </ui-view>
+  
+    <ui-view class="sample_title">地址选择器</ui-view>
+    <ui-view class="sample_content">
+        <ui-divider>省市区选择</ui-divider>
+        <ui-picker-view mode="region" value="{{ cityValue1 }}" range="{{ cityValue }}" bindchange="handleChange6"></ui-picker-view>
+        <ui-button  bindtap="resetPicker4">将地区设置为北京市丰台区</ui-button>
+        
+        <ui-divider>省市选择</ui-divider>
+        <ui-picker-view mode="region" value="{{ cityValue2 }}" range="{{ cityValue }}" hide-district bindchange="handleChange7"></ui-picker-view>
+        <ui-button  bindtap="resetPicker5">将地区设置为广东省深圳市</ui-button>
+    </ui-view>
+  
+  </ui-page>
+</template>
+
+
+<script>
+// picker.js
+let getDoubleNumber = function (num) {
+  return num < 10 ? '0' + num : '' + num
+}
+import cityList from '#/static/data/address'
+// var cityList = require('#/static/data/address')
+export default {
+  config: {
+    "navigationBarTitleText": "显示选择器"
+  },
+  data () {
+    return {
+      list: ['中国', '美国', '巴西', '日本'],
+      value: 1,
+      timeValue: '00:12',
+      dataValue: '2017-09-05',
+      phones: [['小米', 'iPhone', '华为', '三星'], ['小米1', 'iPhone2', '华为3', '三星4']],
+      cityValue1: ['110000', '110107'],
+      cityValue2: ['330000', '330100'],
+      cityValue: cityList,
+      value1: null,
+      value2: null,
+      value3: ['food', 'chafing dish', 'SiChuan chafing dish'],
+      departments: [{
+        name: '采购部',
+        value: 'DP_01',
+        children: [
+          { name: '采购一科', value: 'DP_0101' },
+          { name: '采购二科', value: 'DP_0102' },
+          { name: '采购三科', value: 'DP_0103' }
+        ]
+      }, {
+        name: '制造部',
+        value: 'DP_02',
+        children: [
+          { name: '制造一科', value: 'DP_0201' },
+          { name: '制造二科', value: 'DP_0202' },
+          { name: '制造三科', value: 'DP_0203' }
+        ]
+      }],
+      relaxes: [{
+        name: '美食',
+        value: 'food',
+        children: [
+          {
+            name: '火锅',
+            value: 'chafing dish',
+            children: [
+              { name: '川味火锅', value: 'SiChuan chafing dish' },
+              { name: '老北京火锅', value: 'Beijing chafing dish' },
+              { name: '牛肉火锅', value: 'Beef chafing dish' }
+            ]
+          }, {
+            name: '西餐',
+            value: 'western food',
+            children: [
+              { name: '意大利菜', value: 'Italy food' },
+              { name: '法国菜', value: 'France food' },
+              { name: '汉堡', value: 'Hamburg' }
+            ]
+          }
+        ]
+      }, {
+        name: '旅游',
+        value: 'tour',
+        children: [
+          {
+            name: '周边游',
+            value: 'tour around',
+            children: [
+              { name: '景点', value: 'Scenic spot' },
+              { name: '公园', value: 'Park' },
+              { name: '名胜古迹', value: 'Historical sites' }
+            ]
+          }, {
+            name: '海外游',
+            value: 'tour aboard',
+            children: [
+              { name: '美国游', value: 'American tour' },
+              { name: '欧洲游', value: 'Europe tour' },
+              { name: '东南亚游', value: 'Southease Asia tour' }
+            ]
+          }
+        ]
+      }]
+    }
+  },
+  methods: {
+    resetPicker () {
+      this.value = 0
+    },
+    resetPicker2 () {
+      this.timeValue = '00:00'
+    },
+    resetPicker3 () {
+      let today = new Date()
+      let year = today.getFullYear() + ''
+      let month = getDoubleNumber(today.getMonth() + 1)
+      let day = getDoubleNumber(today.getDate())
+
+      this.dataValue = year + '-' + month + '-' + day
+    },
+    resetPicker4 () {
+      this.cityValue1 = ['110000', '110100', '110106']
+    },
+    resetPicker5 () {
+      this.cityValue2 = ['440000', '440300']
+    },
+    handleChange (val) {
+      this.value = val
+    },
+    handleChange1 (val) {
+    },
+    handleChange2 (val) {
+    },
+    handleChange3 (val) {
+    },
+    handleChange4 (val) {
+      this.timeValue = val
+    },
+    handleChange5 (val) {
+      this.dataValue = val
+    },
+    handleChange6 (val) {
+      this.cityValue1 = val
+    },
+    handleChange7 (val) {
+      this.cityValue2 = val
+    },
+    columnchange () {
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // picker.less
+.title{
+  background-color: #F7F9FB;
+  padding: 0 10px;
+}
+</style>

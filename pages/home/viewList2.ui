@@ -1,0 +1,79 @@
+<!--layoutList.ui-->
+<template>
+    <ui-page>
+      <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+        <ui-view class="group-title">
+          <ui-row >
+            <ui-col width="5" align="center" vertical-align="middle">
+              <ui-view class="sign"></ui-view>
+            </ui-col>
+            <ui-col align="left" vertical-align="middle" space-left="10">
+              <ui-view >{{ group.title }}</ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+        <ui-row-list bordered>
+            <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+              <ui-col>{{ item.title }}</ui-col>
+              <ui-col align="right" width="30">
+                  <!-- {{ item.title }} -->
+                  <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+              </ui-col>
+            </ui-row>
+        </ui-row-list>
+      </ui-view>
+    </ui-page>
+  </template>
+
+<script>
+// layoutList.js
+export default {
+  config: {
+    "navigationBarTitleText": "容器"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '吸顶容器 sticky',
+          items: [
+              { title: '基本使用', link: '/pages/componentDemo/sticky' },
+              { title: '多个吸顶容器共用', link: '/pages/componentDemo/sticky2' },
+              { title: '应用案例', link: '/pages/componentDemo/sticky3' },
+              { title: 'tabs与sticky结合', link: '/pages/componentDemo/sticky5' }
+          ]
+        },
+        {
+          title: '滑动菜单容器 swipe-out',
+          items: [
+            { title: '基本使用', link: '/pages/componentDemo/swipeOut' }
+          ]
+        },
+        {
+          title: '折叠面板 accordion',
+          items: [{
+            title: '基本使用',
+            link: '/pages/componentDemo/accordion'
+          }
+          ]
+        }, {
+          title: '概要 summary',
+          items: [
+            { title: '基本使用',
+              link: '/pages/componentDemo/summary'
+            }
+          ]
+        }
+
+      ]
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+
+</style>
+  

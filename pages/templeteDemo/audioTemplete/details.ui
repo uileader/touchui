@@ -1,0 +1,434 @@
+<template>
+  <ui-page>
+    <ui-nav-bar class="nav_bar" slot="nav-bar">
+      <ui-row height="46" class="">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+          <ui-view class="back">
+            <ui-icon type="arrow-left" size="18" color="#9D9D9D"></ui-icon>返回
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">文稿</ui-col>
+        <ui-col vertical-align="middle" align="right" width="60" space-right="10">
+          <ui-icon type="forward" color="#9D9D9D" size="20"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-view class="wrap">
+      <ui-view class="title">瑞不·达利不欧：怎样在压力之下做决策</ui-view>
+      <ui-row height="80" class="writer">
+        <ui-col vertical-align="middle" align="center" width="40">
+          <ui-image 
+            src="{{ require('#/images/indexList/t4.png') }}"
+            width="30"
+            height="30"
+          ></ui-image>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-view>李不想及其团队</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-view class="suggest">决策</ui-view>
+      <ui-view class="article">在桥水基金创始人瑞不·达利不欧的中国行活动上，华兴资本创始人包不凡和达利不欧进行了一场对谈。作为金融工作者，达利不欧可能每天会做涉及几百万美元的决策，每个决策都很关键，结果都很重大。包不凡认为这和创业者很相似，创业者每天也要做很多决策，要进行非常快速的选择。所以包不凡就此向达利不欧提问，想知道达利欧的决策方法。</ui-view>
+      <ui-view class="article">达利不欧回答说，通常做决策的过程都是类似的，从做出决策到评估，再到调整修正，最后是继续前进。“投资领域的好处是评分清晰，也就是说，一个人做的决策都会得到反馈，并且能够基于此作出调整去改善决策过程。同样，在决策中，你知道你要不畏艰难地出发去冒险，去下一个很大的赌注。”</ui-view>
+      <ui-view class="article">达利不欧提供了一个“三角校正”的方法，具体来说，就是找三个最聪明的人来。他打了个比方，假设你生病了，你可以找到最聪明的三个医生，他们意见不一样，但愿意协商找到最好的那个方案。如果三位医生的意见达成一致，而你也觉得这想法行得通，那么你们就找到了正确答案。但是，如果他们的意见没办法达成一致，就会出现一些潜在的风险，可能要做一些检查来验证。而如果一天时间下来，大家的意见还是不统一，你可能心里就有数了，哪位医生是最聪明的，哪位不那么出色。达利欧认为，所有的决策过程大概都是这样的。</ui-view>
+      <ui-view class="article">在谈到商业决策时，达利不欧认为，一方面要果断地做决定，这样才能不断推进工作；另一方面又要心胸开阔，听取不同的意见，这样才能提高决策的正确率。</ui-view>
+      <ui-view class="article">此外，达利不欧觉得，很多创业者和成功人士有一点做的不够好，那就是他们没有充分分享他们的失败经历、缺点，以及如何应对那些问题。但是在达利不欧和他们私下交流的时候，他们就能够说出来。达利欧认为，很多成功的人，包括创业者和投资人，都有类似的情况。</ui-view>
+      <ui-view class="article">以上就是桥水基金创始人达利不欧的决策方法，希望对你有启发。</ui-view>
+      <ui-view class="narrate">讲述：小浩浩</ui-view>
+      <!-- <ui-image
+        src="https://piccdn.igetget.com/img/201803/03/201803032244245663055246.jpg"
+        width="100%"
+        class="banner"
+      ></ui-image> -->
+
+    </ui-view>
+    <ui-view class="sticky-in-relative-container">
+      <ui-sticky class="sticky_header" stick-on-tap>
+        <ui-row height="50">
+          <ui-col vertical-align="middle" align="left" space-left="20">
+            <ui-view class="write_title">用户留言</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="right" space-right="20">
+            <ui-view class="write_note" bindtap="comment">
+              <ui-icon type="bianji" size="16" color="#fff"></ui-icon>
+              <ui-text>写留言</ui-text>
+            </ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-view slot="sticky">
+          <ui-row height="50">
+            <ui-col vertical-align="middle" align="left" space-left="20">
+              <ui-view class="write_title">用户留言</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" space-right="20">
+              <ui-view class="write_note" bindtap="comment">
+                <ui-icon type="bianji" size="16" color="#fff"></ui-icon>
+                <ui-text>写留言</ui-text>
+              </ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+      </ui-sticky>
+    </ui-view>
+    <ui-view class="wrap wrap2">
+      <ui-row class="message_content" space-bottom="20">
+        <ui-col vertical-align="top" align="center" width="50">
+          <ui-image
+            src="{{ require('#/images/indexList/t4.png') }}"
+            width="30"
+            height="30"
+          ></ui-image>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-row height="30">
+            <ui-col vertical-align="middle" align="left">
+              <ui-view class="name">王雪雷</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="25">
+              <ui-icon type="user_grade" size="16" color="#BEB3A6"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="30">
+              <ui-text class="grade_num">15</ui-text>
+            </ui-col>
+          </ui-row>
+          <ui-view class="note_content">一、建立真实人际关系，让每个用户，变成自己超级用户。</ui-view>
+          <ui-view class="note_content">二、培养自己</ui-view>
+          <ui-view class="note_content">三、有所不为，找到自己内心最真实的想法，并为之努力，然后，如同库克所说，要对一大堆的想法说不！</ui-view>
+          <ui-view class="note_content">四、为伟大的企业工作，学习他们先进的经验，并考虑自己能够给企业带来什么？</ui-view>
+          <ui-view class="note_content">五、善待自己。</ui-view>
+          <ui-view class="time">03-06 07:53:12</ui-view>
+        </ui-col>
+      </ui-row>
+
+      <ui-row class="message_content" space-bottom="20">
+        <ui-col vertical-align="top" align="center" width="50">
+          <ui-image
+            src="{{ require('#/images/indexList/t5.png') }}"
+            width="30"
+            height="30"
+          ></ui-image>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-row height="30">
+            <ui-col vertical-align="middle" align="left">
+              <ui-view class="name">范燕君</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="25">
+              <ui-icon type="user_grade" size="16" color="#BEB3A6"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="30">
+              <ui-text class="grade_num">9</ui-text>
+            </ui-col>
+          </ui-row>
+
+          <ui-view class="note_content">内心笃定，有自己的原则；积极的与外部建立联系、沟通交流；扩大自己的视野，增强在外部的影响力。</ui-view>
+          <ui-view class="time">03-06 08:47:53</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row class="message_content">
+        <ui-col vertical-align="top" align="center" width="50">
+          <ui-image
+            src="{{ require('#/images/indexList/t6.png') }}"
+            width="30"
+            height="30"
+          ></ui-image>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-row height="30">
+            <ui-col vertical-align="middle" align="left">
+              <ui-view class="name">凡心</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="25">
+              <ui-icon type="user_grade" size="16" color="#BEB3A6"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="30">
+              <ui-text class="grade_num">9</ui-text>
+            </ui-col>
+          </ui-row>
+          <ui-view class="note_content">获得成功和幸福的五个独特路径，其实不“独特”，概括一下，五种途径都是视角向内，反求诸己。这五个建议其实可以用宁向东教授的“两个视角”的理论来概括，就是从“由外而内”的视角转变为“由内而外”的视角，主要的关注点在于立足自身实际，不断精进自己。</ui-view>
+          <ui-view class="time">03-06 12:47:53</ui-view>
+        </ui-col>
+      </ui-row>
+
+
+      <ui-view class="filtrate">以上留言由作者筛选显示</ui-view>
+
+
+      
+
+
+    </ui-view>
+
+    <ui-mask ui:model="{{ popupShow }}" height="100%" background="#F2F2F2">
+      <ui-view class="comment_wrap" style="{{{ 'padding-top':statusBar+'px' }}}">
+        <ui-row height="46" class="head">
+          <ui-col vertical-align="middle" align="left" space-left="10" width="40" bindtap="cancel">
+            <ui-view>取消</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-view class="title">评论</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="right" width="40" space-right="10" bindtap="publish">
+            <ui-view class="publish {{ className }}">发布</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-textarea maxlength="-1" show-counter="false" focus="{{ popupShow }}" height="120" placeholder="发表评论" placeholder-style="color:#A8A8A8" value="{{ textareaValue }}" bindinput="changeTextarea"></ui-textarea>
+        <ui-view class="choose">
+          <ui-row height="50" bindtap="showActionSheet">
+            <ui-col vertical-align="middle" align="left" space-left="10">
+              <ui-view class="left">选择发布身份</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right">
+              <ui-view class="right">{{ identity }}</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" width="30" space-right="10">
+              <ui-icon type="arrow-right" size="14" color="#DFDDDF"></ui-icon>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+      </ui-view>
+    </ui-mask>
+      
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    navigationStyle: 'custom',
+    navigationBarTextStyle: 'black'
+  },
+  data () {
+    return {
+      commentContent:[
+        {
+          head:require('#/images/indexList/t2.png'),
+          name:'菜仓-a-b-c',
+          time:'昨天',
+          text:'买生鲜还是要去菜场，那里有生活的味道，是任何地方都不可比的。如果要和菜场抢生意，那还是得先起个好名字，电商也好，实体店铺也好，菜仓怎么样，或者菜仓生鲜？更接近菜场，高大上，还很接地气：）'
+        },
+        {
+          head:require('#/images/indexList/t2.png'),
+          name:'老格',
+          time:'昨天',
+          text:'这不就是“touchUI”正在做的事情吗'
+        }
+      ],
+      popupShow:false,
+      identity:'TOUCH UI（自己）',
+      textareaValue:'',
+      className:'',
+      statusBar:ui.STATUS_BAR_HEIGHT,
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    comment(){
+      this.popupShow=true
+    },
+
+    //评论
+    changeTextarea(e){
+      console.log(e)
+      this.textareaValue=e
+      if (this.textareaValue.length > 0) {
+        this.className = 'active'
+      } else {
+        this.className = ''
+      }
+    },
+    cancel() {
+      this.popupShow = false
+    },
+    publish(){
+      if (this.className!==''){
+        this.popupShow = false
+        let date = new Date();
+        let mytime = date.toLocaleTimeString()
+        let content = {
+          head: require('#/images/indexList/t2.png'),
+          name: 'Touch UI',
+          time: mytime,
+          text: this.textareaValue
+        }
+        this.commentContent.unshift(content)
+        ui.showToast({ title: '评论成功' })
+        this.textareaValue = ''
+      }
+    },
+    showActionSheet(){
+      let itemList = [
+        'TOUCH UI（自己）'
+      ]
+      ui.showActionSheet({
+        header: '<p><span style="color:#828282;font-size:12px;">选择发布身份</span></p>',
+        itemList: itemList,
+        success: (index) => {
+          this.identity = itemList[index]
+        }
+      })
+    },
+  },
+  mounted () {
+    
+  }
+}
+
+</script>
+
+<style lang="less">
+.nav_bar{
+  background-color: #fff;
+  .back{
+    color: #9D9D9D;
+    font-size: 14px;
+  }
+}
+.wrap{
+  padding: 20px 15px 0px 15px; 
+}
+.title{
+  text-align: left;
+  color: #000;
+  font-size: 28px;
+  font-weight: 400;
+}
+.writer{
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .ui-image{
+    border-radius: 50%;
+  }
+  .ui-view{
+    font-size: 12px;
+    color: #BFC0BF;
+  }
+}
+.suggest{
+  background-color: #F99325;
+  color: #fff;
+  font-size: 12px;
+  display: inline-block;
+  padding: 0 10px;
+  line-height: 25px;
+  margin-top: 5px;
+}
+.article{
+  font-size: 14px;
+  color: #404040;
+  line-height:30px;
+  margin-top: 20px;
+}
+.narrate{
+  font-size: 12px;
+  color: #BFC0BF;
+  margin-top: 20px;
+}
+.banner{
+  margin: 30px 0 10px 0;
+}
+
+.sticky_header{
+  background-color: #fff;
+  // .mix-1px(0, 0, 1, 0, #ccc);
+  .write_title{
+    font-size: 14px;
+    color: #020202;
+  }
+  .write_note{
+    background-color: #F88714;
+    font-size:12px;
+    border-radius: 25px;
+    display: inline-block;
+    line-height: 25px;
+    padding: 0 10px;
+    color: #fff;
+  }
+}
+.wrap2{
+  background-color: #F6F6F6;
+  padding-bottom:30px;
+}
+.message_content{
+  .ui-image{
+    border-radius: 50%;
+  }
+  .ui-row{
+    width:100%;
+  }
+  .ui-view{
+    &.name{
+      font-size: 12px;
+      color: #BEB3A6;
+    }
+  }
+  .grade_num{
+    font-size: 12px;
+    color: #BEB3A6;
+  }
+  .note_content{
+    font-size: 14px;
+    color:#626262;
+    line-height:25px;
+  }
+  .time{
+    font-size:12px;
+    color: #BEB3A6;
+    margin-top:10px;
+  }
+}
+
+.filtrate{
+  font-size:12px;
+  color:#626262;
+  text-align: center;
+  margin-top: 30px;
+}
+
+
+
+.comment_wrap{
+  background-color: #fff;
+  .head{
+    color: #646464;
+    font-size: 14px;
+    .title{
+      font-size: 16px;
+    }
+    .publish{
+      color: #B4D3F5;
+      &.active{
+        color: #0E63FF;
+      }
+    }
+  }
+  .ui-textarea-wrapper{
+    padding: 10px;
+    border: 0;
+    .ui-textarea{
+      padding: 0;
+    }
+  }
+  .choose{
+    padding-left: 10px;
+    border-top: 1px solid #FAFAFA;
+    background-color: #fff;
+    .ui-row{
+      border-top: 1px solid #FAFAFA;
+      .left{
+        color: #2A2A2A;
+        font-size: 14px;
+      }
+      .right{
+        color: #929292;
+        font-size: 14px;
+      }
+    }
+    
+  }
+}
+
+
+</style>

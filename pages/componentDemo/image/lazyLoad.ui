@@ -1,0 +1,68 @@
+<!--image3.ui-->
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ list }}">
+      <ui-image
+        class="img"
+        src="{{item.src}}"
+        lazy-load
+        width="300"
+        height="200"
+        load-effect="fade"
+        >
+      </ui-image>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// image3.js
+export default {
+  config: {
+    "navigationBarTitleText": "图片懒加载"
+  },
+  data () {
+    return {
+      list: [
+        {
+          src: 'https://o5omsejde.qnssl.com/demo/test1.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test2.jpg'
+        },
+        {
+          src: 'https://o5omsejde.qnssl.com/demo/test1.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test2.jpg'
+        },
+        {
+          src: 'https://o5omsejde.qnssl.com/demo/test1.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test2.jpg'
+        },
+        {
+          src: 'https://o5omsejde.qnssl.com/demo/test1.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test2.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test1.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test2.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test1.jpg'
+        }, {
+          src: 'https://o5omsejde.qnssl.com/demo/test2.jpg'
+        }
+      ]
+    }
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+.img{
+  margin: 0 auto;
+}
+</style>

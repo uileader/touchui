@@ -1,0 +1,78 @@
+<template>
+  <ui-page>
+    <ui-image
+    src="http://images.uileader.com/20171117/a1fa37d0-fbd7-4316-be27-1136a97b459b.jpg"
+    height="{{ imgHeight }}"
+
+    ></ui-image>
+    <ui-sticky class="header">
+      <ui-view class="sample_title">一 前言</ui-view>
+      <ui-view slot="sticky">
+        <ui-view class="sample_title">一 前言</ui-view>
+      </ui-view>
+    </ui-sticky>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+    <ui-sticky class="header">
+      <ui-view class="sample_title">二 日常沟通场景中当职场写作</ui-view>
+      <ui-view slot="sticky">
+        <ui-view class="sample_title">二 日常沟通场景中当职场写作</ui-view>
+      </ui-view>
+    </ui-sticky>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{items}}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+    <ui-sticky class="header">
+      <ui-view class="sample_title">三 会议活动场景中的职场写作</ui-view>
+      <ui-view slot="sticky">
+        <ui-view class="sample_title">三 会议活动场景中的职场写作</ui-view>
+      </ui-view>
+    </ui-sticky>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{items}}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+  export default {
+  config: {
+    "navigationBarTitleText": "多个吸顶容器",
+    "navigationBarBorderColor": "rgba(231, 231, 231, 0.6)",
+    "navigationBarBackgroundColor":"#FFFFFF",
+    "navigationBarTextStyle":"black",
+    "navigationBarTextStyle":"black"
+  },
+  data () {
+    return {
+      items: [],
+      imgHeight: parseInt(ui.WIN_WIDTH / 1125 * 628)
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= 20; i++) {
+      this.items.push(i + ' - 内容文本')
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .header {
+  .sample_title{
+    height: 46px;
+    line-height: 46px;
+  }
+}
+
+
+</style>

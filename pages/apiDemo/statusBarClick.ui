@@ -1,0 +1,45 @@
+<!--statusBarClick.ui-->
+<template>
+  <ui-page>
+    <ui-view class="content">
+      请点击状态栏查看效果（仅支持iOS）
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// statusBarClick.js
+export default {
+  config: {
+    "navigationBarTitleText": "状态栏点击"
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    onload(){
+      ui.onStatusbarTap(function(){
+        ui.showToast({
+          title: '点击了状态栏',
+          icon: 'success',
+          duration: 2000
+        })
+      })
+    }
+  },
+  mounted(){
+    this.onload()
+  }
+}
+
+</script>
+
+<style lang="less">
+  // statusBarClick.less
+.content{
+  line-height: 50px;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+</style>

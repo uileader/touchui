@@ -1,0 +1,61 @@
+<template>
+  <ui-page>
+    <ui-view ui:for="{{ groups }}" ui:for-item="group" ui:for-index="groupIndex" class="sample_list">
+      <ui-view class="group-title">
+        <ui-row>
+          <ui-col width="5" align="center" vertical-align="middle">
+            <ui-view class="sign"></ui-view>
+          </ui-col>
+          <ui-col align="left" vertical-align="middle" space-left="10">
+            <ui-view >{{ group.title }}</ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-row-list bordered>
+          <ui-row url="{{ item.link }}" ui:for="{{ group.items }}" hover-class="touchui-hover">
+            <ui-col>{{ item.title }}</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+      </ui-row-list>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "基础"
+  },
+  data () {
+    return {
+      groups: [
+        {
+          title: '页面组件 page',
+          items: [
+            { title: '滚动到底自动加载', link: '/pages/componentDemo/page' },
+            { title: '底部上拉加载', link: '/pages/componentDemo/page2' },
+            { title: '底部上拉加载(自定义样式)', link: '/pages/componentDemo/page3' },
+            { title: '滚动事件', link: '/pages/componentDemo/page4' },
+            { title: '外部控制滚动', link: '/pages/componentDemo/page5' },
+            { title: '滚动后记住位置', link: '/pages/componentDemo/page6' },
+            { title: '下拉刷新：基本使用', link: '/pages/componentDemo/page7' },
+            { title: '下拉刷新：自定义样式', link: '/pages/componentDemo/page8' },
+            { title: '下拉刷新：外部触发', link: '/pages/componentDemo/page9' },
+            { title: '下拉刷新：内容固定模式', link: '/pages/componentDemo/page10' },
+            { title: '下拉刷新：内容固定模式自定义样式', link: '/pages/componentDemo/page11' },
+            { title: '顶部下拉彩蛋', link: '/pages/componentDemo/page12' }
+          ]
+        }
+      ]
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang="less">
+  
+</style>

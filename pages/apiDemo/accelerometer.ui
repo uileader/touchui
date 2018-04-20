@@ -1,0 +1,80 @@
+<!--accelerometer.ui-->
+<template>
+  <ui-page>
+    <ui-view class="content">
+      <ui-row height="40" space-bottom="10">
+        <ui-col span="4" vertical-align="middle" space-bottom="10">
+          X轴加速度：
+        </ui-col>
+        <ui-col span="8" vertical-align="middle">
+            <ui-view>{{x}}</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row height="40" space-bottom="10">
+        <ui-col span="4" vertical-align="middle">
+          Y轴加速度：
+        </ui-col>
+        <ui-col span="8" vertical-align="middle">
+            <ui-view>{{y}}</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row height="40" space-bottom="10">
+        <ui-col span="4" vertical-align="middle">
+          Z轴加速度：
+        </ui-col>
+        <ui-col span="8" vertical-align="middle">
+            <ui-view>{{z}}</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-button type="primary" bindtap="stop">停止监听</ui-button>
+      <ui-button bindtap="start">继续监听</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// accelerometer.js
+export default {
+  config: {
+    "navigationBarTitleText": "文本"
+  },
+  data () {
+    return {
+      x: 0,
+      y: 0,
+      z: 0
+    }
+  },
+  methods: {
+    onReady: function () {
+      var that = this
+      ui.onAccelerometerChange(function (res) {
+        that.setData({
+          x: res.x.toFixed(2),
+          y: res.y.toFixed(2),
+          z: res.z.toFixed(2)
+        })
+      })
+    },
+    start () {
+      ui.startAccelerometer()
+    },
+    stop () {
+      ui.stopAccelerometer()
+    }
+  },
+  mounted () {
+    this.onReady()
+  }
+}
+
+</script>
+
+<style lang="less">
+// accelerometer.less
+.content{
+  padding: 10px;
+}
+
+</style>
+  

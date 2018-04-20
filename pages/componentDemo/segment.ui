@@ -1,0 +1,166 @@
+<!--segment.ui-->
+<template>
+  <ui-page>
+      <ui-divider>多个容器切换</ui-divider>
+      <ui-segment bindchange="changeTab1" index="{{value}}">
+        <ui-segment-item>
+          First
+        </ui-segment-item>
+        <ui-segment-item>
+          Second
+        </ui-segment-item>
+        <ui-segment-item>
+          Third
+        </ui-segment-item>
+      </ui-segment>
+      <ui-view class="tabContent" ui:show="{{contentshow === 0}}">
+        内容一
+      </ui-view>
+      <ui-view class="tabContent" ui:show="{{contentshow === 1}}">
+        内容二
+      </ui-view>
+      <ui-view class="tabContent" ui:show="{{contentshow === 2}}">
+        内容三
+      </ui-view>
+
+      <ui-divider>共用一个容器</ui-divider>
+      <ui-segment bindchange="changeTab2">
+        <ui-segment-item>
+          First
+        </ui-segment-item>
+        <ui-segment-item>
+          Second
+        </ui-segment-item>
+        <ui-segment-item>
+          Third
+        </ui-segment-item>
+      </ui-segment>
+      <ui-view class="tabContent">
+        {{tabContent[contentshow2]}}
+      </ui-view>
+    <ui-divider>基本使用</ui-divider>
+    <ui-segment>
+      <ui-segment-item>
+        First
+      </ui-segment-item>
+      <ui-segment-item>
+        Second
+      </ui-segment-item>
+      <ui-segment-item>
+        Third
+      </ui-segment-item>
+    </ui-segment>
+    <ui-divider>最多5项</ui-divider>
+    <ui-segment>
+      <ui-segment-item>
+        First
+      </ui-segment-item>
+      <ui-segment-item>
+        Second
+      </ui-segment-item>
+      <ui-segment-item>
+        Third
+      </ui-segment-item>
+      <ui-segment-item>
+        Forth
+      </ui-segment-item>
+      <ui-segment-item>
+        Fifth
+      </ui-segment-item>
+    </ui-segment>
+    <ui-divider>change事件</ui-divider>
+    <ui-segment bindchange="handleChange">
+      <ui-segment-item>
+        First
+      </ui-segment-item>
+      <ui-segment-item>
+        Second
+      </ui-segment-item>
+      <ui-segment-item>
+        Third
+      </ui-segment-item>
+    </ui-segment>
+    <ui-divider>自定义样式</ui-divider>
+    <ui-segment item-style="{{itemStyle}}" active-item-style="{{activeItemStyle}}">
+      <ui-segment-item>
+        明细
+      </ui-segment-item>
+      <ui-segment-item>
+        类别报表
+      </ui-segment-item>
+      <ui-segment-item>
+        账户
+      </ui-segment-item>
+    </ui-segment>
+    <ui-divider>和图标一起使用</ui-divider>
+    <ui-segment>
+      <ui-segment-item>
+        <ui-icon type="dingding"></ui-icon>钉钉
+      </ui-segment-item>
+      <ui-segment-item>
+        <ui-icon type="weibo"></ui-icon>微博
+      </ui-segment-item>
+      <ui-segment-item>
+        <ui-icon type="weixin"></ui-icon>微信
+      </ui-segment-item>
+    </ui-segment>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "segmentDemo"
+  },
+  data () {
+    return {
+      value: 1,
+      contentshow: 1,
+      contentshow2: 0,
+      tabContent: ['内容一', '内容二', '内容三'],
+      itemStyle:{
+        'height':'25px',
+        'color': '#333',
+        'border-color':'#333',
+        'background': 'transparent',
+        'line-height': '25px',
+        'font-size':'12px',
+        'width':'77px'
+      },
+      activeItemStyle:{
+        'opacity': '1',
+        'color': '#fff',
+        'background-color': '#333'
+      }
+    }
+  },
+  methods: {
+    handleChange (index) {
+      ui.showToast({
+        title: 'index: ' + index
+      })
+    },
+    changeTab1 (index) {
+      this.contentshow = index
+    },
+    changeTab2 (index) {
+      this.contentshow2 = index
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.ui-segment {
+  margin: 1em 0;
+}
+
+.ui-icon {
+  margin-right: 6px;
+}
+
+.tabContent{
+  margin:10px
+}
+</style>

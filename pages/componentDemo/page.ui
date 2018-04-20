@@ -1,0 +1,60 @@
+<!--page2.ui-->
+<template>
+    <ui-page
+    enable-reach-bottom-load="{{loadMore}}"
+    on-load-more="{{ handleLoadMore }}">
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+    <ui-view style="width:200px;margin:0 auto;">
+      <ui-divider ui:show="{{!loadMore}}">没有新数据了</ui-divider>
+    </ui-view>
+
+  </ui-page>
+</template>
+
+
+<script>
+// page2.js
+export default {
+  config: {
+    navigationBarTitleText: "滚动到底自动加载"
+  },
+  data () {
+    return {
+      loadMore:true,
+      items: [],
+      bottom: 30,
+      count:0
+    }
+  },
+  methods: {
+    handleLoadMore () {
+      this.count ++
+      if(this.count > 2){
+        this.loadMore = false
+        return false
+      }{
+        window.setTimeout(() => {
+          for (let i = this.bottom + 1; i <= this.bottom + 10; i++) {
+            this.items.push(`列表项目${i}`)
+          }
+          this.bottom += 10
+        }, 1500)
+      }
+      
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+</style>

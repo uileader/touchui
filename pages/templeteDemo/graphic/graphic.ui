@@ -1,0 +1,508 @@
+<!--chart.ui-->
+<template>
+  <ui-page>
+    <ui-view class="wrap">
+      <ui-view class="title">城市选择</ui-view>
+      <ui-tags data="{{cityList}}" bindchange="singleTap"></ui-tags>
+    </ui-view>
+    <ui-view class="wrap">
+      <ui-view class="title">受众性别占比</ui-view>
+      <ui-row height="30" class="proportion_text">
+        <ui-col vertical-align="middle" align="left">
+          <ui-view class="left">
+            54.3%<ui-text>男</ui-text>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right">
+          <ui-view class="right">
+            <ui-text>女</ui-text>45.7%
+          </ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-contrast
+      value="{{ contrastValue }}"
+      color="{{ colorArry }}"
+      gap="true"
+      height="10"
+      ></ui-contrast>
+      <ui-view class="title">受众年龄占比</ui-view>
+      <ui-bar
+        value="{{bar.data}}"
+        height="200"
+        width="{{ width-30 }}"
+        is-animated="true"
+        is-darker="true"
+        between-bars-padding = 0.3
+        color-schema="{{bar.colorSchema}}"
+        tooltip="true"
+        body-fill-color="rgba(0,0,0,.7)"
+        value-text-fill-color="#fff"
+        name-text-fill-color="#fff"
+      ></ui-bar>
+      <ui-view class="title">教育程度</ui-view>
+      <ui-row height="30" class="proportion_text">
+        <ui-col vertical-align="middle" align="left">
+          <ui-view class="left left2">
+            28.7 %<ui-text>本科以上</ui-text>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right">
+          <ui-view class="right right2">
+            <ui-text>本科以下</ui-text>71.3%
+          </ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-contrast
+      value="{{ contrastValue2 }}"
+      color="{{ colorArry2 }}"
+      gap="true"
+      height="10"
+      ></ui-contrast>
+    </ui-view>
+
+
+    <ui-view class="wrap">
+      <ui-view class="title">活跃地区</ui-view>
+      <ui-row height="30" class="area">
+        <ui-col vertical-align="middle" align="left" width="20">
+          <ui-view>1</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-view>二线城市</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right">
+          <ui-view>39.2%</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-progress percent="39.2" stroke-width="10" active-color="#F6574B" active></ui-progress>
+      <ui-row height="30" class="area">
+        <ui-col vertical-align="middle" align="left" width="20">
+          <ui-view>2</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-view>四线城市</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right">
+          <ui-view>26.9%</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-progress percent="26.9" stroke-width="10" active-color="#F6574B" active></ui-progress>
+      <ui-row height="30" class="area">
+        <ui-col vertical-align="middle" align="left" width="20">
+          <ui-view>3</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-view>三线城市</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right">
+          <ui-view>21.1%</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-progress percent="21.1" stroke-width="10" active-color="#F6574B" active></ui-progress>
+      <ui-row height="30" class="area">
+        <ui-col vertical-align="middle" align="left" width="20">
+          <ui-view>4</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-view>一线城市</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right">
+          <ui-view>12.8%</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-progress percent="12.8" stroke-width="10" active-color="#F6574B" active></ui-progress>
+    </ui-view>
+
+    <ui-view class="wrap">
+      <ui-view class="title">职业</ui-view>
+      <ui-donut
+        value="{{donut.data}}"
+        width="300"
+        height="300"
+        external-radius="100"
+        internal-radius="50"
+        is-animated="true"
+        color-schema="{{donut.colorSchema}}"
+        highlight-slice-by-id="{{2}}"
+      ></ui-donut>
+      <ui-view style="width:300px;margin:0 auto">
+        <ui-tags
+        data="{{donut_list}}"
+        class="movie_tags"
+        fixed-width
+        col-number="3"
+        ></ui-tags>
+      </ui-view>
+    </ui-view>
+
+    <ui-view class="wrap">
+      <ui-view class="title">电影类型偏好</ui-view>
+      <ui-donut
+        value="{{donut2.data}}"
+        width="300"
+        height="300"
+        external-radius="100"
+        internal-radius="50"
+        is-animated="true"
+        color-schema="{{donut2.colorSchema}}"
+        highlight-slice-by-id="{{1}}"
+      ></ui-donut>
+      <ui-view style="width:300px;margin:0 auto">
+        <ui-tags
+        data="{{donut2_list}}"
+        class="movie_tags"
+        fixed-width
+        col-number="3"
+        ></ui-tags>
+      </ui-view>
+    </ui-view>
+    
+   
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '用户画像',
+    backgroundColor: '#EFEFEF',
+    scrollType: 'body'
+  },
+  data () {
+    return {
+      cityList: [
+        {
+          text: '全国',
+          tagClass: 'tag-before',
+          tagSelectedClass: 'select-class',
+          checked: true
+        },{
+          text: '一线城市',
+          tagClass: 'tag-before',
+          tagSelectedClass: 'select-class',
+          checked: false
+        },{
+          text: '二线城市',
+          tagClass: 'tag-before',
+          tagSelectedClass: 'select-class',
+          checked: false
+        },{
+          text: '三线城市',
+          tagClass: 'tag-before',
+          tagSelectedClass: 'select-class',
+          checked: false
+        },{
+          text: '北京',
+          tagClass: 'tag-before',
+          tagSelectedClass: 'select-class',
+          checked: false
+        },{
+          text: '上海',
+          tagClass: 'tag-before',
+          tagSelectedClass: 'select-class',
+          checked: false
+        },{
+          text: '广州',
+          tagClass: 'tag-before',
+          tagSelectedClass: 'select-class',
+          checked: false
+        },{
+          text: '深圳',
+          tagClass: 'tag-before',
+          tagSelectedClass: 'select-class',
+          checked: false
+        },
+      ],
+      contrastValue: [54.3, 45.7],
+      colorArry: ['#65A2ED', '#F6564A'],
+      contrastValue2: [28.7, 71.3],
+      colorArry2: ['#4ECEA7', '#A7DB3F'],
+      width: ui.WIN_WIDTH,
+      bar: {
+        margin: {
+          left: 60,
+          right: 20,
+          top: 20,
+          bottom: 20
+        },
+        colorSchema: ['#ffdd83'],
+        data: [
+          {
+            value: 46,
+            name: '20岁以下'
+          }, {
+            value: 260,
+            name: '20-24'
+          }, {
+            value: 280,
+            name: '25-29'
+          }, {
+            value: 180,
+            name: '30-34'
+          }, {
+            value: 121,
+            name: '35-39'
+          }, {
+            value: 111,
+            name: '40岁以上'
+          }
+        ]
+      },
+      donut: {
+        data: [
+          {
+            quantity: 16.5,
+            percentaged:10,
+            name: '学生',
+            id: 1
+          }, {
+            quantity: 47.8,
+            percentaged:10,
+            name: '白领',
+            id: 2
+          }, {
+            quantity: 35.7,
+            name: '其他',
+            id: 3
+          }
+        ],
+        colorSchema: ['#2ec7ff', '#ff574d','#3f8ff1']
+      },
+      donut2: {
+        data: [
+          {
+            quantity: 48.6,
+            percentaged:10,
+            name: '动作',
+            id: 1
+          }, {
+            quantity: 14.8,
+            percentaged:10,
+            name: '爱情',
+            id: 2
+          }, {
+            quantity: 12.7,
+            name: '喜剧',
+            percentaged:10,
+            id: 3
+          }, {
+            quantity: 9.3,
+            percentaged:10,
+            name: '科幻',
+            id: 4
+          }, {
+            quantity: 7.5,
+            name: '动画',
+            percentaged:10,
+            id: 5
+          }, {
+            quantity: 6.5,
+            name: '其他',
+            id: 6
+          }
+        ],
+        colorSchema: ['#F53E3D', '#3378EE','#2ABAFE','#32D0D4','#32C756','#FFF009']
+      },
+      donut_list: [{
+        text: '学生',
+        topic: 1,
+        tagClass: 'tag-after-5',
+        tagSelectedClass: 'tag-before-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#2ec7ff',
+        checked: true
+      }, {
+        text: '白领',
+        topic: 2,
+        tagClass: 'tag-after-5',
+        tagSelectedClass: 'tag-before-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#ff574d',
+        checked: true
+      }, {
+        text: '其他',
+        topic: 3,
+        tagClass: 'tag-after-5',
+        tagSelectedClass: 'tag-before-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#3f8ff1',
+        checked: true
+      }],
+      donut2_list: [{
+        text: '动作',
+        topic: 1,
+        tagClass: 'tag-after-5',
+        tagSelectedClass: 'tag-before-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#F53E3D',
+        checked: true
+      }, {
+        text: '爱情',
+        topic: 2,
+        tagClass: 'tag-after-5',
+        tagSelectedClass: 'tag-before-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#3378EE',
+        checked: true
+      }, {
+        text: '喜剧',
+        topic: 3,
+        tagClass: 'tag-after-5',
+        tagSelectedClass: 'tag-before-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#2ABAFE',
+        checked: true
+      }, {
+        text: '科幻',
+        topic: 4,
+        tagClass: 'tag-after-5',
+        tagSelectedClass: 'tag-before-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#32D0D4',
+        checked: true
+      }, {
+        text: '动画',
+        topic: 5,
+        tagClass: 'tag-after-5',
+        tagSelectedClass: 'tag-before-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#32C756',
+        checked: true
+      }, {
+        text: '其他',
+        topic: 6,
+        tagClass: 'tag-after-5',
+        tagSelectedClass: 'tag-before-5',
+        icon: 'circle',
+        iconSelected: 'circle',
+        iconColor: '#FFF009',
+        checked: true
+      }],
+      
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    singleTap(opt){
+      this.cityList.forEach((item, index) => {
+        item.checked = (index === opt)
+      })
+    }
+  },
+  mounted () {
+    
+  }
+}
+</script>
+
+<style lang="less">
+.nav_bar {
+  background: linear-gradient(to right, #1F97FE, #126DFE);
+  .nav_title{
+    color: #fff;
+  }
+}
+.wrap{
+  background-color: #fff;
+  margin-bottom: 10px;
+  padding: 10px;
+  .title{
+    font-size: 14px;
+    color: #2E2D32;
+    font-weight: 600;
+    line-height: 30px;
+    margin-bottom: 10px;
+  }
+  .ui-tags{
+    .tag-before,
+    .select-class{
+      border-radius: 25px;
+      border: 1px solid #EFEFEF;
+      padding: 5px 15px;
+      line-height: 15px;
+      font-size: 14px;
+      color: #403F44;
+    }
+    .select-class{
+      background-color: #E72B2D;
+      border: 1px solid #E72B2D;
+      color: #fff;
+    }
+  }
+  .proportion_text{
+    .left{
+      font-size: 20px;
+      color: #65A2ED;
+      &.left2{
+        color: #4ECEA7;
+      }
+    }
+    .ui-text{
+      font-size: 14px;
+    }
+    .right{
+      font-size: 20px;
+      color: #F6564A;
+      &.right2{
+        color: #A7DB3F;
+      }
+    }
+  }
+  .ui-contrast-bar{
+    margin-bottom: 30px;
+  }
+  .area{
+    font-size:12px;
+    color: #6F6F74;
+  }
+  .ui-progress{
+    margin-bottom: 10px;
+  }
+  
+  .donut-container{
+    text-align: center;
+  }
+
+  // .movie_tags{
+  //   justify-content: center;
+  // }
+  .tag-before-5{
+    background: #f7f7f7;
+    color: #333;
+    padding: 0 20px;
+    text-align: center;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+    border-radius: 30px;
+  }
+
+  .tag-after-5{
+    background: #fbfbfb;
+    color: #999;
+    padding: 0 5px;
+    text-align: center;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+    border-radius: 30px;
+    .ui-icon{
+      opacity: .6
+    }
+  }
+}
+</style>

@@ -1,0 +1,112 @@
+<!--waterfall2.ui-->
+<template>
+  <ui-page show-loading="{{false}}">
+    <ui-waterfall config="{{ config }}" fixed-height enable-reach-bottom-load> 
+      <template scope="props">
+        <ui-waterfall-item
+        width="{{getWidth(props.item.oldWidth)}}"
+        height="{{getHeight(props.item.oldHeight)}}"
+        move-class="item-move"
+        >
+          <ui-view class="item" index="{{ props.item.id }}">
+            <ui-view style="background-color:#fff">
+            <ui-image src="{{props.item.src}}"></ui-image>
+                <ui-text block class="goodsName">{{props.item.name}}</ui-text>
+                <ui-text block class="price">¥{{props.item.price}}</ui-text>
+            </ui-view>
+          </ui-view>
+        </ui-waterfall-item>
+      </template>
+    </ui-waterfall>
+  </ui-page>
+</template>
+
+<script>
+// waterfall2.js
+export default {
+  config: {
+    "navigationBarTitleText": "默认网络提示",
+    "backgroundColor":"#eee"
+  },
+  data () {
+    return {
+      align: 'center',
+      winWidth: ui.WIN_WIDTH,
+      sizeObj: [],
+      config: {
+        url: '/touchui-backstage/listGoods.do',
+        type: 'get',
+        pageSize: {
+          key: 'pageSize',
+          value: 20
+        },
+        pageNo: {
+          key: 'pageNo',
+          value: 1
+        },
+        dataKey: 'data.listGoods',
+        reload: false,
+        refresh: false
+      }
+    }
+  },
+  methods: {
+    getWidth (e) {
+      this.sizeObj.width = e
+      return e
+    },
+    getHeight (e) {
+      this.sizeObj.height = e
+      let colWidth = this.winWidth / 2
+      let height
+      height = colWidth * (this.sizeObj.height / this.sizeObj.width) + 50
+      return height
+    },
+    handleReload () {
+      this.config.reload = true
+    }
+  },
+  mounted () {
+  }
+}
+
+</script>
+
+<style lang="less">
+  // waterfall.less
+.ui-page-content{
+  background-color:#eee;
+}
+.item {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+}
+
+.item-move {
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  -webkit-transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.ui-waterfall-item{
+  overflow:hidden;
+  .ui-image{
+    width:100%;
+  }
+}
+
+.goodsName{
+  color:#666;
+  .mix-text-overflow();
+  margin-top:5px;
+  text-align: center;
+}
+
+.price{
+  color:#e60012;
+  text-align: center;
+}
+
+</style>

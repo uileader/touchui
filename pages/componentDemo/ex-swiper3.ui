@@ -1,0 +1,209 @@
+<!--swiper3.ui-->
+<template>
+  <ui-page>
+    <ui-divider>分页在中</ui-divider>
+    <ui-ex-swiper pagination>
+      <ui-ex-swiper-item ui:for="{{items1}}" ui:for-item="item" ui:for-index="index">
+        <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+      </ui-ex-swiper-item>
+    </ui-ex-swiper>
+    <ui-divider>分页在左侧</ui-divider>
+    <ui-ex-swiper pagination="{{ paginationLeft }}">
+      <ui-ex-swiper-item ui:for="{{items1}}" ui:for-item="item" ui:for-index="index">
+        <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+      </ui-ex-swiper-item>
+    </ui-ex-swiper>
+    <ui-divider>分页在右侧</ui-divider>
+    <ui-ex-swiper pagination="{{ paginationRight }}">
+      <ui-ex-swiper-item ui:for="{{items1}}" ui:for-item="item" ui:for-index="index">
+        <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+      </ui-ex-swiper-item>
+    </ui-ex-swiper>
+    <ui-divider>设置圆点样式-白色圆点</ui-divider>
+    <ui-ex-swiper id="swiperdotsstyle3" pagination>
+      <ui-ex-swiper-item ui:for="{{items1}}" ui:for-item="item" ui:for-index="index">
+        <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+      </ui-ex-swiper-item>
+    </ui-ex-swiper>
+    <ui-divider>设置分页横线样式</ui-divider>
+    <ui-ex-swiper id="swiperdotsstyle4" pagination>
+      <ui-ex-swiper-item ui:for="{{items1}}" ui:for-item="item" ui:for-index="index">
+        <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+      </ui-ex-swiper-item>
+    </ui-ex-swiper>
+
+    <ui-divider>圆点变横线</ui-divider>
+    <ui-ex-swiper id="swiperdotsstyle5" pagination>
+      <ui-ex-swiper-item ui:for="{{items1}}" ui:for-item="item" ui:for-index="index">
+        <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+      </ui-ex-swiper-item>
+    </ui-ex-swiper>
+    <ui-divider>横线变圆点</ui-divider>
+    <ui-ex-swiper id="swiperdotsstyle6" pagination>
+      <ui-ex-swiper-item ui:for="{{items1}}" ui:for-item="item" ui:for-index="index">
+        <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+      </ui-ex-swiper-item>
+    </ui-ex-swiper>
+    <ui-divider>数字分页</ui-divider>
+    <ui-ex-swiper id="swiperdotsstyle7" pagination="{{ paginationFraction }}">
+      <ui-ex-swiper-item ui:for="{{items1}}" ui:for-item="item" ui:for-index="index">
+        <ui-image src="{{ item.src }}" mode="simple"></ui-image>
+      </ui-ex-swiper-item>
+    </ui-ex-swiper>
+  </ui-page>
+</template>
+
+<script>
+  // swiper3.js
+export default {
+  config: {
+    "navigationBarTitleText": "自定义分页",
+    "disableIosGesture":true
+  },
+  data () {
+    return {
+      paginationLeft: {
+        align: 'left'
+      },
+      paginationRight: {
+        align: 'right'
+      },
+      paginationFraction: {
+        type: 'fraction'
+      },
+      items1: [{
+        src: 'http://images.uileader.com/20171110/e5b64484-b5e0-472a-bf52-ac95fb5685d3.jpg',
+        title: '放肆玩乐，轻巧办公'
+      },
+      {
+        src: 'http://images.uileader.com/20171110/e33376a8-c599-42e5-87ed-84aec360a61d.jpg',
+        title: '高温保护，一路驰骋'
+      },
+      {
+        src: 'http://images.uileader.com/20171110/37cc4a4e-a253-4fcd-a4f6-d9710e8f63e8.jpg',
+        title: '七夕好货，独家礼赠'
+      }]
+    }
+  },
+  methods: {
+    // handleAddSwiperItem () {
+    //   this.list = this.list + 1
+    // },
+    // handleRemoveSwiperItem () {
+    //   if (this.list > 1) {
+    //     this.list = this.list - 1
+    //   }
+    // }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // swiper3.less
+.swiper-slide {
+    color: #fff;
+    text-align: center;
+    .ui-image {
+      width: 100%;
+      display: block;
+  }
+}
+.swiper-container{
+  margin-bottom:20px
+}
+
+#swiperdotsstyle3{
+  .swiper-pagination {
+    padding-right: 1em;
+  }
+
+  .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+    background-color: #fff;
+    opacity: .6;
+
+    &.swiper-pagination-bullet-active {
+      margin-bottom: -1px;
+      width: 8px;
+      height: 8px;
+      background-color: #fff;
+      opacity: 1;
+    }
+  }
+}
+
+
+#swiperdotsstyle4{
+  .swiper-pagination-bullet {
+    width: 20px;
+    height: 3px;
+    background-color: #eee;
+    opacity: .5;
+    border-radius: 0;
+
+    &.swiper-pagination-bullet-active {
+      background-color: #fff;
+      opacity: 1;
+    }
+  }
+}
+
+#swiperdotsstyle5{
+    .swiper-pagination-bullet {
+      background-color: #efefef;
+      opacity: .8;
+      width: 4px;
+      height: 4px;
+      transition: all .2s ease-out;
+
+      &.swiper-pagination-bullet-active {
+        width: 12px;
+        height: 4px;
+        border-radius: 5px;
+        background-color: #fff;
+        opacity: 1;
+      }
+    }
+}
+
+#swiperdotsstyle6{
+  .swiper-pagination-bullet {
+      width: 12px;
+      height: 4px;
+      border-radius: 1px;
+      background-color: #efefef;
+      opacity: 1;
+      transition: all .2s ease-out;
+
+      &.swiper-pagination-bullet-active {
+        opacity: .8;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: #fff;
+        opacity: 1;
+      }
+    }
+}
+
+
+#swiperdotsstyle7{
+  .swiper-pagination-fraction {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.15);
+    font-size: 14px;
+    left: auto;
+    right: 1em;
+
+    .swiper-pagination-total {
+      font-size: 12px;
+    }
+  }
+}
+</style>

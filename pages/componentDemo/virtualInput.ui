@@ -1,0 +1,275 @@
+<template>
+    <ui-page>
+
+      <ui-view class="sample_title">自动focus</ui-view>
+      <ui-view class="sample_content">
+          输入框的值：{{ value0 }}
+          <ui-virtual-input ui:model="{{ value0 }}"
+          focus
+          placeholder="初始状态为focus的输入框"></ui-virtual-input>
+      </ui-view>
+
+      <ui-view class="sample_title">字母+数字+字符虚拟输入框</ui-view>
+      <ui-view class="sample_content">
+          输入框的值：{{ value1 }}
+          <ui-virtual-input ui:model="{{ value1 }}"
+          placeholder="字母+数字+字符虚拟输入框"></ui-virtual-input>
+      </ui-view>
+
+      <ui-view class="sample_title">字母+数字虚拟输入框</ui-view>
+      <ui-view class="sample_content">
+          输入框的值：{{ value2 }}
+          <ui-virtual-input ui:model="{{ value2 }}"
+          type="letter-number"
+          placeholder="字母+数字虚拟输入框"></ui-virtual-input>
+      </ui-view>
+
+      <ui-view class="sample_title">数字虚拟输入框</ui-view>
+      <ui-view class="sample_content">
+          输入框的值：{{ value3 }}
+          <ui-virtual-input ui:model="{{ value3 }}"
+          type="number"
+          placeholder="数字虚拟输入框"></ui-virtual-input>
+      </ui-view>
+
+      <ui-view class="sample_title">小数虚拟输入框</ui-view>
+      <ui-view class="sample_content">
+          输入框的值：{{ value4 }}
+          <ui-virtual-input ui:model="{{ value4 }}"
+          type="digital"
+          placeholder="小数虚拟输入框"></ui-virtual-input>
+      </ui-view>
+
+      <ui-view class="sample_title">身份证虚拟输入框</ui-view>
+      <ui-view class="sample_content">
+          输入框的值：{{ value5 }}
+          <ui-virtual-input ui:model="{{ value5 }}"
+          type="identity"
+          placeholder="身份证虚拟输入框"></ui-virtual-input>
+      </ui-view>
+
+      <ui-view class="sample_title">安全数字虚拟输入框</ui-view>
+      <ui-view class="sample_content">
+          输入框的值：{{ value6 }}
+          <ui-virtual-input ui:model="{{ value6 }}"
+          type="security-number"
+          placeholder="安全数字虚拟输入框"></ui-virtual-input>
+      </ui-view>
+
+      <ui-view class="sample_title">字母虚拟输入框</ui-view>
+      <ui-view class="sample_content">
+          输入框的值：{{ value7 }}
+          <ui-virtual-input ui:model="{{ value7 }}"
+          type="letter"
+          placeholder="字母+数字虚拟输入框"></ui-virtual-input>
+      </ui-view>
+
+      <ui-view class="sample_title">大写字母虚拟输入框</ui-view>
+      <ui-view class="sample_content">
+          输入框的值：{{ value8 }}
+          <ui-virtual-input ui:model="{{ value8 }}"
+          type="letter"
+          upper-case-only
+          placeholder="大写字母虚拟输入框"></ui-virtual-input>
+      </ui-view>
+
+      <ui-view class="sample_title">bindinput事件</ui-view>
+      <ui-view class="sample_content">
+          <ui-virtual-input bindinput="handleInput"
+          placeholder="字母+数字+字符虚拟输入框"></ui-virtual-input>
+      </ui-view>
+
+      <ui-view class="sample_title">获取／失去焦点</ui-view>
+      <ui-view class="sample_content">
+          <ui-virtual-input bindfocus="handleFocus" bindblur="handleBlur"
+          placeholder="字母+数字+字符虚拟输入框"></ui-virtual-input>
+      </ui-view>
+
+      <ui-view class="sample_title">密码输入框</ui-view>
+      <ui-view class="sample_content">
+          <ui-virtual-input type="password" placeholder="密码输入框" ui:model="{{ value9 }}" bindinput="handlePasswordInput"></ui-virtual-input>
+      </ui-view>
+
+      <ui-view class="sample_title">placeholder-style设置样式</ui-view>
+      <ui-view class="sample_content">
+          <ui-virtual-input
+          placeholder="占位符字体是红色的" placeholder-style="color:red"></ui-virtual-input>
+      </ui-view>
+
+    <ui-view class="sample_title">自定义样式1</ui-view>
+    <ui-view class="sample_content self-input2">
+        <ui-view class="phone1">
+            <ui-virtual-input
+            placeholder="请输入手机号码" type="number"></ui-virtual-input>
+        </ui-view>
+    </ui-view>
+
+    <ui-view class="sample_title">自定义样式2</ui-view>
+    <ui-view class="sample_content self-input">
+        <ui-row class="phone-box" style="{{{border:borderstyle1,backgroundColor:bgcolor1}}}">
+            <ui-col width="60">
+                <ui-view class="phone">
+                    <ui-view class="phone-3">
+                        <ui-text block class="phone-1">+86</ui-text>
+                        <ui-text block class="phone-2">中国</ui-text>
+                    </ui-view>
+                    <ui-icon type="slide_down" size="8" color="#fff"></ui-icon>
+                    <ui-text class="line phone-0"></ui-text>
+                </ui-view>
+            </ui-col>
+            <ui-col space-left="8">
+                <ui-virtual-input type="number" bindfocus="focus('phone')" bindblur="blur('phone')" cursor-color="#fff" placeholder="请输入手机号码" placeholder-class="phoneclass"></ui-virtual-input>
+            </ui-col>
+        </ui-row>
+        <ui-row class="phone-box" style="{{{border:borderstyle2,backgroundColor:bgcolor2}}}">
+            <ui-col width="60" align="center" vertical-align="middle">
+                <ui-text class="pwd">密码</ui-text>
+            </ui-col>
+            <ui-col>
+                <ui-virtual-input bindfocus="focus('pwd')" bindblur="blur('pwd')" cursor-color="#fff" placeholder="请输入密码" placeholder-class="phoneclass" type="password"></ui-virtual-input>
+            </ui-col>
+        </ui-row>
+    </ui-view>
+
+    </ui-page>
+  </template>
+
+
+<script>
+// virtualInput.js
+export default {
+  config: {
+    "navigationBarTitleText": "虚拟键盘输入框"
+  },
+  data () {
+    return {
+      value0: '',
+      value1: '123',
+      value2: '456',
+      value3: '789',
+      value4: '557',
+      value5: '4203',
+      value6: '',
+      value7: '',
+      value8: '',
+      value9: '',
+      borderstyle1: '1px solid #3f9fed',
+      borderstyle2: '1px solid #3f9fed',
+      bgcolor1: '#3f9fed',
+      bgcolor2: '#3f9fed'
+    }
+  },
+  methods: {
+    handleInput (e) {
+      ui.showToast({ title: e })
+    },
+    handleFocus () {
+      ui.showToast({ title: '获取焦点' })
+    },
+    handleBlur () {
+      ui.showToast({ title: '失去焦点' })
+    },
+    handlePasswordInput () {
+      console.log(this.value9)
+    },
+    focus (e) {
+      if (e === 'phone') {
+        this.borderstyle1 = '1px solid #92c7fc'
+        this.bgcolor1 = '#58a1ed'
+      } else if (e === 'pwd') {
+        this.borderstyle2 = '1px solid #92c7fc'
+        this.bgcolor2 = '#58a1ed'
+      }
+    },
+    blur (e) {
+      if (e === 'phone') {
+        this.borderstyle1 = '1px solid #3f9fed'
+        this.bgcolor1 = '#3f9fed'
+      } else if (e === 'pwd') {
+        this.borderstyle2 = '1px solid #3f9fed'
+        this.bgcolor2 = '#3f9fed'
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.self-input{
+  background-color: #45b3fc;
+  .phone-box{
+    margin:5px;
+    border-radius:20px;
+  }
+  .ui-virtual-input{
+    border:0;
+    background-color: transparent;
+    color:#fff;
+  }
+  .ui-virtual-input, .ui-virtual-input-inner{
+    height:40px;
+    line-height: 40px;
+  }
+  .icon-view-password{
+    color:#fff;
+  }
+  .weui-icon-clear{
+    color:#fff;
+  }
+  .phoneclass{
+    color:#86d3fd;
+    padding-left:10px;
+  }
+  .phone{
+    position:relative;
+    height:40px;
+  
+    .phone-0,.ui-icon{
+      position:absolute;
+      color:#92c7fc;
+      left:25px;
+    }
+    .phone-1{
+      font-size:16px;
+      color:#f7ffff;
+    }
+    .phone-2{
+      font-size:8px;
+      line-height:0;
+      color:#c3f2f8;
+    }
+    .phone-3{
+      text-align: right;
+      position: absolute;
+      left: 22px;
+      top: -4px;
+    }
+    .ui-icon{
+      left:55px;
+      top:4px;
+    }
+    .line{
+      left:74px;
+      width:1px;
+      height:24px;
+      background-color:#92c7fc;
+      top:7px;
+    }
+  }
+  .pwd{
+    color:#dbfeff;
+    padding-left:10px;
+  }
+}
+
+.self-input2{
+  .phone1{
+    border-bottom:1px solid #ccc;
+  }
+  .ui-virtual-input{
+    border:0;
+    background-color: transparent;
+  }
+}
+</style>

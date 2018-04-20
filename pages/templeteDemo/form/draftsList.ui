@@ -1,0 +1,160 @@
+<!--draftsList.ui-->
+<template>
+<ui-page page-load="{{ pageLoad }}">
+    <ui-nav-bar class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="10"  width="50" bindtap="cancel">
+          <ui-text>取消</ui-text>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="nav_title">草稿箱列表</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="50">
+          <!-- <ui-text>完成</ui-text> -->
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-view class="info_list">
+      <ui-row height="100" class="top_tip" border-bottom ui:for="{{ infoList }}" ui:for-item="item" bindtap="leadIn(index)">
+        <ui-col width="60" align="center" vertical-align="middle">
+          <ui-view class="left_icon">草</ui-view>
+        </ui-col>
+        <ui-col class="text" align="left" vertical-align="middle" space="10">
+          <ui-view style="width: 100%;">
+            <ui-row height="30">
+              <ui-col align="left" vertical-align="middle">
+                <ui-text>{{ item.reasonName1 }}</ui-text>
+              </ui-col>
+              <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                <ui-view>{{ getLocalTime(item.createTime) }}</ui-view>
+              </ui-col>
+            </ui-row>
+            <ui-view>付款事由：{{ item.reasonName2 }}</ui-view>
+            <ui-view>付款金额：{{ item.money }}</ui-view>
+            <ui-view>账户名称：{{ item.account }}</ui-view>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+        
+  </ui-page>  
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom"
+  },
+  data () {
+    return {
+      userId: '',
+      infoList: [{
+        payId: 'ZF201802002',
+        projectId: 123,
+        projectName: '其他',
+        reasonName1: '人力资源费 招聘广告费',
+        reasonName2: '人力资源费 招聘广告费',
+        reasonName3: '人力资源费 招聘广告费',
+        money: 2000,
+        currencyId: 12,
+        currencyName: '美元（USD）',
+        account: '北京工商银行',
+        bank: '北京工商银行',
+        cardNum: '123456789',
+        memo: '',
+        createTime: 1511280000000
+      },{
+        payId: 'ZF201802002',
+        projectId: 123,
+        projectName: '其他',
+        reasonName1: '基础建设费 办公固定电话费',
+        reasonName2: '基础建设费 办公固定电话费',
+        reasonName3: '基础建设费 办公固定电话费',
+        money: 5000,
+        currencyId: 12,
+        currencyName: '美元（USD）',
+        account: '北京工商银行',
+        bank: '北京工商银行',
+        cardNum: '123456789',
+        memo: '',
+        createTime: 1511280000000
+      }],
+      pageLoad: {
+        trigger: 'always',
+        handle: () => {
+          console.log(123)
+        }
+      }
+    }
+  },
+  methods: {
+    cancel () {
+      // this.cancelChecked()
+      ui.hideDialog()
+    },
+    leadIn (index) {
+      ui.hideDialog({
+        info: this.infoList[index]
+      })
+    },
+    // 解析后台返回的时间格式
+    getLocalTime (tm) {
+      let tt = new Date(tm).toLocaleDateString().replace(/\//g, '-')
+      return tt
+    }
+  },
+  mounted () {
+    
+  }
+}
+</script>
+
+<style lang="less">
+// draftsList.less
+.nav_bar {
+  background: linear-gradient(to right, #1F97FE, #126DFE);
+  .ui-view{
+    color: #fff;
+    font-size: 16px;
+  }
+  .ui-text{
+    color: #fff;
+    font-size: 14px;
+  }
+}
+.info_list{
+  
+}
+
+.top_tip{
+  background-color: #fff;
+  .left_icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color:#FCB300; 
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    font-size: 16px
+    // margin-top: 10px;
+  }
+  .left_icon2{
+    background-color: #FF7360;
+  }
+  .left_icon3{
+    background-color: #39CCC5;
+  }
+  .text{
+    .ui-text{
+      font-size: 14px;
+      color: #6d6d6d;
+    }
+    .ui-view{
+      color: #9C9FA4;
+      font-size: 12px;
+      .mix-text-overflow();
+    }
+  }
+}
+</style>

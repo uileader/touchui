@@ -1,0 +1,40 @@
+<template>
+ <ui-page>
+  <ui-view class="home-navigator">
+    <ui-view class="demo-title">关闭当前页面，返回上一页</ui-view>
+    <ui-view class="demo-content">
+      <ui-button bindtap="navigateBack" type="primary" plain="{{true}}">navigateBack</ui-button>
+    </ui-view>
+  </ui-view>
+ </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "新页面"
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // interfaceJump.less
+.demo-title {
+  padding: 10px;
+  line-height: 20px;
+  // border: 1px solid #ddd;
+  background-color: #f1f1f1;
+  font-size: 14px;
+}
+.demo-content {
+  padding: 10px;
+}
+
+</style>

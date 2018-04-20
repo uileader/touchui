@@ -1,0 +1,657 @@
+<template>
+    <ui-page top="0">
+      
+      <ui-view class="img_wrap">
+        <ui-blur url="http://images.uileader.com/20180319/7857635a-0077-4393-a477-12cf59640faa.png" height="135"></ui-blur> 
+      </ui-view>
+      <ui-view style="{{{top:statusHeight+'px',position:'absolute'}}}">
+          <ui-row height="46" style="z-index:2;position:fixed;width:100%;height:46px;">
+              <ui-col vertical-align="middle" align="left" space-left="10"  width="70" bindtap="navigateBack">
+                <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+              </ui-col>
+              <ui-col vertical-align="middle" align="">
+                <ui-view class="titlename" style="{{{opacity:opacityText}}}">北京麦当劳芳菲路餐厅</ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="center" width="35" >
+                <ui-icon type="jd-cart" size="24" color="#fff"></ui-icon>
+              </ui-col>
+              <ui-col vertical-align="middle" align="center" width="35" >
+                <ui-icon type="more" size="24" color="#fff"></ui-icon>
+              </ui-col>
+            </ui-row>
+        <ui-row class="top-1">
+          <ui-view style="width:90px;height:90px;">  
+          <ui-image class="imgbox" mode='aspectFill' style="{{{opacity:opacity}}}" src="http://images.uileader.com/20180319/7857635a-0077-4393-a477-12cf59640faa.png"></ui-image>
+        </ui-view>  
+          <ui-col space-left="10">
+                <ui-view class="title">
+                    <ui-view class="f1" style="{{{opacity:opacity}}}">北京麦当劳芳菲路餐厅</ui-view>
+                    <ui-view class="f2" style="{{{opacity:opacity}}}">商家配送 | 28分钟送达 | 配送费￥9</ui-view>
+                    <ui-view class="mt15 f2" style="{{{opacity:opacity}}}">公告:欢迎光临，用餐高峰期请提前下单，谢谢</ui-view>
+                  </ui-view>
+            </ui-col>
+          </ui-row>
+      </ui-view>
+
+      <ui-view class="scroll_content" style="{{{ top: imgHeight +20 + 'px',height:height - imgHeight +89 -statusHeight+ 'px' ,'background-color':'#fff'}}}">
+
+        <ui-row class="header header1">
+            <ui-col align="center">商品</ui-col>
+            <ui-col align="center">评价</ui-col>
+            <ui-col align="center">店铺</ui-col>
+        </ui-row>
+        <ui-view style="display:flex">
+            <ui-v-tabs
+            height="{{ height-180}}"
+            index="{{ current }}"
+            probe=1
+            bindchange="handleChange($event, 'current')">
+            <ui-v-tab ui:for="{{ tabItems }}">
+              {{ item.name }}
+            </ui-v-tab>
+          </ui-v-tabs>
+      <ui-view class="tab-vertical">
+          <ui-scroll-view class="lists"
+            height="{{height-92}}" bindscroll="scroll($event, 'current')" probe="2" background-color="#fff" scroll-y scroll-into-view="{{toView}}">
+            <ui-view ui:for="{{swiper}}" ui:for-index="index" ui:for-item="swiperItem" id="{{swiperItem.id}}">
+              <ui-divider>{{swiperItem.name}}</ui-divider>
+              <ui-view class="list" ui:for="{{swiperItem.items}}" ui:for-item="item" ui:for-index="index" :class="{'active': item.subTitle}">
+                <ui-view class="img-box">
+                  <ui-image lazy-load src="{{ item.imgSrc }}" width="80" height="80" mode="aspectFit"></ui-image>
+                </ui-view>
+                <ui-view class="text">
+                  <ui-text class="b">{{ item.title }}</ui-text>
+                  <div class="sub">{{ item.subTitle }}</div>
+                  <ui-text class="tips">{{ item.tips }}</ui-text>
+                  <ui-text class="price">{{ item.price }}</ui-text>
+                </ui-view>
+              </ui-view>
+            </ui-view>
+          </ui-scroll-view>
+        </ui-view> 
+      </ui-view>
+      </ui-view>
+    </ui-page>
+  </template>
+
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "scrollType":"div",
+    "disableScroll":true
+  },
+  data () {
+    return {
+      items: [],
+      range: 0,
+      imgHeight: 135,
+      height: ui.WIN_HEIGHT,
+      statusHeight: ui.STATUS_BAR_HEIGHT,
+      rangetext1: 0,
+      rangetext2: 0,
+      toView: '',
+      opacity: 1,
+      opacityText: 0,
+      current: 0,
+      scaleval: 'scale(1)',
+      imgwidth: '90',
+      stopscroll: 'stopscroll',
+      tabItems: [
+        { name: '热销榜' },
+        { name: '主食' },
+        { name: '超值套餐' },
+        { name: '小食' },
+        { name: '饮品' },
+        { name: '甜品' },
+        { name: '促销产品和热卖产品' },
+        { name: '开心乐园餐' }
+      ],
+      swiper: [
+        {
+          name: '热销榜',
+          id: 'id0',
+          items: [
+            {
+              imgSrc: 'http://images.uileader.com/20171210/daa30780-d727-45dc-9c62-f4378deb5c9d.png',
+              title: '麦辣鸡翅两块',
+              tips: '月售178份 好评率100%',
+              price: '￥11'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡中套餐',
+              tips: '月售166份 好评率95%',
+              price: '￥29'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/29a346ea-3e58-4f38-8841-16f81c290b2f.png',
+              title: '麦乐鸡5块',
+              tips: '月售151份 好评率96%',
+              price: '￥11'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/ff3ede16-b96b-4dac-96a3-f3b1ced11dbc.png',
+              title: '经典麦辣鸡腿汉堡',
+              tips: '月售141份 好评率100%',
+              price: '￥17'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/ff3ede16-b96b-4dac-96a3-f3b1ced11dbc.png',
+              title: '香骨鸡腿',
+              tips: '月售91份 好评率100%',
+              price: '￥12'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/11ef2ba9-a3cb-4be9-b41a-8f94b31becf7.png',
+              title: '麦辣鸡翅4块',
+              tips: '月售69份 好评率100%',
+              price: '￥22'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/11ef2ba9-a3cb-4be9-b41a-8f94b31becf7.png',
+              title: '麦乐鸡10块',
+              tips: '月售67份 好评率100%',
+              price: '￥22'
+            }
+          ]
+        },
+        {
+          name: '主食',
+          id: 'id1',
+          items: [
+            {
+              imgSrc: 'http://images.uileader.com/20171210/daa30780-d727-45dc-9c62-f4378deb5c9d.png',
+              title: '那么大鸡排满碗饭',
+              tips: '月售178份 好评率100%',
+              price: '￥23'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '汉堡包',
+              tips: '月售166份 好评率95%',
+              price: '￥7.5'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/29a346ea-3e58-4f38-8841-16f81c290b2f.png',
+              title: '经典麦辣鸡腿汉堡',
+              tips: '月售151份 好评率96%',
+              price: '￥17'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/ff3ede16-b96b-4dac-96a3-f3b1ced11dbc.png',
+              title: '蜜汁鸡腿满碗饭',
+              tips: '月售141份 好评率100%',
+              price: '￥23'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/11ef2ba9-a3cb-4be9-b41a-8f94b31becf7.png',
+              title: '巨无霸',
+              tips: '月售91份 好评率100%',
+              price: '￥20'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/11ef2ba9-a3cb-4be9-b41a-8f94b31becf7.png',
+              title: '麦香鸡',
+              tips: '月售69份 好评率100%',
+              price: '￥11'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/ff3ede16-b96b-4dac-96a3-f3b1ced11dbc.png',
+              title: '麦香鱼',
+              tips: '月售67份 好评率100%',
+              price: '￥17'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/29a346ea-3e58-4f38-8841-16f81c290b2f.png',
+              title: '吉士汉堡包',
+              tips: '月售67份 好评率100%',
+              price: '￥8.5'
+            }
+          ]
+        },
+        {
+          name: '超值套餐',
+          id: 'id2',
+          items: [
+            {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡中套餐',
+              tips: '月售178份 好评率100%',
+              price: '￥29'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡大套餐',
+              tips: '月售166份 好评率95%',
+              price: '￥33'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/ff3ede16-b96b-4dac-96a3-f3b1ced11dbc.png',
+              title: '那么大鸡排满碗饭',
+              tips: '月售151份 好评率96%',
+              price: '￥30'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '巨无霸大套餐',
+              tips: '月售141份 好评率100%',
+              price: '￥23'
+            }
+          ]
+        },
+        {
+          name: '小食',
+          id: 'id3',
+          items: [
+            {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡中套餐',
+              tips: '月售178份 好评率100%',
+              price: '￥29'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡大套餐',
+              tips: '月售166份 好评率95%',
+              price: '￥33'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/ff3ede16-b96b-4dac-96a3-f3b1ced11dbc.png',
+              title: '那么大鸡排满碗饭',
+              tips: '月售151份 好评率96%',
+              price: '￥30'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '巨无霸大套餐',
+              tips: '月售141份 好评率100%',
+              price: '￥23'
+            }
+          ]
+        },
+        {
+          name: '饮品',
+          id: 'id4',
+          items: [
+            {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡中套餐',
+              tips: '月售178份 好评率100%',
+              price: '￥29'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡大套餐',
+              tips: '月售166份 好评率95%',
+              price: '￥33'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/ff3ede16-b96b-4dac-96a3-f3b1ced11dbc.png',
+              title: '那么大鸡排满碗饭',
+              tips: '月售151份 好评率96%',
+              price: '￥30'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '巨无霸大套餐',
+              tips: '月售141份 好评率100%',
+              price: '￥23'
+            }
+          ]
+        },
+        {
+          name: '甜品',
+          id: 'id5',
+          items: [
+            {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡中套餐',
+              tips: '月售178份 好评率100%',
+              price: '￥29'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡大套餐',
+              tips: '月售166份 好评率95%',
+              price: '￥33'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/ff3ede16-b96b-4dac-96a3-f3b1ced11dbc.png',
+              title: '那么大鸡排满碗饭',
+              tips: '月售151份 好评率96%',
+              price: '￥30'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '巨无霸大套餐',
+              tips: '月售141份 好评率100%',
+              price: '￥23'
+            }
+          ]
+        },
+        {
+          name: '促销产品和热卖产品',
+          id: 'id6',
+          items: [
+            {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡中套餐',
+              tips: '月售178份 好评率100%',
+              price: '￥29'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡大套餐',
+              tips: '月售166份 好评率95%',
+              price: '￥33'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/ff3ede16-b96b-4dac-96a3-f3b1ced11dbc.png',
+              title: '那么大鸡排满碗饭',
+              tips: '月售151份 好评率96%',
+              price: '￥30'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '巨无霸大套餐',
+              tips: '月售141份 好评率100%',
+              price: '￥23'
+            }
+          ]
+        },
+        {
+          name: '开心乐园餐',
+          id: 'id7',
+          items: [
+            {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡中套餐',
+              tips: '月售178份 好评率100%',
+              price: '￥29'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '麦辣鸡腿汉堡大套餐',
+              tips: '月售166份 好评率95%',
+              price: '￥33'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/ff3ede16-b96b-4dac-96a3-f3b1ced11dbc.png',
+              title: '那么大鸡排满碗饭',
+              tips: '月售151份 好评率96%',
+              price: '￥30'
+            }, {
+              imgSrc: 'http://images.uileader.com/20171210/76e376bb-ebbf-497d-a61f-52232dd8c316.png',
+              title: '巨无霸大套餐',
+              tips: '月售141份 好评率100%',
+              price: '￥23'
+            }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {
+    scroll (y, key) {
+      if (y > 0) {
+        // //滚动容器没有滚动到最上方
+        this.scrollTop = '1'
+      } else {
+        // 滚动容器滚动到最上方
+        this.scrollTop = '0'
+      }
+      let top = Math.abs(y)
+      var length = this.swiper.length
+      for (var i = 0; i <= length - 1; i++) {
+        if (top >= this.swiper[i].top - 10) {
+          this.current = i
+        }
+      }
+    },
+    handleChange (index, key) {
+      this.toView = 'id' + index
+      this[key] = index
+    },
+    touchstart (e) {
+
+    },
+    navigateBack () {
+      ui.navigateBack()
+    }
+  },
+  mounted () {
+    let arr = []
+    let sum = 0
+    let length = this.swiper.length
+    for (var i = 0; i < length; i++) {
+      arr.push(this.swiper[i].items.length)
+      if (i === 0) {
+        this.swiper[i].top = 0
+      } else {
+        sum += arr[i - 1]
+        this.swiper[i].top = 84 * sum + 32 * i
+      }
+    }
+  }
+}
+</script>
+
+<style lang="less">
+  .img_wrap {
+  width:100%;
+  position: fixed;
+  z-index: 1;
+  transform: translate(0, 0);
+  will-change: transform;
+  height:165px;
+}
+
+.scroll_content {
+  position: relative;
+  top: 380px;
+  width: 100%;
+  z-index: 2;
+  // display: flex;
+}
+
+
+.ui-v-tabs {
+  position:relative;
+  background-color: #f5f5f5;
+  padding-bottom: 1px;
+  width: 100px;
+  flex: 0 0 100px;
+}
+
+.imgbox{
+  position:relative;
+  bottom:-15px;
+  left:10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px 5px 10px -2px #9a9a9a;
+  .ui-image{
+    width:100%;
+  }
+}
+.titlename{
+  font-size:16px;
+  color:#fff;
+  text-align:center;
+}
+
+.top-1{
+  z-index:1;
+  margin-top:46px;
+}
+.title {
+  color: #fff;
+  padding:0 5px;
+  .f1 {
+    font-size: 18px;
+  }
+  .f2{
+    font-size: 12px;
+  }
+
+  .mt15 {
+    margin-top: 15rpx;
+  }
+}
+
+.subtitle {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  color: #fff;
+}
+
+
+.header {
+  padding: 0 15px;
+  height: 46px;
+  line-height: 46px;
+}
+
+.header1 {
+  background-color: #fff;
+  .mix-1px(0, 0, 1, 0, #ccc);
+}
+
+
+.container {
+  display: flex;
+  background-color: #fff;
+  z-index:1001
+}
+
+.ui-tabs {
+  position:relative;
+  background-color: #f5f5f5;
+  padding-bottom: 1px;
+  width: 100px;
+  flex: 0 0 100px;
+
+  &.tab-item {
+    .swiper-slide {
+      width: 100px;
+      padding: 20px;
+      transition: color .1s;
+      .mix-1px(0, 0, 1, 0, #ddd);
+    }
+
+    .active {
+      border-left: 1px solid #39f;
+      color: #39f;
+      background-color:#fff;
+      border-bottom:0;
+    }
+
+    .ui-icon {
+      margin: 0 5px;
+      font-size: 32rpx;
+    }
+  }
+}
+
+.tab-content {
+  flex: 1;
+  color: #999;
+  .swiper-slide {
+    padding-left: 1em;
+    padding-top: 1em;
+  }
+}
+
+.list {
+  border-bottom: 1px solid #efefef;
+  height: 84px;
+  overflow: hidden;
+  .text {
+    padding: 10px 0;
+  }
+}
+
+.ui-text {
+  padding-left: 10px;
+  color: #333;
+  font-size:14px;
+
+  &.b {
+    font-weight: 600;
+  }
+
+  &.tips {
+    font-size:12px;
+  }
+
+  &.price {
+    color: #f22;
+  }
+}
+
+.ui-view.list {
+  display: flex;
+  .img-box {
+    .img {
+      width: 80px;
+      height: 80px;
+      vertical-align: middle;
+    }
+  }
+
+  .text {
+    flex: 1;
+  }
+}
+
+.ui-scroll-view{
+  background-color:#fff;
+  position:relative;
+}
+.ui-scroller{
+  background-color:#fff;
+  position:relative;
+}
+.top-bg{
+  height:146px;
+  // background-color:#39f;
+  .imgbox{
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0px 0px 15px 0px #4c4c4c;
+    .ui-image{
+      width:100%
+    }
+  }
+}
+
+// 麦当劳头部
+.titlename{
+  font-size:16px;
+  color:#fff;
+  text-align:center;
+}
+.title {
+  color: #fff;
+  padding:0 5px;
+  .f1 {
+    font-size: 16px;
+  }
+  .f2{
+    font-size: 12px;
+  }
+
+  .mt15 {
+    margin-top: 15rpx;
+  }
+}
+
+.subtitle {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  color: #fff;
+}
+
+.bg_blue{
+  position: absolute;
+  width: 100%;
+  // height: 240px;
+  background-color: #0099F8;
+}
+
+.header {
+  padding: 0 15px;
+  height: 46px;
+  line-height: 46px;
+}
+
+.header1 {
+  background-color: #fff;
+  .mix-1px(0, 0, 1, 0, #ccc);
+}
+
+.stopscroll{
+  .ui-scroll-view.ui-scroll-view-y{
+    overflow-y:hidden;
+  }
+}
+
+</style>

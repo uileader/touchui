@@ -1,0 +1,185 @@
+<!--progress.ui-->
+<template>
+  <ui-page>
+    <ui-view class="manage_money" ui:for="{{ manageList }}" ui:for-item="item">
+      <ui-view class="title">{{ item.title }}</ui-view>
+      <ui-row height="100">
+        <ui-col vertical-align="middle" align="left">
+          <ui-view class="left_content">
+            <ui-view class="left_01">
+              {{ item.num1 }}<ui-text>+{{ item.num2 }}%</ui-text>
+            </ui-view>
+            <ui-view class="left_02">年化利率</ui-view>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <ui-view class="right_contetn">
+            <ui-view class="right_01">期限{{ item.days }}天</ui-view>
+            <ui-row space-top="20">
+              <ui-col vertical-align="middle" align="left">
+                <ui-view class="right_02">已售 {{ item.soldOut }}%</ui-view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="left">
+                <ui-progress 
+                percent="{{ item.soldOut }}" 
+                stroke-width="3"
+                active
+                active-color="#3A77FF,#3DA6FF"
+                border-radius="4"
+                ></ui-progress>
+              </ui-col>
+            </ui-row>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// progress.js
+export default {
+  config: {
+    navigationBarTitleText: '理财产品列表',
+    navigationBarBackgroundColor: '#F53F09',
+    backgroundColor: '#F4F4F4',
+    scrollType: 'body',
+    navigationBarTextStyle: 'white'
+  },
+  data () {
+    return {
+      manageList: [
+        {
+          title: '米财新手系列103M',
+          num1: 7.00,
+          num2: 2.2,
+          days: 43,
+          soldOut: 30
+        },
+        {
+          title: '米财三月期183-1M',
+          num1: 8.00,
+          num2: 0.8,
+          days: 98,
+          soldOut: 64
+        },
+        {
+          title: '米财新手系列103M',
+          num1: 9.00,
+          num2: 0.5,
+          days: 184,
+          soldOut: 99
+        }, {
+          title: '米财新手系列103M',
+          num1: 7.00,
+          num2: 2.2,
+          days: 43,
+          soldOut: 30
+        },
+        {
+          title: '米财三月期183-1M',
+          num1: 8.00,
+          num2: 0.8,
+          days: 98,
+          soldOut: 64
+        },
+        {
+          title: '米财新手系列103M',
+          num1: 9.00,
+          num2: 0.5,
+          days: 184,
+          soldOut: 99
+        }, {
+          title: '米财新手系列103M',
+          num1: 7.00,
+          num2: 2.2,
+          days: 43,
+          soldOut: 30
+        },
+        {
+          title: '米财三月期183-1M',
+          num1: 8.00,
+          num2: 0.8,
+          days: 98,
+          soldOut: 64
+        },
+        {
+          title: '米财新手系列103M',
+          num1: 9.00,
+          num2: 0.5,
+          days: 184,
+          soldOut: 99
+        }, {
+          title: '米财新手系列103M',
+          num1: 7.00,
+          num2: 2.2,
+          days: 43,
+          soldOut: 30
+        },
+        {
+          title: '米财三月期183-1M',
+          num1: 8.00,
+          num2: 0.8,
+          days: 98,
+          soldOut: 64
+        },
+        {
+          title: '米财新手系列103M',
+          num1: 9.00,
+          num2: 0.5,
+          days: 184,
+          soldOut: 99
+        }
+      ]
+    }
+  },
+  methods: {
+
+  }
+}
+
+</script>
+
+<style lang="less">
+  .manage_money{
+  background-color: #fff;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  .title{
+    color: #A0A0A0;
+    line-height: 30px;
+    font-size: 14px;
+    .mix-1px(0, 0, 1, 0, #ccc);
+  }
+  .left_content{
+    width: 100%;
+    .left_01{
+      font-size: 24px;
+      color: #F53808;
+      .ui-text{
+        font-size: 14px;
+      }
+    }
+    .left_02{
+      font-size: 14px;
+      color: #A0A0A0;
+      margin-top: 20px;
+    }
+  }
+  .right_contetn{
+    width: 100%;
+    .right_01{
+      color: #606060;
+      font-size: 18px;
+    }
+    .right_02{
+      color: #A0A0A0;
+      font-size: 14px;
+    }
+    .ui-progress{
+      width: 100%;
+    }
+  }
+}
+</style>

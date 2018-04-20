@@ -1,0 +1,176 @@
+<template>
+    <ui-page
+    top="0"
+    bindscroll="handleScroll"
+    >
+     <ui-nav-bar class="nab_bar" slot="nav-bar" style="{{{ 'background-color': `rgba(255, 255, 255, ${alpha})` }}}">
+      <ui-row height="46" class="{{ className }}">
+        <ui-col vertical-align="middle" align="center" width="35" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="18" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" space="20">
+          <ui-view class="title">双滚动</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35"></ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+        <ui-image
+        id="ui-image"
+        src="http://images.uileader.com/20171117/a1fa37d0-fbd7-4316-be27-1136a97b459b.jpg"
+        load-effect="fade"
+        height="{{ imgHeight }}"
+        ></ui-image>
+
+        <ui-scroll-view
+        scroll-y
+        height="{{height}}"
+        bindscroll="scroll"
+        bindtouchend="touchend"
+        bindtouchmove="touchmove" bindtouchstart="touchstart"
+        >
+        <ui-sticky class="header header1">
+          <ui-view class="title">本周精选活动</ui-view>
+        </ui-sticky>
+        <ui-view class="content_list" >
+          <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+            {{ item }}
+          </ui-view>
+        </ui-view>
+        </ui-scroll-view>
+    </ui-page>
+  </template>
+
+
+<script>
+  export default {
+    config: {
+    "scrollType":"body",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  data () {
+    return {
+      items: [],
+      imgHeight: parseInt(ui.WIN_WIDTH / 1125 * 628),
+      scrollDirection: null,
+      startX: '',
+      startY: '',
+      scrollTop: null,
+      height: ui.DEFAULT_CONTENT_HEIGHT,
+      alpha: 0,
+      className: ''
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    handleScroll (scrollTop) {
+      if (scrollTop > 100) {
+        this.alpha = 1
+        this.className = 'active'
+      } else {
+        var val = scrollTop / 100
+        this.alpha = val
+        this.className = ''
+      }
+    },
+    scroll (y) {
+      if (y > 0) {
+        // //滚动容器没有滚动到最上方
+        this.scrollTop = '1'
+      } else {
+        // 滚动容器滚动到最上方
+        this.scrollTop = '0'
+      }
+    },
+    touchstart (e) {
+      this.startX = e.changedTouches[0].clientX
+      this.startY = e.changedTouches[0].clientY
+    },
+    touchmove (e) {
+      var moveX = e.changedTouches[0].clientX
+      var moveY = e.changedTouches[0].clientY
+      var disX = moveX - this.startX
+      var disY = moveY - this.startY
+      // 判断scrollview内容向下滚动
+      if (Math.abs(disX) < Math.abs(disY) && disY < 0) {
+        this.scrollDirection = '0'
+      } else if (Math.abs(disX) < Math.abs(disY) && disY > 0) {    // 判断scrollview内容向上滚动
+        this.scrollDirection = '1'
+        if (this.scrollTop === '0') {  // 当scrollview内容向上滚动到最上方时，把图片显示出来
+          ui.pageScrollTo(0, 200)
+        }
+      }
+    },
+
+    touchend (e) {
+      // scrollview内容向下滚动时，把图片隐藏
+      if (this.scrollDirection === '0') {
+        ui.pageScrollTo(this.imgHeight, 200)
+      }
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= 30; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+
+.ui-image-container{
+  background-color: #eee;
+}
+.city{
+  color: #fff;
+  font-size: 14px;
+}
+.search{
+  width: 100%;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, .4);
+  .ui-view{
+    height: 35px;
+    line-height: 35px;
+    color:#fff;
+    font-size: 14px;
+  }
+}
+
+.header {
+  padding: 0 15px;
+  height: 46px;
+  line-height: 46px;
+  position: absolute;
+  width: 100%;
+}
+
+.header1 {
+  background-color: #eee;
+}
+.content_list{
+  padding-top: 46px;
+}
+.nab_bar{
+  transition: all .25s ease-in;
+  .title{
+    color: #fff;
+  }
+  .ui-row{
+    &.active{
+      .ui-icon{
+        color: #666!important;
+      }
+      .title{
+        color: #666;
+      }
+    }
+  }
+}
+</style>

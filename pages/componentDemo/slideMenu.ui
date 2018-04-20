@@ -1,0 +1,32 @@
+<!--slideMenu.ui-->
+<template>
+  <ui-page>
+    <ui-slide-menu>
+      <header slot="menu">
+        <h2>Menu</h2>
+      </header>
+      <header slot="panel">
+        <h2>Panel</h2>
+      </header>
+    </ui-slide-menu>
+  </ui-page>
+</template>
+
+
+<script>
+// slideMenu.js
+export default {
+  config: {
+    "navigationBarTitleText": "slideMenu"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+
+</style>

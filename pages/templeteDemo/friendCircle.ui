@@ -1,0 +1,793 @@
+<template>
+  <ui-page  pull-down="{{ pullDown }}">
+  <!-- 自定义nav-bar -->
+  <ui-nav-bar class="nab_bar" slot="nav-bar">
+      <ui-row height="46" >
+        <ui-col vertical-align="middle" align="left" space-left="10" width="70" bindtap="navigateBack">
+          <ui-view >
+            <ui-icon type="arrow-left" size="18" color="#fff"></ui-icon>发现
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>
+            朋友圈
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" space-right="10" width="70" bindtap="handleNavRight">
+          <ui-icon type="qn-camera_fill" size="25" color="#fff"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+
+
+    <!-- 自定义下拉刷新动画 -->
+    <ui-view slot="pull-down" class="pull-down-content" >
+        <ui-view class="refresh">
+            <ui-image
+            src="{{ require('#/images/friendCircle.png') }}"
+            width="25"
+            class="refresh_bg {{ className }}"
+            style="{{{ transform: `rotate(${rotate}deg)` }}}"
+            ></ui-image>
+        </ui-view>
+    </ui-view>
+
+
+     <ui-view class="friend_top">
+      <ui-view class="top_bg">
+        <ui-image
+        src="{{ require('#/images/fengmian.jpg') }}"
+        mode="aspectFit"
+        width="100%"
+        ></ui-image>
+      </ui-view>
+
+      <ui-row class="information">
+        <ui-col vertical-align="middle" align="right" space-right="20">
+          <ui-view>
+            Amituofo
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="100">
+          <ui-view class="portrait">
+              <ui-image
+              src="{{ require('#/images/indexList/t5.png') }}"
+              mode='aspectFill'
+              width="60"
+              height="60"
+              ></ui-image>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+    <ui-list-view style="min-height: 621px;" config="{{ config }}" enable-reach-bottom-load bindchange="handleListViewChange">
+        <template scope="props">
+          <ui-list-view-item>
+
+            <ui-row class="content"
+            border-bottom
+            ui:show="{{ props.length<1 ? false : true }}"
+            >
+                <ui-col width="70" align="right" space-right="10">
+                    <ui-view class="portrait">
+                        <ui-image
+                        src="{{props.item.head}}"
+                        mode='aspectFill'
+                        width="100%"
+                        >
+                        </ui-image>
+                    </ui-view>
+                </ui-col>
+                <ui-col>
+
+                    <ui-view class="name"> {{props.item.name}}</ui-view>
+                    <ui-view class="text"> {{props.item.content}} </ui-view>
+
+                    <ui-view class="img_content">
+                        <ui-view
+                        ui:for="{{ props.item.imgList }}"
+                        ui:for-item="item2"
+                        style="{{{
+                            width:props.item.imgList.length>1 ? imgWidth+'px' : 150+'px',
+                            height:props.item.imgList.length>1 ? imgHeight+'px' : '',
+                            'max-height':props.item.imgList.length>1 ? '' : '250px',
+                            'margin-right': props.item.imgList.length===4 && index===1 ? '70px' : '5px'
+                        }}}"
+                        >
+                            <ui-image
+                            src="{{ item2.thumbnailUrl }}"
+                            mode="aspectFill"
+                            width="{{props.item.imgList.length>1 ? imgWidth : 150}}"
+                            height="{{props.item.imgList.length>1 ? imgHeight : ''}}"
+                            data-preview-group="{{props.item.circleId}}"
+                            data-preview-src="{{ item2.imgUrl}}"
+                            ></ui-image>
+                        </ui-view>
+                    </ui-view>
+
+                    <ui-view>
+                        <ui-row height="40">
+                            <ui-col vertical-align="middle" align="left">
+                                <ui-view class="time">{{ getLocalTime(props.item.createTime) }}</ui-view>
+                            </ui-col>
+                            <ui-col vertical-align="middle" align="right" width="40" space-right="10" bindtap="popoverShow($event,props.index)">
+                                <ui-icon type="review" size="16" color="#8599C5"></ui-icon>
+                            </ui-col>
+                        </ui-row>
+                    </ui-view>
+                    <ui-view class="comment" ui:show="{{ comment[props.index] }}">
+                        <ui-view class="triangle"></ui-view>
+                        <ui-icon type="praiseago" size="14" color="#67769A" class="support"></ui-icon>
+                        <ui-view class="use_name">{{ props.item.name }}</ui-view>
+                    </ui-view>
+                </ui-col>
+            </ui-row>
+
+            </ui-list-view-item>
+        </template>
+    </ui-list-view>
+
+    <!-- popover -->
+    <ui-popover hide-on-touch="true" ref="popover" mask-style="{{ maskStyle }}" class="custom">
+        <ui-view>
+            <ui-row height="30">
+            <ui-col border-right vertical-align="middle" align="center" bindtap="giveSupport">
+                <ui-view>
+                <ui-icon type="praiseago" color="#fff" size="16"></ui-icon>{{ comment[propsIndex]?'取消':'赞' }}
+                </ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+                <ui-view>
+                <ui-icon type="comment" color="#fff" size="17"></ui-icon>评论
+                </ui-view>
+            </ui-col>
+            </ui-row>
+        </ui-view>
+    </ui-popover>
+
+
+    <!-- 图片预览容器 -->
+    <ui-previewer>
+    </ui-previewer>
+
+
+
+    <ui-popup ui:model="{{ popupShow }}" height="100%" background="#EBEBF2">
+        <ui-row class="popup_navBar" height="{{ popupNav }}" style="{{{ 'padding-top':popupBar+'px' }}}">
+            <ui-col vertical-align="middle" align="left"  width="60" class="left_nav" bindtap="leftNav">
+                <ui-view hover-class="touch_end1">取消</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle"></ui-col>
+            <ui-col vertical-align="middle" align="right"  width="60" class="right_nav" bindtap="publish">
+                <ui-view hover-class="touch_end2">发表</ui-view>
+            </ui-col>
+        </ui-row>
+        <ui-textarea ui:model="{{ value }}" maxlength="200" name="detail" placeholder="这一刻的想法..." show-counter="{{ false }}"></ui-textarea>
+        <ui-view class="img_content img_content2">
+            <ui-view
+            ui:for="{{ imageSrc }}"
+            ui:for-item="item"
+
+            >
+                <ui-image
+                src="{{item}}"
+                mode='aspectFill'
+                width="90"
+                height="90"
+                bindload="imageLoad"
+                ></ui-image>
+            </ui-view>
+            <ui-view
+            class="add_photo"
+            ui:if="{{ imageSrc.length>8 ? false : true }}"
+            bindtap="addPhoto"
+            >
+                <ui-icon type="plus" size="50" color="#CECECF"></ui-icon>
+            </ui-view>
+        </ui-view>
+        <ui-row height="50" class="map">
+            <ui-col vertical-align="middle" width="40" align="center">
+                <ui-icon type="map" size="18" color="#757575"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle">
+                所在位置
+            </ui-col>
+            <ui-col vertical-align="middle" width="40">
+                <ui-icon type="arrow-right" size="18" color="#757575"></ui-icon>
+            </ui-col>
+        </ui-row>
+
+        <ui-row height="50" class="map map2" space-top="20" bindtap="look">
+            <ui-col vertical-align="middle" width="40" align="center">
+                <ui-icon type="globe" size="18" color="#767676"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle">
+                谁可以看
+            </ui-col>
+            <ui-col vertical-align="middle" width="100" align="right" space-right="20">
+                <ui-view>
+                    {{ lookText }}<ui-icon type="arrow-right" size="18" color="#757575"></ui-icon>
+                </ui-view>
+            </ui-col>
+        </ui-row>
+        <ui-row height="50" class="map map3" bindtap="remind">
+            <ui-col vertical-align="middle" width="40" align="center">
+                <ui-view class="remind_icon">@</ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle">
+                提醒谁看
+            </ui-col>
+            <ui-col vertical-align="middle" width="100" align="right" space-right="20">
+                <ui-view>
+                    {{ remindText }}<ui-icon type="arrow-right" size="18" color="#757575"></ui-icon>
+                </ui-view>
+            </ui-col>
+        </ui-row>
+        <ui-view class="qzone" bindtap="qzone">
+            <ui-icon type="qzone" size="18" color="{{ qzoneColor}}"></ui-icon>
+        </ui-view>
+    </ui-popup>
+
+
+
+  </ui-page>
+</template>
+
+<script>
+const textUrl = '/touchui-backstage/insertCircle.do'
+const imageUrl = 'http://www.uileader.com/touchui-backstage/uploadThumbnail.do'
+// const textUrl = 'http://192.168.1.109:8080/touchui-backstage/insertCircle.do'
+// const imageUrl = 'http://192.168.1.109:8080/touchui-backstage/uploadThumbnail.do'
+const sourceType = [['camera'], ['album'], ['camera', 'album']]
+const sizeType = [['compressed'], ['original'], ['compressed', 'original']]
+export default {
+  config: {
+    navigationStyle: 'custom',
+    navigationBarTextStyle: 'white',
+    scrollType:'body'
+  },
+  data () {
+    return {
+      className: '',
+      rotate: 0,
+      imgWidth: '85',
+      imgHeight: '85',
+      imgWidth2: '45%',
+      popupNav: ui.DEFAULT_HEADER_HEIGHT,
+      popupBar: ui.STATUS_BAR_HEIGHT,
+
+      imageSrc: [],
+      popupShow: false,
+      compileImg: [],
+      value: '',
+      qzoneColor: '#D1D1D1',
+      colorActive: false,
+      lookText: '公开',
+      remindText: '',
+      popover: [],
+      popoverText: [],
+      support: [],
+      comment: {},
+      propsIndex: null,
+      maskStyle: { backgroundColor: 'transparent' },
+      supportText: '赞',
+      previewerShow: false,
+      previewerIndex: 0,
+      paginationFraction: {
+        type: 'fraction'
+      },
+      previewerImages: [],
+      config: {
+        url: '/touchui-backstage/listCircle.do',
+        type: 'get',
+        pageSize: {
+          key: 'pageSize',
+          value: 15
+        },
+        pageNo: {
+          key: 'pageNo',
+          value: 1
+        },
+        param: {
+          sort: 'createTime',
+          direction: 'desc'
+        },
+        dataKey: 'data.listCircle',
+        reload: false,
+        refresh: false
+      },
+      pullDown: {
+        distance: 60,
+        onBegin: this.handleBegin,
+        onActive: this.handleActive,
+        onAfter: this.handleAfter,
+        disableContentMove: ['android', 'ios', 'web']
+      },
+      picNumber: 0
+
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    handleNavRight () {
+      // ui.showActionSheet({
+      //   itemList: [
+      //     '拍摄',
+      //     '从手机相册选择'
+      //   ],
+      //   success: (index) => {
+      //     if (index > -1) {
+      //       this.chooseImage(index)
+      //     }
+      //   }
+      // })
+      this.chooseImage(2)
+    },
+    // 调取系统相册或者摄像头
+    chooseImage (index) {
+      var that = this
+      ui.chooseImage({
+        sourceType: sourceType[index],
+        sizeType: sizeType[1],
+        success: function (res) {
+          // 为解决选择图片后出现白屏，使用定时器控制
+          setTimeout(() => {
+            that.imageSrc = []
+            setTimeout(() => {
+              that.imageSrc = res.tempFilePaths
+            }, 500)
+          }, 500)
+        },
+        fail: function (res) {
+        }
+      })
+    },
+    imageLoad () {
+      // ui.showToast({ title: 'pic' })
+      this.picNumber++
+      if (this.picNumber === this.imageSrc.length) {
+        this.popupShow = true
+        this.picNumber = 0
+      }
+    },
+    addPhoto () {
+      this.chooseImage(1)
+    },
+
+    // 解析后台返回的时间格式
+    getLocalTime (tm) {
+      var tt = new Date(tm).toLocaleString().replace(/\//g, '-')
+      return tt
+    },
+    leftNav () {
+      this.popupShow = false
+    },
+    // 发表内容
+    publish () {
+      this.popupShow = false
+      let that = this
+      let newContent = {
+        id: ''
+      }
+      // 发表时分为两步，先传文字内容后返回id，再根据id往后台传入选择的照片
+      ui.request({
+        url: textUrl,
+        data: {
+          head: 'http://images.uileader.com/20171128/ae067cb2-b336-4d5c-b845-b93c1901600e.png',
+          name: 'TOUCH UI',
+          content: this.value
+        },
+        success: function (content) {
+          that.value = ''
+          if (content.data.error_code === 0) {
+            // 存入返回的id
+            newContent.id = content.data.result
+            let progress = 0
+            ui.showLoading({
+              text: '发表中...',
+              maskStyle: {
+                'background-color': 'rgba(231,231,231,0)'
+              }
+            })
+            // 循环上传选择的照片
+            for (var i = 0; i < that.imageSrc.length; i++) {
+              ui.uploadFile({
+                url: imageUrl,
+                filePath: that.imageSrc[i],
+                name: 'file',
+                formData: {
+                  'circleId': newContent.id
+                },
+                success: function (res) {
+                  let state = JSON.parse(res.data)
+                  // 上传成功
+                  if (state.error_code === 0) {
+                    progress++
+                    // 判断最后一张上传成功后发布
+                    if (progress === that.imageSrc.length) {
+                      ui.hideLoading()
+                      ui.showToast({ title: '发表成功', icon: 'success' })
+                      that.config.refresh = true
+                    }
+                  } else {
+                    ui.hideLoading()
+                    ui.showToast({ title: '发表失败' })
+                  }
+                },
+                fail: function ({ errMsg }) {
+                  ui.hideLoading()
+                  ui.showToast({ title: '图片上传失败' })
+                }
+              })
+            }
+          } else {
+            // 文字发表成功后返回的失败状态
+            that.value = ''
+            ui.showToast({ title: '发表失败' })
+          }
+        },
+        fail: function ({ errMsg }) {
+          // 文字发表失败
+          that.value = ''
+          ui.showToast({ title: '文字提交失败' })
+        }
+      })
+    },
+    // 点赞
+    popoverShow (e, index) {
+      console.log(e, index, '222')
+      // this.popover = []
+      // this.popover[index] = true
+      // if (this.popoverText[index] === undefined) {
+      //   this.popoverText[index] = '赞'
+      // }
+      this.propsIndex = index
+      this.$refs.popover.showPopover({
+        el: e.target,
+        position: 'left',
+        effect: 'slide'
+      })
+    },
+    // 点赞后
+    giveSupport () {
+      // console.log('11', this.comment, this.propsIndex)
+      if (!this.comment[this.propsIndex]) {
+        this.$set(this.comment, this.propsIndex, true)
+      } else {
+        this.$set(this.comment, this.propsIndex, true)
+        console.log(this.comment)
+      }
+      this.$refs.popover.hidePopover()
+    },
+    look () {
+      let itemList = [
+        '公开',
+        '私密',
+        '部分可见',
+        '不给谁看'
+      ]
+      let that = this
+      ui.showActionSheet({
+        itemList: itemList,
+        success: (index) => {
+          that.lookText = itemList[index]
+        }
+      })
+    },
+    remind () {
+      let itemList = [
+        '好友',
+        '标签',
+        '部分好友'
+      ]
+      let that = this
+      ui.showActionSheet({
+        itemList: itemList,
+        success: (index) => {
+          that.remindText = itemList[index]
+        }
+      })
+    },
+    qzone () {
+      if (this.colorActive) {
+        this.qzoneColor = '#D1D1D1'
+        this.colorActive = false
+      } else {
+        this.qzoneColor = '#FCC416'
+        this.colorActive = true
+      }
+    },
+    handleListViewChange (status) {
+    },
+    handleReload () {
+      this.config.reload = true
+    },
+    handleBegin ({ distance, direction }) {
+      console.log(123131)
+      this.rotate = parseInt(distance * 5)
+    },
+    handleActive () {
+      this.className = 'after'
+      this.config.refresh = true
+    },
+    handleAfter () {
+      this.className = ''
+    }
+  },
+  mounted () {
+    // 进页面后请求数据
+    let that = this
+    // 根据屏幕大小适配照片大小
+    ui.getSystemInfo({
+      success: function (res) {
+        if (res.windowWidth < 360) {
+          that.imgWidth = '70'
+          that.imgHeight = '70'
+        }
+      }
+    })
+  }
+}
+
+</script>
+
+<style lang="less">
+.nab_bar {
+    background-color: #121114;
+    .ui-view {
+        color: #fff;
+        font-size: 16px;
+    }
+}
+
+.ui-list-view-item {
+  padding-top: 10px;
+}
+
+//朋友圈
+.pull-down-content {
+    height: 60px;
+    margin-top: -60px;
+    display: flex;
+    align-items: flex-end; // padding-bottom: 8px;
+    position: relative;
+    z-index: 480;
+    .mix-flex-y-center();
+    .refresh {
+        padding-left: 25px;
+    }
+    .refresh_bg {
+        // width: 25px;
+        // height: 25px;
+        // background: url('~images/friendCircle.png') no-repeat center center;
+        // background-size: 25px;
+        transform: rotate(0deg);
+        animation-duration: 0.2s;
+    }
+    .refresh_bg.after {
+        animation: circling 1s linear 0s infinite;
+    }
+}
+
+@keyframes circling {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.friend_top {
+    // height: 400px;
+    // overflow: hidden;
+    // margin-top: -200rpx;
+    position: relative;
+    margin-bottom: 30px;
+    .top_bg {
+        margin-top: -300rpx;
+        height: 800rpx;
+        overflow: hidden;
+        .ui-image {
+            margin-top: -200rpx;
+        }
+    }
+    .information {
+        position: absolute;
+        bottom: -15px;
+        width: 100%;
+        .ui-view {
+            color: #fff;
+            font-size: 16px;
+        }
+        .portrait {
+            width: 64px;
+            height: 64px;
+            // overflow: hidden;
+            .mix-1px(1, 1, 1, 1, #ccc);
+            padding: 2px;
+            border-radius: 3px;
+            background: #fff;
+        }
+    }
+}
+
+.content {
+    .name {
+        color: #103066;
+        line-height: 25px;
+    }
+    .text {
+        line-height: 25px;
+    }
+    .portrait {
+        width: 45px;
+        height: 45px;
+        overflow: hidden;
+    }
+    .time {
+        color: #7B7B7B;
+        font-size: 12px;
+    }
+    .img2 {}
+}
+
+.img_content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    .ui-view {
+        display: inline-flex; //width: 33.33%; //
+        margin: 5px 5px 0 0;
+        //  overflow: hidden;
+        // .mix-flex-center();
+    }
+}
+
+.img_content2 {
+    padding: 10px;
+    border-bottom: 1px solid #EBEBF2;
+    background: #fff;
+    .ui-view {
+        width: 90px;
+        height: 90px; // border: 1px solid red;
+        padding: 0!important;
+        margin: 5px 5px 0 0;
+    }
+}
+
+.popup_navBar {
+    background: #2D2C30;
+    // padding-top: 20px;
+    .ui-view{
+        .mix-flex-center();
+        width: 100%;
+        height: 100%;
+    }
+    .left_nav {
+        color: #fff;
+        font-size: 16px;
+        .touch_end1{
+            color: #a8a8a8;
+        }
+    }
+    .right_nav {
+        color: #1aaf2c;
+        font-size: 16px;
+        .touch_end2{
+            color: #258831;
+        }
+    }
+}
+
+.ui-textarea-wrapper {
+    border: 0;
+    padding: 10px;
+    background: #fff;
+}
+
+.add_photo {
+    border: 1px solid #CECECF;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    .ui-icon {
+        margin: auto;
+    }
+}
+
+.map {
+    background: #fff;
+}
+
+.map2 {
+    .mix-1px(0, 0, 1, 0, #ccc);
+}
+
+.map3 {
+    .remind_icon {
+        font-size: 18px;
+        color: #767676;
+    }
+}
+
+.qzone {
+    width: 50px;
+    line-height: 50px;
+    padding-left: 10px;
+}
+
+.comment {
+    min-height: 25px;
+    line-height: 25px;
+    padding: 0 5px;
+    background-color: #F0F0F3;
+    position: relative;
+    margin-bottom: 10px;
+    border-radius: 3px; // overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    .triangle {
+        position: absolute;
+        top: -15px;
+        left: 15px;
+        height: 0;
+        width: 0;
+        border: 8px solid #F0F0F3;
+        border-color: transparent transparent #F0F0F3 transparent;
+    }
+    .support {
+        display: inline-flex;
+    }
+    .use_name {
+        display: inline-flex;
+        font-size: 14px;
+        color: #67769A;
+    }
+}
+
+.input_box{
+    width: 100%;
+}
+.custom {
+  .ui-popover-overlay {
+    background-color: #333;
+    color: #fff;
+    width: 180px;
+    padding: 0;
+  }
+  .ui-popover-arrow {
+    background-color: #333;
+    width: 10px;
+    height: 10px;
+  }
+  .ui-icon{
+    margin-right: 5px;
+  }
+  .ui-popover-overlay-outer{
+    border-radius: 5px;
+  }
+}
+.touch_end {
+    background: #eee;
+}
+.swiper-container-horizontal > .swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+    bottom: 10px;
+    color: #fff;
+}
+
+// 修改loading位置
+
+.ui-list-view.enable-tip .ui-list-view-init-tip{
+    position: fixed;
+    margin-top: 100px;
+}
+</style>

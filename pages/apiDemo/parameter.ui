@@ -1,0 +1,31 @@
+<!--transfer.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_title">传参</ui-view>
+    <ui-view class="sample_content">
+      <ui-navigator url="/pages/apiDemo/parameterNew?name=TOUCH UI&id=1">
+        <ui-button type="primary" plain="{{true}}">
+          跳到新页面
+        </ui-button>
+      </ui-navigator>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// transfer.js
+export default {
+  config: {
+    "navigationBarTitleText": "参数传递"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

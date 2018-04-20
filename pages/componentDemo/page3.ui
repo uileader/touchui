@@ -1,0 +1,195 @@
+<template>
+    <ui-page
+    pull-up="{{ pullUp }}">
+    <ui-view class="content_list">
+      <!-- <ui-button bindtap="getPushInfo">测试</ui-button> -->
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+    <ui-view slot="pull-up" bindtap="pullup">
+      <ui-view ui:show="state === 0" style="text-align:center;height:40px;line-height:40px;">点击或上拉加载更多</ui-view>
+      <ui-view ui:show="state === 1" style="text-align:center;height:40px;line-height:40px;">↑上拉加载</ui-view>
+      <ui-view ui:show="state === 2" style="text-align:center;height:40px;line-height:40px;">↓释放加载</ui-view>
+      <ui-view ui:show="state === 3" style="text-align:center;height:40px;line-height:40px;">
+          <div class='rect_wrap'><div class='rect rect1'></div><div class='rect rect2'></div><div class='rect rect3'></div><div class='rect rect4'></div><div class='rect rect5'></div></div>
+      </ui-view>
+      <ui-view style="width:200px;margin:0 auto;">
+        <ui-divider ui:show="state === 4">没有新数据了</ui-divider>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+     navigationBarTitleText: "加载自定义样式"
+  },
+  data () {
+    return {
+      items: [],
+      bottom: 30,
+      state: 0,
+      proportion: 0,
+      pullUp: {
+        distance: 50,
+        onBegin: this.handleBegin,
+        onActive: this.handleActive,
+        onAfter: this.handlePullUpAfter
+      },
+      count:0,
+      show:false
+
+    }
+  },
+  methods: {
+    getPushInfo(){
+      console.log('getPushInfo')
+      ui.getPushInfo({
+      success: function (res) {
+        console.log('成功', res)
+        that.clientid = res.clientid
+      },
+      fail: function (res) {
+        console.log('失败', res)
+      }
+    })
+    },
+    handleBegin ({ distance, direction }) {
+      this.proportion = Math.abs(distance) / 50
+      this.state = 1
+      if (this.proportion >= 1) {
+        this.state = 2
+      }
+    },
+    handleActive () {
+      this.state = 3
+      // 将返回的请求接管，实现让请求结果来控制下拉刷新的状态
+      return ui.request({
+        // promise设置为true，让请求返回promise，这样就可以接管请求
+        // 请求结束后页面自动回弹
+        promise: true,
+        url: '/touchui-backstage/listInfo.do?state=1',
+        success: (response) => {
+        },
+        fail: (err) => {
+        }
+      })
+    },
+    handlePullUpAfter (flag) {
+      if (flag) {
+        this.count ++
+        if(this.count > 2){
+          this.state = 4
+          // this.show = true
+          return false
+        }else if(this.count <= 2){
+          this.state = 0
+          // 模拟数据，这里应该从handleActive 里从接口拿到数据
+          for (let i = this.bottom + 1; i <= this.bottom + 10; i++) {
+            this.items.push(`列表项目${i}`)
+          }
+          this.bottom += 10
+        }else{
+        this.state = 0
+        }
+      }
+    },
+    pullup () {
+      ui.startPullUpLoad()
+    }
+  },
+  mounted () {
+    
+    for (let i = 1; i <= this.bottom; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+</script>
+
+<style lang="less">
+//rect
+.rect_wrap {
+  margin: 0px auto;
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  font-size: 10px;
+  margin-top:4px;
+  .ui-view {
+    background-color: @loading-color;
+    height: 100%;
+    width: 2px;
+    display: inline-block;
+    
+    -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+    animation: stretchdelay 1.2s infinite ease-in-out;
+  }
+  div {
+    background-color: @loading-color;
+    height: 100%;
+    width: 3px;
+    display: inline-block;
+    
+    -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+    animation: stretchdelay 1.2s infinite ease-in-out;
+  }
+  .rect{
+    margin:2px;
+  }
+  .rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+  }
+  .rect3 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+  }
+  .rect4 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+  }
+  .rect5 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+  }
+}
+@-webkit-keyframes stretchdelay {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) } 
+  20% { -webkit-transform: scaleY(1.0) }
+}
+@keyframes stretchdelay {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }  20% {
+    transform: scaleY(1.0);
+    -webkit-transform: scaleY(1.0);
+  }
+}
+// page10.less
+@loading-color: #3399ff;
+.ui-fixed-view {
+  bottom: 100px;
+  right: 20px;
+  width: 46px;
+  padding: 7px;
+  height: 46px;
+  line-height: 16px;
+  border: 1px solid rgb(243,86,86);
+  border-radius: 50%;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: rgb(243,86,86);
+  z-index: 99;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+</style>

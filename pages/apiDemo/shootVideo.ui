@@ -1,0 +1,98 @@
+<template>
+  <ui-page>
+      <ui-view class="content">
+        <ui-row height="40">
+          <ui-col span="3" vertical-align="middle">
+            视频来源：
+          </ui-col>
+          <ui-col span="9" vertical-align="middle">
+              <ui-view>{{sourceType[sourceTypeIndex]}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40">
+          <ui-col span="3" vertical-align="middle">
+            摄像头：
+          </ui-col>
+          <ui-col span="9" vertical-align="middle">
+              <ui-view>{{camera[cameraIndex]}}</ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-video class="video" controls src="{{src}}"></ui-video>
+        <ui-button ui:if="{{!src}}" type="primary" bindtap="chooseVideo">选择视频</ui-button>
+      </ui-view>
+  </ui-page>
+</template>
+
+<script>
+var sourceType = [['camera'], ['album'], ['camera', 'album']]
+var camera = [['front'], ['back'], ['front', 'back']]
+var duration = Array.apply(null, { length: 60 }).map(function (n, i) {
+  return i + 1
+})
+export default {
+  config: {
+    "navigationBarTitleText": "视频拍摄或选择"
+  },
+  data () {
+    return {
+      sourceTypeIndex: 2,
+      sourceType: ['拍摄', '相册', '拍摄或相册'],
+      cameraIndex: 2,
+      camera: ['前置', '后置', '前置或后置'],
+      durationIndex: 59,
+      duration: duration.map(function (t) { return t + '秒' }),
+      src: ''
+    }
+  },
+  methods: {
+    sourceTypeChange: function (e) {
+      this.setData({
+        sourceTypeIndex: e.detail.value
+      })
+    },
+    cameraChange: function (e) {
+      this.setData({
+        cameraIndex: e.detail.value
+      })
+    },
+    durationChange: function (e) {
+      this.setData({
+        durationIndex: e.detail.value
+      })
+    },
+    chooseVideo: function () {
+      var that = this
+      ui.chooseVideo({
+        sourceType: sourceType[this.$data.sourceTypeIndex],
+        camera: camera[this.$data.cameraIndex],
+        maxDuration: duration[this.$data.durationIndex],
+        success: function (res) {
+          that.setData({
+            src: res.tempFilePath
+          })
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+
+
+.video{
+  width: 300px;
+  height: 200px;
+  margin: auto;
+  margin-top: 10px;
+  display: block;
+  background-color: black;
+}
+
+
+.content{
+  padding: 10px;
+}
+
+</style>

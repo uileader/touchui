@@ -1,0 +1,192 @@
+<template>
+  <ui-page>
+    <ui-view class="sample_title">每次点击从头播放</ui-view>
+    <ui-view class="sample_content">
+      <ui-view class="voice" bindtap="playVoice" ui:show="{{ voice }}">
+        <ui-row type="flex">
+          <ui-col>
+            <ui-text>54''</ui-text>
+          </ui-col>
+          <ui-col width="50" align="right" vertical-align="middle">
+            <ui-view class="icon_voice {{ voiceClass }}"></ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-view>{{ voice ? '' : '下载中...' }}</ui-view>
+    </ui-view>
+  </ui-view>
+  <ui-view class="sample_win">
+    <ui-view class="sample_title">每次点击从暂停处继续播放</ui-view>
+    <ui-view class="sample_content">
+      <ui-view class="voice2" bindtap="playVoice2" ui:show="{{ voice2 }}">
+        <ui-row type="flex">
+          <ui-col>
+            <ui-text>58''</ui-text>
+          </ui-col>
+          <ui-col width="50" align="right" vertical-align="middle">
+            <ui-view class="icon_voice {{ voiceClass2 }}"></ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-view>{{ voice2 ? '' : '下载中...' }}</ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "语音播放",
+    "backgroundColor":"#fff"
+  },
+  data () {
+    return {
+      voiceClass: '',
+      downUrl: 'http://h6apptest.duapp.com/xjl.mp3',
+      downUrl2: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46',
+      voicePath: '',
+      voicePath2: '',
+      isPlay: false,
+
+      voiceClass2: '',
+      isPlay2: false,
+      voice: false,
+      voice2: false
+    }
+  },
+  //
+  methods: {
+    playVoice () {
+      var that = this
+      this.isPlay2 = false
+      this.voiceClass2 = ''
+      if (this.isPlay) {
+        this.stopVoice()
+        this.isPlay = false
+      } else {
+        this.voiceClass = 'icon_voice_action'
+        ui.playVoice({
+          filePath: that.voicePath,
+          success: function (res) {
+          },
+          fail () {
+          },
+          complete: function () {
+          }
+        })
+        this.isPlay = true
+      }
+    },
+    playVoice2 () {
+      var that = this
+      this.isPlay = false
+      this.voiceClass = ''
+      if (this.isPlay2) {
+        this.pauseVoice()
+        this.isPlay2 = false
+      } else {
+        this.voiceClass2 = 'icon_voice_action'
+        ui.playVoice({
+          filePath: that.voicePath2,
+          success: function (res) {
+          },
+          fail () {
+          },
+          complete: function () {
+          }
+        })
+        this.isPlay2 = true
+      }
+    },
+    pauseVoice () {
+      ui.pauseVoice()
+      this.voiceClass2 = ''
+    },
+    stopVoice () {
+      ui.stopVoice()
+      this.voiceClass = ''
+    },
+    downloadVoice () {
+      var that = this
+      ui.downloadFile({
+        url: that.downUrl,
+        success: function (res) {
+          that.voicePath = res.tempFilePath
+          that.voice = true
+        },
+        fail: function ({ errMsg }) {
+        },
+        complete: function () {
+        }
+      })
+    },
+    downloadVoice2 () {
+      var that = this
+      ui.downloadFile({
+        url: that.downUrl2,
+        success: function (res) {
+          that.voicePath2 = res.tempFilePath
+          that.voice2 = true
+        },
+        fail: function ({ errMsg }) {
+        },
+        complete: function () {
+        }
+      })
+    }
+
+  },
+  mounted () {
+    this.downloadVoice()
+    this.downloadVoice2()
+  }
+
+}
+
+</script>
+
+<style lang="less">
+
+.voice,
+.voice2{
+  width: 150px;
+  border-radius:7px;
+  border: 1px solid #dcdada;
+  padding: 8px 10px;
+  // margin: auto;
+  .ui-text{
+    line-height: 15px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .icon_voice{
+    width: 20px;
+    height: 20px;
+    background: url(~images/icon_voice.png) no-repeat center center;
+    background-position: 0px -40px;
+    background-size: 20px;
+  }
+  .icon_voice_action{
+    -webkit-animation: voiceplay 1s infinite step-start;
+    -moz-animation: voiceplay 1s infinite step-start;
+    -o-animation: voiceplay 1s infinite step-start;
+    animation: voiceplay 1s infinite step-start;
+  }
+}
+@-webkit-keyframes voiceplay {
+  0%{
+    background-position: 0px -40px;
+  }
+  33.333333% {
+    background-position: 0px -60px;
+  }
+  66.666666% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 0px -20px;
+  }
+}
+
+
+</style>

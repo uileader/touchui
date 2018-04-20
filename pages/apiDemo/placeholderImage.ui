@@ -1,0 +1,162 @@
+<!--backgroundImage.ui-->
+<template>
+  <ui-page>
+    <ui-view class="wrap">
+      <ui-view class="top_tip"  ui:show="{{ tipShow }}">
+        <ui-row height="80" border-bottom>
+          <ui-col width="80" align="center" vertical-align="middle">
+            <ui-view class="left_icon left_icon1">
+                <ui-icon type="api-access" color="#fff" size="20"></ui-icon>
+            </ui-view>
+          </ui-col>
+          <ui-col class="text" align="left" vertical-align="middle" space="20">
+            <ui-view style="width: 100%;">
+              <ui-row height="30">
+                <ui-col align="left" vertical-align="middle">
+                  <ui-text>票房总结</ui-text>
+                </ui-col>
+                <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                  <ui-text>09-18</ui-text>
+                </ui-col>
+              </ui-row>
+              <ui-view>第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿</ui-view>
+            </ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="80" border-bottom>
+          <ui-col width="80" align="center" vertical-align="middle">
+            <ui-view class="left_icon left_icon2">
+                <ui-icon type="api-network" color="#fff" size="20"></ui-icon>
+            </ui-view>
+          </ui-col>
+          <ui-col class="text" align="left" vertical-align="middle" space="20">
+            <ui-view style="width: 100%;">
+              <ui-row height="30">
+                <ui-col align="left" vertical-align="middle">
+                  <ui-text>广播</ui-text>
+                </ui-col>
+                <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                  <ui-text>08-28</ui-text>
+                </ui-col>
+              </ui-row>
+              <ui-view>总票房9.60亿较上周 下降30.64%，《《战狼2》》突破票房10亿</ui-view>
+            </ui-view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="80" border-bottom>
+          <ui-col width="80" align="center" vertical-align="middle">
+            <ui-view class="left_icon left_icon3">
+                <ui-icon type="api-configure" color="#fff" size="20"></ui-icon>
+            </ui-view>
+          </ui-col>
+          <ui-col class="text" align="left" vertical-align="middle" space="20" >
+            <ui-view style="width: 100%;">
+              <ui-row height="30">
+                <ui-col align="left" vertical-align="middle">
+                  <ui-text>票房总结</ui-text>
+                </ui-col>
+                <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                  <ui-text>08-11</ui-text>
+                </ui-col>
+              </ui-row>
+              <ui-view>本周悬疑《《心理罪》》、喜剧《《鲛珠传》》、动作《《上船下套》》等多部电影在电影院上映。</ui-view>
+            </ui-view>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-view class="tip_win" ui:show="{{ !tipShow }}" style="{{ { height: height + 'px'} }}">
+        <ui-view class="show_tip">
+          <ui-icon type="bell" size="80" color="#46A0FC"></ui-icon>
+          <ui-view class="title">暂时还没有任何通知</ui-view>
+        </ui-view>  
+      </ui-view>
+    </ui-view>
+    <ui-fixed-view bottom="10" left="0" right="0">
+       
+        <ui-row height="50">
+          <ui-col vertical-align="middle" align="right" space-right="10">
+            <ui-view>{{ tipShow ? '有消息' : '无消息' }}</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="100">
+            <ui-switch title="" bindchange="handleSwitchChange"></ui-switch>
+          </ui-col>
+        </ui-row>
+    </ui-fixed-view>
+  </ui-page>
+</template>
+
+
+<script>
+  // backgroundImage.js
+export default {
+  config: {
+    "navigationBarTitleText": "占位图",
+    "backgroundColor":"#F6FAFE"
+  },
+  data () {
+    return {
+      tipShow: false,
+      height: ui.DEFAULT_CONTENT_HEIGHT
+    }
+  },
+  methods: {
+    handleSwitchChange (e) {
+      if (e) {
+        this.tipShow = true
+      } else {
+        this.tipShow = false
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // backgroundImage.less
+.tip_win{
+  .mix-flex-center();
+  text-align: center;
+  .title{
+    color: #A5A5A4;
+    font-size: 14px; 
+  }
+  .show_tip{
+    height: 160px;
+    .ui-icon{
+      line-height: 1.1;
+    }
+  }
+}
+
+.top_tip{
+  .ui-row{
+    background-color: #fff;
+  }
+  .left_icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color:#FCB300; 
+    text-align: center;
+    line-height: 50px;
+  }
+  .left_icon2{
+    background-color: #FF7360;
+  }
+  .left_icon3{
+    background-color: #39CCC5;
+  }
+  .text{
+    .ui-text{
+      font-size: 16px;
+      color: #313338;
+    }
+    .ui-view{
+      color: #9C9FA4;
+      font-size: 12px;
+      .mix-text-overflow ();
+    }
+  }
+}
+</style>

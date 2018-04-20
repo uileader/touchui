@@ -1,0 +1,38 @@
+<!--customComp.ui-->
+<template>
+  <ui-page>
+    <ui-view style="padding:30px;">
+      <ui-divider>请输入验证码</ui-divider>
+      <ui-view style="width:250px;margin:10px auto;">
+        <input-code code="{{code}}" input-color="#333" span-color="#333"></input-code>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// customComp.js
+import InputCode from '#/component/input-code'
+// var InputCode = require('#/component/input-code')
+export default {
+  config: {
+    "navigationBarTitleText": "文本"
+  },
+  components:{
+    InputCode
+  },
+  data () {
+    return {
+      code:[123456]
+    }
+  },
+  methods: {},
+  mounted () {}
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

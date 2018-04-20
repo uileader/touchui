@@ -1,0 +1,68 @@
+<!--banner6.ui-->
+<template>
+  <ui-page bindscroll="handleScroll">
+    <ui-view class="img_wrap" style="{{{ transform: `translate3d(0,${range},0)` }}}">
+      <ui-image 
+      src="{{ require('#/images/goods.jpg') }}" 
+      mode="aspectFill" 
+      height="{{ imgHeight }}"
+      ></ui-image>
+    </ui-view>
+
+    <ui-view class="scroll_content" style="{{{ top: imgHeight + 'px'}}}">
+      <ui-view class="content_list">
+        <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+          {{ item }}
+        </ui-view>
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: "商品详情",
+    navigationBarBorderColor: "rgba(231, 231, 231, 0.6)",
+    navigationBarBackgroundColor:"#FFFFFF",
+    navigationBarTextStyle:"black"
+  },
+  data () {
+    return {
+      items: [],
+      range: 0,
+      imgHeight: parseInt(ui.WIN_WIDTH / 800 * 800)
+    }
+  },
+  methods: {
+    handleScroll (scrollTop) {
+      if (scrollTop < 380) {
+        this.range = -scrollTop / 2 + 'px'
+      }
+    }
+  },
+  mounted () {
+    for (let i = 1; i <= 40; i++) {
+      this.items.push(`列表项目${i}`)
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.img_wrap {
+  position: fixed;
+  top: 46px;
+  z-index: 1;
+  transform: translate(0, 0);
+  will-change: transform;
+}
+
+.scroll_content {
+  position: relative;
+  top: 380px;
+  width: 100%;
+  z-index: 2
+}
+</style>

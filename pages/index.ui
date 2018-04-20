@@ -1,0 +1,696 @@
+<template>
+  <ui-page
+  bindscroll="handleScroll"
+  >
+    <!-- 下拉容器 -->
+    <ui-view slot="pull-down" class="pull-down-content">
+
+      <ui-view class="img-layer">
+        <ui-view class="touch_ui" ></ui-view>
+      </ui-view>
+    </ui-view>
+
+    <!-- <ui-fixed-view top="0" class="statusBar" style="{{{ height:statusHeight + 'px','background-color': `rgba(0, 0, 0, ${alpha})` }}}"></ui-fixed-view> -->
+    
+    <!-- 自定义导航 -->
+    <ui-nav-bar class="nab-bar" slot="nav-bar">
+      <ui-row height="46" >
+        <ui-col vertical-align="middle" align="center">
+          <ui-view>
+            组件库示例
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <!-- 头部轮播 -->
+    <ui-ex-swiper autoplay="{{delay}}" pagination centered-slides loop space-between="5" slides-per-view="auto" class="head-swiper" binditemtap="navigateTo">
+      <ui-ex-swiper-item ui:for="{{items}}" ui:for-item="item" ui:for-index="index">
+          <ui-image 
+          src="{{ item.src }}" 
+          mode="simple" 
+          ></ui-image>
+      </ui-ex-swiper-item>
+    </ui-ex-swiper>
+
+    <ui-view class="class-wrap">
+      <ui-row height="60" class="title">
+        <ui-col vertical-align="middle" align="left" width="20">
+          <ui-icon type="location" size="18" color="#39f"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view>基础</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item" height="100" space-bottom="20">
+        <ui-col vertical-align="middle" align="center" class="left-item" space="20">
+          <ui-navigator url="/pages/home/pageList">
+            <ui-view class="title">page组件</ui-view>
+            <ui-text class="small-title">演示页面的滚动处理、下拉刷新、到底加载等功能</ui-text>
+          </ui-navigator>
+        </ui-col>
+        <ui-col width="20"></ui-col>
+        <ui-col vertical-align="middle" align="center" class="right-item" space="20">
+          <ui-navigator url="/pages/home/navBarList">
+            <ui-view class="title">nav-bar组件</ui-view>
+            <ui-text class="small-title">演示了自定义导航栏的各种布局情况</ui-text>
+          </ui-navigator>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/tabBarList" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_01">
+          <ui-icon type="home-tabBar" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">配置tabBar</ui-view>
+          <ui-text class="small-title">演示了底部标签栏的特性和切换事件</ui-text>
+        </ui-col>
+      </ui-row>
+
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/bannerList" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_02">
+          <ui-icon type="home-banner" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">banner布局</ui-view>
+          <ui-text class="small-title">演示了页面头部是Banner的布局示例</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/fullPageList" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_03">
+          <ui-icon type="home-page" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">整页滚动相关</ui-view>
+          <ui-text class="small-title">演示了整页滚动特性下特有示例</ui-text>
+        </ui-col>
+      </ui-row>
+
+    </ui-view>
+
+    <ui-view class="class-wrap active">
+      <ui-row height="60" class="title">
+        <ui-col vertical-align="middle" align="left" width="20">
+          <ui-icon type="location" size="18" color="#39f"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view>容器</ui-view>
+        </ui-col>
+      </ui-row>
+      
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/viewList" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_04">
+          <ui-icon type="home-layout" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">布局类容器</ui-view>
+          <ui-text class="small-title">view / row&col / row-list / scroll-view / fixed-view</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/viewList2" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_05">
+          <ui-icon type="home-basic" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">功能类容器</ui-view>
+          <ui-text class="small-title">sticky / swipe-out / accordion / summary / draggable-area</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/changeList" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_06">
+          <ui-icon type="home-change" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">切换类容器</ui-view>
+          <ui-text class="small-title">swiper / ex-swiper / tab-view / tabs / v-tabs / segment</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/modalList" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_07">
+          <ui-icon type="home-modal" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">模态类容器</ui-view>
+          <ui-text class="small-title">mask / popup / popover / popicon</ui-text>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+    <ui-view class="class-wrap">
+      <ui-row height="60" class="title">
+        <ui-col vertical-align="middle" align="left" width="20">
+          <ui-icon type="location" size="18" color="#39f"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view>表单</ui-view>
+        </ui-col>
+      </ui-row>
+      
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/formList" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_08">
+          <ui-icon type="api-event" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">手势表单元素</ui-view>
+          <ui-text class="small-title">button / switch / slider / ruler</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/formList2" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_01">
+          <ui-icon type="home-form" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">输入表单元素</ui-view>
+          <ui-text class="small-title">input / virtual-input / sms-input / textarea / search</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/formList3" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_02">
+          <ui-icon type="home-choose" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">选择表单元素</ui-view>
+          <ui-text class="small-title">radio / checkbox / check-list / picker / picker-view / stepper</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/formList4" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_03">
+          <ui-icon type="home-calendar" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">综合表单元素</ui-view>
+          <ui-text class="small-title">cascade / index-list / calendar / v-calendar / w-calendar / form</ui-text>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+    <ui-view class="class-wrap active">
+      <ui-row height="60" class="title">
+        <ui-col vertical-align="middle" align="left" width="20">
+          <ui-icon type="location" size="18" color="#39f"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view>数据</ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item item-bg-02" height="100" space-bottom="20">
+        <ui-col vertical-align="middle" align="center" class="left-item" space="20">
+          <ui-navigator url="/pages/home/dataList">
+            <ui-view class="title">Navigator用法与网络请求实践</ui-view>
+          </ui-navigator>
+        </ui-col>
+        <ui-col width="20"></ui-col>
+        <ui-col vertical-align="middle" align="center" class="right-item" space="20">
+          <ui-navigator url="/pages/home/dataList2">
+            <ui-view class="title">table组件示例</ui-view>
+          </ui-navigator>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item item-bg-03" height="100" space-bottom="20">
+        <ui-col vertical-align="middle" align="center" class="left-item" space="20">
+          <ui-navigator url="/pages/home/dataList3">
+            <ui-view class="title">list-view数据列表与waterfall瀑布流组件</ui-view>
+          </ui-navigator>
+        </ui-col>
+        <ui-col width="20"></ui-col>
+        <ui-col vertical-align="middle" align="center" class="right-item" space="20">
+          <ui-navigator url="/pages/home/dataList4">
+            <ui-view class="title">network-view网络状态容器</ui-view>
+          </ui-navigator>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+    <ui-view class="class-wrap">
+      <ui-row height="60" class="title">
+        <ui-col vertical-align="middle" align="left" width="20">
+          <ui-icon type="location" size="18" color="#39f"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view>媒体</ui-view>
+        </ui-col>
+      </ui-row>
+      
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/textList" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_04">
+          <ui-icon type="home-text" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">文本</ui-view>
+          <ui-text class="small-title">text / rich-text / tags / count-up / count-down / roller</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/mediaCompList" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_05">
+          <ui-icon type="photo" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">图标与图片</ui-view>
+          <ui-text class="small-title">演示了icon图标使用 / 图片缩放裁剪 / 图片懒加载 / 图片预览 / 朦胧图等效果</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/mediaCompList2" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_06">
+          <ui-icon type="home-media" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">音视频</ui-view>
+          <ui-text class="small-title">audio / video</ui-text>
+        </ui-col>
+      </ui-row>
+      
+    </ui-view>
+
+    <ui-view class="class-wrap active">
+      <ui-row height="60" class="title">
+        <ui-col vertical-align="middle" align="left" width="20">
+          <ui-icon type="location" size="18" color="#39f"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view>图形化</ui-view>
+        </ui-col>
+      </ui-row>
+      
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/graphicalList" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_07">
+          <ui-icon type="collect1" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">图形与交互</ui-view>
+          <ui-text class="small-title">badge / divider / star / mini-star / wave / locker / canvas</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/graphicalList2" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_08">
+          <ui-icon type="home-jindu" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">进度类图形</ui-view>
+          <ui-text class="small-title">timeline / circular / multi-circular / mini-circular / progress</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/graphicalList3" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_01">
+          <ui-icon type="home-graphical" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">图表</ui-view>
+          <ui-text class="small-title">包含十几种常用图表组件</ui-text>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+    <ui-view class="class-wrap">
+      <ui-row height="60" class="title">
+        <ui-col vertical-align="middle" align="left" width="20">
+          <ui-icon type="location" size="18" color="#39f"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view>地图</ui-view>
+        </ui-col>
+      </ui-row>
+      
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/mapList" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_02">
+          <ui-icon type="home-map" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">地图组件</ui-view>
+          <ui-text class="small-title">演示地图操作、标记点、气泡、绘制等相关特性</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/mapList2" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_03">
+          <ui-icon type="home-sdk" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">地图服务SDK</ui-view>
+          <ui-text class="small-title">包含了讯地图服务和高德地图服务的SDK示例</ui-text>
+        </ui-col>
+      </ui-row>
+    </ui-view>
+
+    <ui-fixed-view top="0" left="0" class="splash_wrap" ui:if="{{ isSplashSwiper }}" >
+      <ui-swiper fullscreen class="splash_swiper" bindchange="changeSwiper" indicator-dots>
+        <ui-swiper-item>
+          <ui-view class="splash_swiper_content splash_swiper01"></ui-view>
+        </ui-swiper-item>
+        <ui-swiper-item>
+          <ui-view class="splash_swiper_content splash_swiper02"></ui-view>
+        </ui-swiper-item>
+        <ui-swiper-item>
+          <ui-view class="splash_swiper_content splash_swiper03"></ui-view>
+          <ui-view class="splash_into" bindtap="splashInto">点击进入</ui-view>
+        </ui-swiper-item>
+        
+      </ui-swiper>
+
+    </ui-fixed-view>
+  </ui-page>
+</template>
+<script>
+export default {
+  config: {
+    navigationStyle: 'custom',
+    navigationBarTextStyle: 'black'
+  },
+  data () {
+    return {
+      delay:{
+        delay:3000
+      },
+      alpha: 0,
+      bottom: 30,
+      className: '',
+      statusHeight: ui.STATUS_BAR_HEIGHT,
+      isSplashSwiper: false,
+      pullDown: {
+        distance: 400,
+        onBegin: this.handleBegin,
+        onActive: this.handlePullRefresh,
+        onAfter: this.handleAfter
+      },
+      // 轮播
+      items: [
+        { 
+          src: require('#/images/banner1.jpg'),
+          url:'/pages/templeteDemo/O2O/O2O'  
+        },
+        { src: require('#/images/banner2.jpg'),
+          url:'/pages/templeteDemo/graphic/graphic'  
+        },
+        { src: require('#/images/banner3.jpg'),
+          url:'/pages/templeteDemo/form/payment'  
+        },
+        { src: require('#/images/banner4.jpg'),
+          url:'/pages/templeteDemo/dataReport/fundOptional'  
+        }
+      ]
+    }
+  },
+  methods: {
+    navigateTo(index){
+      ui.navigateTo({
+        url: this.items[index].url
+      })
+    },
+    handleScroll (scrollTop) {
+      if (scrollTop > 50) {
+        // var val=(scrollTop-50)/100
+        // if(val<0.3){
+        //   this.alpha = val
+        // }
+        this.alpha = 0.3
+      } else {
+        this.alpha = 0
+      }
+    },
+    handlePullRefresh () {
+      ui.showToast({
+        title: '处理下拉刷新'
+      })
+    },
+    handleBegin ({ distance, direction }) {
+      if (distance > 10) {
+        this.className = 'opacity'
+      }
+    },
+    handleAfter () {
+      this.className = 'opacity opacity1'
+    },
+    splashInto () {
+      this.isSplashSwiper = false
+      ui.setStorageSync('splash', 'show')
+    },
+    changeSwiper (e) {
+    }
+  },
+  mounted () {
+    let environment = ui.IS_APP
+    if (environment) {
+      var splashShow = ui.getStorageSync('splash')
+      if (splashShow === 'show') {
+        this.isSplashSwiper = false
+      } else {
+        this.isSplashSwiper = true
+      }
+
+      let closeTime = ui.IS_IOS ? 1000 : 500
+
+      // 初始化完成后，关闭启动页面
+      window.setTimeout(() => {
+        ui.closeSplashscreen()
+        // ui.setStatusBarStyle({
+        //   style: 'light'
+        // })
+      }, closeTime)
+    } else {
+      this.isSplashSwiper = false
+    }
+  }
+}
+</script>
+<style lang="less">
+.nab-bar{
+  background-color: #fff;
+  box-shadow: 0 0px 16px 0 #ccc;
+  .ui-view{
+    color: #2B333B;
+    font-size: 14px;
+  }
+}
+
+
+.pull-down-content {
+    height: 60px;
+    margin-top: -60px;
+    .mix-flex-center();
+}
+
+.img-layer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .touch_ui{
+      width: 120px;
+      height:90px;
+      background: url('~images/logo-light.png') no-repeat;
+      background-position: center 0;
+      background-size: 100%;
+    }
+}
+.statusBar{
+    width: 100%;
+    transition: all .25s ease-in;
+}
+
+
+//启动页样式
+.ui-swiper-indicator{
+  bottom: 20px!important;
+}
+.splash_wrap {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  background-size: 100%;
+  z-index: 999;
+  // opacity: 1;
+  // transition: opacity .3s ease-in;
+  // &.splash_active{
+  //   opacity: 0;
+  // }
+  .splash_swiper{
+    width: 100%;
+    height: 100%;
+    .swiper-pagination-bullets,
+    .swiper-pagination-custom,
+    .swiper-pagination-fraction{
+      bottom:20px;
+    }
+  }
+  .swiper-slide {
+    height: 100%;
+  }
+  .splash_swiper_content{
+    width: 100%;
+    height: 100%;
+  }
+  .splash_swiper01{
+    background: url('~images/guide1.jpg') no-repeat center center;
+    background-size: 100%;
+  }
+  .splash_swiper02{
+    background: url('~images/guide2.jpg') no-repeat center center;
+    background-size: 100%;
+  }
+  .splash_swiper03{
+    background: url('~images/guide3.jpg') no-repeat center center;
+    background-size: 100%;
+  }
+  .splash_into{
+    width: 300rpx;
+    height: 80rpx;
+    position: absolute;
+    bottom: 140rpx;
+    left: 50%;
+    margin-left: -150rpx;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #666;
+    font-size: 28rpx;
+    text-align: center;
+    line-height: 76rpx;
+  }
+}
+
+
+// 头部轮播
+.head-swiper{
+  background-color: #fff;
+  padding: 10px 0px;
+  box-shadow: 0 0px 16px 0 #ccc;
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    width: 90%;
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .ui-image {
+      width: 100%;
+      height:220rpx;
+      border-radius: 5px;
+    }
+  }
+  .swiper-pagination-bullets{
+    bottom: 10px
+  }
+  .swiper-pagination-bullet {
+    width: 20px;
+    height: 3px;
+    background-color: #eee;
+    opacity: .5;
+    border-radius: 0;
+    &.swiper-pagination-bullet-active {
+      background-color: #fff;
+      opacity: 1;
+    }
+  }
+}
+// 类别
+.class-wrap{
+  background-color: #F6F9FB;
+  padding: 0 10px 10px 10px;
+  position: relative;
+  &.active{
+    background-color: #ffff;
+    box-shadow: 0 0px 16px 0 #ccc;
+    z-index: 999;
+  }
+  .ui-row.title{
+    .ui-view{
+      font-size: 14px;
+      color: #2b333b;
+    }
+  }
+  .class-item{
+    .ui-col{
+      border-radius: 5px;
+      .ui-text{
+        text-align:left;
+      }
+    }
+    .left-item{
+      background: #ff4545 url('~images/indexBgIcon/page.png') no-repeat 95% 100%;
+      background-size: 50px;
+      box-shadow: 0 4px 16px 0 #ff4545;
+    }
+    .right-item{
+      background: #0070bb url('~images/indexBgIcon/module.png') no-repeat 95% 95%;
+      background-size: 50px;
+      box-shadow: 0 4px 16px 0 #0070bb;
+    }
+    .title{
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .small-title{
+      color: #fff;
+      font-size: 12px;
+    }
+
+    &.item-bg-02{
+      .left-item{
+        background: #0070bb url('~images/indexBgIcon/api-network.png') no-repeat 95% 95%;
+        background-size: 50px;
+        box-shadow: 0 4px 16px 0 #0070bb;
+      }
+      .right-item{
+        background: #9dcc29 url('~images/indexBgIcon/home-data.png') no-repeat 95% 95%;
+        background-size: 50px;
+        box-shadow: 0 4px 16px 0 #9dcc29;
+      }
+    }
+    &.item-bg-03{
+      .left-item{
+        background: #ff4545 url('~images/indexBgIcon/playlist.png') no-repeat 95% 95%;
+        background-size: 50px;
+        box-shadow: 0 4px 16px 0 #ff4545;
+      }
+      .right-item{
+        background: #41b883 url('~images/indexBgIcon/home-online.png') no-repeat 95% 95%;
+        background-size: 50px;
+        box-shadow: 0 4px 16px 0 #41b883;
+      }
+    }
+  }
+  .class-item2{
+    .ui-image{
+      border-radius: 5px;
+    }
+    .title{
+      color: #2B333B;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .small-title{
+      color: #71777D;
+      font-size: 12px;
+    }
+    .left-item{
+      border-radius: 5px;
+      box-shadow: 0 4px 16px 0 #ccc;
+    }
+  }
+
+  .application_01 {
+      background-color: #FECC0B;
+  }
+  .application_02 {
+      background-color: #44BBFC;
+  }
+  .application_03 {
+      background-color: #5DC663;
+  }
+  .application_04 {
+      background-color: #3CBAFF;
+  }
+  .application_05 {
+      background-color: #35C094;
+  }
+  .application_06 {
+      background-color: #34C9E3;
+  }
+  .application_07 {
+      background-color: #4EC1FF;
+  }
+  .application_08 {
+      background-color: #2B94ED;
+  }
+}
+</style>

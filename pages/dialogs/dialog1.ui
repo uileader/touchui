@@ -1,0 +1,44 @@
+<template>
+<ui-page>
+    <ui-check-list title="基本使用" max="1" options="{{ countryList }}" type="plain" label-position="left" ui:model="{{ checklist }}" bindchange="changeCountry"></ui-check-list>
+    <ui-view class="btn_win">
+        <ui-button type="success" bindtap="confirmSelect">确定选择</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        country: '',
+        countryList:['中国', '日本', '美国', '英国'],
+        checklist: []
+      }
+    },
+    mounted () {
+      this.$DialogOpen((data) => {
+        if (data && data.country) {
+          this.country = data.country
+        }
+      })
+    },
+
+    methods: {
+      changeCountry (val) {
+        this.country = val.join("-")
+      },
+      confirmSelect () {
+        // 调用ui.hideDialog关闭窗体，并回传数据
+        ui.hideDialog({ country: this.country })
+      }
+    }
+  }
+</script>
+<style lang="less">
+  .btn_win{
+    padding: 0 10px;
+  }
+  .ui-button {
+    margin-top: 20px;
+  }
+</style>

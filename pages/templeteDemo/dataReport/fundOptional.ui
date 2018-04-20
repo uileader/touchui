@@ -1,0 +1,531 @@
+<!--fundOptional.ui-->
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar" class="nav_bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" width="80" space-left="10" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="18" color="#3D3D3D"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="title">我的自选</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="40" bindtap="showFullScreenSearch">
+          <ui-icon type="search" size="20" color="#3D3D3D"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="40" space-right="10" bindtap="edit">
+          <ui-view class="edit">编辑</ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-fixed-view top="{{statusBar+46}}" class="top_tip">
+      <ui-row height="35">
+        <ui-col vertical-align="middle" align="left" space-left="15">
+          <ui-view>2000起，给5万资产加速，领7天年华1%</ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" space-right="10" width="30">
+          <ui-icon type="arrow-right" size="18" color="#FAAE42"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-fixed-view>
+
+
+      <ui-view style="padding-top:35px">
+        <ui-view class="wrap">
+          <ui-row height="80" class="exponent">
+            <ui-col vertical-align="middle" align="left" space-left="15">
+              <ui-view>上证指数</ui-view>
+              <ui-text>3414.01</ui-text>
+              <ui-text>-0.23%</ui-text>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="3">
+              <ui-view class="line"></ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" space-left="15">
+              <ui-view>上证指数</ui-view>
+              <ui-text>3414.01</ui-text>
+              <ui-text>-0.23%</ui-text>
+            </ui-col>
+            <ui-col vertical-align="middle" align="center" width="3">
+              <ui-view class="line"></ui-view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="left" space-left="15">
+              <ui-view>上证指数</ui-view>
+              <ui-text>3414.01</ui-text>
+              <ui-text>-0.23%</ui-text>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+      </ui-view>
+
+      <ui-view class="wrap">
+        <ui-table
+          fixed-cell-height="{{false}}"
+          header="{{thisHeader}}"
+          ui:model="thisData"
+          alternating-row="{{true}}"
+          cell-height="80"
+          header-height='50'
+          bindrowtap="gridData"
+          ></ui-table>
+      </ui-view>
+
+
+
+  </ui-page>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F9F9F9"
+  },
+  data () {
+    return {
+      statusBar: ui.STATUS_BAR_HEIGHT,
+      thisHeader: [
+        {
+          name: 'date',
+          sort: false,
+          headerAlign: 'left',
+          fixed: 'left',
+          width: '120',
+          render: (h, params) => {
+            return h('div', {
+              style: {
+
+              }
+            }, [h('span', {
+              style: {
+                display: 'block',
+                fontSize: '12px',
+                color: '#313131',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+                overflow: 'hidden',
+                width: '100px'
+              }
+            }, this.thisData.rows[params].name),
+              h('span', {
+                style: {
+                  display: 'inline-block',
+                  fontSize: '10px',
+                  color: '#9E9E9E'
+                }
+              }, this.thisData.rows[params].number)
+            ])
+          },
+          headerRender: (h) => {
+            return h('div', {
+              style: {
+                lineHeight: '50px'
+              }
+            }, '基金名称')
+          }
+        }, {
+          name: 'net_value',
+          sort: false,
+          headerAlign: 'center',
+          align: 'center',
+          headerRender: (h) => {
+            return h('div', {
+              style: {
+                width: '60px',
+                lineHeight: '50px',
+                display: 'inline-block'
+              }
+            }, [
+              h('span', {}, '单位净值')
+            ])
+          },
+          render: (h, params) => {
+            return h('span', {
+              style: {
+                color: '#F77B2B'
+              }
+            }, this.thisData.rows[params].net_value)
+          }
+        }, {
+          name: 'week_rise',
+          sort: true,
+          headerAlign: 'center',
+          align: 'center',
+          headerRender: (h) => {
+            return h('div', {
+              style: {
+                width: '60px',
+                lineHeight: '50px',
+                display: 'inline-block'
+              }
+            }, [
+              h('span', {}, '周涨跌幅')
+            ])
+          }
+        }, {
+          name: 'month_rise',
+          sort: true,
+          headerAlign: 'center',
+          align: 'center',
+          headerRender: (h) => {
+            return h('div', {
+              style: {
+                width: '60px',
+                lineHeight: '50px',
+                display: 'inline-block'
+              }
+            }, [
+              h('span', {}, '月涨跌幅')
+            ])
+          },
+          render: (h, params) => {
+            return h('span', {
+              style: {
+                color: '#F77B2B'
+              }
+            }, this.thisData.rows[params].month_rise)
+          }
+        }, {
+          name: 'quarter_rise',
+          sort: true,
+          headerAlign: 'center',
+          align: 'center',
+          headerRender: (h) => {
+            return h('div', {
+              style: {
+                width: '60px',
+                lineHeight: '50px',
+                display: 'inline-block'
+              }
+            }, [
+              h('span', {}, '季涨跌幅')
+            ])
+          }
+        }, {
+          name: 'half_year_rise',
+          sort: true,
+          headerAlign: 'center',
+          align: 'center',
+          headerRender: (h) => {
+            return h('div', {
+              style: {
+                width: '60px',
+                lineHeight: '50px',
+                display: 'inline-block'
+              }
+            }, [
+              h('span', {}, '半年涨跌幅')
+            ])
+          },
+          render: (h, params) => {
+            return h('span', {
+              style: {
+                color: '#F77B2B'
+              }
+            }, this.thisData.rows[params].half_year_rise)
+          }
+        }, {
+          name: 'this_year_rise',
+          sort: true,
+          headerAlign: 'center',
+          align: 'center',
+          headerRender: (h) => {
+            return h('div', {
+              style: {
+                width: '60px',
+                lineHeight: '50px',
+                display: 'inline-block'
+              }
+            }, [
+              h('span', {}, '今年涨跌幅')
+            ])
+          }
+        }, {
+          name: 'year_rise',
+          sort: true,
+          headerAlign: 'center',
+          align: 'center',
+          headerRender: (h) => {
+            return h('div', {
+              style: {
+                width: '60px',
+                lineHeight: '50px',
+                display: 'inline-block'
+              }
+            }, [
+              h('span', {}, '年涨跌幅')
+            ])
+          },
+          render: (h, params) => {
+            return h('span', {
+              style: {
+                color: '#F77B2B'
+              }
+            }, this.thisData.rows[params].year_rise)
+          }
+        }, {
+          name: 'three_year_rise',
+          sort: true,
+          headerAlign: 'center',
+          align: 'center',
+          headerRender: (h) => {
+            return h('div', {
+              style: {
+                width: '70px',
+                lineHeight: '50px',
+                display: 'inline-block'
+              }
+            }, [
+              h('span', {}, '近三年涨跌幅')
+            ])
+          }
+        }
+      ],
+      thisData: {
+        rows: [{
+          name: '天虹巨力灵活配置混合',
+          number: '001641',
+          net_value: '1.6796',
+          week_rise: '30.26%',
+          month_rise: '30.56%',
+          quarter_rise: '14.23%',
+          half_year_rise: '56.234%',
+          this_year_rise: '78.36%',
+          year_rise: '1.025%',
+          three_year_rise: '1.236%'
+        }, {
+          name: '昌盛纯在A',
+          number: '004541',
+          net_value: '2.6796',
+          week_rise: '10.26%',
+          month_rise: '20.56%',
+          quarter_rise: '19.23%',
+          half_year_rise: '16.234%',
+          this_year_rise: '38.36%',
+          year_rise: '12.025%',
+          three_year_rise: '21.236%'
+        }, {
+          name: '捧花地产',
+          number: '005641',
+          net_value: '12.6796',
+          week_rise: '31.26%',
+          month_rise: '10.56%',
+          quarter_rise: '24.23%',
+          half_year_rise: '16.234%',
+          this_year_rise: '28.36%',
+          year_rise: '12.025%',
+          three_year_rise: '31.236%'
+        }, {
+          name: '万家新力',
+          number: '001321',
+          net_value: '12.6796',
+          week_rise: '10.26%',
+          month_rise: '32.56%',
+          quarter_rise: '14.73%',
+          half_year_rise: '46.234%',
+          this_year_rise: '18.36%',
+          year_rise: '41.025%',
+          three_year_rise: '21.236%'
+        }, {
+          name: '南方地产连结A',
+          number: '007895',
+          net_value: '23.556',
+          week_rise: '20.26%',
+          month_rise: '41.212%',
+          quarter_rise: '24.713%',
+          half_year_rise: '16.3234%',
+          this_year_rise: '28.346%',
+          year_rise: '15.025%',
+          three_year_rise: '19.236%'
+        }, {
+          name: '一方霞飞行业',
+          number: '004513',
+          net_value: '45.6796',
+          week_rise: '12.26%',
+          month_rise: '52.56%',
+          quarter_rise: '12.73%',
+          half_year_rise: '16.234%',
+          this_year_rise: '58.36%',
+          year_rise: '23.025%',
+          three_year_rise: '81.236%'
+        },{
+          name: '天虹巨力灵活配置混合',
+          number: '001641',
+          net_value: '1.6796',
+          week_rise: '30.26%',
+          month_rise: '30.56%',
+          quarter_rise: '14.23%',
+          half_year_rise: '56.234%',
+          this_year_rise: '78.36%',
+          year_rise: '1.025%',
+          three_year_rise: '1.236%'
+        }, {
+          name: '昌盛纯在A',
+          number: '004541',
+          net_value: '2.6796',
+          week_rise: '10.26%',
+          month_rise: '20.56%',
+          quarter_rise: '19.23%',
+          half_year_rise: '16.234%',
+          this_year_rise: '38.36%',
+          year_rise: '12.025%',
+          three_year_rise: '21.236%'
+        }, {
+          name: '捧花地产',
+          number: '005641',
+          net_value: '12.6796',
+          week_rise: '31.26%',
+          month_rise: '10.56%',
+          quarter_rise: '24.23%',
+          half_year_rise: '16.234%',
+          this_year_rise: '28.36%',
+          year_rise: '12.025%',
+          three_year_rise: '31.236%'
+        }, {
+          name: '万家新力',
+          number: '001321',
+          net_value: '12.6796',
+          week_rise: '10.26%',
+          month_rise: '32.56%',
+          quarter_rise: '14.73%',
+          half_year_rise: '46.234%',
+          this_year_rise: '18.36%',
+          year_rise: '41.025%',
+          three_year_rise: '21.236%'
+        }, {
+          name: '南方地产连结A',
+          number: '007895',
+          net_value: '23.556',
+          week_rise: '20.26%',
+          month_rise: '41.212%',
+          quarter_rise: '24.713%',
+          half_year_rise: '16.3234%',
+          this_year_rise: '28.346%',
+          year_rise: '15.025%',
+          three_year_rise: '19.236%'
+        }, {
+          name: '一方霞飞行业',
+          number: '004513',
+          net_value: '45.6796',
+          week_rise: '12.26%',
+          month_rise: '52.56%',
+          quarter_rise: '12.73%',
+          half_year_rise: '16.234%',
+          this_year_rise: '58.36%',
+          year_rise: '23.025%',
+          three_year_rise: '81.236%'
+        }]
+      },
+      // 拖拽
+      windowWidth: ui.WIN_WIDTH,
+      el: 0,
+      list: [{
+        name: '前端',
+        number: 378456,
+        id: 'id1',
+        height: 70,
+        canSwipe: false
+      }, {
+        name: '前端',
+        number: 378456,
+        id: 'id2',
+        height: 70,
+        canSwipe: false
+      }]
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    edit () {
+      ui.navigateTo({
+        url: '/pages/templeteDemo/dataReport/optional'
+      })
+    },
+    showFullScreenSearch () {
+      ui.getApp().globalData.searchShow = true
+      ui.setStatusBarStyle({ style: 'dark' })
+    },
+    gridData(){
+      ui.navigateTo({
+        url: '/pages/templeteDemo/dataReport/chart'
+      })
+    }
+  }
+}
+</script>
+
+<style lang="less">
+// fundOptional.less
+.nav_bar{
+  background: #fff;
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .title{
+    color: #3D3D3D;
+    font-size: 16px;
+  }
+  .edit{
+    font-size: 14px;
+    color: #3D3D3D;
+  }
+}
+.top_tip{
+  width: 100%;
+  background-color: #FEF6E5;
+  color: #FAAE42;
+  font-size: 14px;
+  z-index: 10;
+}
+.wrap{
+  // background-color: #fff;
+  margin-bottom: 10px;
+  &.wrap2{
+    // margin-top: 10px;
+  }
+}
+
+.exponent{
+  .ui-view{
+    color: #303030;
+    font-size: 16px;
+  }
+  .ui-text{
+    color: #2DB889;
+    font-size: 14px;
+    &:last-child.ui-text{
+      font-size: 12px;
+    }
+  }
+  .line{
+    height: 60px;
+    width: 1px;
+    background-color: #F9F9F9;
+  }
+}
+
+
+
+.row-header-wrapper {
+  .table-header-column,.table-header{
+    background-color:#fff;
+  }
+}
+
+.table-wrapper{
+  .table-header-column,.table-header{
+    background-color:#fff!important;
+  }
+}
+
+.ui-table .table-data-row-script:nth-of-type(odd){background-color:#fff !important;}
+.ui-table .table-data-row-script:nth-of-type(even){background-color: #fff !important}
+
+
+.edit_title{
+  .mix-1px(0, 0, 1, 0, #e4e4e4);
+}
+
+
+</style>

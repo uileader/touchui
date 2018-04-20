@@ -1,0 +1,36 @@
+<!--image.ui-->
+<template>
+  <ui-page>
+    <ui-divider>无效果（默认）</ui-divider>
+    <ui-image src="{{ img1 }}" width="200" height="150"></ui-image>
+    <ui-divider>fade效果</ui-divider>
+    <ui-image src="{{ img1 }}" width="200" height="150" load-effect="fade"></ui-image>
+    <ui-divider>blur效果</ui-divider>
+    <ui-image src="{{ img1 }}" width="200" height="150" load-effect="blur"></ui-image>
+  </ui-page>
+</template>
+
+<script>
+  // image.js
+export default {
+  config: {
+    "navigationBarTitleText": "图片加载效果"
+  },
+  data () {
+    return {
+      img1: require('#/images/cat.jpg')
+    }
+  },
+  methods: {
+    imgerror () {
+    },
+    imgload () {
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

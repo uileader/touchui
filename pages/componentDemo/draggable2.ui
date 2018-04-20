@@ -1,0 +1,369 @@
+<!--draggable2.ui-->
+<template>
+  <ui-page page-load="{{ pageLoad }}">
+      <ui-view ui:show="{{btnboxflag}}" class="btnbox">
+        <ui-row>
+          <ui-col width="60">
+            <ui-button full-width="{{false}}" plain="true" bindtap="draggabletoggle('cancel')">取消</ui-button>
+          </ui-col>
+          <ui-col>
+            <ui-text>我的应用编辑</ui-text>
+          </ui-col>
+          <ui-col width="60">
+            <ui-button full-width="{{false}}" plain="true" bindtap="draggabletoggle('save')">完成</ui-button>
+          </ui-col>
+        </ui-row>
+        <ui-row>
+        </ui-row>
+      </ui-view>
+      <ui-view class="draggable-title" bindtap="draggableopen()">
+        <ui-row height="32">
+          <ui-col width="60">
+            <ui-text>首页应用</ui-text>
+          </ui-col>
+          <ui-col vertical-align="middle">
+            <ui-view class="draggable-flex" ui:if="{{openflag}}">
+              <ui-view ui:for="{{list}}" ui:for-item="item" ui:for-index="index">
+                <ui-icon color="{{item.color}}" type="{{item.imgname}}" size="16"></ui-icon>
+              </ui-view>
+              
+            </ui-view>
+            <ui-view ui:else="{{openflag}}">
+              <span style="color:#888"> (按住拖动调整排序)</span>
+            </ui-view>
+          </ui-col>
+          <ui-col width="60" ui:if="{{openflag}}">
+              <ui-view style="width:50px;position:absolute;right:0;margin:0;line-height:2.3">
+                  <ui-button class="selfbtn" type="primary" full-width="{{false}}" plain="true">编辑</ui-button>
+              </ui-view>
+          </ui-col>
+        </ui-row>
+        
+      </ui-view>
+      <ui-view>
+
+      <ui-draggable-area ui:show="{{draggableDisplay}}" 
+      height="{{158}}"
+      col="{{4}}"
+      width="{{windowWidth}}"
+      children-height="{{windowWidth/(3*1.5)}}"
+      value="{{list}}"
+      >
+        <ui-draggable-view ui:for="{{list}}">
+          <ui-view class="draggable-box">
+            <ui-view class="draggable-warp">
+              <ui-icon color="{{item.color}}" type="{{item.imgname}}" size="22"></ui-icon>
+              <ui-text class="draggable-text ">{{item.name}}</ui-text>
+            </ui-view>
+            <ui-view class="draggable-delete" bindtap="deleteit(index)">
+              <ui-icon color="#e60012" type="iconfontjian" size="12"></ui-icon>
+            </ui-view>
+          </ui-view>
+        </ui-draggable-view>
+    </ui-draggable-area>
+  </ui-view>
+    <ui-text block style="padding-left:10px;">可选应用</ui-text>
+    <ui-view style="width:100%;background-color:white;margin-top:20px;display:table">
+        <ui-view
+          ui:for="{{list2}}">
+        <ui-view class="draggable-plus">
+            <ui-view class="draggable-warp2" style="{{{background:draggablewarp2color,height:windowWidth/(3*1.5)}}}">
+              <ui-icon color="{{item.color}}" type="{{item.imgname}}" size="22"></ui-icon>
+              <ui-text class="draggable-text ">{{item.name}}</ui-text>
+            </ui-view>
+            <ui-view ui:show="{{draggableaddflag}}" class="draggable-add" bindtap="addit(index)">
+              <ui-icon color="#39f" type="jia" size="12"></ui-icon>
+            </ui-view>
+        </ui-view>
+      </ui-view>
+    </ui-view>
+
+    <ui-view style="padding:5px 15px" ui:show="{{openflag}}">
+      <ui-button bindtap="navigateBack">返回首页</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+  export default {
+  config: {
+    "navigationBarTitleText": "编辑首屏应用",
+    "disableScroll":true,
+    "disableIosGesture":true
+  },
+  data () {
+    return {
+      windowWidth: ui.WIN_WIDTH,
+      openflag: true,
+      draggableheight: 0,
+      draggableDisplay: false,
+      draggablewarp2color: '#fff',
+      btnboxflag: false,
+      draggableaddflag: false,
+      newlist: null,
+      newlist2: null,
+      list: [{
+        imgname: 'gongxiangdanche',
+        name: '共享单车',
+        id: 'id1',
+        color: '#ec9a27'
+      }, {
+        imgname: 'didichuhang',
+        name: '滴滴出行',
+        id: 'id2',
+        color: '#ec9a27'
+      }, {
+        imgname: 'shoujichongzhi',
+        name: '手机充值',
+        id: 'id3',
+        color: '#318fdb'
+      },
+      {
+        imgname: 'huochepiaoicon01',
+        name: '机票火车票',
+        id: 'id4',
+        color: '#318fdb'
+      }, {
+        imgname: 'jizhang',
+        name: '记账本',
+        id: 'id5',
+        color: '#ec9a27'
+      }, {
+        imgname: 'shenghuojiaofei',
+        name: '水电费缴费',
+        id: 'id6',
+        color: '#318fdb'
+      }],
+      list2: [{
+        imgname: 'taopiaopiao',
+        name: '淘票票',
+        id: 'id7',
+        color: '#f15a4a'
+      }, {
+        imgname: 'yinxingqiaguanli',
+        name: '银行卡管理',
+        id: 'id8',
+        color: '#ec9a27'
+      }, {
+        imgname: 'yuebao',
+        name: '余额宝',
+        id: 'id9',
+        color: '#ec9a27'
+      }, {
+        imgname: 'zhimaxinyong',
+        name: '芝麻信用',
+        id: 'id10',
+        color: '#29ab91'
+      }, {
+        imgname: 'zhuanzhang',
+        name: '转账',
+        id: 'id11',
+        color: '#ec9a27'
+      }],
+      pageLoad: {
+        trigger: 'always',
+        handle: () => {
+          console.log('111')
+          this.init()
+        }
+      }
+    }
+  },
+
+  methods: {
+    init () {
+      let value = ui.getStorageSync('draggabledata')
+      let value2 = ui.getStorageSync('draggabledata2')
+
+      if (value !== null) {
+        this.list = JSON.parse(value)
+      } else {
+        return false
+      }
+
+      if (value2 !== null) {
+        this.list2 = JSON.parse(value2)
+      } else {
+        return false
+      }
+    },
+    that () {
+      var a = this.list.splice(0, 1)
+      this.list.push(a.join(''))
+    },
+    dragged (e) {
+    },
+    deleteit (index) {
+      let item = this.list.splice(index, 1)
+      this.list2.push(item[0])
+    },
+    addit (index) {
+      let tempCount
+      tempCount = this.list.length + 1
+      if (tempCount > 8) {
+        ui.showToast({ title: '最多只能选择8个应用' })
+        return false
+      } else {
+        let item = this.list2.splice(index, 1)
+        this.list.push(item[0])
+      }
+    },
+    draggableopen () {
+      this.newlist2 = this.list2
+      this.newlist2 = JSON.stringify(this.newlist2)
+      this.newlist = this.list
+      this.newlist = JSON.stringify(this.newlist)
+      this.draggablewarp2color = '#F0F0F0'
+      this.btnboxflag = true
+      this.draggableaddflag = true
+      this.draggableDisplay = true
+      if (this.openflag) {
+        this.draggableheight = ((this.list.length / 4) > 1 ? parseInt(this.list.length / 4) + 1 : 1) * 85
+        this.openflag = false
+      }
+    },
+    draggabletoggle (state) {
+      this.draggablewarp2color = '#fff'
+      this.btnboxflag = false
+      this.draggableaddflag = false
+      if (state === 'cancel') {
+        this.newlist2 = JSON.parse(this.newlist2)
+        this.list2 = this.newlist2
+        this.newlist = JSON.parse(this.newlist)
+        this.list = this.newlist
+        this.draggableheight = 0
+        this.openflag = true
+        this.draggableDisplay = false
+      }
+      if (!this.openflag) {
+        this.draggableheight = 0
+        this.draggableDisplay = false
+        this.openflag = true
+
+        ui.setStorageSync('draggabledata', JSON.stringify(this.list))
+        ui.setStorageSync('draggabledata2', JSON.stringify(this.list2))
+      }
+    },
+    navigateBack () {
+      ui.navigateBack()
+    }
+
+  },
+  mounted () {
+    console.log('222')
+  }
+}
+
+</script>
+
+<style lang="less">
+  .btnbox{
+  height:50px;
+  line-height: 50px;
+  border-bottom:1px solid #ececec;
+  .ui-text{
+    font-size:16px;
+    text-align: center;
+  }
+  .ui-button{
+    border:none;
+    color:#1296db;
+    padding:0;
+    
+  }
+}
+
+.ui-draggable-view-dragging {
+  background-color: transparent;
+}
+.draggable-flex{
+  display: flex;
+  overflow:hidden;
+  .ui-view{
+    width:20px;
+    margin:0 5px;
+  } 
+  .ui-image{
+    width:100%;
+  }
+}
+.draggable-title {
+    display: flex;
+    padding-left: 10px;
+    height: 32px;
+    line-height: 32px;
+    background-color:white;
+    margin-top:5px;
+  }
+  
+.selfbtn{
+  font-size:12px;
+  margin:0;
+  padding:2px 5px;
+  line-height: 1.3
+}
+
+.ui-draggable-view{
+  padding:3px;
+}
+
+.ui-draggable-view{
+  text-align:center;
+}
+.draggable-box{
+  margin:0 3px;
+  text-align:center;  
+  .ui-icon{
+    display: block;
+  }
+}
+  .draggable-warp{
+    background-color:#eee;
+    padding:5px 0;
+    
+  }
+
+  .draggable-text {
+    font-size: 12px;
+  }
+
+  .draggable-plus {
+    width:25%;
+    float:left;
+    background-color:white;
+    padding:3px;
+    text-align:center;
+    position: relative;
+    .ui-icon{
+      display: block;
+    }
+  }
+  .draggable-warp2 {
+    padding:5px 0;
+  }
+  .draggable-delete {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 5px;
+    top: 5px;
+  }
+  .draggable-add {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 5px;
+    top: 5px;
+}
+  .list-group-item {
+    background-color: white;
+    height:32px;
+    width: 100%;
+  }
+  
+  .flip-list-move {
+    transition: transform 0.5s;
+  }
+
+</style>

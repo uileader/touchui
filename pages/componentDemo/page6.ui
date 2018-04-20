@@ -1,0 +1,45 @@
+<template>
+    <ui-page
+    scroll-top="{{ scrollPosition }}"
+    bindscrollend="handleScrollEnd">
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
+      </ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+  export default {
+    config: {
+     navigationBarTitleText: "滚动后记住位置"
+    },
+    data () {
+      return {
+        items: [],
+        bottom: 30,
+        scrollPosition: 0,
+        key: 'scrollEnd'
+      }
+    },
+    mounted () {
+      var value = ui.getStorageSync(this.key)
+      this.scrollPosition = value || 0
+
+      for (let i = 1; i <= this.bottom; i++) {
+        this.items.push(`列表项目${i}`)
+      }
+    },
+    methods: {
+      handleScrollEnd (scrollTop) {
+        ui.setStorageSync(this.key, scrollTop)
+      }
+    }
+  }
+
+</script>
+
+<style lang="less">
+
+</style>

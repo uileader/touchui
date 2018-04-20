@@ -1,0 +1,395 @@
+<!--userCenter.ui-->
+<template>
+  <ui-view>
+    <ui-view class="bg_blue"></ui-view> 
+    <ui-page 
+    pull-down="{{ pullDown }}"
+    >
+    
+      <ui-view slot="pull-down"></ui-view>
+      <ui-nav-bar slot="nav-bar"  class="nav_bar">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="center" width="50">
+            <ui-icon type="ring" size="24" color="#fff"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <ui-view class="nav_title">我的</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="50">
+            <ui-icon type="setting" size="24" color="#fff"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+      <ui-view class="user_content">
+        <ui-row height="90" class="header_top">
+          <ui-col vertical-align="middle" align="center" width="90">
+            <ui-view class="head_portrait">
+              <!-- <ui-icon type="user_portrait" color="#D0EDFF" size="50"></ui-icon> -->
+            </ui-view>
+            <ui-image
+            src="{{ portraitUrl }}"
+            mode='aspectFill'
+            width="60"
+            height="60"
+            class="head_portrait"
+            ></ui-image>
+          </ui-col>
+          <ui-col vertical-align="middle" align="left">
+            <ui-view class="login">立即登录</ui-view>
+            <ui-view class="login_after">登录后可享受更多特权</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="right" width="50" space-right="15">
+            <ui-icon type="arrow-right" size="18" color="#fff"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="90" class="money_wrap" space-bottom="10">
+          <ui-col vertical-align="middle" align="center">
+            
+            <ui-icon type="user_money01" color="#1981FF" size="30"></ui-icon>
+            <ui-view>钱包</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+           
+            <ui-icon type="user_money02" color="#F53808" size="30"></ui-icon>
+            <ui-view>优惠</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            
+            <ui-icon type="user_money03" color="#FAAA08" size="30"></ui-icon>
+            <ui-view>金币</ui-view>
+          </ui-col>
+        </ui-row>
+
+        <ui-row height="50" class="user_content_list2">
+          <ui-col width="50" vertical-align="middle" align="center">
+            <ui-icon type="map" color="#388EEC" size="28"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle">
+            收货地址
+          </ui-col>
+          <ui-col vertical-align="middle" align="right" width="50" space-right="15">
+            <ui-icon type="arrow-right" size="18" color="#BAB9BF"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50" class="user_content_list" space-bottom="10">
+          <ui-col width="50" vertical-align="middle" align="center">
+            <ui-icon type="praiseafter" color="#F66542" size="24"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle">
+            我的收藏
+          </ui-col>
+          <ui-col vertical-align="middle" align="right" width="50" space-right="15">
+            <ui-icon type="arrow-right" size="16" color="#BAB9BF"></ui-icon>
+          </ui-col>
+        </ui-row>
+
+        <ui-row height="50" class="user_content_list" space-bottom="10">
+          <ui-col width="50" vertical-align="middle" align="center">
+            <ui-icon type="user_market" color="#84D43A" size="24"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle">
+            软件商城
+          </ui-col>
+          <ui-col vertical-align="middle" align="right" width="50" space-right="15">
+            <ui-icon type="arrow-right" size="16" color="#BAB9BF"></ui-icon>
+          </ui-col>
+        </ui-row>
+
+        <ui-row height="50" class="user_content_list2">
+          <ui-col width="50" vertical-align="middle" align="center">
+            <ui-icon type="service" color="#3F93EB" size="24"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle">
+            我的客服
+          </ui-col>
+          <ui-col vertical-align="middle" align="right" width="50" space-right="15">
+            <ui-icon type="arrow-right" size="18" color="#BAB9BF"></ui-icon>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50" class="user_content_list2">
+          <ui-col width="50" vertical-align="middle" align="center">
+            <ui-icon type="user_grade" color="#3F93EB" size="24"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle">
+            欢迎评分
+          </ui-col>
+          <ui-col vertical-align="middle" align="right" width="50" space-right="15">
+            <ui-icon type="arrow-right" size="16" color="#BAB9BF"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </ui-view>
+      <ui-fixed-view bindtap="navigateBack" class="back">返回上页</ui-fixed-view>
+      <ui-mask ui:model="showMask" class="mask" background="rgba(0, 0, 0, 0)" >
+        <ui-canvas
+            style="position:absolute"
+            canvas-id="myCanvas"
+            width="{{winWidth}}"
+            height="{{winHeight}}"
+          ></ui-canvas>
+        <ui-view>
+          
+          <ui-view >
+            <ui-view class="finger-swiper" style="{{{ top : statusHeight+'px' }}}">
+              <ui-view class="up" >点击更多展开常用小工具</ui-view>
+              <ui-view class="content"></ui-view>
+              <ui-text class="down">点击可以查看省钱明细啦</ui-text>
+              <ui-view class="up-image"></ui-view>
+              <ui-view class="down-image"></ui-view>
+              <ui-view class="btn_know">
+                <ui-button class="know" full-width="{{false}}" bindtap="handleShowMask(false)">我知道了</ui-button>
+              </ui-view>
+            </ui-view>
+          </ui-view>
+        </ui-view>
+      </ui-mask>
+    </ui-page>
+  <ui-view>
+</template>
+
+
+<script>
+// userCenter.js
+
+export default {
+  config: {
+    "navigationStyle": "custom",
+    "backgroundColor":"#F2F2F2",
+    navigationBarTextStyle: 'white'
+  },
+  data () {
+    return {
+      portraitUrl: require('#/images/portrait_bg.png'),
+      showMask: false,
+      pullDown: {
+        distance: 200,
+        onBegin: () => { },
+        onActive: () => { },
+        onAfter: () => { }
+      },
+      winWidth: ui.WIN_WIDTH,
+      winHeight: ui.WIN_HEIGHT,
+      statusHeight:ui.STATUS_BAR_HEIGHT
+    }
+  },
+  methods: {
+    navigateBack () {
+      ui.navigateBack()
+    },
+    handleShowMask () {
+      this.showMask = false
+    }
+  },
+  mounted () {
+    this.showMask = true
+    setTimeout(() => {
+    this.ctx = document.getElementById('myCanvas').getContext('2d')
+    this.ctx.fillStyle="rgba(0,0,0,0.7)"
+    this.ctx.fillRect(0,0,ui.WIN_WIDTH * 2, ui.WIN_HEIGHT * 2)  
+    this.ctx.arc(313 * 2  / 375 * this.winWidth, 184 * 2+this.statusHeight*2, 40 * 2, 0 ,2 * Math.PI)
+    this.ctx.stroke()
+    this.ctx.save()
+    this.ctx.clip()
+    this.ctx.clearRect(0,0,ui.WIN_WIDTH * 2, ui.WIN_HEIGHT * 2)
+    this.ctx.restore()
+    this.ctx.rect(7 * 2 / 375 * this.winWidth, 285 * 2+this.statusHeight*2, 361 * 2 / 375 * this.winWidth, 50 * 2);
+    this.ctx.stroke()
+    this.ctx.clip()
+    this.ctx.clearRect(0,0,ui.WIN_WIDTH * 2, ui.WIN_HEIGHT * 2)
+    }, 500)
+  }
+}
+
+</script>
+
+<style lang="less">
+  // userCenter.less
+.nav_bar {
+    background: linear-gradient(to right, #1F97FE, #126DFE);
+    .nav_title {
+        color: #fff;
+    }
+}
+
+.ui-navigator {
+    width: 100%;
+    height: 100%;
+}
+
+.bg_blue {
+    position: absolute;
+    width: 100%;
+    height: 240px;
+    background: linear-gradient(to right, #1F97FE, #126DFE);
+}
+
+.user_content {
+    background: #F2F2F2;
+}
+
+.header_top {
+    background: linear-gradient(to right, #1F97FE, #126DFE);
+    .head_portrait {
+        //width: 60px;
+        //height: 60px;
+        // background-color: #83C5FF;
+        //background: url('~images/portrait_bg.png') no-repeat center center;
+        //background-size: 100%;
+        border-radius: 50%; //line-height: 85px;
+        //overflow: hidden;
+        //text-align: center;
+    }
+    .login {
+        color: #fff;
+        font-size: 18px;
+    }
+    .login_after {
+        color: #fff;
+        font-size: 12px;
+    }
+}
+
+.money_wrap {
+    background-color: #fff;
+    .ui-view {
+        font-size: 14px;
+        color: #4F4F4F;
+    }
+    .money_list01 {
+        color: #2987FE;
+        font-size: 12px;
+        height: 48px;
+        line-height: 48px;
+         :first-child {
+            font-size: 24px;
+        }
+    }
+    .money_list02 {
+        color: #F5402A;
+    }
+    .money_list03 {
+        color: #F88E09;
+    }
+}
+
+.user_content_list {
+    background-color: #fff;
+}
+
+.user_content_list2 {
+    background-color: #fff;
+    .mix-1px(0, 0, 1, 0, #ccc);
+}
+
+.back {
+    bottom: 20px;
+    right: 20px;
+    width: 46px;
+    padding: 7px;
+    height: 46px;
+    line-height: 16px;
+    border: 1px solid #1f8ffe;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: #1f8ffe;
+    z-index: 99;
+    &:active {
+        opacity: 0.8;
+    }
+}
+
+
+.nav_bg{
+    background: linear-gradient(to right, #FD5860, #F64B51); 
+    color: #fff;
+  }
+  .top_back{
+    background: linear-gradient(to right, #FD5860, #F64B51); 
+  }
+  .sample_content{
+    background: url('http://images.uileader.com/20180315/bdfb4c6a-d4f6-4b9f-8b83-07a6d74fe503.png') no-repeat;
+    background-size: 100%;
+   
+  }
+
+.mask{
+    .finger-swiper{
+      color: #fff;
+      text-align: center;
+      width: 100%;
+     
+      position: relative;
+    }
+
+    .content{
+      height: 680rpx;
+      background-size: 100%; 
+    }
+
+    .btn_know{
+      padding: 100rpx 0;
+      .know{
+        position:absolute;
+        width: 350rpx;
+        left: 200rpx;
+        top: 950rpx;
+        color: #fff;
+        border: 1px solid #fff;
+        margin: 0 auto;
+        background-color: transparent;
+      }
+    }
+   
+  }
+
+  .up-image {
+    position:absolute;
+    width: 100rpx;
+    height: 100rpx;
+    left: 480rpx;
+    top: 200rpx;
+    background: url('~images/pop-up.png') no-repeat;
+  }
+  .down-image {
+    width: 100rpx;
+    height: 100rpx;
+    position:absolute;
+    left: 200rpx;
+    top: 700rpx;
+    background: url('~images/pop-down.png') no-repeat;
+  }
+
+.up {
+    position:absolute;
+    width: 160px;
+    left: 200rpx;
+    top:120rpx;
+}
+
+.down {
+    position:absolute;
+    width: 160px;
+    left: 200rpx;
+    top: 850rpx;
+
+}
+
+@media screen and (max-width: 350px){
+    .down-image {
+        top: 800rpx;
+    }
+    .down {
+        top: 920rpx;
+    }
+    .know{
+        top: 1000rpx!important;
+    }
+}
+
+
+.ui-canvas{
+    top:0;
+}
+</style>

@@ -1,0 +1,243 @@
+<!--rowList.ui-->
+<template>
+  <ui-page>
+      <ui-divider>带边框、四等分</ui-divider>
+      <ui-row border-top border-bottom height="40" space-bottom="20">
+        <ui-col border-right align="center"  hover-stop-propagation vertical-align="middle">25%</ui-col>
+        <ui-col border-right align="center"  vertical-align="middle">25%</ui-col>
+        <ui-col border-right align="center" vertical-align="middle">25%</ui-col>
+        <ui-col align="center" vertical-align="middle">25%</ui-col>
+      </ui-row>
+
+      <ui-divider>圆角无边框、四等分、有间隙</ui-divider>
+      <ui-row space-bottom="20">
+        <ui-col>
+          <ui-view class="column-content"></ui-view>
+        </ui-col>
+        <ui-col space="20">
+          <ui-view class="column-content"></ui-view>
+        </ui-col>
+        <ui-col space-right="10">
+          <ui-view class="column-content"></ui-view>
+        </ui-col>
+        <ui-col>
+          <ui-view class="column-content"></ui-view>
+        </ui-col>
+      </ui-row>
+
+      <ui-divider>带边框、二等分</ui-divider>
+      <ui-row border-bottom  border-top height="40">
+        <ui-col border-right vertical-align="middle" align="center">
+          6
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          6
+        </ui-col>
+      </ui-row>
+      <ui-row border-bottom height="40" space-bottom="20">
+        <ui-col border-right vertical-align="middle" align="center">
+          6
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          6
+        </ui-col>
+      </ui-row>
+
+      <ui-divider>不带边框、二等分</ui-divider>
+      <ui-row space-bottom="10">
+        <ui-col space-left="10" space-right="5">
+          <ui-view class="column-content"></ui-view>
+        </ui-col>
+        <ui-col space-left="5" space-right="10">
+          <ui-view class="column-content"></ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row space-bottom="20">
+        <ui-col space-left="10" space-right="5">
+          <ui-view class="column-content"></ui-view>
+        </ui-col>
+        <ui-col space-left="5" space-right="10">
+          <ui-view class="column-content"></ui-view>
+        </ui-col>
+      </ui-row>
+
+      <ui-divider>带边框的复杂布局</ui-divider>
+      <ui-row height="80" border-top border-bottom space-bottom="20">
+        <ui-col span="4" border-right vertical-align="middle" align="center">
+            1
+        </ui-col>
+        <ui-col span="8">
+          <ui-row border-bottom height="20">
+            <ui-col border-right vertical-align="middle" align="center">
+                2
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+                3
+            </ui-col>
+          </ui-row>
+          <ui-row height="60">
+            <ui-col border-right vertical-align="middle" align="center">
+              4
+            </ui-col>
+            <ui-col vertical-align="middle" align="center">
+              5
+            </ui-col>
+          </ui-row>
+        </ui-col>
+      </ui-row>
+
+      <ui-row border-top border-bottom height="40">
+        <ui-col vertical-align="middle" align="center" border-right>
+          1
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          2
+        </ui-col>
+      </ui-row>
+      <ui-row border-bottom height="40" space-bottom="20">
+        <ui-col vertical-align="middle" align="center" border-right>
+          3
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" border-right>
+          4
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" border-right>
+          5
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          6
+        </ui-col>
+      </ui-row>
+
+      <ui-divider>左侧区域固定，右侧两个按4:8分配</ui-divider>
+      <ui-row height="40" border-top border-bottom space-bottom="20">
+          <ui-col width="60" border-right vertical-align="middle" align="center">
+            1
+          </ui-col>
+          <ui-col>
+            <ui-row>
+              <ui-col span="4" border-right vertical-align="middle" align="center">
+                2
+              </ui-col>
+              <ui-col span="8" vertical-align="middle" align="center">
+                 3
+              </ui-col>
+            </ui-row>
+          </ui-col>
+        </ui-row>
+
+     
+
+      
+      <ui-divider>不带边框的复杂布局</ui-divider>
+      <ui-row space-bottom="20">
+        <ui-col span="4" space-right="5">
+          <ui-view class="column-content" style="height:85px"></ui-view>
+        </ui-col>
+        <ui-col span="8">
+          <ui-row>
+            <ui-col space-right="5">
+              <ui-view class="column-content"></ui-view>
+            </ui-col>
+            <ui-col >
+              <ui-view class="column-content"></ui-view>
+            </ui-col>
+          </ui-row>
+          <ui-row space-top="5">
+            <ui-col space-right="5">
+              <ui-view class="column-content"></ui-view>
+            </ui-col>
+            <ui-col>
+              <ui-view class="column-content"></ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-col>
+      </ui-row>
+
+      <ui-row space-bottom="20">
+          <ui-col span="4" space-right="5">
+            <ui-view class="column-content" style="height:85px"></ui-view>
+          </ui-col>
+          <ui-col span="8">
+            <ui-row>
+              <ui-col>
+                <ui-view class="column-content"></ui-view>
+              </ui-col>
+            </ui-row>
+            <ui-row space-top="5">
+              <ui-col space-right="5">
+                <ui-view class="column-content"></ui-view>
+              </ui-col>
+              <ui-col>
+                <ui-view class="column-content"></ui-view>
+              </ui-col>
+            </ui-row>
+          </ui-col>
+        </ui-row>
+     
+
+        <ui-row>
+            <ui-col span="4" space-right="5">
+              <ui-view class="column-content" style="height:95px"></ui-view>
+            </ui-col>
+            <ui-col span="8">
+              <ui-row>
+                <ui-col span="6" space-right="5">
+                  <ui-view class="column-content" style="height:45px"></ui-view>
+                </ui-col>
+                <ui-col span="6">
+                  <ui-view class="column-content" style="height:45px"></ui-view>
+                </ui-col>
+              </ui-row>
+              <ui-row space-top="5">
+                <ui-col span="6" space-right="5">
+                  <ui-view class="column-content" style="height:45px"></ui-view>
+                </ui-col>
+                <ui-col span="6">
+                  <ui-row space-bottom="5">
+                    <ui-col class="h25" space-right="5">
+                      <ui-view class="column-content" style="height:20px"></ui-view>
+                    </ui-col>
+                    <ui-col class="h25">
+                      <ui-view class="column-content" style="height:20px"></ui-view>
+                    </ui-col>
+                  </ui-row>
+                  <ui-row>
+                    <ui-col class="h25" space-right="5">
+                      <ui-view class="column-content" style="height:20px"></ui-view>
+                    </ui-col>
+                    <ui-col class="h25">
+                      <ui-view class="column-content" style="height:20px"></ui-view>
+                    </ui-col>
+                  </ui-row>
+                </ui-col>
+              </ui-row>
+            </ui-col>
+          </ui-row>
+
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: "栅格布局综合"
+  },
+  data () {
+    return {}
+  },
+  methods: {}
+}
+
+</script>
+
+<style lang="less">
+  .column-content {
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    background-color: #eee;
+    border-radius: 5px;
+  }
+</style>

@@ -1,0 +1,96 @@
+<template>
+  <ui-page>
+    <ui-draggable-area
+    height="{{300}}"
+    col="{{1}}"
+    width="{{windowWidth}}"
+    children-height="{{50}}"
+    binddragend="dragend"
+    binddragstart="dragstart"
+    value="{{list}}"
+    direction="vertical"
+    longtap-style="none"
+    >
+      <ui-draggable-view ui:for="{{list}}">
+        <ui-row-list>
+          <ui-row height="50" border-bottom>
+            <ui-col vertical-align="middle" width="50" space-left="10">
+              <ui-icon type="list" size="24" color="#ccc"></ui-icon>
+            </ui-col>
+            <ui-col vertical-align="middle">{{item.name}}</ui-col>
+            <ui-col vertical-align="middle" width="80">
+                <ui-switch animate="{{animate}}" color="#4bd466" ui:model="{{ item.switch }}"></ui-switch>
+            </ui-col>
+          </ui-row>
+        </ui-row-list>
+      </ui-draggable-view>
+    </ui-draggable-area>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "列表纵向拖动",
+    "disableScroll":true
+  },
+  data: () => ({
+    windowWidth: ui.WIN_WIDTH,
+    animate: true,
+    list: [{
+      name: '前端',
+      id: 'id1',
+      switch: true
+    }, {
+      name: '人工智能',
+      id: 'id2',
+      switch: false
+    }, {
+      name: '后端',
+      id: 'id3',
+      switch: true
+    }, {
+      name: '产品',
+      id: 'id4',
+      switch: false
+    }, {
+      name: 'Android',
+      id: 'id5',
+      switch: true
+    }, {
+      name: '设计',
+      id: 'id6',
+      switch: false
+    }]
+  }),
+  mounted () {
+  },
+  methods: {
+    dragstart () {
+      this.animate = false
+    },
+    dragend () {
+      this.animate = true
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  .ui-draggable-view{
+  border:0
+}
+
+.ui-draggable-view-dragging {
+  background-color: #fff;
+  box-shadow:0px 1px 10px 1px #ccc;
+}
+
+.ui-draggable-view-dragging .ui-row{
+  border:0;
+}
+.ui-draggable-view-dragging .ui-row:after{
+  border:0;
+}
+</style>

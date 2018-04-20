@@ -1,0 +1,148 @@
+<!--dataList.ui-->
+<template>
+    <ui-page>
+      <ui-view class="sample_list">
+        <ui-view class="group-title">
+          <ui-row >
+            <ui-col width="5" align="center" vertical-align="middle">
+              <ui-view class="sign"></ui-view>
+            </ui-col>
+            <ui-col align="left" vertical-align="middle" space-left="10">
+              <ui-view >内置浏览器</ui-view>
+            </ui-col>
+          </ui-row>
+        </ui-view>
+        <ui-row-list bordered>
+          <ui-row url="{{ link }}" hover-class="touchui-hover">
+            <ui-col>使用内置浏览器打开网址</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row url="{{ link2 }}" hover-class="touchui-hover">
+            <ui-col>使用外置浏览器打开网址</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row bindtap="openUrl" hover-class="touchui-hover">
+            <ui-col>浏览器与APP交互</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+          <ui-row bindtap="switchPage" hover-class="touchui-hover">
+            <ui-col>浏览器页面与APP页面切换</ui-col>
+            <ui-col align="right" width="30">
+                <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+            </ui-col>
+          </ui-row>
+        </ui-row-list>
+      </ui-view>
+    </ui-page>
+  </template>
+  
+
+<script>
+// dataList.js
+let browserManager
+let touchuiBridge
+let timestamp = Date.parse(new Date())
+export default {
+  config: {
+    "navigationBarTitleText": "内置浏览器"
+  },
+  data () {
+    return {
+      link: '/pages/apiDemo/browserUrl',
+      link2: '/pages/apiDemo/browserUrl2',
+      url: 'http://www.uileader.com/bridgeDemo/index.html?time='+ timestamp,
+      url2: 'http://www.uileader.com/bridgeDemo/index2.html?time='+ timestamp,
+      collect_press: require('#/images/browser/topbar_white_collect_press.png'),
+      collect: require('#/images/browser/topbar_white_collect.png'),
+      share: require('#/images/browser/topbar_white_share.png'),
+      isCollect: false
+    }
+  },
+  methods: {
+    openUrl () {
+      var that = this
+      browserManager = ui.openBrowser({
+        url: this.url,
+        backgroundColor: '#39f',
+        color: '#fff',
+        success: function () {
+          // 监听页面加载完毕事件
+          // browserManager.onLoad(function() {
+          // })
+
+          that.setBtns(that.collect, that.share)
+          browserManager.onBtnClick(function (id) {
+            if (id === 'share') {
+              browserManager.sentMessage({name: 'share', value: 'http://www.uileader.com'})
+            } else if (id === 'collect') {
+              if (that.isCollect) {
+                that.setBtns(that.collect, that.share)
+                that.isCollect = false
+              } else {
+                that.setBtns(that.collect_press, that.share)
+                that.isCollect = true
+              }
+            }
+          })
+
+          browserManager.onMessage(function (message) {
+            if (message.name === 'share') {
+              var val = message.value
+              ui.share({
+                target: val.target,
+                type: val.type,
+                icon: val.icon,
+                title: val.title,
+                content: val.content,
+                href: val.href
+              })
+            }
+          })
+        }
+      })
+    },
+    setBtns (collect, share) {
+      browserManager.setBtns([
+        {
+          id: 'share',
+          icon: share
+        },
+        {
+          id: 'collect',
+          icon: collect
+        }
+      ])
+    },
+    switchPage () {
+      touchuiBridge = ui.openBrowser({
+        url: this.url2,
+        backgroundColor: '#fff',
+        color: '#000',
+        success: function () {
+          touchuiBridge.onMessage(function (message) {
+            if (message.name === 'link') {
+              var url = message.value
+              ui.navigateTo({
+                url: url
+              })
+            }
+          })
+        }
+      })
+    }
+  },
+  mounted () {
+
+  }
+}
+</script>
+
+<style lang="less">
+  
+</style>

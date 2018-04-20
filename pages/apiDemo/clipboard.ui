@@ -1,0 +1,67 @@
+<!--shearPlate.ui-->
+<template>
+  <ui-page>
+      <ui-view class="content">
+        <ui-row height="40">
+          <ui-col width="100" vertical-align="middle">
+            这是一段文字：
+          </ui-col>
+          <ui-col>
+              <ui-input value="{{exampleText}}" bindinput="handleInputChange"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-button type="primary" bindtap="set">复制到剪贴板</ui-button>
+        <ui-row height="40">
+          <ui-col width="100" vertical-align="middle">
+            获取到的文字：
+          </ui-col>
+          <ui-col>
+              <ui-input ui:model="clipboardText"></ui-input>
+          </ui-col>
+        </ui-row>
+        <ui-button type="primary" bindtap="get">从剪贴板获取</ui-button>
+      </ui-view>
+  </ui-page>
+</template>
+
+<script>
+// shearPlate.js
+export default {
+  config: {
+    "navigationBarTitleText": "剪切板"
+  },
+  data () {
+    return {
+      exampleText: 'TOUCH UI 是一套非常好用的框架☺',
+      clipboardText: ''
+    }
+  },
+  methods: {
+    handleInputChange (val) {
+      this.exampleText = val
+    },
+    get () {
+      var self = this
+      ui.getClipboardData({
+        success: function (res) {
+          self.clipboardText = res.data
+        }
+      })
+    },
+    set () {
+      ui.setClipboardData({
+        data: this.exampleText
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // shearPlate.less
+.content{
+  padding: 10px;
+}
+</style>
+

@@ -1,0 +1,47 @@
+<!--screenShot.ui-->
+<template>
+  <ui-page>
+    <ui-view class="shot-tip">
+      <ui-view>当前已监听用户截屏事件</ui-view>
+      <ui-view>截屏后会出现提示</ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+  
+
+<script>
+// screenShot.js
+export default {
+  config: {
+    "navigationBarTitleText": "截屏事件"
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    listen () {
+      ui.onUserCaptureScreen(function (res) {
+        // ui.vibrateLong()
+        ui.showToast({
+          title: '已成功截屏'
+        })
+      })
+    }
+  },
+  mounted () {
+    this.listen()
+  }
+}
+
+</script>
+
+<style lang="less">
+  // screenShot.less
+.shot-tip {
+  padding: 20px;
+  margin-top: 40px;
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+}
+</style>

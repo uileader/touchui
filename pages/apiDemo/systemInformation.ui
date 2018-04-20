@@ -1,0 +1,142 @@
+<!--systemInformation.ui-->
+<template>
+    <ui-page>
+        <ui-view class="content">
+            <ui-row-list>
+            <ui-row height="40" space-bottom="10">
+                <ui-col width="130"  vertical-align="middle" align="right">
+                    手机型号：
+                </ui-col>
+                <ui-col vertical-align="middle">
+                    <ui-view>{{systemInfo.model}}</ui-view>
+                </ui-col>
+            </ui-row>
+            <ui-row height="40" space-bottom="10">
+                <ui-col width="130"  vertical-align="middle" align="right">
+                    操作系统版本：
+                </ui-col>
+                <ui-col vertical-align="middle">
+                    <ui-view>{{systemInfo.system}}</ui-view>
+                </ui-col>
+            </ui-row>
+            <ui-row height="40" space-bottom="10">
+                <ui-col width="130"  vertical-align="middle" align="right">
+                    客户端平台：
+                </ui-col>
+                <ui-col vertical-align="middle">
+                    <ui-view>{{systemInfo.platform}}</ui-view>
+                </ui-col>
+            </ui-row>
+            <ui-row height="40" space-bottom="10">
+                <ui-col width="130"  vertical-align="middle" align="right">
+                    APP语言：
+                </ui-col>
+                <ui-col vertical-align="middle">
+                    <ui-view>{{systemInfo.language}}</ui-view>
+                </ui-col>
+            </ui-row>
+            <ui-row height="40" space-bottom="10">
+                <ui-col width="130"  vertical-align="middle" align="right">
+                    APP版本：
+                </ui-col>
+                <ui-col vertical-align="middle">
+                    <ui-view>{{systemInfo.version}}</ui-view>
+                </ui-col>
+            </ui-row>
+            <ui-row height="40" space-bottom="10">
+                <ui-col width="130"  vertical-align="middle" align="right">
+                    客户端基础库版本：
+                </ui-col>
+                <ui-col vertical-align="middle">
+                    <ui-view>{{systemInfo.SDKVersion}}</ui-view>
+                </ui-col>
+            </ui-row>
+            <!-- <ui-row height="40" space-bottom="10">
+                <ui-col width="130"  vertical-align="middle" align="right">
+                    用户字体大小
+                </ui-col>
+                <ui-col>
+                    <ui-input class="input" type="string" name="input" value="{{systemInfo.fontSizeSetting}}"></ui-input>
+                </ui-col>
+            </ui-row> -->
+
+            <ui-row height="40" space-bottom="10">
+                <ui-col width="130"  vertical-align="middle" align="right">
+                    屏幕宽度：
+                </ui-col>
+                <ui-col vertical-align="middle">
+                    <ui-view>{{systemInfo.screenWidth}}</ui-view>
+                </ui-col>
+            </ui-row>
+            <ui-row height="40" space-bottom="10">
+                <ui-col width="130"  vertical-align="middle" align="right">
+                    屏幕高度：
+                </ui-col>
+                <ui-col vertical-align="middle">
+                    <ui-view>{{systemInfo.screenHeight}}</ui-view>
+                </ui-col>
+            </ui-row>
+            <ui-row height="40" space-bottom="10">
+                <ui-col width="130"  vertical-align="middle" align="right">
+                    可使用窗口宽度：
+                </ui-col>
+                <ui-col vertical-align="middle">
+                    <ui-view>{{systemInfo.windowWidth}}</ui-view>
+                </ui-col>
+            </ui-row>
+            <ui-row height="40" space-bottom="10">
+                <ui-col width="130"  vertical-align="middle" align="right">
+                    可使用窗口高度：
+                </ui-col>
+                <ui-col vertical-align="middle">
+                    <ui-view>{{systemInfo.windowHeight}}</ui-view>
+                </ui-col>
+            </ui-row>
+            
+            <ui-row height="40" space-bottom="10">
+                <ui-col width="130"  vertical-align="middle" align="right">
+                    DPI：
+                </ui-col>
+                <ui-col vertical-align="middle">
+                    <ui-view>{{systemInfo.pixelRatio}}</ui-view>
+                </ui-col>
+            </ui-row>
+            </ui-row-list>
+            <ui-button type="primary" bindtap="getSystemInfo">获取手机系统信息</ui-button>
+        </ui-view>
+    </ui-page>
+  </template>
+  
+  
+<script>
+    // systemInformation.js
+export default {
+  config: {
+    "navigationBarTitleText": "系统信息"
+  },
+  data () {
+    return {
+      systemInfo: {}
+    }
+  },
+  methods: {
+    getSystemInfo () {
+      var that = this
+      ui.getSystemInfo({
+        success: function (res) {
+          that.systemInfo = res
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+// systemInformation.less
+.content{
+  padding: 10px;
+}
+
+</style>
