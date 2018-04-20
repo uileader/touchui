@@ -18,5 +18,5 @@ TouchUI还提供了开发工具方便开发（微软的VSCode编辑器+插件）
 
 ##### 实际效果截图:
 
-  <img src="http://www.touchui.io/img/banner2.png" />
+  <img style="width:600px;height:597px" src="http://www.touchui.io/img/banner2.png" />
 
