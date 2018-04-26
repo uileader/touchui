@@ -8,9 +8,9 @@ TouchUI还提供了开发工具方便开发（微软的VSCode编辑器+插件）
 
 扫码访问
 
- <img src="http://images.uileader.com/20180201/ed2ac937-dddd-4dfe-9ae0-6060a44cad41.png" />
+ <img src="http://images.uileader.com/20180425/0fa2b2f8-f1b5-403e-946b-8f229d70b182.png" />
 
-或<a href="http://www.uileader.com/touchui_webapp/index.html">点击这里</a>用浏览器查看
+或<a href="http://www.touchui.io/touchui_webapp/">点击这里</a>用浏览器查看
 
 在PC端打开时请开启chrome的手机浏览模式。
 
