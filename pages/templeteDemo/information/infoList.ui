@@ -32,7 +32,7 @@
       </ui-nav-bar>
       
 
-        <ui-list-view ui:if="{{config}}" config="{{ config }}"
+        <ui-list-view ui:if="{{config}}" config="{{ config }}" min-request-time="300" 
       enable-reach-bottom-load>
         <template scope="props">
             <ui-list-view-item tap-effect bindtap="details">
@@ -169,7 +169,6 @@
               </ui-list-view-item>
         </template>
     </ui-list-view>
-      
   </ui-page>
   </ui-view>
 </template>
@@ -211,10 +210,12 @@ export default {
         reload: false,
         refresh: false
       },
-      tabIndex:0
+      tabIndex:0,
+      status:null
     }
   },
   methods:{
+
     details(){
       ui.navigateTo({
         url: '/pages/templeteDemo/information/details'
@@ -293,6 +294,7 @@ export default {
       }else if(e === 9){
         this.tabIndex = 9
         this.config1.url=`/touchui-backstage/listNews.do?suffix=-前沿科技文章列表`
+        this.config.clear = true
         this.config.refresh = true
       }else if(e === 10){
         this.tabIndex = 10
@@ -301,7 +303,6 @@ export default {
         this.config.refresh = true
       }
       },250)
-
       
     }
   },

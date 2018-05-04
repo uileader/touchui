@@ -69,7 +69,7 @@ export default {
     "navigationBarTextStyle": "black",
     "backgroundColor": "#F9F9F9",
     "disableScroll":true,
-    "scrollType": "div",
+    "scrollType": "body"
   },
   data () {
     return {

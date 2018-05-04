@@ -7,7 +7,8 @@
         ui:key="index"
         point-color="#df4f3c"
         line-color="#dfe2e5"
-        show-line="{{true}}">
+        show-line="{{true}}"
+        shadow="{{false}}">
         <ui-view class="item-content">
           <ui-view class="title">
             <ui-view class="title-info">{{item.time}}</ui-view>

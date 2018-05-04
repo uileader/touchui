@@ -8,7 +8,7 @@
           wx:key="index" 
           point-color="{{index <= 2 ? '#3399ff' : '#8a8a8a'}}"  
           line-color="{{index<=1?'#3399ff':''}}"
-          shadow-class="{{index === 2 ? 'shadow-class' : ''}}"
+          shadow="{{index === 2 ? true : false}}"
           show-line="{{index === (list.length - 1) ? false : true}}"
           >
         <ui-row class="zindex">
@@ -75,18 +75,5 @@ export default {
     }
   }
 }
-.shadow-class {
-  &:before {
-    content: '';
-    display: block;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: rgba(51, 153, 255,.3);
-    position: absolute;
-    left: -5px;
-    top: -5px;
-    z-index: 1;
-  }
-}
+
 </style>

@@ -15,7 +15,7 @@
         line-width="1"
         step-width='5'
         pointer-width="1"
-        number-padding="20"
+        number-padding="10"
         value-style="{{valueStyle}}"
       ></ui-ruler>
     </ui-view>
@@ -36,10 +36,9 @@
         line-width="1"
         step-width='10'
         pointer-width="1"
-        number-padding="20"
+        number-padding="10"
         mode="top"
         value-style="{{valueStyle}}"
-        bindchange="handleChange"
       ></ui-ruler>
     </ui-view>
     

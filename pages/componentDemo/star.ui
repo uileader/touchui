@@ -29,7 +29,7 @@
   
       <ui-view class="sample_title">只读评价</ui-view>
       <ui-view class="star-demo">
-        <ui-star value=2.5 read-only half ></ui-star>
+        <ui-star value=2.5 readonly half ></ui-star>
       </ui-view>
   
       <ui-view class="sample_title">颜色渐变</ui-view>

@@ -7,7 +7,7 @@
           <ui-timeline-item ui:for="{{list}}" 
             point-color="{{index <= thisIndex ? '#3399ff' : '#8a8a8a'}}" 
             line-color="{{index<thisIndex?'#3399ff':''}}"
-            shadow-class="{{index === thisIndex ? 'shadow-class' : ''}}"
+            shadow="{{index === thisIndex ? true : false}}"
             show-line="{{index === list.length-1 ? false : true}}">
             <ui-view class="continer">
               <ui-view class="gary" :style="{'color': index === thisIndex ? '#3399ff' : '#8a8a8a'}">{{item.content}}</ui-view>
@@ -18,7 +18,7 @@
       </ui-view>
     </ui-view>
     <ui-view style="padding: 0 50px; ">
-      <ui-button  bindtap="Previous">上一步</ui-button>
+      <ui-button bindtap="Previous">上一步</ui-button>
       <ui-button bindtap="Next">下一步</ui-button>
     </ui-view>
   </ui-page>  
@@ -84,18 +84,4 @@ export default {
   }
 }
 
-.shadow-class {
-  &:before {
-      content: '';
-      display: block;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(51, 153, 255,.3);
-      position: absolute;
-      left: -5px;
-      top: -5px;
-      z-index: 1;
-    }
-}
 </style>
