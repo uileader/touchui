@@ -10,21 +10,21 @@
 
 
 
-<div align="center">
+<p align="center">
 
 
 
-<img width="200" style="margin-right:5px; border: 1px solid #ccc;" src="https://github.com/uileader/touchui/blob/master/img/3.gif" />
+<img  src="https://github.com/uileader/touchui/blob/master/img/3.gif" width="200" style="margin-right:5px; border: 1px solid #ccc;" />
 
 
 
-<img width="200" style="margin-right:5px; border: 1px solid #ccc;" src="https://github.com/uileader/touchui/blob/master/img/4.gif" />
+<img src="https://github.com/uileader/touchui/blob/master/img/4.gif" width="200" style="margin-right:5px; border: 1px solid #ccc;" />
 
 
 
-<img width="200" style="margin-right:5px; border: 1px solid #ccc;" src="https://github.com/uileader/touchui/blob/master/img/5.gif" />
+<img src="https://github.com/uileader/touchui/blob/master/img/5.gif" width="200" style="margin-right:5px; border: 1px solid #ccc;"/>
 
-</div>
+</p>
 
 
 
