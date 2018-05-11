@@ -10,7 +10,7 @@
 
 
 
-日历、index-list、折线图
+##### 日历、index-list、折线图
 
 <p align="center">
 
@@ -28,7 +28,7 @@
 
 
 
-下拉刷新、ruler、swipe-out
+##### 下拉刷新、ruler、swipe-out
 
 <p align="center">
 
@@ -43,22 +43,6 @@
 </p>
 
 
-
-
-
-##### ruler
-
-
-
-
-
-##### swipe-out
-
-
-
-
-
-##### 折线图
 
 
 
