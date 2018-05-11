@@ -14,11 +14,11 @@
 
 
 
-<img width="150" src="https://github.com/uileader/touchui/blob/master/img/3.gif" />
+<img width="200" src="https://github.com/uileader/touchui/blob/master/img/3.gif" />
 
-<img width="150" src="https://github.com/uileader/touchui/blob/master/img/4.gif" />
+<img width="200" src="https://github.com/uileader/touchui/blob/master/img/4.gif" />
 
-<img width="150" src="https://github.com/uileader/touchui/blob/master/img/5.gif" />
+<img width="200" src="https://github.com/uileader/touchui/blob/master/img/5.gif" />
 
 </div>
 
