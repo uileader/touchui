@@ -1,8 +1,26 @@
+<img src="https://github.com/uileader/touchui/blob/master/images/about_logo.png" />
+
+## TouchUI
+
+####  TouchUI作品演示
+
+##### TouchUI示例
+
+<img src="https://github.com/uileader/touchui/blob/master/img/1.png" />
+
+
+
+<img src="https://github.com/uileader/touchui/blob/master/img/2.png" />
+
+## 介绍
+
 TouchUI是一套高质量移动端UI框架。基于vue.js框架，我们精心打造了上百种的移动端UI组件，几乎囊括了开发移动应用的所有细节，真正实现拿来即用，像搭积木一样开发移动应用。
 
-通过借鉴微信小程序的思想，TouchUI设计了与微信小程序相似的开发方式和API，希望通过这种方式降低学习成本，让任何水平的开发者都能做出精美应用。另外，配合我们的小程序开发框架：TouchUI WX，可以将TouchUI做的H5应用直接转成微信小程序。
+## 文档
 
-TouchUI还提供了开发工具方便开发（微软的VSCode编辑器+插件），开发工具集成了编译环境，可以通过可视化菜单的方式对代码进行编译和项目输出。通过在线更新插件的方式可以第一时间获取TouchUI的更新。
+<a href="http://www.touchui.io/touchui_doc/">中文文档</a>
+
+## Demo
 
 ##### TouchUI示例
 
@@ -16,13 +34,7 @@ TouchUI还提供了开发工具方便开发（微软的VSCode编辑器+插件）
 
 
 
-##### 实际效果截图:
-
-  <img src="https://github.com/uileader/touchui/blob/master/banner2.png" />
-
-
-
-相关项目
+## 相关项目
 
 <a href="https://github.com/uileader/touchuiwx" >TouchUI WX</a>
 
