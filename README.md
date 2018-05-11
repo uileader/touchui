@@ -1,4 +1,4 @@
-<img src="https://github.com/uileader/touchui/blob/master/images/about_logo.png" />
+<img width="200" height="200" src="https://github.com/uileader/touchui/blob/master/images/about_logo.png" />
 
 ## TouchUI
 
