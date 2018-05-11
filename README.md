@@ -6,41 +6,25 @@
 
 ##### 部分示例总览
 
-
-
-<img src="https://github.com/uileader/touchui/blob/master/img/9.png" />
-
-
-
 <img src="https://github.com/uileader/touchui/blob/master/img/1.png" />
 
 
 
-<img src="https://github.com/uileader/touchui/blob/master/img/2.png" />
-
-
-
-##### 日历
+##### 
 
 <img src="https://github.com/uileader/touchui/blob/master/img/3.gif" />
 
 
 
-##### index-list
+##### 
 
 <img src="https://github.com/uileader/touchui/blob/master/img/4.gif" />
 
 
 
-##### 下拉刷新
+##### 
 
-<img src="https://github.com/uileader/touchui/blob/master/img/5.gif" />
-
-
-
-##### ruler
-
-<img src="https://github.com/uileader/touchui/blob/master/img/6.gif" />
+<img src="https://github.com/uileader/touchui/blob/master/img/5.gif" /><img src="https://github.com/uileader/touchui/blob/master/img/6.gif" />
 
 
 
@@ -73,6 +57,10 @@ TouchUI是一套高质量移动端UI框架。基于vue.js框架，我们精心�
 或<a href="http://www.touchui.io/touchui_webapp/">点击这里</a>用浏览器查看
 
 在PC端打开时请开启chrome的手机浏览模式。
+
+##### 预览
+
+ <img src="https://github.com/uileader/touchui/blob/master/img/9.png" />
 
 
 
