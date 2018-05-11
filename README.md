@@ -32,11 +32,11 @@
 
 <p align="center">
 
-<img src="https://github.com/uileader/touchui/blob/master/img/5.gif" width="200"/>
+<img src="https://github.com/uileader/touchui/blob/master/img/5.gif" width="250"/>
 
-<img src="https://github.com/uileader/touchui/blob/master/img/6.gif" width="200"/>
+<img src="https://github.com/uileader/touchui/blob/master/img/6.gif" width="250"/>
 
-<img src="https://github.com/uileader/touchui/blob/master/img/7.gif" width="200"/>
+<img src="https://github.com/uileader/touchui/blob/master/img/7.gif" width="250"/>
 
 
 
