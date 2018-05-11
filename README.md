@@ -1,10 +1,12 @@
-<img align="center" width="200" height="200" src="https://github.com/uileader/touchui/blob/master/images/about_logo.png" />
-
 <p align="center">
 
-​	<h1>Touch UI</h1>
+<img width="200" height="200" src="https://github.com/uileader/touchui/blob/master/images/about_logo.png" />
 
 </p>
+
+<h1 align="center">Touch UI</h1>
+
+
 
 ####  TouchUI作品演示
 
