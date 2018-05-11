@@ -10,9 +10,15 @@
 
 
 
-##### 日历
+<div align="center">
+
+​	日历
 
 <img src="https://github.com/uileader/touchui/blob/master/img/3.gif" />
+
+</div>
+
+
 
 
 
