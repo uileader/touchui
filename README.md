@@ -4,9 +4,7 @@
 
 ####  TouchUI作品演示
 
-##### TouchUI示例
-
-<div style="text-align: center;">
+##### 部分示例总览
 
 
 
@@ -20,9 +18,41 @@
 
 <img src="https://github.com/uileader/touchui/blob/master/img/2.png" />
 
-</div>
 
 
+##### 日历
+
+<img src="https://github.com/uileader/touchui/blob/master/img/3.png" />
+
+
+
+##### index-list
+
+<img src="https://github.com/uileader/touchui/blob/master/img/4.png" />
+
+
+
+##### 下拉刷新
+
+<img src="https://github.com/uileader/touchui/blob/master/img/5.png" />
+
+
+
+##### ruler
+
+<img src="https://github.com/uileader/touchui/blob/master/img/6.png" />
+
+
+
+##### swipe-out
+
+<img src="https://github.com/uileader/touchui/blob/master/img/7.png" />
+
+
+
+##### 折线图
+
+<img src="https://github.com/uileader/touchui/blob/master/img/8.png" />
 
 ## 介绍
 
