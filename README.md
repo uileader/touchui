@@ -14,15 +14,15 @@
 
 
 
-<img  src="https://github.com/uileader/touchui/blob/master/img/3.gif" width="200" style="margin-right:5px; border: 1px solid #ccc;" />
+<img  src="https://github.com/uileader/touchui/blob/master/img/3.gif" width="250"/>
 
 
 
-<img src="https://github.com/uileader/touchui/blob/master/img/4.gif" width="200" style="margin-right:5px; border: 1px solid #ccc;" />
+<img src="https://github.com/uileader/touchui/blob/master/img/4.gif" width="250"/>
 
 
 
-<img src="https://github.com/uileader/touchui/blob/master/img/5.gif" width="200" style="margin-right:5px; border: 1px solid #ccc;"/>
+<img src="https://github.com/uileader/touchui/blob/master/img/5.gif" width="250"/>
 
 </p>
 
@@ -30,13 +30,15 @@
 
 
 
-##### index-list
+<p align="center">
 
+<img src="https://github.com/uileader/touchui/blob/master/img/6.gif" width="250"/>
 
+<img src="https://github.com/uileader/touchui/blob/master/img/7.gif" width="250"/>
 
+<img src="https://github.com/uileader/touchui/blob/master/img/8.gif" width="250" />
 
-
-##### 下拉刷新
+</p>
 
 
 
@@ -44,19 +46,19 @@
 
 ##### ruler
 
-<img src="https://github.com/uileader/touchui/blob/master/img/6.gif" />
+
 
 
 
 ##### swipe-out
 
-<img src="https://github.com/uileader/touchui/blob/master/img/7.gif" />
+
 
 
 
 ##### 折线图
 
-<img src="https://github.com/uileader/touchui/blob/master/img/8.gif" />
+
 
 ## 介绍
 
