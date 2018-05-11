@@ -70,6 +70,12 @@ TouchUI是一套高质量移动端UI框架。基于vue.js框架，我们精心�
 
 在PC端打开时请开启chrome的手机浏览模式。
 
+## 讨论组
+
+相关TouchUI的问题讨论，可以加入我们的微信群。由于微信限制，目前只能通过邀请来进入。先扫以下微信加微为好友，我们会邀请您进群。
+
+ <img src="http://www.touchui.io/img/weixin_frank.png" />
+
 
 
 ## 相关项目
