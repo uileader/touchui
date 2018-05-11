@@ -6,6 +6,10 @@
 
 ##### TouchUI示例
 
+<div style="text-align: center;">
+
+
+
 <img src="https://github.com/uileader/touchui/blob/master/img/9.png" />
 
 
@@ -16,7 +20,7 @@
 
 <img src="https://github.com/uileader/touchui/blob/master/img/2.png" />
 
-
+</div>
 
 
 
