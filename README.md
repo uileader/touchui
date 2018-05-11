@@ -10,6 +10,8 @@
 
 
 
+日历、index-list、下拉刷新
+
 <p align="center">
 
 
@@ -29,16 +31,6 @@
 
 
 
-
-<p align="center">
-
-<img src="https://github.com/uileader/touchui/blob/master/img/6.gif" width="250"/>
-
-<img src="https://github.com/uileader/touchui/blob/master/img/7.gif" width="250"/>
-
-<img src="https://github.com/uileader/touchui/blob/master/img/8.gif" width="250" />
-
-</p>
 
 
 
