@@ -28,7 +28,7 @@
 
 
 
-下拉刷新、ruler、swipe-out、折线图
+下拉刷新、ruler、swipe-out
 
 <p align="center">
 
