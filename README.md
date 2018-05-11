@@ -10,21 +10,27 @@
 
 
 
-##### 
+##### 日历
 
 <img src="https://github.com/uileader/touchui/blob/master/img/3.gif" />
 
 
 
-##### 
+##### index-list
 
 <img src="https://github.com/uileader/touchui/blob/master/img/4.gif" />
 
 
 
-##### 
+##### 下拉刷新
 
-<img src="https://github.com/uileader/touchui/blob/master/img/5.gif" /><img src="https://github.com/uileader/touchui/blob/master/img/6.gif" />
+<img src="https://github.com/uileader/touchui/blob/master/img/5.gif" />
+
+
+
+##### ruler
+
+<img src="https://github.com/uileader/touchui/blob/master/img/6.gif" />
 
 
 
