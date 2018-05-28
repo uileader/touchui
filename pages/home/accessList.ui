@@ -37,6 +37,12 @@
                   <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
               </ui-col>
             </ui-row>
+            <ui-row url="/pages/apiDemo/speech" hover-class="touchui-hover">
+              <ui-col space-left="10">语音识别</ui-col>
+              <ui-col align="right" width="30">
+                  <ui-icon type="arrow-right" size="18" color="#C5C5C5"></ui-icon>
+              </ui-col>
+            </ui-row>
         </ui-row-list>
       </ui-view>
     </ui-page>

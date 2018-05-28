@@ -84,7 +84,8 @@ export default {
   config: {
     "navigationStyle": "custom",
     "disableScroll":true,
-    "navigationBarTextStyle": 'white'
+    "navigationBarTextStyle": 'white',
+    "delay":true
   },
   data () {
     return {

@@ -370,7 +370,8 @@ export default {
     "navigationBarTitleText": '商品简介',
     "disableScroll":true,
     "navigationStyle": "custom",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "delay":true
   },
   data () {
     return {

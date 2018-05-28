@@ -1,7 +1,7 @@
 <!--mapComprehensive.ui-->
 <template>
   <ui-page>
-    <ui-view class="map_container" style="height:{{ mapHeight }}">
+    <ui-view class="map_container" style="{{ {height:mapHeight} }}">
       <ui-map 
         class="map" 
         id="map" 

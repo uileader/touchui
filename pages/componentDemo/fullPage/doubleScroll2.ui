@@ -1,7 +1,7 @@
 <template>
     <ui-page top="0">
         <ui-fixed-view top="0" left="0" right="0" style="{{{height:STATUS_BAR_HEIGHT+'px',backgroundColor:'#FF643F'}}}" ></ui-fixed-view>
-        <ui-row class="self-navbar" space-top="{{STATUS_BAR_HEIGHT}}">
+        <ui-row height="45" class="self-navbar" space-top="{{STATUS_BAR_HEIGHT}}">
           <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
               <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
           </ui-col>

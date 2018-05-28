@@ -146,9 +146,9 @@ export default {
           fail: function (error) {
             self.isloading = false
             // 网络异常
-            if (error.errMsg === 'offline') {
+            if (error.errMsg.includes('offline')) {
               self.isconnect = true
-            } else if (error.errMsg === 'timeout') {  // 超时
+            } else if (error.errMsg.includes('timeout')) {  // 超时
               self.overtime = true
             } else {   // 失败
               self.isfail = true

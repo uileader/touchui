@@ -10,8 +10,8 @@
         </ui-col>
       </ui-row>
       <ui-popup ui:model="{{show1}}" position="bottom"  height="300">
-        <ui-cascader data="{{data1}}" bindselected="handleselected1" ></ui-cascader>
-      </ui-popup>
+        <ui-cascader is-tree="{{false}}" data="{{data1}}" bindselected="handleselected1" ></ui-cascader>
+      </ui-popup> 
   
     <ui-view class="sample_title">右侧弹出</ui-view>
     <ui-row height="40" border-top border-bottom>

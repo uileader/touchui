@@ -76,7 +76,8 @@ import cityList from '#/static/data/address'
 // var cityList = require('#/static/data/address')
 export default {
   config: {
-    "navigationBarTitleText": "选择器"
+    "navigationBarTitleText": "选择器",
+    "delay":true
   },
   data () {
     return {

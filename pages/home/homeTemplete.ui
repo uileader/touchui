@@ -171,6 +171,25 @@
         </ui-navigator>
       </ui-view>
 
+      <ui-view class="template_list">
+        <ui-navigator url="/pages/templeteDemo/stock/kl">
+          <ui-view class="list_top">
+            <ui-image 
+            src="{{ require('#/images/template_38.jpg') }}"
+            mode="aspectFit"
+            width="100%"
+            load-effect="fade"
+            ></ui-image>
+          </ui-view>
+          <ui-view class="list_bottom">
+            <ui-view class="list_title">金融交易</ui-view>
+            <ui-view class="list_text">
+              展示了股票分时图、K线图等内容
+            </ui-view>
+          </ui-view>
+        </ui-navigator>
+      </ui-view>
+
 
     </ui-view>
   </ui-page>

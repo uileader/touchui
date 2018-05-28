@@ -159,7 +159,8 @@
   // groupedBar.js
 export default {
   config: {
-    "navigationBarTitleText": "分组柱状图"
+    "navigationBarTitleText": "分组柱状图",
+    "delay":true
   },
   data () {
     return {

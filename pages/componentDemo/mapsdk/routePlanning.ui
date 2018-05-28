@@ -1,7 +1,7 @@
 <!--routePlanning.ui-->
 <template>
   <ui-page>
-    <ui-view style="height:{{ mapHeight }}">
+    <ui-view style="{{ {height:mapHeight} }}">
       <ui-map 
         id="map" 
         class="map"

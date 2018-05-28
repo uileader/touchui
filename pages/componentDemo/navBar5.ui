@@ -70,12 +70,12 @@
             </ui-view>
         </ui-col>
       </ui-row>
-      <ui-view class="search" bindtap="handleNavCenter" style="top:{{STATUS_BAR_HEIGHT}}px">
+      <ui-view class="search" bindtap="handleNavCenter" style="{{{ top:STATUS_BAR_HEIGHT+'px'}}}">
         <ui-view class="search_center {{ className }}" style="{{{ width: searchWidth + 'px' }}}">
           <ui-row height="30">
             <ui-col align="right" vertical-align="middle" width="20">
               <ui-icon type="magnifier" size="18" color="#FF643F"></ui-icon>
-            </ui-col>
+            </ui-col> 
             <ui-col align="left" vertical-align="middle" space-left="10" span="8">
               附近热搜：首地大峡谷
             </ui-col>

@@ -328,6 +328,15 @@
           <ui-text class="small-title">包含了讯地图服务和高德地图服务的SDK示例</ui-text>
         </ui-col>
       </ui-row>
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" url="/pages/home/mapList3" height="80">
+        <ui-col vertical-align="middle" align="center" width="120" class="left-item application_04">
+          <ui-icon type="home-webservice" size="50" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" space-left="10">
+          <ui-view class="title">非框架封装的地图与服务</ui-view>
+          <ui-text class="small-title">包含WebService示例和引入百度地图和高德地图示例</ui-text>
+        </ui-col>
+      </ui-row>
     </ui-view>
 
     <ui-fixed-view top="0" left="0" class="splash_wrap" ui:if="{{ isSplashSwiper }}" >

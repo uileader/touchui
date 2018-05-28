@@ -29,7 +29,7 @@
       <ui-list-view config="{{ config }}" enable-reach-bottom-load bindchange="handleListViewChange">
         <template scope="props">
           <ui-list-view-item tap-effect bindtap="handleTap(props.item)">
-            <ui-row class="list-line-box" border-bottom="{{false}}">
+            <ui-row class="list-line-box">
               <ui-col class="colwidth">
                 <ui-image width="100%" load-effect="fade"  class="left-img-box" src="{{props.item.imgsrc}}"></ui-image>
               </ui-col>

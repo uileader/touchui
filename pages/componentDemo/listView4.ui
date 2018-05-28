@@ -30,7 +30,7 @@
           <ui-list-view data="{{ guesslikes }}">
               <template scope="props">
                   <ui-list-view-item tap-effect>
-                    <ui-row class="list-line-box" border-bottom="{{false}}">
+                    <ui-row class="list-line-box">
                       <ui-col class="colwidth">
                         <ui-image width="100%" src="{{props.item.imgsrc}}"></ui-image>
                       </ui-col>
@@ -112,7 +112,8 @@ export default {
   config: {
     "navigationBarTitleText": "listView",
     "navigationStyle": "custom",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "delay":true
   },
   data () {
     return {

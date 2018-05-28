@@ -46,7 +46,7 @@
             <ui-icon type="arrow-right" size="18" color="#fff"></ui-icon>
           </ui-col>
         </ui-row>
-        <ui-row height="90" class="money_wrap" space-bottom="10">
+        <ui-row height="90" class="money_wrap">
           <ui-col vertical-align="middle" align="center">
             <ui-view class="money_list01" ui:if="{{ isLogin }}">
               <ui-text>0.00</ui-text>
@@ -72,7 +72,7 @@
             <ui-view>金币</ui-view>
           </ui-col>
         </ui-row>
-
+        <ui-view class="user_content_list_wrapper">
         <ui-row height="50" class="user_content_list2" bindtap="address">
           <ui-col width="50" vertical-align="middle" align="center">
             <ui-icon type="map" color="#388EEC" size="28"></ui-icon>
@@ -130,7 +130,7 @@
             <ui-icon type="arrow-right" size="18" color="#BAB9BF"></ui-icon>
           </ui-col>
         </ui-row>
-        <ui-row height="50" class="user_content_list2">
+        <ui-row height="50" class="user_content_list2" bindtap="handleOpenBrowser">
           <ui-col width="50" vertical-align="middle" align="center">
             <ui-icon type="user_grade" color="#3F93EB" size="24"></ui-icon>
           </ui-col>
@@ -141,6 +141,7 @@
             <ui-icon type="arrow-right" size="16" color="#BAB9BF"></ui-icon>
           </ui-col>
         </ui-row>
+        </ui-view>
       </ui-view>
     </ui-page>
 </template>
@@ -193,6 +194,12 @@ export default {
     }
   },
   methods: {
+    handleOpenBrowser(){
+      ui.openBrowser({
+        url: 'https://itunes.apple.com/cn/app/uileader%E5%95%86%E5%9F%8E/id1377514585?mt=8',
+        system:true
+      })
+    },
     loginPage () {
       import(`#/pages/dialogs/loginInterface.ui`).then((content) => {
         ui.showDialog({
@@ -311,6 +318,7 @@ export default {
   // userCenter.less
 .nav_bar {
     background: linear-gradient(to right, #1F97FE, #126DFE);
+    border: 1px solid transparent;
     .nav_title {
       color: #fff;
     }
@@ -329,7 +337,7 @@ export default {
 }
 
 .user_content {
-    background: #F2F2F2;
+    // background: #F2F2F2;
 }
 
 .header_top {
@@ -375,6 +383,11 @@ export default {
     .money_list03 {
         color: #F88E09;
     }
+}
+
+.user_content_list_wrapper {
+  padding-top: 10px;
+  background-color: #F2F2F2; 
 }
 
 .user_content_list {

@@ -187,7 +187,8 @@
   // bar.js
 export default {
   config: {
-    "navigationBarTitleText": "柱状图、条形图"
+    "navigationBarTitleText": "柱状图、条形图",
+    "delay":true
   },
   data () {
     return {

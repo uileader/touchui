@@ -66,6 +66,12 @@ export default {
           items: [
             { title: '基本使用', link: '/pages/apiDemo/customComp' }
           ]
+        },
+        {
+          title: '引用外部js',
+          items: [
+            { title: '引入微信jssdk', link: '/pages/apiDemo/weixin' }
+          ]
         }
       ]
     }

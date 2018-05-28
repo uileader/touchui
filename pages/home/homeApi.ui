@@ -20,8 +20,15 @@
         <ui-col vertical-align="middle" align="left" width="150" space-right="10">
           <ui-image
             src="{{ require('#/images/jiemian.png') }}"
-            width="100%"
-          ></ui-image>
+            width="140"
+            height="80"
+            lazy-load
+            load-effect="fade"
+          >
+          <ui-view class="custom-placeholder">
+            <ui-icon type="img" color="#EDEDED" size="64"></ui-icon>
+          </ui-view>
+          </ui-image>
         </ui-col>
         <ui-col vertical-align="middle" align="left">
           <ui-view class="title">界面</ui-view>
@@ -32,8 +39,15 @@
         <ui-col vertical-align="middle" align="left" width="150" space-right="10">
           <ui-image
             src="{{ require('#/images/kuangjia.png') }}"
-            width="100%"
-          ></ui-image>
+            width="140"
+            height="80"
+            lazy-load
+            load-effect="fade"
+          >
+          <ui-view class="custom-placeholder">
+            <ui-icon type="img" color="#EDEDED" size="64"></ui-icon>
+          </ui-view>
+          </ui-image>
         </ui-col>
         <ui-col vertical-align="middle" align="left">
           <ui-view class="title">框架</ui-view>
@@ -44,8 +58,15 @@
         <ui-col vertical-align="middle" align="left" width="150" space-right="10">
           <ui-image
             src="{{ require('#/images/shebei.png') }}"
-            width="100%"
-          ></ui-image>
+            width="140"
+            height="80"
+            lazy-load
+            load-effect="fade"
+          >
+          <ui-view class="custom-placeholder">
+            <ui-icon type="img" color="#EDEDED" size="64"></ui-icon>
+          </ui-view>
+          </ui-image>
         </ui-col>
         <ui-col vertical-align="middle" align="left">
           <ui-view class="title">设备</ui-view>
@@ -56,8 +77,15 @@
         <ui-col vertical-align="middle" align="left" width="150" space-right="10">
           <ui-image
             src="{{ require('#/images/wangluo.png') }}"
-            width="100%"
-          ></ui-image>
+            width="140"
+            height="80"
+            lazy-load
+            load-effect="fade"
+          >
+          <ui-view class="custom-placeholder">
+            <ui-icon type="img" color="#EDEDED" size="64"></ui-icon>
+          </ui-view>
+          </ui-image>
         </ui-col>
         <ui-col vertical-align="middle" align="left">
           <ui-view class="title">网络与数据</ui-view>
@@ -69,8 +97,15 @@
         <ui-col vertical-align="middle" align="left" width="150" space-right="10">
           <ui-image
             src="{{ require('#/images/weizhi.png') }}"
-            width="100%"
-          ></ui-image>
+            width="140"
+            height="80"
+            lazy-load
+            load-effect="fade"
+          >
+          <ui-view class="custom-placeholder">
+            <ui-icon type="img" color="#EDEDED" size="64"></ui-icon>
+          </ui-view>
+          </ui-image>
         </ui-col>
         <ui-col vertical-align="middle" align="left">
           <ui-view class="title">位置</ui-view>
@@ -78,12 +113,19 @@
         </ui-col>
       </ui-row>
      
-      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20"bindtap="popupshow">
+      <ui-row class="class-item2" hover-class="touchui-hover" space-bottom="20" bindtap="popupshow">
         <ui-col vertical-align="middle" align="left" width="150" space-right="10">
           <ui-image
             src="{{ require('#/images/tabBar.png') }}"
-            width="100%"
-          ></ui-image>
+            width="140"
+            height="80"
+            lazy-load
+            load-effect="fade"
+          >
+          <ui-view class="custom-placeholder">
+            <ui-icon type="img" color="#EDEDED" size="64"></ui-icon>
+          </ui-view>
+          </ui-image>
         </ui-col>
         <ui-col vertical-align="middle" align="left">
           <ui-view class="title">tabBar</ui-view>
@@ -233,4 +275,9 @@ export default {
   }
 }
 
+.custom-placeholder{
+  width:140px;
+  height: 80px;
+  .mix-flex-center();
+}
 </style>

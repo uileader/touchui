@@ -2,7 +2,7 @@
 <template>
   <ui-page>
     
-    <ui-view style="height:{{ mapHeight }}">
+    <ui-view style="{{ {height:mapHeight} }}">
       <ui-map id="navi_map" 
         class="map"
         longitude="{{longitude}}" 

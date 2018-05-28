@@ -194,7 +194,7 @@
 
       <!-- </ui-swiper> -->
 
-      <ui-button class="find_hotel" hover-class="find_hotel" bindtap="findHotel">查找酒店</ui-button>
+      <ui-button class="find_hotel" bindtap="findHotel">查找酒店</ui-button>
 
       <ui-row height="30" class="find_hotel_bottom" space-top="10">
         <ui-col vertical-align="middle" align="center">
@@ -303,6 +303,7 @@ export default {
     "navigationStyle": "custom",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#EFEFEF",
+    "delay":true
   },
   data () {
     return {

@@ -262,7 +262,8 @@ export default {
     navigationStyle: 'custom',
     backgroundColor: '#F6F6F6',
     disableIosGesture: true,
-    navigationBarTextStyle: 'white'
+    navigationBarTextStyle: 'white',
+    "delay":true
   },
   data () {
     return {

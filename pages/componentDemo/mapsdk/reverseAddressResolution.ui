@@ -1,7 +1,7 @@
 <!--reverseAddressResolution.ui-->
 <template>
     <ui-page>
-        <ui-view style="height:{{ mapHeight }}">
+        <ui-view style="{{ {height:mapHeight } }}">
         <ui-map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" markers="{{markers}}"></ui-map>
       </ui-view>
      

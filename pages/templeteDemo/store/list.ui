@@ -55,7 +55,8 @@ export default {
   config: {
     "navigationBarTitleText": "商品简介",
     "navigationStyle": "custom",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "delay":true
   },
   data () {
     return {

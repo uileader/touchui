@@ -1,10 +1,6 @@
 <!--banner7.ui-->
 <template>
   <ui-view>
-    <ui-view class="video_wrap">
-      <ui-video id="myVideo" page-gesture="true" objectFit="cover" style="width:100%;height:211px;" src="{{ videoSrc }}"
-      danmu-btn="{{false}}" controls bindplay="bindplay" bindcontrolschange="bindcontrolschange"></ui-video>
-    </ui-view>
     <ui-page top="261">
       <ui-nav-bar class="nab_bar" slot="nav-bar" ui:show="{{ isShow }}">
         <ui-row height="46">
@@ -29,6 +25,10 @@
             <ui-tab>笔记</ui-tab>
           </ui-tabs>
       </ui-view>
+      </ui-fixed-view>
+      <ui-fixed-view top="0" left="0" right="0">
+        <ui-video id="myVideo" page-gesture="true" objectFit="cover" style="width:100%;height:211px;" src="{{ videoSrc }}"
+      danmu-btn="{{false}}" controls bindplay="bindplay" bindcontrolschange="bindcontrolschange"></ui-video>
       </ui-fixed-view>
       
       <ui-view ui:show="show1">
@@ -87,7 +87,8 @@ var videoContext
 export default {
   config: {
     "navigationStyle": "custom",
-    "scrollType": "div"
+    "scrollType": "div",
+    "delay":true
   },
   data () {
     return {
@@ -138,6 +139,7 @@ export default {
         title:'3-8 本章中面试问题'
       }],
       current: 0,
+      DEFAULT_HEADER_HEIGHT:ui.DEFAULT_HEADER_HEIGHT
     }
   },
   methods: {
@@ -216,12 +218,6 @@ export default {
   text-align:center;
 }
 
-.video_wrap{
-  position: fixed;
-  z-index: 485;
-  width: 100%;
-  top:0;
-}
 .sticky_title{
   font-size: 14px;
   color: #989898;
@@ -241,6 +237,12 @@ export default {
   box-shadow: 0px -2px 14px 0px #ccc;
   background-color: #fff;
   height:50px;
+}
+.video_wrap{
+  position: fixed;
+  top:0;
+  height:211px;
+  width:100%;
 }
 /* .ui-tabs{
   position: fixed;

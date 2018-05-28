@@ -33,7 +33,8 @@ export default {
   config: {
     "navigationStyle": "custom",
     "backgroundColor":"#FFFFFF",
-    "navigationBarTextStyle":'black'
+    "navigationBarTextStyle":'black',
+    "delay":true
   },
   data () {
     return {

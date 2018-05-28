@@ -118,7 +118,8 @@
   // stackedArea.js
 export default {
   config: {
-    "navigationBarTitleText": "面积图 叠加面积图"
+    "navigationBarTitleText": "面积图 叠加面积图",
+    "delay":true
   },
   data () {
     return {

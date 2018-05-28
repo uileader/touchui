@@ -1,55 +1,54 @@
 <template>
-  <ui-view>
+  <ui-page top="211">
+    <ui-nav-bar class="nab_bar" slot="nav-bar" ui:show="{{ isShow }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="left" space-left="12" width="70" bindtap="navigateBack">
+          <ui-view class="nav_left">
+              <ui-icon type="arrow-left" size="22" color="#fff"></ui-icon>
+          </ui-view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <!-- <ui-view class="nav_title">视频播放</ui-view> -->
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35" bindtap="msgTap">
+          <ui-icon type="{{collect}}" size="22" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="35" bindtap="popSwitch">
+          <ui-icon type="share2" size="22" color="#fff"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <ui-fixed-view top="0" left="0" right="0">
       <ui-video id="myVideo" page-gesture="true"  objectFit="cover" style="width:100%;height:211px;" src="{{ videoSrc }}"
-    danmu-btn="{{false}}" controls bindplay="bindplay" bindcontrolschange="bindcontrolschange"></ui-video>
-    <ui-page top="211">
-      <ui-nav-bar class="nab_bar" slot="nav-bar" ui:show="{{ isShow }}">
-        <ui-row height="46">
-          <ui-col vertical-align="middle" align="left" space-left="12" width="70" bindtap="navigateBack">
-            <ui-view class="nav_left">
-                <ui-icon type="arrow-left" size="22" color="#fff"></ui-icon>
-            </ui-view>
-          </ui-col>
-          <ui-col vertical-align="middle" align="center">
-            <!-- <ui-view class="nav_title">视频播放</ui-view> -->
-          </ui-col>
-          <ui-col vertical-align="middle" align="center" width="35" bindtap="msgTap">
-            <ui-icon type="{{collect}}" size="22" color="#fff"></ui-icon>
-          </ui-col>
-          <ui-col vertical-align="middle" align="center" width="35" bindtap="popSwitch">
-            <ui-icon type="share2" size="22" color="#fff"></ui-icon>
-          </ui-col>
-        </ui-row>
-      </ui-nav-bar>
+  danmu-btn="{{false}}" controls bindplay="bindplay" bindcontrolschange="bindcontrolschange"></ui-video>
+    </ui-fixed-view>
+    <ui-popup ui:model="{{ show }}" class="popup">
+      <ui-row height="110">
+        <ui-col align="center" vertical-align="middle">
+            <ui-image src="{{imgSrc.weixin_message}}" alt="" width="48" bindtap="share('weixin_message')"></ui-image>
+            <ui-view>微信</ui-view>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+            <ui-image src="{{imgSrc.weixin_timeline}}" alt="" width="48" height="48" bindtap="share('weixin_timeline')"></ui-image>
+            <ui-view>朋友圈</ui-view>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+            <ui-image src="{{imgSrc.qq}}" alt="" width="48" bindtap="share('qq')"></ui-image>
+            <ui-view>QQ</ui-view>
+        </ui-col>
+        <ui-col align="center" vertical-align="middle">
+            <ui-image src="{{imgSrc.weibo}}" alt="" width="48" bindtap="share('weibo')"></ui-image>
+            <ui-view>微博</ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-popup>
 
-      <ui-popup ui:model="{{ show }}" class="popup">
-        <ui-row height="110">
-          <ui-col align="center" vertical-align="middle">
-              <ui-image src="{{imgSrc.weixin_message}}" alt="" width="48" bindtap="share('weixin_message')"></ui-image>
-              <ui-view>微信</ui-view>
-          </ui-col>
-          <ui-col align="center" vertical-align="middle">
-              <ui-image src="{{imgSrc.weixin_timeline}}" alt="" width="48" height="48" bindtap="share('weixin_timeline')"></ui-image>
-              <ui-view>朋友圈</ui-view>
-          </ui-col>
-          <ui-col align="center" vertical-align="middle">
-              <ui-image src="{{imgSrc.qq}}" alt="" width="48" bindtap="share('qq')"></ui-image>
-              <ui-view>QQ</ui-view>
-          </ui-col>
-          <ui-col align="center" vertical-align="middle">
-              <ui-image src="{{imgSrc.weibo}}" alt="" width="48" bindtap="share('weibo')"></ui-image>
-              <ui-view>微博</ui-view>
-          </ui-col>
-        </ui-row>
-      </ui-popup>
-
-      <ui-view class="content_list">
-        <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
-          {{ item }}
-        </ui-view>
+    <ui-view class="content_list">
+      <ui-view ui:for="{{ items }}" class="{{{'grey-bg': index % 2 == 0}}}">
+        {{ item }}
       </ui-view>
-    </ui-page>
-  </ui-view>
+    </ui-view>
+  </ui-page>
 </template>
 
 <script>
@@ -73,7 +72,8 @@ export default {
         weixin_timeline: require('#/images/share_weixin_circle.png'),
         qq: require('#/images/share_qq.png'),
         weibo: require('#/images/share_weibo.png')
-      }
+      },
+      DEFAULT_HEADER_HEIGHT:ui.DEFAULT_HEADER_HEIGHT
     }
   },
   methods: {

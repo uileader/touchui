@@ -17,7 +17,7 @@
     </ui-nav-bar>
 
     <ui-view>
-      <ui-index-list data="{{list}}" bindcustomtap="singleselect">
+      <ui-index-list multiple data="{{list}}" bindcustomtap="singleselect">
       </ui-index-list>
     </ui-view>
 

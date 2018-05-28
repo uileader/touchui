@@ -1,0 +1,64 @@
+<!--call.ui-->
+<template>
+  <ui-page>
+    <div id="container" style="{{{height:height+'px'}}}"></div>
+  </ui-page>
+</template>
+
+
+<script>
+
+
+
+export default {
+  config: {
+    "navigationBarTitleText": "高德地图"
+  },
+  data () {
+    return {
+      height:ui.WIN_HEIGHT
+    }
+  },
+  methods: {
+   
+  },
+  mounted () {
+    var script = document.createElement("script")
+    script.type = "text/javascript"
+    script.src="https://webapi.amap.com/maps?v=1.4.6&key=4216f7d550dc95ef4ac91e3c0ee6a19a"
+    document.body.appendChild(script)
+
+    script.onload = function(){
+        //基本地图加载
+        var map = new AMap.Map("container", {
+            resizeEnable: true,
+            center: [116.397428, 39.90923],//地图中心点
+            zoom: 13 //地图显示的缩放级别
+        });
+        var marker = new AMap.Marker({
+            position: [116.480983, 39.989628]
+        });
+        marker.setMap(map);
+        var circle = new AMap.Circle({
+            center: [116.480983, 39.989628],
+            radius: 100,
+            fillOpacity:0.2,
+            strokeWeight:1
+        })
+        circle.setMap(map);
+        map.setFitView()
+        var info = new AMap.InfoWindow({
+            content:"信息窗体<br>这里是方恒科技大厦",
+            offset:new AMap.Pixel(0,-28)
+        })
+        info.open(map,marker.getPosition())
+    }
+    
+  }
+}
+
+</script>
+
+<style lang="less">
+
+</style>

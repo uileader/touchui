@@ -1,0 +1,74 @@
+<!--back.ui-->
+<template>
+  <ui-page>
+    <ui-view class="sample_content">
+      <ui-button bindtap="startSpeechRecognize('zh-cn',0)">点击后，开始讲话【普通话】</ui-button>
+      <ui-button bindtap="startSpeechRecognize('en-us',0)">点击后，开始讲话【英语】</ui-button>
+      <ui-button bindtap="startSpeechRecognize('zh-cantonese',0)">点击后，开始讲话【粤语】</ui-button>
+      <ui-button bindtap="startSpeechRecognize('zh-henanese',0)">点击后，开始讲话【河南话】</ui-button>
+      <ui-button bindtap="startSpeechRecognize('zh-cn',1)">点击后，开始讲话【普通话，含标点】</ui-button>
+      <ui-button bindtap="startSpeechRecognize('en-us',1)">点击后，开始讲话【英语，含标点】</ui-button>
+      <ui-button bindtap="startSpeechRecognize('zh-cantonese',1)">点击后，开始讲话【粤语，含标点】</ui-button>
+      <ui-button bindtap="startSpeechRecognize('zh-henanese',1)">点击后，开始讲话【河南话，含标点】</ui-button>
+      <ui-button bindtap="stopSpeechRecognize">停止识别</ui-button>
+      <ui-view>{{text}}</ui-view>
+    </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+// back.js
+export default {
+  config: {
+    "navigationBarTitleText": "语音识别"
+  },
+  data () {
+    return {
+      text:'这里是识别内容'
+    }
+  },
+  methods: {
+    //停止语音识别
+    stopSpeechRecognize(){
+      this.text = '停止识别'
+      ui.stopSpeechRecognize()
+    },
+
+    // 开始语音识别
+    startSpeechRecognize(lang,punctuation){
+      this.text = '正在识别……'
+      if(punctuation === 0){
+        //无标点
+        ui.startSpeechRecognize({
+            timeout: 10 * 1000,
+            lang: lang,
+            punctuation: false,
+            success: res=>{
+              this.text = res
+            },
+            fail: function(error) {
+            }
+        })
+      }else if(punctuation === 1){
+        //有标点
+        ui.startSpeechRecognize({
+            timeout: 10 * 1000,
+            lang: lang,
+            punctuation: true,
+            success: res=> {
+              this.text = res
+            },
+            fail: function(error) {
+            }
+        })
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+
+</style>

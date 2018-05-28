@@ -1,0 +1,41 @@
+<!--call.ui-->
+<template>
+  <ui-page>
+    <ui-view style="margin:10px">请看控制台输出的wx对象</ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+
+
+export default {
+  config: {
+    "navigationBarTitleText": "动态加载微信jssdk"
+  },
+  data () {
+    return {
+      height:ui.WIN_HEIGHT
+    }
+  },
+  methods: {
+   
+  },
+  mounted () {
+    var script = document.createElement("script")
+    script.type = "text/javascript"
+    script.src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"
+    document.body.appendChild(script)
+
+    script.onload = function(){
+        console.log(wx)
+    }
+    
+  }
+}
+
+</script>
+
+<style lang="less">
+
+</style>

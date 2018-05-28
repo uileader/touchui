@@ -6,9 +6,8 @@
         <ui-tab>已下载</ui-tab>
       </ui-tabs>
 
-      <ui-swiper class="content" current="{{ current1 }}" bindchange="handleContentChange($event, 'current1')">
-        <ui-swiper-item>
-          <ui-view class="songList">
+   
+          <ui-view class="songList" ui:show="{{show}}">
             <ui-view class="list_content">
               <ui-view ui:for="{{musicList}}">
                 <ui-view class="song_name" :class="{nowSong:index===curIndex}">
@@ -28,9 +27,7 @@
               </ui-view>
             </ui-view>
           </ui-view>
-        </ui-swiper-item>
-        <ui-swiper-item>
-          <ui-view class="songList">
+          <ui-view class="songList" ui:show="{{!show}}">
             <ui-view class="list_content">
               <ui-view ui:for="{{musicList2}}">
                 <ui-view class="song_name" :class="{nowSong:index===curIndex}">
@@ -50,9 +47,7 @@
               </ui-view>
             </ui-view>
           </ui-view>
-        </ui-swiper-item>
-      </ui-swiper>
-
+       
 
     </ui-page>
   </template>
@@ -68,6 +63,7 @@ export default {
   },
   data () {
     return {
+      show:true,
       curIndex: 0,
       current: 0,
       disabled: false,
@@ -102,7 +98,12 @@ export default {
 
     },
     handleChange (index, key) {
-      this[key] = index
+      // this[key] = index
+      if(index === 1){
+        this.show = false        
+      }else{
+        this.show = true
+      }
     },
     handleContentChange (index, key) {
       this[key] = index
@@ -114,11 +115,14 @@ export default {
       downloadTask = ui.downloadFile({
         url: self.musicList[index].src,
         success: function (res) {
+          console.log(res,'downloadFile')
           // 下载成功后得到临时路径，
           // 保存为本地存储区（app应用沙箱）
           ui.saveFile({
             tempFilePath: res.tempFilePath,
             success: function (res) {
+              console.log('保存')
+              console.log(res,'saveFile')
               // 保存成功后返回本地文件路径
               var obj = {}
               obj.id = self.musicList[index].id

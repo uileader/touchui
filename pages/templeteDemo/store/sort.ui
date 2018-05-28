@@ -76,7 +76,8 @@ export default {
     
     "disableScroll":true,
     "navigationStyle": "custom",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "delay":true
   },
   data () {
     return {

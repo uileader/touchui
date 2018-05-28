@@ -80,7 +80,8 @@ export default {
   config: {
     "navigationStyle": "custom",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#F9F9F9"
+    "backgroundColor": "#F9F9F9",
+    "delay":true
   },
   data () {
     return {

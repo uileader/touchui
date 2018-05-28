@@ -18,7 +18,8 @@
             </ui-checkbox-group>
             </ui-view>
           </ui-view>
-        </ui-view>
+      </ui-view>
+      
 
         <ui-view class="demo">
         <ui-view class="demo-block">
@@ -91,13 +92,15 @@
         
             <ui-view class="sample_title">外部选择</ui-view>
             <ui-view class="demo-content">
-              <ui-checkbox-group>
+              <ui-checkbox-group bindchange="handleGroupChange">
                 <ui-label class="checkbox" ui:for="{{items2}}">
                   <ui-checkbox value="{{item.name}}" checked="{{ item.checked }}" ></ui-checkbox>{{item.value}}
                 </ui-label>
               </ui-checkbox-group>
               <ui-view class="check_all">
-                全选<ui-checkbox bindchange="checkAll"></ui-checkbox>
+                <ui-label>
+                全选<ui-checkbox checked="{{checkAllFlag}}" bindchange="checkAll"></ui-checkbox>
+                </ui-label>
               </ui-view>
               
             </ui-view>
@@ -137,6 +140,16 @@ export default {
     return {
       value1: true,
       value2: false,
+      checkAllFlag:false,
+      checkboxValue:null,
+      testItem: [
+        { name: 'USA', value: '美国' },
+        { name: 'CHN', value: '中国', checked: false },
+        { name: 'BRA', value: '巴西', checked: true },
+        { name: 'USA2', value: '美国2' },
+        { name: 'CHN2', value: '中国2', checked: true },
+        { name: 'BRA2', value: '巴西2', checked: true }
+      ],
       items: [
         { name: 'USA', value: '美国' },
         { name: 'CHN', value: '中国', checked: true },
@@ -165,6 +178,19 @@ export default {
     }
   },
   methods: {
+    handleGroupChange(e){
+      for(let i = 0;i<this.items2.length;i++){
+        if(e.current.value ===this.items2[i].name){
+          this.items2[i].checked = e.current.checked
+        }
+      }
+      this.checkboxValue = e
+      if(e.value.length === this.items2.length){
+        this.checkAllFlag = true
+      }else{
+        this.checkAllFlag = false
+      }
+    },
     checkboxChange (obj) {
       ui.showToast({ title: obj.value.join(',') + '，当前点击的选中结果：' + obj.current.checked })
     },
@@ -174,10 +200,20 @@ export default {
           item.checked = true
         })
       } else {
-        this.items2.forEach((item, index) => {
-          item.checked = false
-        })
+        if(this.checkboxValue.value.length === this.items2.length){
+          this.items2.forEach((item, index) => {
+            item.checked = false
+          })
+        }
+        
       }
+    },
+    del(){
+     this.testItem.splice(5,1) 
+     console.log(this.testItem)
+    },
+    change(obj){
+      console.log(obj,'111')
     }
   }
 }

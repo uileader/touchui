@@ -166,7 +166,8 @@ export default {
   config: {
     navigationBarTitleText: '用户画像',
     backgroundColor: '#EFEFEF',
-    scrollType: 'body'
+    scrollType: 'body',
+    "delay":true
   },
   data () {
     return {

@@ -48,7 +48,7 @@
     <ui-view class="sample_block">
       <ui-view class="sample_title">设置圆角</ui-view>
       <ui-view class="sample_content">
-        <ui-progress border-radius="4" percent="{{ percent }}" show-info></ui-progress>
+        <ui-progress border-radius="4" show-info></ui-progress>
       </ui-view>
     </ui-view>
   </ui-page>

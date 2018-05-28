@@ -212,7 +212,8 @@
 export default {
   config: {
     "navigationBarTitleText": "自定义透明导航",
-    "navigationStyle": "custom"
+    "navigationStyle": "custom",
+    "delay":true
   },
   data () {
     return {

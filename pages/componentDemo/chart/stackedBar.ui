@@ -190,7 +190,8 @@
   // stackedBar.js
 export default {
   config: {
-    "navigationBarTitleText": "叠加柱状图"
+    "navigationBarTitleText": "叠加柱状图",
+    "delay":true
   },
   data () {
     return {

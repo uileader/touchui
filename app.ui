@@ -113,9 +113,11 @@
       </ui-nav-bar>
 
       <!-- 页面路由 -->
-      <router-view class="router-view">
-      </router-view>
-
+      <keep-alive>
+        <router-view ui:if="{{ !isApp && pageConfig.cache }}" class="router-view"></router-view>
+      </keep-alive>
+      <router-view ui:if="{{ isApp || !pageConfig.cache }}" class="router-view"></router-view>
+      
       <!-- 底部标签栏 -->
       <ui-tab-bar
         bindbeforechange="handleTabBeforeChange"
@@ -479,6 +481,8 @@ export default {
       "pages/componentDemo/mapsdk/mapSearchTips",
       "pages/componentDemo/mapsdk/reverseAddressResolution",
       "pages/componentDemo/mapsdk/routePlanning",
+      "pages/componentDemo/mapService/bMap",
+      "pages/componentDemo/mapService/aMap",
 
 
       "pages/componentDemo/fullPage/doubleScroll",
@@ -525,6 +529,7 @@ export default {
       "pages/apiDemo/systemInformation",
       "pages/apiDemo/touchEvent",
       "pages/apiDemo/webSocket",
+      "pages/apiDemo/weixin",
 
       "pages/templeteDemo/friendCircle",
       "pages/templeteDemo/register",
@@ -559,7 +564,18 @@ export default {
       "pages/templeteDemo/O2O/hotel",
       "pages/templeteDemo/O2O/hotelDetails",
       "pages/templeteDemo/videoTemplete/videoTemplete",
-      "pages/templeteDemo/videoTemplete/videoList"
+      "pages/templeteDemo/videoTemplete/videoList",
+      "pages/templeteDemo/stock/kl",
+      "pages/templeteDemo/stock/ts"
+
+
+
+
+
+
+
+
+      
       // "pages/componentDemo/mapService/googlemap",
       // "pages/componentDemo/mapService/mapSearchInput",
       // "pages/componentDemo/mapService/tencentmap",
@@ -647,6 +663,7 @@ export default {
     },
     "pageTabBars": [
       {
+        "id": "tab-bar-1",
         "color": "#555",
         "selectedColor": "#de3029",
         "borderColor": "rgba(231, 231, 231, 0.6)",
@@ -665,6 +682,7 @@ export default {
         ]
       },
       {
+        "id": "tab-bar-2",
         "color": "#555",
         "selectedColor": "#3399ff",
         "borderColor": "rgba(231, 231, 231, 0.6)",
@@ -757,6 +775,7 @@ export default {
         ]
       },
       {
+        "id": "tab-bar-6",
         "color": "#555",
         "selectedColor": "#3399ff",
         "borderColor": "rgba(231, 231, 231, 0.6)",
@@ -773,6 +792,26 @@ export default {
             "iconName": "qn-activity",
             "selectedIconName": "qn-activity_fill",
             "text": "演示6-2"
+          }
+        ]
+      },
+      {
+        "color": "#fff",
+        "selectedColor": "#3399ff",
+        "borderColor":"#252924",
+        "backgroundColor": "#252924",
+        "list": [
+          {
+            "pagePath": "pages/templeteDemo/stock/kl",
+            "iconName": "qn-addressbook",
+            "selectedIconName": "qn-addressbook_fill",
+            "text": "k线图"
+          },
+          {
+            "pagePath": "pages/templeteDemo/stock/ts",
+            "iconName": "qn-activity",
+            "selectedIconName": "qn-activity_fill",
+            "text": "分时图"
           }
         ]
       }

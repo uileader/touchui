@@ -51,7 +51,8 @@
   // donut.js
 export default {
   config: {
-    "navigationBarTitleText": "环形图"
+    "navigationBarTitleText": "环形图",
+    "delay":true
   },
   data () {
     return {

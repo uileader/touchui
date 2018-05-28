@@ -1,0 +1,270 @@
+
+<template>
+  <ui-page page-load="{{ pageLoad }}" style="background-color:black">
+    <ui-tabs index="{{ current }}"  bindchange="handleChange">
+        <ui-tab>日K</ui-tab>
+        <ui-tab>周K</ui-tab>
+        <ui-tab>月K</ui-tab>
+    </ui-tabs>
+      <ui-view class="stock">
+        <ui-view>股票：{{stock}} - {{code}}</ui-view>
+        <ui-view>时间：{{time}}</ui-view>
+        <ui-view>昨收：{{yc}}</ui-view>
+      </ui-view>
+      <ui-view class="kline-average">
+        <ui-text class="ma5">MA5:{{ma5}}</ui-text>
+        <ui-text class="ma10">MA10:{{ma10}}</ui-text>
+        <ui-text class="ma20">MA20:{{ma20}}</ui-text>
+      </ui-view>
+      <ui-canvas canvas-id="k-line" height="160" width="{{windowWidth}}" ></ui-canvas>
+      <ui-view class="kline-average">
+        <ui-text class="ma5">MA5:{{ma5b}}</ui-text>
+        <ui-text class="ma10">MA10:{{ma10b}}</ui-text>
+        <ui-text class="ma20">MA20:{{ma20b}}</ui-text>
+      </ui-view>
+      <ui-canvas canvas-id="k-line-b" height="80" width="{{windowWidth}}"></ui-canvas>
+      <ui-view class="btn-area">
+        <ui-view class="p text">kl1 render time: {{kl1RenderTime}}ms</ui-view>
+        <ui-view class="p text">kl2 render time: {{kl2RenderTime}}ms</text>
+      </ui-view>
+  </ui-page>
+</template>
+
+
+<script>
+import storage from '#/static/lib/storage'
+import kl from '#/static/lib/wxChart/k-line'
+
+var getOptionKline1 = function (type) {
+  return {
+    name: type || 'dk',
+    width: 'auto',
+    height: 320,
+    average: [5, 10, 20],
+    axis: {
+      row: 4,
+      col: 5,
+      showX: false,
+      showY: true,
+      showEdg: true,
+      paddingTop: 12,
+      paddingBottom: 1,
+      paddingLeft: 0,
+      paddingRight: 0,
+      color: '#cdcdcd'
+    },
+    xAxis: {
+      data: [],
+      averageLabel: []
+    },
+    yAxis: [],
+    callback: function (time) {
+      window.__klVm.kl1RenderTime = time
+    }
+  };
+};
+var getOptionKline2 = function (type) {
+  return {
+    name: type || 'dk',
+    width: 'auto',
+    height: 160,
+    average: [5, 10, 20],
+    axis: {
+      row: 4,
+      col: 5,
+      showX: false,
+      showY: true,
+      showEdg: true,
+      paddingTop: 0,
+      paddingBottom: 14 * 2,
+      paddingLeft: 0,
+      paddingRight: 0,
+      color: '#cdcdcd'
+    },
+    xAxis: {
+      data: [],
+      averageLabel: []
+    },
+    yAxis: [],
+    callback: function (time) {
+      window.__klVm.kl2RenderTime = time
+    }
+  };
+};
+let kLine, kLineB, ma5Arr, ma10Arr, ma20Arr, ma5bArr, ma10bArr, ma20bArr
+export default {
+  config: {
+    navigationBarTitleText: '详情',
+    navigationBarBackgroundColor:'#252924',
+    navigationBarTextStyle:'white',
+    navigationBarBorderColor:'#252924'
+  },
+  data() {
+    return {
+      current: 0,
+      windowWidth: ui.WIN_WIDTH,
+      ma5: '',
+      ma10: '',
+      ma20: '',
+      ma5b: '',
+      ma10b: '',
+      ma20b: '',
+      tabName: '',
+      stock: '',
+      code: '',
+      time: '',
+      yc: '',
+      kl1RenderTime: 0,
+      kl2RenderTime: 0,
+      minIndex: 3,
+      minArray: ['5分钟', '15分钟', '30分钟', '60分钟'],
+      pageLoad: {
+        trigger: 'always',
+        handle:()=>{
+          this.$nextTick(() => {
+            this.handleChange(0)
+          })
+        }
+      }
+    }
+  },
+  mounted() {
+    window.__klVm = this
+  },
+  methods: {
+    handleChange: function (e) {
+      let arr = ['dk', 'wk', 'mk']
+      var type = arr[e]
+      var getDataByType = function (type) {
+        return {
+          'dk': function () {
+            return storage.getDkData();
+          },
+          'wk': function () {
+            return storage.getWkData();
+          },
+          'mk': function () {
+            return storage.getMkData();
+          }
+        }[type]();
+      };
+      var data = getDataByType(type);
+      this.setData({
+        tabName: type,
+        stock: data.name,
+        code: data.code,
+        time: data.info.time,
+        yc: data.info.yc
+      });
+      this.draw(data, type);
+    },
+    tabMinChart: function (e) {
+      var type = 'mink';
+      var index = e.detail.value;
+      index = index === '' ? 3 : index;
+      var getDataByType = function (type) {
+        return {
+          'mink-5': function () {
+            return storage.getMin5Data();
+          },
+          'mink-15': function () {
+            return storage.getMin15Data();
+          },
+          'mink-30': function () {
+            return storage.getMin30Data();
+          },
+          'mink-60': function () {
+            return storage.getMin60Data();
+          }
+        }[type]();
+      };
+      var typeList = [5, 15, 30, 60];
+      var minType = type + '-' + typeList[index];
+      var data = getDataByType(minType);
+      this.setData({
+        tabName: type,
+        minIndex: index,
+        stock: data.name,
+        code: data.code,
+        time: data.info.time,
+        yc: data.info.yc
+      });
+      this.draw(data, minType);
+    },
+    draw: function (data, type) {
+      kLine = kl('k-line').init(getOptionKline1(type));
+      kLine.metaData1(data, getOptionKline1(type));
+      kLine.draw();
+
+      kLineB = kl('k-line-b').init(getOptionKline2(type));
+      kLineB.metaData2(data, getOptionKline2(type));
+      kLineB.draw();
+
+      var yAxis1 = kLine.options.yAxis;
+      var yAxis2 = kLineB.options.yAxis;
+      ma5Arr = yAxis1[1].dataShow;
+      ma10Arr = yAxis1[2].dataShow;
+      ma20Arr = yAxis1[3].dataShow;
+      ma5bArr = yAxis2[1].dataShow;
+      ma10bArr = yAxis2[2].dataShow;
+      ma20bArr = yAxis2[3].dataShow;
+      this.showLastAverage();
+    },
+    showLastAverage: function () {
+      this.setData({
+        ma5: ma5Arr[ma5Arr.length - 1],
+        ma10: ma10Arr[ma10Arr.length - 1],
+        ma20: ma20Arr[ma20Arr.length - 1],
+        ma5b: ma5bArr[ma5bArr.length - 1],
+        ma10b: ma10bArr[ma10bArr.length - 1],
+        ma20b: ma20bArr[ma20bArr.length - 1]
+      });
+    }
+  }
+}
+</script>
+
+<style lang="less">
+
+div {
+  color: white;
+}
+
+.ui-tabs{
+  .content {
+    height: 100px;
+    line-height: 100px;
+  }
+}
+
+
+.kline-average{
+    height: 20px;
+    line-height: 20px;
+    padding-right: 5px;
+    text-align: right;
+}
+.kline-average text{
+    font-size: 12px;
+    margin-left: 20px;
+}
+.ma5 {
+    color: #6a6969;
+}
+
+.ma10 {
+    color: #f69a43;
+}
+
+.ma20 {
+    color: #edb2eb;
+}
+.stock{
+    padding-bottom: 10px;
+    font-size: 12px;
+}
+.stock text{
+    display: block;
+}
+
+</style>

@@ -35,12 +35,19 @@ export default {
     return {
       groups: [
         {
-          title: '地图数据服务webService',
+          title: '使用webService',
           items: [
             { title: '谷歌地图webService', link: '/pages/componentDemo/mapService/googlemap' },
             { title: '腾讯地图webService', link: '/pages/componentDemo/mapService/tencentmap' },
             { title: '获取粗略与精确定位', link: '/pages/componentDemo/mapService/mapSearchInput' }
             
+          ]
+        },
+        {
+          title: '其他地图',
+          items: [
+            { title: '百度地图', link: '/pages/componentDemo/mapService/bMap' },
+            { title: '高德地图', link: '/pages/componentDemo/mapService/aMap' }
           ]
         }
       ]

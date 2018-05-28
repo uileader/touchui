@@ -142,7 +142,8 @@ export default {
   config: {
     navigationStyle: 'custom',
     navigationBarTextStyle: 'black',
-    scrollType: 'body'
+    scrollType: 'body',
+    "delay":true
   },
   data () {
     return {

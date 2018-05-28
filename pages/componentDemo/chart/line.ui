@@ -184,7 +184,8 @@
   // donut.js
 export default {
   config: {
-    "navigationBarTitleText": "折线图 曲线图"
+    "navigationBarTitleText": "折线图 曲线图",
+    "delay":true
   },
   data () {
     return {
