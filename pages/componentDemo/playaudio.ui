@@ -1,7 +1,7 @@
 <!--music.ui-->
 <template>
     <ui-page>
-      <ui-view class="content" style="height:{{ height }}">
+      <ui-view class="content" style="{{ {height: height } }}">
           <ui-view class="songImg">
             <ui-image src="{{imgSrc}}" alt="" width="100%"></ui-image>
             <ui-view class="control_win">

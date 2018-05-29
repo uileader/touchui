@@ -189,7 +189,7 @@ export default {
         onBegin: () => {},
         onActive: this.handleActive,
         onAfter: this.handleAfter,
-        disableContentMove: ['android', 'ios', 'web']
+        disableContentMove: ['android', 'web']
       },
       height:ui.DEFAULT_CONTENT_HEIGHT,
       config:null,

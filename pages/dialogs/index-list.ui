@@ -22,7 +22,7 @@
             </ui-view>
             <ui-view>
               <ui-view class="title">定位</ui-view>
-              <ui-view class="position">
+              <ui-view bindtap="positionTap" class="{{ {'position active' :isTap,'position':!isTap } }}">
                 <ui-icon type="home-map" color="#00ab48"></ui-icon>
                 {{position}}</ui-view>
             </ui-view>
@@ -419,12 +419,26 @@
         place: '北京',
         search: '输入城市名或拼音查询',
         country: '',
+        isTap:false,
         position:'定位中…'
       }
     },
     
     methods: {
+      positionTap(e){
+        console.log(e)
+        if(this.isTap){
+          let place = this.position
+          console.log(place)
+          this.place = place
+          ui.hideDialog({country: this.place})
+        }else{
+          return false
+        }
+        
+      }, 
       singleTap(msg){
+        console.log(msg)
         this.place = this.tagsData[msg].text
         ui.hideDialog({country: this.place})
       },
@@ -446,6 +460,7 @@
             console.log(res.data.result.ad_info.city)
             this.position = res.data.result.ad_info.city
             console.log(this.position)
+            this.isTap = true
           }
         })
       }
@@ -486,6 +501,10 @@
       margin:0 10px;
       border-radius:3px;
       border:1px solid #f1f1f1;
+      color:#afa9a9;
+    }
+    .active{
+      color:#333;
     }
     .title{
       font-size:12px;

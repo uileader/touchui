@@ -64,9 +64,9 @@ TouchUI是一套高质量移动端UI框架。基于vue.js框架，我们精心�
 
 扫码访问
 
- <img src="http://images.uileader.com/20180425/0fa2b2f8-f1b5-403e-946b-8f229d70b182.png" />
+ <img src="http://images.uileader.com/20180529/d054b630-975b-4b48-818a-2d16192b29cc.png" />
 
-或<a href="http://www.touchui.io/touchui_webapp/">点击这里</a>用浏览器查看
+或<a href="https://www.touchui.io/touchui_webapp/">点击这里</a>用浏览器查看
 
 在PC端打开时请开启chrome的手机浏览模式。
 
