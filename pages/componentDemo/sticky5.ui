@@ -149,7 +149,7 @@
         index: 0,
         country: '北京',
         config: {
-          url: 'http://www.uileader.com/touchui-backstage/listStore.do',
+          url: 'https://www.uileader.com/touchui-backstage/listStore.do',
           type: 'get',
           pageSize: {
             key: 'pageSize',

@@ -50,7 +50,7 @@
 
 <script>
 // pushinfo.js
-const requestUrl = 'http://www.uileader.com/touchui-backstage/push.do'
+const requestUrl = 'https://www.uileader.com/touchui-backstage/push.do'
 
 export default {
   config: {

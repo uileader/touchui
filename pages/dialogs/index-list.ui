@@ -452,7 +452,7 @@
       },
       getPosition(){
         ui.request({
-          url: 'http://www.uileader.com/touchui-backstage/address.do', //仅为示例，并非真实的接口地址
+          url: 'https://www.uileader.com/touchui-backstage/address.do', //仅为示例，并非真实的接口地址
           data: {
             key: 'RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV'
           },

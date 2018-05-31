@@ -143,8 +143,8 @@
 // userinfo.js
 const sourceType = [['camera'], ['album'], ['camera', 'album']]
 const sizeType = [['compressed'], ['original'], ['compressed', 'original']]
-const uploadFileUrl = 'http://www.uileader.com/touchui-backstage/uploadImgSubmit.do'
-const updataHeadUrl = 'http://www.uileader.com/touchui-backstage/updateHead.do'
+const uploadFileUrl = 'https://www.uileader.com/touchui-backstage/uploadImgSubmit.do'
+const updataHeadUrl = 'https://www.uileader.com/touchui-backstage/updateHead.do'
 export default {
   config: {
     backgroundColor: '#F2F2F2',

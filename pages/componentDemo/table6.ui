@@ -11,7 +11,7 @@
       >      
         <ui-table
             startRefresh.sync ="{{startRefresh}}"
-            url="http://www.uileader.com/touchui-backstage/listUser.do" 
+            url="https://www.uileader.com/touchui-backstage/listUser.do" 
             header="{{thisHeader}}"
             sort-name="id"
             sort-order="desc"

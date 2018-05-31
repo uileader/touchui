@@ -56,8 +56,8 @@ export default {
     return {
       link: '/pages/apiDemo/browserUrl',
       link2: '/pages/apiDemo/browserUrl2',
-      url: 'http://www.uileader.com/bridgeDemo/index.html?time='+ timestamp,
-      url2: 'http://www.uileader.com/bridgeDemo/index2.html?time='+ timestamp,
+      url: 'https://www.uileader.com/bridgeDemo/index.html?time='+ timestamp,
+      url2: 'https://www.uileader.com/bridgeDemo/index2.html?time='+ timestamp,
       collect_press: require('#/images/browser/topbar_white_collect_press.png'),
       collect: require('#/images/browser/topbar_white_collect.png'),
       share: require('#/images/browser/topbar_white_share.png'),

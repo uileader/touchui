@@ -816,7 +816,7 @@ export default {
         ]
       }
     ],
-    "networkBaseUrl":"http://www.uileader.com"
+    "networkBaseUrl":"https://www.uileader.com"
   },
   data () {
     return {
