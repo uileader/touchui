@@ -1,16 +1,32 @@
 <template>
     <ui-page>
+
     <ui-view class="sample_title">默认调用</ui-view>
+    <ui-row height="40" border-top border-bottom>
+      <ui-col span="3" vertical-align="middle" align="right" space-right="10">
+        所在地区
+      </ui-col>
+      <ui-col span="9" bindtap="showPop1" vertical-align="middle">
+        {{title1}}
+      </ui-col>
+    </ui-row>
+    <ui-popup ui:model="{{show1}}" position="bottom"  height="300">
+      <ui-cascader is-tree="{{false}}" data="{{data1}}" bindselected="handleselected1" ></ui-cascader>
+    </ui-popup> 
+
+
+
+    <ui-view class="sample_title">含默认值</ui-view>
        <ui-row height="40" border-top border-bottom>
         <ui-col span="3" vertical-align="middle" align="right" space-right="10">
           所在地区
         </ui-col>
-        <ui-col span="9" bindtap="showPop1" vertical-align="middle">
-          {{title1}}
+        <ui-col span="9" bindtap="showPop7" vertical-align="middle">
+          {{title7}}
         </ui-col>
       </ui-row>
-      <ui-popup ui:model="{{show1}}" position="bottom"  height="300">
-        <ui-cascader is-tree="{{false}}" data="{{data1}}" bindselected="handleselected1" ></ui-cascader>
+      <ui-popup ui:model="{{show7}}" position="bottom"  height="300">
+        <ui-cascader value="{{myValue}}" is-tree="{{false}}" data="{{data1}}" bindselected="handleselected7" ></ui-cascader>
       </ui-popup> 
   
     <ui-view class="sample_title">右侧弹出</ui-view>
@@ -49,8 +65,24 @@
         </ui-col>
       </ui-row>
       <ui-popup ui:model="{{show5}}" position="top" top="{{ poptpTop }}" width="100%" height="300" mask-style="{{ {backgroundColor:'rgba(255,255,255,0.6)',top:poptpTop+'px'} }}">
-        <ui-cascader border="false" show-title="{{false}}" bindselected="handleselected5" data="{{data4}}"></ui-cascader>
+        <ui-cascader border="false" show-title="{{false}}" bindselected="handleselected5" data="{{data5}}"></ui-cascader>
       </ui-popup>
+
+      <ui-view class="sample_title">二级联动带默认值</ui-view>
+      <ui-row height="40" border-top border-bottom>
+        <ui-col span="3" vertical-align="middle" align="right" space-right="10">
+          商圈
+        </ui-col>
+        <ui-col span="9" bindtap="showPop6" vertical-align="middle">
+          {{title6}}
+        </ui-col>
+      </ui-row>
+      <ui-popup ui:model="{{show6}}" position="top" top="{{ poptpTop }}" width="100%" height="300" mask-style="{{ {backgroundColor:'rgba(255,255,255,0.6)',top:poptpTop+'px'} }}">
+        <ui-cascader  value="{{myValue2}}" border="false" show-title="{{false}}" bindselected="handleselected6" data="{{data4}}"></ui-cascader>
+      </ui-popup>
+
+
+
     </ui-page>
   </template>
   <script>
@@ -59,21 +91,44 @@
     config: {
       "navigationBarTitleText": "级联选择器"
     },
+    created () {
+      this.data5 = JSON.parse(JSON.stringify(this.data4))
+    },
     data(){ 
       return{
         navBarHeight:ui.DEFAULT_HEADER_HEIGHT,
       height:ui.DEFAULT_CONTENT_HEIGHT,
       width:ui.WIN_WIDTH,
       show1:false,
+      show2:false,
+      show3:false,
+      show4:false,
+      show5:false,
+      show6:false,
+      show7:false,
       title1: '请选择收货地址',
       title2: '请选择',
       title3: '请选择',
       title4: '请选择',
       title5: '请选择',
-      show2:false,
-      show3:false,
-      show4:false,
-      show5:false,
+      title6: '请选择',
+      title7: '请选择收货地址',
+      myValue: [{
+        name: '北京市',
+        value: '110000'
+      }, {
+        name: '市辖区',
+        value: '110100'
+      }, {
+        name: '东城区',
+        value: '110101'
+      }],
+      myValue2: [{
+        name: '附近',
+      }, {
+        name: '附近',
+      }],
+
       poptpTop: ui.DEFAULT_HEADER_HEIGHT,
       data1:city,
       data2: [
@@ -139,6 +194,7 @@
           { name: '制造三科', value: 'DP_0203' }
         ]
       }],
+      data5: [],
       data4: [
         {
           name: '附近',
@@ -1029,7 +1085,7 @@
       
   },
     methods: {
-      showPop1(){
+    showPop1(){
       this.setData({
         show1:true
       })
@@ -1054,6 +1110,18 @@
         show5:true
       })
     },
+    showPop6(){
+      this.setData({
+        show6:true
+      })
+    },
+    showPop7(){
+      this.setData({
+        show7:true
+      })
+    },
+
+
     handleselected1(data){
       this.title1 = ""
       for(var i =0;i<data.length;i++){
@@ -1064,6 +1132,24 @@
         title1:this.title1
       })
     },
+    handleselected7(data){
+      this.title7 = ""
+      for(var i =0;i<data.length;i++){
+        this.title7 += data[i].name+' '
+      }
+      this.setData({
+        show7:false,
+        title7:this.title7
+      })
+    },
+    handleselected6(data) {
+      this.title6 = data[data.length - 1].name
+      this.setData({
+        show6: false,
+        title6: this.title6
+      })
+    },
+
     handleselected2(data){
       console.log(data)
       this.title2 = ""
@@ -1074,7 +1160,6 @@
         show2: false,
         title2: this.title2
       })
-    
     },
     handleselected3(data) {
       this.title3 = ""
