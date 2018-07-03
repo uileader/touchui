@@ -44,7 +44,7 @@
     </ui-nav-bar>
     <ui-popup ui:model="{{ rangeCalendarDefault }}">
       <ui-view  class="popup2">
-        <ui-row space-top="{{statusBarHeight}}" height="{{headerHeight}}" > 
+        <ui-row space-top="{{statusBarHeight}}" height="{{headerHeight}}" >
           <ui-col align="center" vertical-align="middle" width="70">
           </ui-col>
           <ui-col align="center" vertical-align="middle">
@@ -69,7 +69,7 @@
     </ui-popup>
 
 
-    <ui-view class="sticky_-in-relative-container" id="suggestion-title">
+    <ui-view class="sticky-in-relative-container" id="suggestion-title">
         <ui-view>
           <ui-row height="46" class="sticky_nav_top">
             <ui-col vertical-align="middle" align="center" bindtap="openPopup(index)" ui:for="{{ navList }}" class="{{ item.active }}">
@@ -93,7 +93,7 @@
 
     <ui-scroll-view scroll-y height="{{DEFAULT_CONTENT_HEIGHT-46}}">
 
-    
+
     <ui-list-view data="{{ hotelList }}" bindchange="handleListViewChange">
       <template scope="props">
         <ui-list-view-item tap-effect>
@@ -197,7 +197,7 @@
         </ui-row>
       </ui-view>
     </ui-popup>
-    
+
 
   </ui-page>
 </template>
@@ -266,122 +266,122 @@ export default {
           name: '高端',
           children: [{
             name: '全部品牌',
-            
+
           }, {
             name: '建国饭店',
-            
+
           }, {
             name: '建国璞隐',
-            
+
           }, {
             name: '首旅南苑',
-            
+
           }, {
             name: '京伦饭店',
-            
+
           }, {
             name: '京纶扉缦',
-            
+
           }, {
             name: '南山休闲会馆',
-            
+
           }, {
             name: '建国饭店',
-            
+
           }]
         },
         {
           name: '中高端',
           children: [{
             name: '和颐至尊',
-            
+
           },{
             name: '和颐（和颐至尚）',
-            
+
           },{
             name: '和颐至格',
-            
+
           },{
             name: '如家精选',
-            
+
           },{
             name: '和颐商旅（金标）',
-            
+
           },{
             name: '如家商旅',
-            
+
           },{
             name: '驿居（金牌）',
-            
+
           },{
             name: '素柏·云',
-            
+
           },{
             name: '睿柏·云',
-            
+
           }]
         },
         {
           name: '商旅型',
           children: [{
             name: '全部品牌',
-            
+
           },{
             name: '如家',
-            
+
           },{
             name: '莫泰',
-            
+
           },{
             name: '云上四季',
-            
+
           },{
             name: '驿居（蓝牌）',
-            
+
           },{
             name: '欣燕都',
-            
+
           },{
             name: '派柏·云',
-            
+
           },{
             name: '泊玺·银座佳驿',
-            
+
           }]
         },
         {
           name: '休闲度假',
           children: [{
             name: '全部品牌',
-            
+
           },{
             name: '首旅寒舍',
-            
+
           },{
             name: '诗柏·云',
-            
+
           },{
             name: '漫趣乐园',
-            
+
           },{
             name: '嘉乐比',
-            
+
           },{
             name: '云上四季民宿',
-            
+
           }]
         },
         {
           name: '联盟酒店',
           children: [{
             name: '全部品牌',
-            
+
           },{
             name: '华驿',
-            
+
           },{
             name: '如家联盟',
-            
+
           }]
         }
       ],
@@ -714,14 +714,14 @@ export default {
       this.navList[2].active = 'active'
     },
     singleTap1 (opt) {
-      this.eatTime[opt].checked = !this.eatTime[opt].checked
+      this.eatTime[opt.index].checked = !this.eatTime[opt.index].checked
     },
     singleTap2 (opt) {
-      this.service[opt].checked = !this.service[opt].checked
+      this.service[opt.index].checked = !this.service[opt.index].checked
     },
     singleTap3 (opt) {
       this.eatNumber.forEach((item, index) => {
-        item.checked = (index === opt)
+        item.checked = (index === opt.index)
       })
     },
     change3 (val) {
@@ -875,7 +875,7 @@ export default {
 
 
 .time_content{
-  padding:0 10px 10px 10px; 
+  padding:0 10px 10px 10px;
   .ui-text{
     color: #AFAFAF;
     font-size: 12px;

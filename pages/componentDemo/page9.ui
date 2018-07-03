@@ -88,10 +88,9 @@ export default {
   },
   methods: {
     singleTap (opt) {
-      console.log(opt,'1111')
-      this.tempName = this.list00[opt].text
+      this.tempName = this.list00[opt.index].text
       this.list00.forEach((item, index) => {
-        item.checked = (index === opt)
+        item.checked = (index === opt.index)
       })
       ui.startPullDownRefresh()
     },

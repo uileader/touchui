@@ -28,6 +28,22 @@
       </ui-row>
     </ui-nav-bar>
 
+     <!-- <ui-scroll-view scroll-x height="200">
+        <ui-view class="other_shop">
+          <ui-view id="a1" class="item" ui:for="{{ otherShop }}" ui:for-item="item">
+            <ui-image
+            src="{{ item.src }}"
+            width="100%"
+            ></ui-image>
+            <ui-view class="info">
+              <ui-text block>{{ item.name }}</ui-text>
+              <ui-view>{{ item.price }}</ui-view>
+            </ui-view>
+          </ui-view>
+
+        </ui-view>
+      </ui-scroll-view> -->
+
     <ui-ex-swiper
     class="tab-content"
     style="height: {{ height }}px"
@@ -167,7 +183,7 @@
                 <ui-text block>在售商品</ui-text>
               </ui-col>
             </ui-row>
-            <ui-scroll-view scroll-x height="200">
+            <ui-scroll-view scroll-x height="200" touch-stop-propagation>
               <ui-view class="other_shop">
                 <ui-view id="a1" class="item" ui:for="{{ otherShop }}" ui:for-item="item">
                   <ui-image
@@ -959,7 +975,33 @@ export default {
   }
 }
 
-
+.other_shop{
+    background-color: #FFFFFF;
+    width:1100px;
+    padding-top: 20px;
+    .mix-clearfix();
+    .item{
+      width: 110px;
+      // height: 200px;
+      padding: 0 5px;
+      float: left;
+      color: #333;
+      text-align: center;
+      .info{
+        padding: 10px 0;
+        text-align: center;
+        .ui-text{
+          .mix-text-overflow();
+          color: #000;
+        }
+        .ui-view{
+          color: #f33;
+          font-size: 12px;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
 
 
 .add_cart{

@@ -567,63 +567,6 @@ export default {
       "pages/templeteDemo/videoTemplete/videoList",
       "pages/templeteDemo/stock/kl",
       "pages/templeteDemo/stock/ts"
-
-
-
-
-
-
-
-
-      
-      // "pages/componentDemo/mapService/googlemap",
-      // "pages/componentDemo/mapService/mapSearchInput",
-      // "pages/componentDemo/mapService/tencentmap",
-      // "pages/home/mediaList",
-      // "pages/home/accessList",
-      // "pages/home/browserList",
-      // "pages/componentDemo/draggable",
-      // "pages/componentDemo/draggable2",
-      // "pages/componentDemo/draggable3",
-      // "pages/componentDemo/draggable4",
-      // "pages/componentDemo/draggable5",
-      // "pages/apiDemo/accelerometer",
-      // "pages/apiDemo/addressList",
-      // "pages/apiDemo/back",
-      // "pages/apiDemo/bgAudio",
-      // "pages/apiDemo/bluetooth",
-      // "pages/apiDemo/bluetooth3",
-      // "pages/apiDemo/browserAPP",
-      // "pages/apiDemo/browserUrl",
-      // "pages/apiDemo/clipboard",
-      // "pages/apiDemo/compass",
-      // "pages/apiDemo/fileUpDownload",
-      // "pages/apiDemo/getaddressBook",
-      // "pages/apiDemo/networkPictures",
-      // "pages/apiDemo/networkState",
-      // "pages/apiDemo/networkVideo",
-      // "pages/apiDemo/previewImage",
-      // "pages/apiDemo/playRecord",
-      // "pages/apiDemo/playSound",
-      // "pages/apiDemo/popGesture",
-      // "pages/apiDemo/pushinfo",
-      // "pages/apiDemo/scanCode",
-      // "pages/apiDemo/screenBrightness",
-      // "pages/apiDemo/screenShot",
-      // "pages/apiDemo/setting",
-      // "pages/apiDemo/setting2",
-      // "pages/apiDemo/share",
-      // "pages/apiDemo/shock",
-      // "pages/apiDemo/shootVideo",
-      // "pages/apiDemo/statusBar",
-      // "pages/apiDemo/statusBarClick",
-      // "pages/apiDemo/deviceInformation",
-      // "pages/apiDemo/takePictures",
-      // "pages/apiDemo/touchId",
-      // "pages/apiDemo/uploadDownload",
-      // "pages/templeteDemo/audioTemplete/audioTemplete",
-      // "pages/templeteDemo/audioTemplete/details",
-      
     ],
     "theme": {
       "theme-color": "#39f"
