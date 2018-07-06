@@ -54,7 +54,7 @@ TouchUI是一套高质量移动端UI框架。基于vue.js框架，我们精心�
 
 ## 文档
 
-<a href="http://www.touchui.io/touchui_doc/">中文文档</a>
+<a href="http://www.wetouch.net/touchui_doc/">中文文档</a>
 
 ## Demo
 
